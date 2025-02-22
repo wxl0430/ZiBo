@@ -1,0 +1,95 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <LangVersion>13.0</LangVersion>
+    <StartupObject>CRSim.App</StartupObject>
+    <ApplicationIcon>Assets\CRSimIcon.ico</ApplicationIcon>
+    <Version>1.2.3.0</Version>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<ApplicationDefinition Remove="App.xaml" />
+		<None Remove="Assets\StyleImages\ChengduDong\PrimaryTicketCheckScreen.png" />
+		<None Remove="Assets\StyleImages\Hanzhong\Image.png" />
+		<None Remove="Assets\StyleImages\Hanzhong\PlatformScreen.png" />
+		<None Remove="Assets\StyleImages\Harbin\PrimaryScreen.png" />
+		<Content Include="Assets\Advertisement.mp4">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\CRSimIcon.ico" />
+		<Resource Include="Assets\ControlImages\Data Management.png" />
+		<Resource Include="Assets\ControlImages\Gate Simulation.png" />
+		<Resource Include="Assets\ControlImages\Screen Simulation.png" />
+		<Resource Include="Assets\ControlImages\Start Simulation.png" />
+		<Resource Include="Assets\ControlImages\Station Management.png" />
+		<Resource Include="Assets\ControlImages\TrainNumber Management.png" />
+		<Resource Include="Assets\ControlImages\TVM Simulation.png" />
+		<Resource Include="Assets\CRSimIcon.png" />
+		<Resource Include="Assets\HomeHeaderTiles\CRSim-Icon.ico" />
+		<Resource Include="Assets\HomeHeaderTiles\Header-bilibili.png" />
+		<Resource Include="Assets\HomeHeaderTiles\Header-QQ.png" />
+		<Resource Include="Assets\StyleImages\BeijingXi\PrimaryScreen.png" />
+		<Resource Include="Assets\StyleImages\ChengduDong\PrimaryTicketCheckScreen.png" />
+		<Resource Include="Assets\StyleImages\ChengduDong\SecondaryScreen.png" />
+		<Resource Include="Assets\StyleImages\ChengduMetro\ChengduMetro-Icon.png" />
+		<Resource Include="Assets\StyleImages\ChengduMetro\PlatformScreen.png" />
+		<Resource Include="Assets\StyleImages\Guangyuan\PrimaryScreen.png" />
+		<Resource Include="Assets\StyleImages\Hanzhong\Image.png" />
+		<Resource Include="Assets\StyleImages\Hanzhong\PlatformScreen.png" />
+		<Resource Include="Assets\StyleImages\Harbin\PrimaryScreen.png" />
+		<Resource Include="Assets\StyleImages\Shanghai\OutsideScreen.png" />
+		<Resource Include="Assets\win11-dashboard.dark.png" />
+		<Resource Include="Assets\win11-dashboard.light.png" />
+		<EmbeddedResource Include="Models\StylesInfoData.json" />
+		<EmbeddedResource Include="Models\ControlsInfoData.json" />
+		<Page Include="App.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.1" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+    <PackageReference Include="PP.Wpf" Version="1.0.7" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CRSim.Core\CRSim.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\HomeHeaderTiles\Header-Store.dark.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Windows\Stations\BeijingXi\PrimaryScreenView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\Stations\Guangyuan\PrimaryScreenView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\Stations\ChengduMetro\PlatformScreenView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\Stations\ChengduDong\PrimaryTicketCheckScreenView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\Stations\Hanzhong\PlatformScreenView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\Stations\Harbin\PrimaryScreenView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\Stations\Shanghai\OutsideScreenView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,147 @@
+﻿using CRSim.Core.Models;
+using System.Net;
+using System.Text.Json;
+using System.Xml;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace CRSim.Core.Services
+{
+    public class NetworkService(IDatabaseService databaseService) : INetworkService
+    {
+        private readonly IDatabaseService _databaseService = databaseService;
+
+        public async Task<List<TrainStop>?> GetTrainStopsAsync(string number)
+        {
+            try
+            {
+                HttpClient httpClient = new();
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0");
+                HttpContent content = new FormUrlEncodedContent(new Dictionary<string, string>()
+                {
+                    {"trainCode",number },
+                    {"startDay",DateTime.Now.ToString("yyyyMMdd")},
+                    {"startTime",""},
+                    {"endDay",""},
+                    {"endTime",""}
+                });
+                var response = await httpClient.PostAsync($"https://mobile.12306.cn/wxxcx/wechat/main/travelServiceQrcodeTrainInfo",content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var doc = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+                    var timeTable = new List<TrainStop>();
+                    if (doc.RootElement.GetProperty("data").GetProperty("trainDetail").TryGetProperty("stopTime", out JsonElement jsonElement))
+                    {
+                        foreach (var item in jsonElement.EnumerateArray())
+                        {
+                            var stationName = item.GetProperty("stationName").GetString();
+                            var arriveTimeStr = item.GetProperty("arriveTime").GetString();
+                            var startTimeStr = item.GetProperty("startTime").GetString();
+                            //var arriveDayStr = item.GetProperty("arriveDayStr").GetString();
+                            DateTime? arriveTime = ParseTime(arriveTimeStr);
+                            DateTime? startTime = ParseTime(startTimeStr);
+                            if (arriveTime.HasValue && startTime.HasValue && startTime.Value < arriveTime.Value)
+                            {
+                                startTime = startTime.Value.AddDays(1);
+                            }
+                            if (arriveTimeStr == startTimeStr)
+                            {
+                                if (timeTable.Count == 0)
+                                {
+                                    arriveTime = null;
+                                }
+                                else
+                                {
+                                    startTime = null;
+                                }
+                            }
+                            var station = _databaseService.GetAllStations().Where(s => s.Name == stationName).FirstOrDefault();
+                            List<string> ticketChecks = station == null ? [] : station.TicketChecks;
+                            timeTable.Add(new TrainStop
+                            {
+                                Station = stationName,
+                                ArrivalTime = arriveTime,
+                                DepartureTime = startTime
+                            });
+                        }
+                    }
+                    return timeTable;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+            return null;
+        }
+        private static DateTime? ParseTime(string timeStr)
+        {
+            timeStr = string.Concat(timeStr.AsSpan(0, 2), ":", timeStr.AsSpan(2, 2));
+            if (string.IsNullOrWhiteSpace(timeStr) || timeStr == "----")
+                return null;
+            if (DateTime.TryParseExact(timeStr, "HH:mm", null, System.Globalization.DateTimeStyles.None, out var time))
+            {
+                return time;
+            }
+            return null; 
+        }
+
+        public async Task<List<StationStop>> GetStationStopsAsync(string name)
+        {
+            var client = new HttpClient();
+            var stations = (await client.GetStringAsync("https://kyfw.12306.cn/otn/resources/js/framework/station_name.js")).Split("|||");
+            string tel = "";
+            foreach (string station in stations)
+            {
+                if (station == "';") continue;
+                if (station.Split("|")[1] == name)
+                {
+                    tel = station.Split("|")[2];
+                }
+            }
+            if (tel == "")
+            {
+                return [];
+            }
+            var baseAddress = new Uri("https://mobile.12306.cn/wxxcx/wechat/bigScreen/queryTrainByStation");
+            var cookieContainer = new CookieContainer();
+            cookieContainer.Add(baseAddress, new Cookie("BIGipServerweixin_xiaochengxu", "2028077578.5670.0000"));
+            var handler = new HttpClientHandler() { CookieContainer = cookieContainer, UseCookies = true };
+
+            HttpContent content = new FormUrlEncodedContent(new Dictionary<string, string>()
+            {
+                {"train_station_code",tel },
+                {"train_start_date",DateTime.Now.ToString("yyyyMMdd")}
+            });
+            client = new HttpClient(handler) { BaseAddress = baseAddress };
+            client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 MicroMessenger/7.0.20.1781(0x6700143B) NetType/WIFI MiniProgramEnv/Windows WindowsWechat/WMPF WindowsWechat(0x63090c11)XWEB/11581");
+            var response = await client.PostAsync(baseAddress, content);
+            var json = await response.Content.ReadAsStringAsync();
+            if (json.Contains("操作失败，请稍后重试")) return [];
+            var list = JsonDocument.Parse(json).RootElement.GetProperty("data").EnumerateArray();
+            if (!list.Any()) return [];
+            List<StationStop> stationStops = [];
+            foreach (var item in list)
+            {
+                var arriveTimeStr = item.GetProperty("arrive_time").GetString();
+                var startTimeStr = item.GetProperty("start_time").GetString();
+                DateTime? arriveTime = null;
+                DateTime? startTime = null;
+                if (arriveTimeStr != "----")
+                {
+                    arriveTime = DateTime.Parse(arriveTimeStr);
+                }
+                if (startTimeStr != arriveTimeStr)
+                {
+                    startTime = DateTime.Parse(startTimeStr);
+                }
+                if (arriveTime.HasValue && startTime.HasValue && startTime.Value < arriveTime.Value)
+                {
+                    startTime = startTime.Value.AddDays(1);
+                }
+                stationStops.Add(new StationStop() { Number = item.GetProperty("station_train_code").ToString(), Terminal = item.GetProperty("end_station_name").ToString(), Origin = item.GetProperty("start_station_name").ToString(), ArrivalTime = arriveTime, DepartureTime = startTime });
+            }
+            return stationStops;
+        }
+    }
+}

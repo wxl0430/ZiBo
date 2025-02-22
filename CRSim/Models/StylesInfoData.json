@@ -1,0 +1,89 @@
+[
+  {
+    "UniqueId": "ChengduDong SecondaryScreen",
+    "Title": "成都东站次要看板",
+    "Station": "ChengduDong",
+    "StyleName": "SecondaryScreenView",
+    "ImagePath": "Assets/StyleImages/ChengduDong/SecondaryScreen.png",
+    "Parameters": [
+      "Station",
+      "Text"
+    ]
+  },
+  {
+    "UniqueId": "ChengduDong PrimaryTicketCheckScreen",
+    "Title": "成都东站检票口主要看板",
+    "Station": "ChengduDong",
+    "StyleName": "PrimaryTicketCheckScreenView",
+    "ImagePath": "Assets/StyleImages/ChengduDong/PrimaryTicketCheckScreen.png",
+    "Parameters": [
+      "Station",
+      "TicketCheck",
+      "Text"
+    ]
+  },
+  {
+    "UniqueId": "BeijingXi PrimaryScreen",
+    "Title": "北京西站主要看板",
+    "Station": "BeijingXi",
+    "StyleName": "PrimaryScreenView",
+    "ImagePath": "Assets/StyleImages/BeijingXi/PrimaryScreen.png",
+    "Parameters": [
+      "Station"
+    ]
+  },
+  {
+    "UniqueId": "Harbin PrimaryScreen",
+    "Title": "哈尔滨站主要看板",
+    "Station": "Harbin",
+    "StyleName": "PrimaryScreenView",
+    "ImagePath": "Assets/StyleImages/Harbin/PrimaryScreen.png",
+    "Parameters": [
+      "Station",
+      "Text"
+    ]
+  },
+  {
+    "UniqueId": "ChengduMetro PlatformScreen",
+    "Title": "成都地铁站台看板",
+    "Station": "ChengduMetro",
+    "StyleName": "PlatformScreenView",
+    "ImagePath": "Assets/StyleImages/ChengduMetro/PlatformScreen.png",
+    "Parameters": [
+      "Station",
+      "Text"
+    ]
+  },
+  {
+    "UniqueId": "Guangyuan PrimaryScreen",
+    "Title": "广元站主要看板",
+    "Station": "Guangyuan",
+    "StyleName": "PrimaryScreenView",
+    "ImagePath": "Assets/StyleImages/Guangyuan/PrimaryScreen.png",
+    "Parameters": [
+      "Station",
+      "Text"
+    ]
+  },
+  {
+    "UniqueId": "Shanghai OutsideScreen",
+    "Title": "上海站站外看板",
+    "Station": "Shanghai",
+    "StyleName": "OutsideScreenView",
+    "ImagePath": "Assets/StyleImages/Shanghai/OutsideScreen.png",
+    "Parameters": [
+      "Station"
+    ]
+  },
+  {
+    "UniqueId": "Hanzhong PlatformScreen",
+    "Title": "汉中站站台看板",
+    "Station": "Hanzhong",
+    "StyleName": "PlatformScreenView",
+    "ImagePath": "Assets/StyleImages/Hanzhong/PlatformScreen.png",
+    "Parameters": [
+      "Station",
+      "Platform"
+    ]
+  }
+]

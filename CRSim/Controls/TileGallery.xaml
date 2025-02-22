@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="CRSim.Controls.TileGallery"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CRSim.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="ButtonBackground" Color="{StaticResource AcrylicBackgroundFillColorDefault}" />
+        <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="{StaticResource AcrylicBackgroundFillColorDefault}" />
+        <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="{StaticResource AcrylicBackgroundFillColorDefault}" />
+
+        <Style x:Key="TileGalleryScrollButtonStyle" BasedOn="{StaticResource DefaultButtonStyle}" TargetType="Button">
+            <Setter Property="Border.CornerRadius" Value="4" />
+            <Setter Property="Width" Value="16" />
+            <Setter Property="Height" Value="38" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <ScrollViewer x:Name="RootScrollViewer" 
+                          VerticalScrollBarVisibility="Disabled" 
+                          HorizontalScrollBarVisibility="Hidden"
+                          SizeChanged="RootScrollViewer_SizeChanged">
+            <StackPanel x:Name="TilesPanel"
+                    Orientation="Horizontal">
+                <local:HeaderTile
+                            Title="官方网站"
+                            Description="本软件官方网站。但是还没做，所以你进不去。"
+                            Link="http://localhost/"
+                            Margin="24 0 6 0">
+                    <local:HeaderTile.Source>
+                        <Image Source="pack://application:,,,/Assets/HomeHeaderTiles/CRSim-Icon.ico" />
+                    </local:HeaderTile.Source>
+                </local:HeaderTile>
+                <local:HeaderTile
+                                Title="使用教程"
+                                Description="一个优雅而简明扼要的食用教程。但是还没做，所以你将会看到作者主页。"
+                                Link="https://space.bilibili.com/436826066/"
+                                Margin="0 0 6 0">
+                    <local:HeaderTile.Source>
+                        <Image Source="pack://application:,,,/Assets/HomeHeaderTiles/Header-bilibili.png" />
+                    </local:HeaderTile.Source>
+                </local:HeaderTile>
+                <local:HeaderTile
+                                Title="交流鹅群"
+                                Description="在这里，分享你的使用经验与建议。或者玩玩抽象。加入暗号：114514"
+                                Margin="0 0 6 0"
+                                Link="https://qm.qq.com/cgi-bin/qm/qr?k=s09yDElBS5o4xGFfHZWg8JXe6MnJ4kZm&amp;jump_from=webapi&amp;authKey=EX28qahMgvssSwFiOdkNPOTekCbc49K1B8l5EOR3olnl8GcwUK4sk+H7+rvue5Sc">
+                    <local:HeaderTile.Source>
+                        <Image Source="pack://application:,,,/Assets/HomeHeaderTiles/Header-QQ.png" />
+                    </local:HeaderTile.Source>
+
+                </local:HeaderTile>
+                <local:HeaderTile
+                                Title="软件主页"
+                                Description="此软件在微软商店上架！（进行时）"
+                                Margin="0 0 6 0"
+                                Link="https://microsoft.com/">
+                    <local:HeaderTile.Source>
+                        <Image Source="pack://application:,,,/Assets/HomeHeaderTiles/Header-Store.dark.png" />
+                    </local:HeaderTile.Source>
+                </local:HeaderTile>
+            </StackPanel>
+        </ScrollViewer>
+        <Button x:Name="ScrollBackButton"
+                          Style="{DynamicResource TileGalleryScrollButtonStyle}"
+                          Margin="8,-16,0,0"
+                          AutomationProperties.Name="Scroll left"
+                          Click="ScrollBackButton_Click"
+                          ToolTip="Scroll left">
+            <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="8" Text="&#xEDD9;" />
+        </Button>
+        <Button x:Name="ScrollForwardButton"
+                          Style="{DynamicResource TileGalleryScrollButtonStyle}"
+                          Margin="0,-16,8,0"
+                          HorizontalAlignment="Right"
+                          AutomationProperties.Name="Scroll right"
+                          Click="ScrollForwardButton_Click"
+                          ToolTip="Scroll right">
+            <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="8" Text="&#xEDDA;" />
+        </Button>
+    </Grid>
+</UserControl>
