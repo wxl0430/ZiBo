@@ -9,11 +9,12 @@
     <LangVersion>13.0</LangVersion>
     <StartupObject>CRSim.App</StartupObject>
     <ApplicationIcon>Assets\CRSimIcon.ico</ApplicationIcon>
-    <Version>1.2.3.0</Version>
+    <Version>1.2.3.1</Version>
   </PropertyGroup>
 
 	<ItemGroup>
 		<ApplicationDefinition Remove="App.xaml" />
+		<None Remove="Assets\HomeHeaderTiles\Header-Afdian.png" />
 		<None Remove="Assets\StyleImages\ChengduDong\PrimaryTicketCheckScreen.png" />
 		<None Remove="Assets\StyleImages\Hanzhong\Image.png" />
 		<None Remove="Assets\StyleImages\Hanzhong\PlatformScreen.png" />
@@ -31,6 +32,7 @@
 		<Resource Include="Assets\ControlImages\TVM Simulation.png" />
 		<Resource Include="Assets\CRSimIcon.png" />
 		<Resource Include="Assets\HomeHeaderTiles\CRSim-Icon.ico" />
+		<Resource Include="Assets\HomeHeaderTiles\Header-Afdian.png" />
 		<Resource Include="Assets\HomeHeaderTiles\Header-bilibili.png" />
 		<Resource Include="Assets\HomeHeaderTiles\Header-QQ.png" />
 		<Resource Include="Assets\StyleImages\BeijingXi\PrimaryScreen.png" />
@@ -62,10 +64,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CRSim.Core\CRSim.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Assets\HomeHeaderTiles\Header-Store.dark.png" />
   </ItemGroup>
 
   <ItemGroup>

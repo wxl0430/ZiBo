@@ -27,13 +27,23 @@
                     Orientation="Horizontal">
                 <local:HeaderTile
                             Title="官方网站"
-                            Description="本软件官方网站。但是还没做，所以你进不去。"
-                            Link="http://localhost/"
+                            Description="其实就是一个软件安装页面。高大上的还没有做出来。"
+                            Link="http://47.122.74.193/CRSim/"
                             Margin="24 0 6 0">
                     <local:HeaderTile.Source>
                         <Image Source="pack://application:,,,/Assets/HomeHeaderTiles/CRSim-Icon.ico" />
                     </local:HeaderTile.Source>
                 </local:HeaderTile>
+                <local:HeaderTile
+                                Title="赞助作者"
+                                Description="赏作者一口饭吃QAQ"
+                                Link="https://afdian.com/a/CRSim"
+                                Margin="0 0 6 0">
+                    <local:HeaderTile.Source>
+                        <Image Source="pack://application:,,,/Assets/HomeHeaderTiles/Header-Afdian.png" />
+                    </local:HeaderTile.Source>
+                </local:HeaderTile>
+
                 <local:HeaderTile
                                 Title="使用教程"
                                 Description="一个优雅而简明扼要的食用教程。但是还没做，所以你将会看到作者主页。"
@@ -54,12 +64,14 @@
 
                 </local:HeaderTile>
                 <local:HeaderTile
-                                Title="软件主页"
-                                Description="此软件在微软商店上架！（进行时）"
+                                Title="开源主页"
+                                Description="欢迎贡献代码！"
                                 Margin="0 0 6 0"
-                                Link="https://microsoft.com/">
+                                Link="https://github.com/denglihong2007/CRSim">
                     <local:HeaderTile.Source>
-                        <Image Source="pack://application:,,,/Assets/HomeHeaderTiles/Header-Store.dark.png" />
+                        <Viewbox Height="52" Margin="-20 0 0 0">
+                            <Path Data="{StaticResource GitHubIconGeometry}" Fill="{DynamicResource TextFillColorPrimaryBrush}"/>
+                        </Viewbox>                    
                     </local:HeaderTile.Source>
                 </local:HeaderTile>
             </StackPanel>
