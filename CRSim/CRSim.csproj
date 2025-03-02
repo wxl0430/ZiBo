@@ -9,7 +9,7 @@
     <LangVersion>13.0</LangVersion>
     <StartupObject>CRSim.App</StartupObject>
     <ApplicationIcon>Assets\CRSimIcon.ico</ApplicationIcon>
-    <Version>1.2.3.1</Version>
+    <Version>1.2.3.4</Version>
   </PropertyGroup>
 
 	<ItemGroup>
@@ -89,7 +89,7 @@
     <Compile Update="Views\Windows\Stations\Shanghai\OutsideScreenView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Windows\Stations\ZiBo\PrimaryScreenView.xaml.cs">
+    <Compile Update="Views\Windows\Stations\Zibo\PrimaryScreenView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
