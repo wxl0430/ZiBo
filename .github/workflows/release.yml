@@ -91,18 +91,21 @@ jobs:
         id: release_notes
         shell: pwsh
         run: |
+
             # 获取最新 Release 版本号
             $latestTag = gh release list --limit 1 --json tagName --jq ".[0].tagName" 2>$null
+            echo "Latest release tag: $latestTag"
             if (-not $latestTag) {
                 $latestTag = ""
             }
             $originalOutputEncoding = [Console]::OutputEncoding
             [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-
+      
             try {
                 # 初始化日志文件（UTF-8 编码）
                 $releaseNotesPath = "release_notes.md"
-
+                echo "Release notes path: $releaseNotesPath"
+      
                 # 获取 Commit 日志
                 if (-not $latestTag) {
                     Set-Content -Path $releaseNotesPath -Value "## 初始版本" -Encoding UTF8
@@ -112,6 +115,7 @@ jobs:
                     Set-Content -Path $releaseNotesPath -Value "## 更新日志" -Encoding UTF8
                     $commitLogs = git log $latestTag --pretty=format:"%s"
                 }
+                echo "Commit logs: $commitLogs"
             } finally {
                 # 恢复原始编码设置
                 [Console]::OutputEncoding = $originalOutputEncoding
