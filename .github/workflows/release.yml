@@ -94,20 +94,27 @@ jobs:
             # 获取最新 Release 版本号
             $latestTag = gh release list --limit 1 --json tagName --jq ".[0].tagName" 2>$null
             if (-not $latestTag) {
-              $latestTag = ""
+                $latestTag = ""
             }
+            $originalOutputEncoding = [Console]::OutputEncoding
+            [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
-            # 初始化日志文件
-            $releaseNotesPath = "release_notes.md"
-            Set-Content -Path $releaseNotesPath -Value "## 更新日志"
+            try {
+                # 初始化日志文件（UTF-8 编码）
+                $releaseNotesPath = "release_notes.md"
 
-            # 如果没有最新 Release，则获取所有 commit
-            if (-not $latestTag) {
-              Add-Content -Path $releaseNotesPath -Value "`n### 初始版本"
-              $commitLogs = git log --pretty=format:"%s"
-            } else {
-              Add-Content -Path $releaseNotesPath -Value "`n### 更新日志 (从 $latestTag)"
-              $commitLogs = git log $latestTag..HEAD --pretty=format:"%s"
+                # 获取 Commit 日志
+                if (-not $latestTag) {
+                    Set-Content -Path $releaseNotesPath -Value "## 初始版本" -Encoding UTF8
+                    $commitLogs = git log --pretty=format:"%s"
+                } else {
+                    $latestTag += "..HEAD"
+                    Set-Content -Path $releaseNotesPath -Value "## 更新日志" -Encoding UTF8
+                    $commitLogs = git log $latestTag --pretty=format:"%s"
+                }
+            } finally {
+                # 恢复原始编码设置
+                [Console]::OutputEncoding = $originalOutputEncoding
             }
 
             # 解析 Conventional Commits
@@ -116,29 +123,29 @@ jobs:
             $others = @()
 
             foreach ($log in $commitLogs) {
-              if ($log -match "^feat!:? (.+)") {
-                $features += "- 🚀 **$($matches[1])**"
-              } elseif ($log -match "^fix!:? (.+)") {
-                $fixes += "- 🐛 **$($matches[1])**"
-              } elseif ($log -match "^(chore|docs|refactor|test|style): (.+)") {
-                $others += "- 🔧 **$($matches[2])**"
-              }
+                if ($log -match "^feat!:? (.+)") {
+                    $features += "- 🚀 **$($matches[1])**"
+                } elseif ($log -match "^fix!:? (.+)") {
+                    $fixes += "- 🐛 **$($matches[1])**"
+                } elseif ($log -match "^(chore|docs|refactor|test|style): (.+)") {
+                    $others += "- 🔧 **$($matches[2])**"
+                }
             }
 
-            # 写入日志文件
+            # 写入日志文件（UTF-8 编码）
             if ($features.Count -gt 0) {
-              Add-Content -Path $releaseNotesPath -Value "`n### ✨ 特性 (Features)`n" 
-              Add-Content -Path $releaseNotesPath -Value ($features -join "`n")
+                Add-Content -Path $releaseNotesPath -Value "`n### ✨ 特性`n" -Encoding UTF8
+                Add-Content -Path $releaseNotesPath -Value ($features -join "`n") -Encoding UTF8
             }
 
             if ($fixes.Count -gt 0) {
-              Add-Content -Path $releaseNotesPath -Value "`n### 🐞 修复 (Fixes)`n"
-              Add-Content -Path $releaseNotesPath -Value ($fixes -join "`n")
+                Add-Content -Path $releaseNotesPath -Value "`n### 🐞 修复`n" -Encoding UTF8
+                Add-Content -Path $releaseNotesPath -Value ($fixes -join "`n") -Encoding UTF8
             }
 
             if ($others.Count -gt 0) {
-              Add-Content -Path $releaseNotesPath -Value "`n### 🛠 其他更新 (Other Updates)`n"
-              Add-Content -Path $releaseNotesPath -Value ($others -join "`n")
+                Add-Content -Path $releaseNotesPath -Value "`n### 🛠 其他更新`n" -Encoding UTF8
+                Add-Content -Path $releaseNotesPath -Value ($others -join "`n") -Encoding UTF8
             }
 
       - name: Create GitHub Release
