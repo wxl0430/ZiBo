@@ -1,0 +1,89 @@
+name: Release on Version Change
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  check-version:
+    runs-on: windows-latest
+    outputs:
+      version_updated: ${{ steps.check_version.outputs.updated }}
+      new_version: ${{ steps.check_version.outputs.version }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET 9.0
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Extract version from csproj
+        id: get_version
+        shell: pwsh
+        run: |
+          [xml]$csproj = Get-Content "./CRSim/CRSim.csproj"
+          $version = $csproj.Project.PropertyGroup.Version
+          echo "Detected version: $version"
+          echo "version=$version" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
+
+      - name: Get latest release version
+        id: check_version
+        run: |
+          $latestTag = git tag --sort=-v:refname | Select-Object -First 1
+          echo "Latest tag: $latestTag"
+          if ("${{ env.version }}" -ne "$latestTag") {
+            echo "New version detected!"
+            echo "updated=true" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
+          } else {
+            echo "No new version detected."
+            echo "updated=false" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
+          }
+
+  release:
+    needs: check-version
+    if: needs.check-version.outputs.version_updated == 'true'
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 9.0
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore and Build
+        run: |
+          dotnet restore
+          dotnet build --configuration Release --no-restore
+
+      - name: Publish
+        run: dotnet publish -c Release -o out
+
+      - name: Create Zip Package
+        run: Compress-Archive -Path out/* -DestinationPath release-${{ needs.check-version.outputs.new_version }}.zip
+
+      - name: Generate Release Notes
+        id: release_notes
+        run: |
+          echo "## 更新日志" > release_notes.md
+          echo "" >> release_notes.md
+          git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"- %s" --merges --grep="Merge pull request" | Out-File -Encoding utf8 -Append release_notes.md
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.check-version.outputs.new_version }}
+          name: Release ${{ needs.check-version.outputs.new_version }}
+          body_path: release_notes.md
+          files: release-${{ needs.check-version.outputs.new_version }}.zip
