@@ -9,7 +9,7 @@
     <LangVersion>13.0</LangVersion>
     <StartupObject>CRSim.App</StartupObject>
     <ApplicationIcon>Assets\CRSimIcon.ico</ApplicationIcon>
-    <Version>1.2.3.4</Version>
+    <Version>1.2.4.0</Version>
   </PropertyGroup>
 
 	<ItemGroup>
@@ -45,7 +45,7 @@
 		<Resource Include="Assets\StyleImages\Hanzhong\PlatformScreen.png" />
 		<Resource Include="Assets\StyleImages\Harbin\PrimaryScreen.png" />
 		<Resource Include="Assets\StyleImages\Shanghai\OutsideScreen.png" />
-		<Resource Include="Assets\StyleImages\ZiBo\PrimaryScreen.png" />
+		<Resource Include="Assets\StyleImages\Zibo\PrimaryScreen.png" />
 		<Resource Include="Assets\win11-dashboard.dark.png" />
 		<Resource Include="Assets\win11-dashboard.light.png" />
 		<EmbeddedResource Include="Models\StylesInfoData.json" />
