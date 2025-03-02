@@ -1,6 +1,6 @@
-﻿using CRSim.ViewModels.ZiBo;
+﻿using CRSim.ViewModels.Zibo;
 
-namespace CRSim.Views.ZiBo
+namespace CRSim.Views.Zibo
 {
     /// <summary>
     /// PrimaryScreen.xaml 的交互逻辑
