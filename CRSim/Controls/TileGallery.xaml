@@ -36,7 +36,7 @@
                 </local:HeaderTile>
                 <local:HeaderTile
                                 Title="赞助作者"
-                                Description="赏作者一口饭吃QAQ"
+                                Description="赏作者一口饭吃吧QAQ！传说捐赠者的样式请求会优先满足！"
                                 Link="https://afdian.com/a/CRSim"
                                 Margin="0 0 6 0">
                     <local:HeaderTile.Source>
@@ -65,7 +65,7 @@
                 </local:HeaderTile>
                 <local:HeaderTile
                                 Title="开源主页"
-                                Description="欢迎贡献代码！"
+                                Description="欢迎贡献代码！当然功能样式请求和Bug反馈也请交到Issue中！"
                                 Margin="0 0 6 0"
                                 Link="https://github.com/denglihong2007/CRSim">
                     <local:HeaderTile.Source>
