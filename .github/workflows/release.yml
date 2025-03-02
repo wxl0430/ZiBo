@@ -85,25 +85,66 @@ jobs:
         shell: pwsh
         run: |
           $version = "${{ needs.check-version.outputs.new_version }}"
-          Compress-Archive -Path out/* -DestinationPath "release-$version.zip"
+          Compress-Archive -Path out/* -DestinationPath "CRSim-release-$version.zip"
 
       - name: Generate Release Notes
         id: release_notes
         shell: pwsh
         run: |
-          $latestTag = git describe --tags --abbrev=0 2>$null || echo ""
-          if (-not $latestTag) {
-            echo "## 初始版本" > release_notes.md
-            git log --pretty=format:"- %s" >> release_notes.md
-          } else {
-            echo "## 更新日志 (从 $latestTag)" > release_notes.md
-            git log $latestTag..HEAD --pretty=format:"- %s" --merges --grep="Merge pull request" >> release_notes.md
-          }
+            # 获取最新 Release 版本号
+            $latestTag = gh release list --limit 1 --json tagName --jq ".[0].tagName" 2>$null
+            if (-not $latestTag) {
+              $latestTag = ""
+            }
+
+            # 初始化日志文件
+            $releaseNotesPath = "release_notes.md"
+            Set-Content -Path $releaseNotesPath -Value "## 更新日志"
+
+            # 如果没有最新 Release，则获取所有 commit
+            if (-not $latestTag) {
+              Add-Content -Path $releaseNotesPath -Value "`n### 初始版本"
+              $commitLogs = git log --pretty=format:"%s"
+            } else {
+              Add-Content -Path $releaseNotesPath -Value "`n### 更新日志 (从 $latestTag)"
+              $commitLogs = git log $latestTag..HEAD --pretty=format:"%s"
+            }
+
+            # 解析 Conventional Commits
+            $features = @()
+            $fixes = @()
+            $others = @()
+
+            foreach ($log in $commitLogs) {
+              if ($log -match "^feat!:? (.+)") {
+                $features += "- 🚀 **$($matches[1])**"
+              } elseif ($log -match "^fix!:? (.+)") {
+                $fixes += "- 🐛 **$($matches[1])**"
+              } elseif ($log -match "^(chore|docs|refactor|test|style): (.+)") {
+                $others += "- 🔧 **$($matches[2])**"
+              }
+            }
+
+            # 写入日志文件
+            if ($features.Count -gt 0) {
+              Add-Content -Path $releaseNotesPath -Value "`n### ✨ 特性 (Features)`n" 
+              Add-Content -Path $releaseNotesPath -Value ($features -join "`n")
+            }
+
+            if ($fixes.Count -gt 0) {
+              Add-Content -Path $releaseNotesPath -Value "`n### 🐞 修复 (Fixes)`n"
+              Add-Content -Path $releaseNotesPath -Value ($fixes -join "`n")
+            }
+
+            if ($others.Count -gt 0) {
+              Add-Content -Path $releaseNotesPath -Value "`n### 🛠 其他更新 (Other Updates)`n"
+              Add-Content -Path $releaseNotesPath -Value ($others -join "`n")
+            }
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ needs.check-version.outputs.new_version }}
-          name: Release ${{ needs.check-version.outputs.new_version }}
+          tag_name: v${{ needs.check-version.outputs.new_version }}
+          name: ${{ needs.check-version.outputs.new_version }}
           body_path: release_notes.md
-          files: release-${{ needs.check-version.outputs.new_version }}.zip
+          files: CRSim-release-${{ needs.check-version.outputs.new_version }}.zip
