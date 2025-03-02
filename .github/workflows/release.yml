@@ -14,12 +14,12 @@ jobs:
     runs-on: windows-latest
     outputs:
       version_updated: ${{ steps.check_version.outputs.updated }}
-      new_version: ${{ steps.check_version.outputs.version }}
+      new_version: ${{ steps.get_version.outputs.version }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # 获取全部提交历史以便比较标签
 
       - name: Setup .NET 9.0
         uses: actions/setup-dotnet@v3
@@ -31,26 +31,37 @@ jobs:
         shell: pwsh
         run: |
           [xml]$csproj = Get-Content "./CRSim/CRSim.csproj"
+          # 确保选择包含Version的PropertyGroup
           $version = $csproj.Project.PropertyGroup.Version
           echo "Detected version: $version"
-          echo "version=$version" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
+          # 将版本设置为步骤输出
+          echo "version=$version" >> $env:GITHUB_OUTPUT
 
-      - name: Get latest release version
+      - name: Compare with latest tag
         id: check_version
+        shell: pwsh
         run: |
-          $latestTag = git tag --sort=-v:refname | Select-Object -First 1
+          # 获取最新标签（按语义版本排序）
+          $latestTag = git tag --list --sort=-v:refname | Select-Object -First 1
           echo "Latest tag: $latestTag"
-          if ("${{ env.version }}" -ne "$latestTag") {
-            echo "New version detected!"
-            echo "updated=true" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
+          
+          # 获取csproj中的版本
+          $currentVersion = "${{ steps.get_version.outputs.version }}"
+          
+          if (-not $latestTag) {
+            echo "首次发布，没有现有标签"
+            echo "updated=true" >> $env:GITHUB_OUTPUT
+          } elseif ($currentVersion -ne $latestTag) {
+            echo "检测到新版本: $currentVersion (旧版本: $latestTag)"
+            echo "updated=true" >> $env:GITHUB_OUTPUT
           } else {
-            echo "No new version detected."
-            echo "updated=false" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
+            echo "版本未变化，跳过发布"
+            echo "updated=false" >> $env:GITHUB_OUTPUT
           }
 
   release:
     needs: check-version
-    if: needs.check-version.outputs.version_updated == 'true'
+    if: ${{ needs.check-version.outputs.version_updated == 'true' }}
     runs-on: windows-latest
 
     steps:
@@ -71,14 +82,23 @@ jobs:
         run: dotnet publish -c Release -o out
 
       - name: Create Zip Package
-        run: Compress-Archive -Path out/* -DestinationPath release-${{ needs.check-version.outputs.new_version }}.zip
+        shell: pwsh
+        run: |
+          $version = "${{ needs.check-version.outputs.new_version }}"
+          Compress-Archive -Path out/* -DestinationPath "release-$version.zip"
 
       - name: Generate Release Notes
         id: release_notes
+        shell: pwsh
         run: |
-          echo "## 更新日志" > release_notes.md
-          echo "" >> release_notes.md
-          git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"- %s" --merges --grep="Merge pull request" | Out-File -Encoding utf8 -Append release_notes.md
+          $latestTag = git describe --tags --abbrev=0 2>$null || echo ""
+          if (-not $latestTag) {
+            echo "## 初始版本" > release_notes.md
+            git log --pretty=format:"- %s" >> release_notes.md
+          } else {
+            echo "## 更新日志 (从 $latestTag)" > release_notes.md
+            git log $latestTag..HEAD --pretty=format:"- %s" --merges --grep="Merge pull request" >> release_notes.md
+          }
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
