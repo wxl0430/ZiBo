@@ -9,7 +9,7 @@
     <LangVersion>13.0</LangVersion>
     <StartupObject>CRSim.App</StartupObject>
     <ApplicationIcon>Assets\CRSimIcon.ico</ApplicationIcon>
-    <Version>1.2.3.3</Version>
+    <Version>1.2.5.0</Version>
   </PropertyGroup>
 
 	<ItemGroup>
