@@ -5,6 +5,8 @@
         private ITimeService _timeService;
         private Settings _settings;
         public SolidColorBrush WaitingColor { get; set; } = new(Colors.White);
+        public SolidColorBrush CheckingTicketsColor { get; set; } = new(Colors.LightGreen);
+        public SolidColorBrush StopCheckingTicketsColor { get; set; } = new(Colors.Red);
         object IMultiValueConverter.Convert(object[] values, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             var serviceProvider = (IServiceProvider)Application.Current.Resources["ServiceProvider"];
@@ -17,7 +19,7 @@
                     //过路站
                     if (_timeService.GetDateTimeNow() > departureTime.Subtract(_settings.PassingCheckInAdvanceDuration) && _timeService.GetDateTimeNow() < departureTime.Subtract(_settings.StopCheckInAdvanceDuration))
                     {
-                        return new SolidColorBrush(Colors.LightGreen);
+                        return CheckingTicketsColor;
                     }
                 }
                 else
@@ -25,16 +27,16 @@
                     //始发站
                     if (_timeService.GetDateTimeNow() > departureTime.Subtract(_settings.DepartureCheckInAdvanceDuration) && _timeService.GetDateTimeNow() < departureTime.Subtract(_settings.StopCheckInAdvanceDuration))
                     {
-                        return new SolidColorBrush(Colors.LightGreen);
+                        return CheckingTicketsColor;
                     }
                 }
                 if (_timeService.GetDateTimeNow() > departureTime.Subtract(_settings.StopCheckInAdvanceDuration))
                 {
-                    return new SolidColorBrush(Colors.Red);
+                    return StopCheckingTicketsColor;
                 }
                 if (values[2] is TimeSpan state && state.TotalMinutes > 0)
                 {
-                    return new SolidColorBrush(Colors.Red);
+                    return StopCheckingTicketsColor;
                 }
                 return WaitingColor;
             }

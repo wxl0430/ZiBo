@@ -51,6 +51,8 @@
                 services.AddTransient<Views.Shanghai.OutsideScreenView>();
                 services.AddTransient<ViewModels.Hanzhong.PlatformScreenViewModel>();
                 services.AddTransient<Views.Hanzhong.PlatformScreenView>();
+                services.AddTransient<ViewModels.Zibo.PrimaryScreenViewModel>();
+                services.AddTransient<Views.Zibo.PrimaryScreenView>();
             }).Build();
 
         [STAThread]
