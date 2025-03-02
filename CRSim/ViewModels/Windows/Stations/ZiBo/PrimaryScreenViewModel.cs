@@ -1,4 +1,4 @@
-﻿namespace CRSim.ViewModels.ZiBo
+﻿namespace CRSim.ViewModels.Zibo
 {
     public class PrimaryScreenViewModel : ScreenViewModel
     {
