@@ -46,7 +46,7 @@ jobs:
           echo "Latest tag: $latestTag"
           
           # 获取csproj中的版本
-          $currentVersion = "${{ steps.get_version.outputs.version }}"
+          $currentVersion = "v${{ steps.get_version.outputs.version }}"
           
           if (-not $latestTag) {
             echo "首次发布，没有现有标签"
@@ -87,65 +87,9 @@ jobs:
           $version = "${{ needs.check-version.outputs.new_version }}"
           Compress-Archive -Path out/* -DestinationPath "CRSim-release-$version.zip"
 
-      - name: Generate Release Notes
-        id: release_notes
-        env:
-          GH_TOKEN: ${{ github.token }}  # 使用 GitHub 自动提供的 token
-        shell: pwsh
-        run: |
-
-            $releaseInfo = gh release view --json tagName | ConvertFrom-Json
-            $latestTag = $releaseInfo.tagName
-            echo "Latest release tag: $latestTag"
-            $originalOutputEncoding = [Console]::OutputEncoding
-            [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-            $releaseNotesPath = "release_notes.md"
-      
-            try {
-                echo "Release notes path: $releaseNotesPath"
-                $latestTag += "..HEAD"
-                Set-Content -Path $releaseNotesPath -Value "## 更新日志" -Encoding UTF8
-                $commitLogs = git log $latestTag --pretty=format:"%s"
-                echo "Commit logs: $commitLogs"
-            } finally {
-                [Console]::OutputEncoding = $originalOutputEncoding
-            }
-
-            # 解析 Conventional Commits
-            $features = @()
-            $fixes = @()
-            $others = @()
-
-            foreach ($log in $commitLogs) {
-                if ($log -match "^feat!:? (.+)") {
-                    $features += "- 🚀 **$($matches[1])**"
-                } elseif ($log -match "^fix!:? (.+)") {
-                    $fixes += "- 🐛 **$($matches[1])**"
-                } elseif ($log -match "^(chore|docs|refactor|test|style): (.+)") {
-                    $others += "- 🔧 **$($matches[2])**"
-                }
-            }
-
-            # 写入日志文件（UTF-8 编码）
-            if ($features.Count -gt 0) {
-                Add-Content -Path $releaseNotesPath -Value "`n### ✨ 特性`n" -Encoding UTF8
-                Add-Content -Path $releaseNotesPath -Value ($features -join "`n") -Encoding UTF8
-            }
-
-            if ($fixes.Count -gt 0) {
-                Add-Content -Path $releaseNotesPath -Value "`n### 🐞 修复`n" -Encoding UTF8
-                Add-Content -Path $releaseNotesPath -Value ($fixes -join "`n") -Encoding UTF8
-            }
-
-            if ($others.Count -gt 0) {
-                Add-Content -Path $releaseNotesPath -Value "`n### 🛠 其他更新`n" -Encoding UTF8
-                Add-Content -Path $releaseNotesPath -Value ($others -join "`n") -Encoding UTF8
-            }
-
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ needs.check-version.outputs.new_version }}
           name: ${{ needs.check-version.outputs.new_version }}
-          body_path: release_notes.md
           files: CRSim-release-${{ needs.check-version.outputs.new_version }}.zip
