@@ -85,5 +85,15 @@
       "Station",
       "Platform"
     ]
+  },
+  {
+    "UniqueId": "ZiBo PrimaryScreen",
+    "Title": "淄博站主要看板",
+    "Station": "ZiBo",
+    "StyleName": "PrimaryScreenView",
+    "ImagePath": "Assets/StyleImages/ZiBo/PrimaryScreen.png",
+    "Parameters": [
+      "Station"
+    ]
   }
 ]
