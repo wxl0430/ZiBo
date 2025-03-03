@@ -53,6 +53,8 @@
                 services.AddTransient<Views.Hanzhong.PlatformScreenView>();
                 services.AddTransient<ViewModels.Zibo.PrimaryScreenViewModel>();
                 services.AddTransient<Views.Zibo.PrimaryScreenView>();
+                services.AddTransient<ViewModels.Zibo.SecondaryScreenViewModel>();
+                services.AddTransient<Views.Zibo.SecondaryScreenView>();
             }).Build();
 
         [STAThread]

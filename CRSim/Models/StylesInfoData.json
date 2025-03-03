@@ -95,5 +95,15 @@
     "Parameters": [
       "Station"
     ]
+  },
+  {
+    "UniqueId": "Zibo SecondaryScreen",
+    "Title": "淄博站次要看板",
+    "Station": "Zibo",
+    "StyleName": "SecondaryScreenView",
+    "ImagePath": "Assets/StyleImages/Zibo/SecondaryScreen.png",
+    "Parameters": [
+      "Station"
+    ]
   }
 ]
