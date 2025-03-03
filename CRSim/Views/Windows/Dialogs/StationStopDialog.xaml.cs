@@ -108,6 +108,8 @@ namespace CRSim.Views
             {
                 Platforms.Add(s);
             }
+            PlatformComboBox.SelectedIndex = Platforms.IndexOf(stationStop.Platform);
+            LandmarkComboBox.SelectedIndex = stationStop.Landmark == null ? 0 : Landmarks.IndexOf(stationStop.Landmark);
             ValidateInput();
         }
 
