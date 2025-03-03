@@ -55,6 +55,10 @@
                 services.AddTransient<Views.Zibo.PrimaryScreenView>();
                 services.AddTransient<ViewModels.Zibo.SecondaryScreenViewModel>();
                 services.AddTransient<Views.Zibo.SecondaryScreenView>();
+                // services.AddTransient<ViewModels.Zibo.PrimaryTicketCheckScreenViewModel>();
+                // services.AddTransient<Views.Zibo.PrimaryTicketCheckScreenView>();
+                services.AddTransient<ViewModels.Jinanxi.PrimaryScreenViewModel>();
+                services.AddTransient<Views.Jinanxi.PrimaryScreenView>();
             }).Build();
 
         [STAThread]
