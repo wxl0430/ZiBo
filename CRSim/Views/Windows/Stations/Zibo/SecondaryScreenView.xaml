@@ -80,7 +80,7 @@
                     <DataGridTextColumn Binding="{Binding Terminal}">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical" Width="120" MinHeight="37">
+                                <StackPanel Orientation="Vertical" Width="160" MinHeight="37">
                                     <TextBlock Text="终到站" Style="{StaticResource CommonHeaderStyle}" Padding="0,10,0,0" FontWeight="Bold"/>
                                 </StackPanel>
                             </DataTemplate>
