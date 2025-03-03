@@ -5,10 +5,10 @@ namespace CRSim.Views.Jinanxi
     /// <summary>
     /// SecondaryScreen.xaml 的交互逻辑
     /// </summary>
-    public partial class PrimaryScreenView : Window
+    public partial class SmallScreenView : Window
     {
-        public PrimaryScreenViewModel ViewModel { get; }
-        public PrimaryScreenView(PrimaryScreenViewModel viewModel)
+        public SmallScreenViewModel ViewModel { get; }
+        public SmallScreenView(SmallScreenViewModel viewModel)
         {
             InitializeComponent();
             ViewModel = viewModel;

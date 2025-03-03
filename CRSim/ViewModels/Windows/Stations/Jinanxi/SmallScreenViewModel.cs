@@ -1,12 +1,11 @@
 ﻿namespace CRSim.ViewModels.Jinanxi
 {
-    public class PrimaryScreenViewModel : ScreenViewModel
+    public class SmallScreenViewModel : ScreenViewModel
     {
         public ObservableCollection<TrainInfo> Screen { get; private set; } = [];
-        public PrimaryScreenViewModel(ITimeService timeService, ISettingsService settingsService)
+        public SmallScreenViewModel(ITimeService timeService, ISettingsService settingsService)
             : base(timeService, settingsService)
         {
-            Text = $"济 南 西 站 欢 迎 您";
             ItemsPerPage = 9;
             PageCount = 1;
             timeService.RefreshSecondsElapsed += RefreshDisplay;
@@ -15,6 +14,7 @@
         private async void Initialize()
         {
             await WaitForDataLoadAsync();
+            Text = $"{string.Join(" ", ThisStation.Name.ToCharArray())} 站 欢 迎 您";
             RefreshDisplay(null,null);
         }
         private void RefreshDisplay(object? sender, EventArgs e)

@@ -15,6 +15,8 @@ namespace CRSim.ViewModels
         private string _currentSecond;
         [ObservableProperty]
         private string _text = "";
+        [ObservableProperty]
+        private Station _thisStation;
         public event PropertyChangedEventHandler PropertyChanged;
 
         public List<TrainInfo> TrainInfo { get; set; } = [];
@@ -56,6 +58,7 @@ namespace CRSim.ViewModels
 
         public void LoadData(Station station,string ticketCheck,string platform)
         {
+            ThisStation = station;
             var trains = station.StationStops;
             foreach (var trainNumber in trains)
             {

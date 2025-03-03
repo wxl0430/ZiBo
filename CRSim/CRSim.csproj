@@ -9,19 +9,12 @@
     <LangVersion>13.0</LangVersion>
     <StartupObject>CRSim.App</StartupObject>
     <ApplicationIcon>Assets\CRSimIcon.ico</ApplicationIcon>
-    <Version>1.2.5.0</Version>
+    <Version>1.2.4.0</Version>
   </PropertyGroup>
 
 	<ItemGroup>
 		<ApplicationDefinition Remove="App.xaml" />
-		<None Remove="Assets\HomeHeaderTiles\Header-Afdian.png" />
-		<None Remove="Assets\StyleImages\ChengduDong\PrimaryTicketCheckScreen.png" />
-		<None Remove="Assets\StyleImages\Hanzhong\Image.png" />
-		<None Remove="Assets\StyleImages\Hanzhong\PlatformScreen.png" />
-		<None Remove="Assets\StyleImages\Harbin\PrimaryScreen.png" />
-		<None Remove="Assets\StyleImages\Zibo\PrimaryScreen.png" />
-		<None Remove="Assets\StyleImages\Zibo\SecondaryScreen.png" />
-		<None Remove="Assets\StyleImages\Jinanxi\BusinessClassScreen.png" />
+		<None Remove="Assets\StyleImages\Jinanxi\SmallScreen.png" />
 		<Content Include="Assets\Advertisement.mp4">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -47,10 +40,10 @@
 		<Resource Include="Assets\StyleImages\Hanzhong\Image.png" />
 		<Resource Include="Assets\StyleImages\Hanzhong\PlatformScreen.png" />
 		<Resource Include="Assets\StyleImages\Harbin\PrimaryScreen.png" />
+		<Resource Include="Assets\StyleImages\Jinanxi\SmallScreen.png" />
 		<Resource Include="Assets\StyleImages\Shanghai\OutsideScreen.png" />
 		<Resource Include="Assets\StyleImages\Zibo\PrimaryScreen.png" />
 		<Resource Include="Assets\StyleImages\Zibo\SecondaryScreen.png" />
-		<Resource Include="Assets\StyleImages\Jinanxi\PrimaryScreen.png" />
 		<Resource Include="Assets\win11-dashboard.dark.png" />
 		<Resource Include="Assets\win11-dashboard.light.png" />
 		<EmbeddedResource Include="Models\StylesInfoData.json" />
