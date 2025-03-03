@@ -105,5 +105,15 @@
     "Parameters": [
       "Station"
     ]
+  },
+  {
+    "UniqueId": "Jinanxi SmallScreen",
+    "Title": "济南西站小屏看板",
+    "Station": "Jinanxi",
+    "StyleName": "SmallScreenView",
+    "ImagePath": "Assets/StyleImages/Jinanxi/SmallScreen.png",
+    "Parameters": [
+      "Station"
+    ]
   }
 ]
