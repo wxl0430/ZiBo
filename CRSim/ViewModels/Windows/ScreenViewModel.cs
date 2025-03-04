@@ -69,25 +69,12 @@ namespace CRSim.ViewModels
                         TrainNumber = trainNumber.Number,
                         Terminal = trainNumber.Terminal,
                         Origin = trainNumber.Origin,
-                        ArrivalTime = trainNumber.ArrivalTime,
-                        DepartureTime = trainNumber.DepartureTime ?? DateTime.MinValue,
+                        ArrivalTime = trainNumber.ArrivalTime == null ? null : trainNumber.DepartureTime.Value < _timeService.GetDateTimeNow() ? trainNumber.ArrivalTime.Value.AddDays(1) : trainNumber.ArrivalTime.Value,
+                        DepartureTime = trainNumber.DepartureTime.Value < _timeService.GetDateTimeNow() ? trainNumber.DepartureTime.Value.AddDays(1) : trainNumber.DepartureTime.Value,
                         TicketChecks = trainNumber.TicketChecks,
                         WaitingArea = station.WaitingAreas.Where(x => x.TicketChecks.Intersect(trainNumber.TicketChecks).ToList().Count!=0).FirstOrDefault().Name,
                         Platform = trainNumber.Platform,
                         Landmark = trainNumber.Landmark,
-                        State = TimeSpan.Zero
-                    });
-                    TrainInfo.Add(new TrainInfo
-                    {
-                        TrainNumber = trainNumber.Number,
-                        Terminal = trainNumber.Terminal,
-                        Origin = trainNumber.Origin,
-                        ArrivalTime = trainNumber.ArrivalTime?.AddDays(1),
-                        DepartureTime = (trainNumber.DepartureTime ?? DateTime.MinValue).AddDays(1),
-                        TicketChecks = trainNumber.TicketChecks,
-                        WaitingArea = station.WaitingAreas.Where(x => x.TicketChecks.Intersect(trainNumber.TicketChecks).ToList().Count != 0).FirstOrDefault().Name,
-                        Platform = trainNumber.Platform,
-                        Landmark= trainNumber.Landmark,
                         State = TimeSpan.Zero
                     });
                 }
