@@ -64,10 +64,10 @@
               RowStyle="{StaticResource CommonRowStyle}"
               AlternationCount="2" HeadersVisibility="Column" IsEnabled="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding TrainNumber}">
+                    <DataGridTextColumn Binding="{Binding TrainNumber}" MinWidth="60">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical" Width="60">
+                                <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
                                     <TextBlock Text="车次" Style="{StaticResource CommonHeaderStyle}" FontSize="24" Padding="0,2,0,0"/>
                                     <TextBlock Text="Train" Style="{StaticResource CommonHeaderStyle}" FontSize="17" Padding="0,3"/>
                                 </StackPanel>
@@ -78,10 +78,10 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Binding="{Binding Origin}">
+                    <DataGridTextColumn Binding="{Binding Origin}" MinWidth="110">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical" Width="110">
+                                <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
                                     <TextBlock Text="始发站" Style="{StaticResource CommonHeaderStyle}" FontSize="24" Padding="0,2,0,0"/>
                                     <TextBlock Text="From" Style="{StaticResource CommonHeaderStyle}" FontSize="17" Padding="0,3"/>
                                 </StackPanel>
@@ -109,10 +109,10 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Binding="{Binding Terminal}">
+                    <DataGridTextColumn Binding="{Binding Terminal}" MinWidth="110">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical" Width="110">
+                                <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
                                     <TextBlock Text="终到站" Style="{StaticResource CommonHeaderStyle}" FontSize="24" Padding="0,2,0,0"/>
                                     <TextBlock Text="To" Style="{StaticResource CommonHeaderStyle}" FontSize="17" Padding="0,3"/>
                                 </StackPanel>
@@ -123,10 +123,10 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Binding="{Binding DepartureTime, Converter={StaticResource DateTimeToStringConverter}}">
+                    <DataGridTextColumn Binding="{Binding DepartureTime, Converter={StaticResource DateTimeToStringConverter}}" MinWidth="60">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical" Width="60">
+                                <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
                                     <TextBlock Text="开点" Style="{StaticResource CommonHeaderStyle}" FontSize="24" Padding="0,2,0,0"/>
                                     <TextBlock Text="Departa" Style="{StaticResource CommonHeaderStyle}" FontSize="17" Padding="0,3"/>
                                 </StackPanel>
@@ -137,10 +137,10 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Binding="{Binding TicketChecks,Converter={StaticResource TicketCheckConverter}}">
+                    <DataGridTextColumn Binding="{Binding TicketChecks,Converter={StaticResource TicketCheckConverter}}" MinWidth="72">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical" MinWidth="72">
+                                <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
                                     <TextBlock Text="检票口" Style="{StaticResource CommonHeaderStyle}" FontSize="24" Padding="0,2,0,0"/>
                                     <TextBlock Text="Check" Style="{StaticResource CommonHeaderStyle}" FontSize="17" Padding="0,3"/>
                                 </StackPanel>
@@ -151,7 +151,7 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn>
+                    <DataGridTextColumn MinWidth="90">
                         <DataGridTextColumn.Binding>
                             <MultiBinding Mode="OneWay" Converter="{StaticResource TrainStateConverter}">
                                 <Binding Path="ArrivalTime" />
@@ -161,7 +161,7 @@
                         </DataGridTextColumn.Binding>
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical" Width="90">
+                                <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
                                     <TextBlock Text="状 态" Style="{StaticResource CommonHeaderStyle}" FontSize="24" Padding="0,2,0,0"/>
                                     <TextBlock Text="State" Style="{StaticResource CommonHeaderStyle}" FontSize="17" Padding="0,3"/>
                                 </StackPanel>
@@ -190,10 +190,10 @@
               RowStyle="{StaticResource CommonRowStyle}"
               AlternationCount="2" HeadersVisibility="Column" IsEnabled="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding TrainNumber}">
+                    <DataGridTextColumn Binding="{Binding TrainNumber}" MinWidth="60">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical" Width="60">
+                                <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
                                     <TextBlock Text="车次" Style="{StaticResource CommonHeaderStyle}" FontSize="24" Padding="0,2,0,0"/>
                                     <TextBlock Text="Train" Style="{StaticResource CommonHeaderStyle}" FontSize="17" Padding="0,3"/>
                                 </StackPanel>
@@ -204,10 +204,10 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Binding="{Binding Origin}">
+                    <DataGridTextColumn Binding="{Binding Origin}" MinWidth="110">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical" Width="110">
+                                <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
                                     <TextBlock Text="始发站" Style="{StaticResource CommonHeaderStyle}" FontSize="24" Padding="0,2,0,0"/>
                                     <TextBlock Text="From" Style="{StaticResource CommonHeaderStyle}" FontSize="17" Padding="0,3"/>
                                 </StackPanel>
@@ -235,10 +235,10 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Binding="{Binding Terminal}">
+                    <DataGridTextColumn Binding="{Binding Terminal}" MinWidth="110">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical" Width="110">
+                                <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
                                     <TextBlock Text="终到站" Style="{StaticResource CommonHeaderStyle}" FontSize="24" Padding="0,2,0,0"/>
                                     <TextBlock Text="To" Style="{StaticResource CommonHeaderStyle}" FontSize="17" Padding="0,3"/>
                                 </StackPanel>
@@ -249,10 +249,10 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Binding="{Binding DepartureTime, Converter={StaticResource DateTimeToStringConverter}}">
+                    <DataGridTextColumn Binding="{Binding DepartureTime, Converter={StaticResource DateTimeToStringConverter}}" MinWidth="60">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical" Width="60">
+                                <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
                                     <TextBlock Text="开点" Style="{StaticResource CommonHeaderStyle}" FontSize="24" Padding="0,2,0,0"/>
                                     <TextBlock Text="Departa" Style="{StaticResource CommonHeaderStyle}" FontSize="17" Padding="0,3"/>
                                 </StackPanel>
@@ -263,10 +263,10 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Binding="{Binding TicketChecks,Converter={StaticResource TicketCheckConverter}}">
+                    <DataGridTextColumn Binding="{Binding TicketChecks,Converter={StaticResource TicketCheckConverter}}" MinWidth="72">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical" MinWidth="72">
+                                <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
                                     <TextBlock Text="检票口" Style="{StaticResource CommonHeaderStyle}" FontSize="24" Padding="0,2,0,0"/>
                                     <TextBlock Text="Check" Style="{StaticResource CommonHeaderStyle}" FontSize="17" Padding="0,3"/>
                                 </StackPanel>
@@ -277,7 +277,7 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn>
+                    <DataGridTextColumn MinWidth="90">
                         <DataGridTextColumn.Binding>
                             <MultiBinding Mode="OneWay" Converter="{StaticResource TrainStateConverter}">
                                 <Binding Path="ArrivalTime" />
@@ -287,7 +287,7 @@
                         </DataGridTextColumn.Binding>
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical" Width="90">
+                                <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
                                     <TextBlock Text="状 态" Style="{StaticResource CommonHeaderStyle}" FontSize="24" Padding="0,2,0,0"/>
                                     <TextBlock Text="State" Style="{StaticResource CommonHeaderStyle}" FontSize="17" Padding="0,3"/>
                                 </StackPanel>
