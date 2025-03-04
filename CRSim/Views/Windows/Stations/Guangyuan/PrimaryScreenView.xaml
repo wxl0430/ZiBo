@@ -30,56 +30,70 @@
               IsReadOnly="True" GridLinesVisibility="None" RowHeight="28" Foreground="#D75B41"
               HeadersVisibility="Column" IsEnabled="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding TrainNumber}">
+                <DataGridTextColumn Binding="{Binding TrainNumber}" MinWidth="55">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Text="车次" HorizontalAlignment="Stretch" Padding="3" Width="55" TextAlignment="Center" FontSize="20" Background="Black"/>
+                            <TextBlock Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"
+                                       Text="车次" HorizontalAlignment="Stretch" Padding="3" 
+                                       TextAlignment="Center" FontSize="20" Background="Black"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Origin}">
+                <DataGridTextColumn Binding="{Binding Origin}" MinWidth="100">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Text="始发站" HorizontalAlignment="Stretch" Padding="3" Width="100" TextAlignment="Center" FontSize="20" Background="Black"/>
+                            <TextBlock Text="始发站" HorizontalAlignment="Stretch" Padding="3" 
+                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"
+                                       TextAlignment="Center" FontSize="20" Background="Black"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Terminal}">
+                <DataGridTextColumn Binding="{Binding Terminal}" MinWidth="100">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Text="终到站" HorizontalAlignment="Stretch" Padding="3" Width="100" TextAlignment="Center" FontSize="20" Background="Black"/>
+                            <TextBlock Text="终到站" HorizontalAlignment="Stretch" Padding="3" 
+                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"
+                                       TextAlignment="Center" FontSize="20" Background="Black"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding DepartureTime, Converter={StaticResource DateTimeToStringConverter}}">
+                <DataGridTextColumn Binding="{Binding DepartureTime, Converter={StaticResource DateTimeToStringConverter}}" MinWidth="50">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Text="开点" HorizontalAlignment="Stretch" Padding="3" Width="50" TextAlignment="Center" FontSize="20" Background="Black"/>
+                            <TextBlock Text="开点" HorizontalAlignment="Stretch" Padding="3"
+                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"
+                                       TextAlignment="Center" FontSize="20" Background="Black"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding WaitingArea}">
+                <DataGridTextColumn Binding="{Binding WaitingArea}" MinWidth="80">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Text="候车区" HorizontalAlignment="Stretch" Padding="3" Width="80" TextAlignment="Center" FontSize="20" Background="Black"/>
+                            <TextBlock Text="候车区" HorizontalAlignment="Stretch" Padding="3" 
+                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"
+                                       TextAlignment="Center" FontSize="20" Background="Black"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding TicketChecks, Converter={StaticResource TicketCheckConverter}}">
+                <DataGridTextColumn Binding="{Binding TicketChecks, Converter={StaticResource TicketCheckConverter}}" MinWidth="70">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Text="检票口" HorizontalAlignment="Stretch" Padding="3" Width="70" TextAlignment="Center" FontSize="20" Background="Black"/>
+                            <TextBlock Text="检票口" HorizontalAlignment="Stretch" Padding="3" 
+                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"
+                                       TextAlignment="Center" FontSize="20" Background="Black"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Platform}">
+                <DataGridTextColumn Binding="{Binding Platform}" MinWidth="70">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Text="站台" HorizontalAlignment="Stretch" Padding="3" Width="70" TextAlignment="Center" FontSize="20" Background="Black"/>
+                            <TextBlock Text="站台" HorizontalAlignment="Stretch" Padding="3"
+                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"
+                                       TextAlignment="Center" FontSize="20" Background="Black"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
-                <DataGridTextColumn>
+                <DataGridTextColumn MinWidth="90">
                     <DataGridTextColumn.Binding>
                         <MultiBinding Mode="OneWay" Converter="{StaticResource TrainStateConverter}">
                             <Binding Path="ArrivalTime" />
@@ -89,7 +103,9 @@
                     </DataGridTextColumn.Binding>
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Text="状态" HorizontalAlignment="Stretch" Padding="3" Width="90" TextAlignment="Center" FontSize="20" Background="Black"/>
+                            <TextBlock Text="状态" HorizontalAlignment="Stretch" Padding="3" 
+                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"
+                                       TextAlignment="Center" FontSize="20" Background="Black"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
