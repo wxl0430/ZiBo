@@ -28,16 +28,8 @@
                     {
                         TrainNumber = trainNumber.Number,
                         Terminal = trainNumber.Terminal,
-                        ArrivalTime = trainNumber.ArrivalTime,
-                        DepartureTime = trainNumber.DepartureTime ?? DateTime.MinValue,
-                        State = TimeSpan.Zero
-                    });
-                    TrainInfos.Add(new TrainInfo
-                    {
-                        TrainNumber = trainNumber.Number,
-                        Terminal = trainNumber.Terminal,
-                        ArrivalTime = trainNumber.ArrivalTime?.AddDays(1),
-                        DepartureTime = (trainNumber.DepartureTime ?? DateTime.MinValue).AddDays(1),
+                        ArrivalTime = trainNumber.ArrivalTime == null ? null : trainNumber.DepartureTime.Value < _timeService.GetDateTimeNow() ? trainNumber.ArrivalTime.Value.AddDays(1) : trainNumber.ArrivalTime.Value,
+                        DepartureTime = trainNumber.DepartureTime.Value < _timeService.GetDateTimeNow() ? trainNumber.DepartureTime.Value.AddDays(1) : trainNumber.DepartureTime.Value,
                         State = TimeSpan.Zero
                     });
                 }
