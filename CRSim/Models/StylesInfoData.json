@@ -115,5 +115,15 @@
     "Parameters": [
       "Station"
     ]
+  },
+  {
+    "UniqueId": "GuangdongIntercity SecondaryScreen",
+    "Title": "广东城际次要看板",
+    "Station": "GuangdongIntercity",
+    "StyleName": "SecondaryScreenView",
+    "ImagePath": "Assets/StyleImages/GuangdongIntercity/SecondaryScreen.png",
+    "Parameters": [
+      "Station"
+    ]
   }
 ]
