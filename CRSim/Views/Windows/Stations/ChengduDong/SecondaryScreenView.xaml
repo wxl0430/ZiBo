@@ -20,6 +20,7 @@
         </Style>
         <converters:TicketCheckConverter x:Key="TicketCheckConverter" Separator="" />
         <converters:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
+        <converters:DateTimeToStringConverter x:Key="DateTimeToStringTimeConverter" Format="yyyy-MM-dd HH:mm:ss" />
         <converters:TrainStateConverter x:Key="TrainStateConverter" />
         <converters:TrainStateColorConverter x:Key="TrainStateColorConverter" />
     </Window.Resources>
@@ -404,7 +405,7 @@
             </TextBlock>
             <Rectangle Width="250" HorizontalAlignment="Stretch"/>
             <TextBlock FontFamily="宋体" Foreground="White" FontSize="18"
-                       Name="labelTime" Text="{Binding CurrentTime}">
+                       Name="labelTime" Text="{Binding CurrentTime,Converter={StaticResource DateTimeToStringTimeConverter}}">
             </TextBlock>
         </StackPanel>
     </StackPanel>

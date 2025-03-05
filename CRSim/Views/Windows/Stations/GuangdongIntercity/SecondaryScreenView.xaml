@@ -15,6 +15,8 @@
         <converters:TicketCheckConverter x:Key="TicketCheckConverter" Separator=" - " />
         <converters:EmptyToVisibilityConverter x:Key="EmptyToVisibilityConverter" />
         <converters:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
+        <converters:DateTimeToStringConverter x:Key="DateTimeToStringWeekdayConverter" Format="dddd" />
+        <converters:DateTimeToStringConverter x:Key="DateTimeToStringDateConverter" Format="yyyy/M/d" />
         <converters:TrainStateConverter x:Key="TrainStateConverter"/>
         <converters:TrainStateColorConverter x:Key="TrainStateColorConverter" WaitingColor="#ffffff" CheckingTicketsColor="#00ff00" StopCheckingTicketsColor="#ff0000"/>
         <Style TargetType="DataGridColumnHeader">
@@ -76,7 +78,19 @@
                     <ScaleTransform ScaleX="1.7" ScaleY="1"/>
                 </TextBlock.LayoutTransform>
             </TextBlock>
-            <TextBlock Grid.Column="2" Text="{Binding CurrentTime_GuangdongIntercity}" Foreground="#ffffff" Margin="30,2" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center" FontSize="10"/>
+            <Grid Grid.Column="2" Margin="0,2,16,2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="{Binding CurrentTime,Converter={StaticResource DateTimeToStringConverter}}"
+                           TextAlignment="Center" FontSize="12" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="1" Text="{Binding CurrentTime,Converter={StaticResource DateTimeToStringWeekdayConverter}}" 
+                           TextAlignment="Center" FontSize="12" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="2" Text="{Binding CurrentTime,Converter={StaticResource  DateTimeToStringDateConverter}}" 
+                           TextAlignment="Center" FontSize="12" VerticalAlignment="Center"/>
+            </Grid>
         </Grid>
 
         <DataGrid ItemsSource="{Binding Screen, Mode=OneWay}" AutoGenerateColumns="False"
