@@ -44,6 +44,7 @@
 		<Resource Include="Assets\StyleImages\Shanghai\OutsideScreen.png" />
 		<Resource Include="Assets\StyleImages\Zibo\PrimaryScreen.png" />
 		<Resource Include="Assets\StyleImages\Zibo\SecondaryScreen.png" />
+		<Resource Include="Assets\StyleImages\Dongchengnan\SecondaryScreen.png" />
 		<Resource Include="Assets\win11-dashboard.dark.png" />
 		<Resource Include="Assets\win11-dashboard.light.png" />
 		<EmbeddedResource Include="Models\StylesInfoData.json" />
@@ -93,7 +94,10 @@
     <Compile Update="Views\Windows\Stations\Zibo\SecondaryScreenView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Windows\Stations\Jinanxi\PrimaryScreen.xaml.cs">
+    <Compile Update="Views\Windows\Stations\Jinanxi\SmallScreenView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\Stations\Dongchengnan\SecondaryScreenView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

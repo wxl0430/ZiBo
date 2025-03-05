@@ -115,5 +115,15 @@
     "Parameters": [
       "Station"
     ]
+  },
+  {
+    "UniqueId": "Dongchengnan SecondaryScreen",
+    "Title": "东城南站次要看板",
+    "Station": "Dongchengnan",
+    "StyleName": "SecondaryScreenView",
+    "ImagePath": "Assets/StyleImages/Dongchengnan/SecondaryScreen.png",
+    "Parameters": [
+      "Station"
+    ]
   }
 ]

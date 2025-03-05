@@ -57,6 +57,8 @@
                 services.AddTransient<Views.Zibo.SecondaryScreenView>();
                 services.AddTransient<ViewModels.Jinanxi.SmallScreenViewModel>();
                 services.AddTransient<Views.Jinanxi.SmallScreenView>();
+                services.AddTransient<ViewModels.Dongchengnan.SecondaryScreenViewModel>();
+                services.AddTransient<Views.Dongchengnan.SecondaryScreenView>();
             }).Build();
 
         [STAThread]
