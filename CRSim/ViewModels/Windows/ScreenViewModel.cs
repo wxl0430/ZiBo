@@ -10,11 +10,7 @@ namespace CRSim.ViewModels
         public readonly Settings _settings;
         private readonly TaskCompletionSource<bool> _dataLoaded = new();
         [ObservableProperty]
-        private string _currentTime;
-        [ObservableProperty]
-        private string _currentDate;
-        [ObservableProperty]
-        private string _currentSecond;
+        private DateTime _currentTime = new();
         [ObservableProperty]
         private string _text = "";
         [ObservableProperty]
@@ -51,9 +47,7 @@ namespace CRSim.ViewModels
 
         private void OnTimeElapsed(object? sender, EventArgs e)
         {
-            CurrentTime = _timeService.GetDateTimeNow().ToString("yyyy-MM-dd HH:mm:ss");
-            CurrentDate = _timeService.GetDateTimeNow().ToString("yyyy-MM-dd");
-            CurrentSecond = _timeService.GetDateTimeNow().ToString("HH:mm:ss");
+            CurrentTime = _timeService.GetDateTimeNow();
         }
 
         public Task WaitForDataLoadAsync() => _dataLoaded.Task;

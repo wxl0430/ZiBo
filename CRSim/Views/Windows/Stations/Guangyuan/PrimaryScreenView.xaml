@@ -21,6 +21,8 @@
         </Style>
         <converters:TicketCheckConverter x:Key="TicketCheckConverter" Separator="" />
         <converters:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
+        <converters:DateTimeToStringConverter x:Key="DateTimeToStringTimeConverter" Format="HH:mm:ss" />
+        <converters:DateTimeToStringConverter x:Key="DateTimeToStringDateConverter" Format="yyyy/MM/dd" />
         <converters:TrainStateConverter x:Key="TrainStateConverter" WaitingText="正点"/>
     </Window.Resources>
     <StackPanel Orientation="Horizontal">
@@ -130,8 +132,8 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="{Binding CurrentDate}" Foreground="#D75B41" FontSize="44" TextAlignment="Center"/>
-            <TextBlock Grid.Row="1" Text="{Binding CurrentSecond}" Foreground="#D75B41" FontSize="44" TextAlignment="Center"/>
+            <TextBlock Grid.Row="0" Text="{Binding CurrentTime,Converter={StaticResource DateTimeToStringDateConverter}}" Foreground="#D75B41" FontSize="44" TextAlignment="Center"/>
+            <TextBlock Grid.Row="1" Text="{Binding CurrentTime,Converter={StaticResource DateTimeToStringTimeConverter}}" Foreground="#D75B41" FontSize="44" TextAlignment="Center"/>
             <TextBlock Grid.Row="3" Text="{Binding Text,Mode=OneWay}" Foreground="#D75B41" FontSize="16" TextAlignment="Center" Margin="2"/>
         </Grid>
     </StackPanel>

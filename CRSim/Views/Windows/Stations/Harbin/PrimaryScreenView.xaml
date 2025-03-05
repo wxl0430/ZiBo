@@ -14,6 +14,7 @@
         <converters:TicketCheckConverter x:Key="TicketCheckConverter" Separator=" - " />
         <converters:EmptyToVisibilityConverter x:Key="EmptyToVisibilityConverter" />
         <converters:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
+        <converters:DateTimeToStringConverter x:Key="DateTimeToStringTimeConverter" Format="yyyy/MM/dd HH:mm:ss" />
         <converters:TrainStateConverter x:Key="TrainStateConverter" WaitingText="正点"/>
         <converters:TrainStateColorConverter x:Key="TrainStateColorConverter" WaitingColor="#76C1FF"/>
         <Style TargetType="DataGridColumnHeader">
@@ -318,7 +319,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="{Binding Text}" Foreground="Red" Margin="30,2"/>
-            <TextBlock Grid.Column="2" Text="{Binding CurrentTime}" Foreground="Red" Margin="30,2"/>
+            <TextBlock Grid.Column="2" Text="{Binding CurrentTime,Converter={StaticResource DateTimeToStringTimeConverter}}" Foreground="Red" Margin="30,2"/>
         </Grid>
     </StackPanel>
 </Window>
