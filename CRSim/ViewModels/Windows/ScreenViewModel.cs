@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using System;
+using System.Globalization;
 
 namespace CRSim.ViewModels
 {
