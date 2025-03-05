@@ -117,11 +117,11 @@
     ]
   },
   {
-    "UniqueId": "Dongchengnan SecondaryScreen",
-    "Title": "东城南站次要看板",
-    "Station": "Dongchengnan",
+    "UniqueId": "GuangdongIntercity SecondaryScreen",
+    "Title": "广东城际次要看板",
+    "Station": "GuangdongIntercity",
     "StyleName": "SecondaryScreenView",
-    "ImagePath": "Assets/StyleImages/Dongchengnan/SecondaryScreen.png",
+    "ImagePath": "Assets/StyleImages/GuangdongIntercity/SecondaryScreen.png",
     "Parameters": [
       "Station"
     ]

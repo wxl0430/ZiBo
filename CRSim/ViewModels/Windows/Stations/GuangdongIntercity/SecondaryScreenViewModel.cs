@@ -1,4 +1,4 @@
-﻿namespace CRSim.ViewModels.Dongchengnan
+﻿namespace CRSim.ViewModels.GuangdongIntercity
 {
     public class SecondaryScreenViewModel : ScreenViewModel
     {
@@ -14,7 +14,7 @@
         private async void Initialize()
         {
             await WaitForDataLoadAsync();
-            Text = $"   列 车 到 发 信 息";
+            Text = $"列 车 到 发 信 息";
             RefreshDisplay(null,null);
         }
         private void RefreshDisplay(object? sender, EventArgs e)

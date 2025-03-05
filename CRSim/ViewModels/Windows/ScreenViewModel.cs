@@ -16,8 +16,6 @@ namespace CRSim.ViewModels
         [ObservableProperty]
         private string _currentSecond;
         [ObservableProperty]
-        private string _currentTime_Dongchengnan;
-        [ObservableProperty]
         private string _text = "";
         [ObservableProperty]
         private Station _thisStation;
@@ -25,7 +23,6 @@ namespace CRSim.ViewModels
 
         public List<TrainInfo> TrainInfo { get; set; } = [];
 
-        CultureInfo culture = new CultureInfo("zh-CN");
         protected ScreenViewModel(ITimeService timeService, ISettingsService settingsService)
         {
 
@@ -57,9 +54,6 @@ namespace CRSim.ViewModels
             CurrentTime = _timeService.GetDateTimeNow().ToString("yyyy-MM-dd HH:mm:ss");
             CurrentDate = _timeService.GetDateTimeNow().ToString("yyyy-MM-dd");
             CurrentSecond = _timeService.GetDateTimeNow().ToString("HH:mm:ss");
-            CurrentTime_Dongchengnan = _timeService.GetDateTimeNow().ToString("H:m") + "\n" + 
-                                        culture.DateTimeFormat.GetDayName(_timeService.GetDateTimeNow().DayOfWeek) + "\n" +
-                                        _timeService.GetDateTimeNow().ToString("yyyy/M/d");
         }
 
         public Task WaitForDataLoadAsync() => _dataLoaded.Task;

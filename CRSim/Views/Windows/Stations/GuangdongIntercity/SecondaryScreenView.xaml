@@ -1,9 +1,9 @@
-﻿<Window x:Class="CRSim.Views.Dongchengnan.SecondaryScreenView"
+﻿<Window x:Class="CRSim.Views.GuangdongIntercity.SecondaryScreenView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CRSim.Views.Dongchengnan"
+        xmlns:local="clr-namespace:CRSim.Views.GuangdongIntercity"
         mc:Ignorable="d"
         xmlns:converters="clr-namespace:CRSim.Converters"
         Title="引导屏" SizeToContent="WidthAndHeight"
@@ -69,8 +69,14 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="1" Text="{Binding Text}" Foreground="#ffffff" Margin="30,2"  HorizontalAlignment="Center" VerticalAlignment="Center"  TextAlignment="Center" FontSize="32" FontWeight="Bold"/>
-            <TextBlock Grid.Column="2" Text="{Binding CurrentTime_Dongchengnan}" Foreground="#ffffff" Margin="30,2" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center" FontSize="10"/>
+            <TextBlock Grid.Column="1" Text="{Binding Text}" Foreground="#ffffff" Margin="30,2" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center"  TextAlignment="Center" 
+                       FontSize="32" FontWeight="Bold">
+                <TextBlock.LayoutTransform>
+                    <ScaleTransform ScaleX="1.7" ScaleY="1"/>
+                </TextBlock.LayoutTransform>
+            </TextBlock>
+            <TextBlock Grid.Column="2" Text="{Binding CurrentTime_GuangdongIntercity}" Foreground="#ffffff" Margin="30,2" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center" FontSize="10"/>
         </Grid>
 
         <DataGrid ItemsSource="{Binding Screen, Mode=OneWay}" AutoGenerateColumns="False"
@@ -108,7 +114,7 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding Terminal}" Width="115">
+                <DataGridTextColumn Binding="{Binding Terminal}" MinWidth="115">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">

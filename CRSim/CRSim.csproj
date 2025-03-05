@@ -14,7 +14,6 @@
 
 	<ItemGroup>
 		<ApplicationDefinition Remove="App.xaml" />
-		<None Remove="Assets\StyleImages\Jinanxi\SmallScreen.png" />
 		<Content Include="Assets\Advertisement.mp4">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -36,6 +35,7 @@
 		<Resource Include="Assets\StyleImages\ChengduDong\SecondaryScreen.png" />
 		<Resource Include="Assets\StyleImages\ChengduMetro\ChengduMetro-Icon.png" />
 		<Resource Include="Assets\StyleImages\ChengduMetro\PlatformScreen.png" />
+		<Resource Include="Assets\StyleImages\GuangdongIntercity\SecondaryScreen.png" />
 		<Resource Include="Assets\StyleImages\Guangyuan\PrimaryScreen.png" />
 		<Resource Include="Assets\StyleImages\Hanzhong\Image.png" />
 		<Resource Include="Assets\StyleImages\Hanzhong\PlatformScreen.png" />
@@ -44,7 +44,6 @@
 		<Resource Include="Assets\StyleImages\Shanghai\OutsideScreen.png" />
 		<Resource Include="Assets\StyleImages\Zibo\PrimaryScreen.png" />
 		<Resource Include="Assets\StyleImages\Zibo\SecondaryScreen.png" />
-		<Resource Include="Assets\StyleImages\Dongchengnan\SecondaryScreen.png" />
 		<Resource Include="Assets\win11-dashboard.dark.png" />
 		<Resource Include="Assets\win11-dashboard.light.png" />
 		<EmbeddedResource Include="Models\StylesInfoData.json" />
@@ -97,7 +96,7 @@
     <Compile Update="Views\Windows\Stations\Jinanxi\SmallScreenView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Windows\Stations\Dongchengnan\SecondaryScreenView.xaml.cs">
+    <Compile Update="Views\Windows\Stations\GuangdongIntercity\SecondaryScreenView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

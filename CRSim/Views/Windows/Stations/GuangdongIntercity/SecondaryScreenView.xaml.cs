@@ -1,6 +1,6 @@
-﻿using CRSim.ViewModels.Dongchengnan;
+﻿using CRSim.ViewModels.GuangdongIntercity;
 
-namespace CRSim.Views.Dongchengnan
+namespace CRSim.Views.GuangdongIntercity
 {
     /// <summary>
     /// SecondaryScreen.xaml 的交互逻辑
