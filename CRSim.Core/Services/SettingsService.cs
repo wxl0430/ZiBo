@@ -1,38 +1,46 @@
 ﻿using CRSim.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Microsoft.Win32;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace CRSim.Core.Services
 {
     public class SettingsService : ISettingsService
     {
-        private readonly string _settingsFilePath;
         private Settings _settings;
-        private readonly JsonSerializerOptions options = new() { WriteIndented = true };
-        public SettingsService(string settingsFilePath)
+        private RegistryKey _key = Registry.CurrentUser.OpenSubKey(@"Software\CRSim\Settings",true);
+        public SettingsService()
         {
-            _settingsFilePath = settingsFilePath;
             LoadSettings();
         }
         public void SaveSettings()
         {
-            string jsonString = JsonSerializer.Serialize(_settings, options);
-            File.WriteAllText(_settingsFilePath, jsonString);
+            _key.SetValue("TimeOffset", (int)_settings.TimeOffset.TotalMinutes);
+            _key.SetValue("SwitchPageSeconds", _settings.SwitchPageSeconds);
+            _key.SetValue("MaxPages", _settings.MaxPages);
+            _key.SetValue("StopCheckInAdvanceDuration", (int)_settings.StopCheckInAdvanceDuration.TotalMinutes);
+            _key.SetValue("StopDisplayUntilDepartureDuration", (int)_settings.StopDisplayUntilDepartureDuration.TotalMinutes);
+            _key.SetValue("PassingCheckInAdvanceDuration", (int)_settings.PassingCheckInAdvanceDuration.TotalMinutes);
+            _key.SetValue("DepartureCheckInAdvanceDuration", (int)_settings.DepartureCheckInAdvanceDuration.TotalMinutes);
         }
         private void LoadSettings()
         {
-            if (File.Exists(_settingsFilePath))
+            if (_key==null)
             {
-                string jsonString = File.ReadAllText(_settingsFilePath);
-                _settings = JsonSerializer.Deserialize<Settings>(jsonString);
+                Registry.CurrentUser.CreateSubKey(@"Software\CRSim\Settings");
+                _key = Registry.CurrentUser.OpenSubKey(@"Software\CRSim\Settings",true);
+                _settings = new Settings();
+                SaveSettings();
             }
             else
             {
                 _settings = new Settings();
+                _settings.TimeOffset = TimeSpan.FromMinutes((int)_key.GetValue("TimeOffset"));
+                _settings.SwitchPageSeconds = (int)_key.GetValue("SwitchPageSeconds");
+                _settings.MaxPages = (int)_key.GetValue("MaxPages");
+                _settings.StopCheckInAdvanceDuration = TimeSpan.FromMinutes((int)_key.GetValue("StopCheckInAdvanceDuration"));
+                _settings.StopDisplayUntilDepartureDuration = TimeSpan.FromMinutes((int)_key.GetValue("StopDisplayUntilDepartureDuration"));
+                _settings.PassingCheckInAdvanceDuration = TimeSpan.FromMinutes((int)_key.GetValue("PassingCheckInAdvanceDuration"));
+                _settings.DepartureCheckInAdvanceDuration = TimeSpan.FromMinutes((int)_key.GetValue("DepartureCheckInAdvanceDuration"));
             }
         }
 

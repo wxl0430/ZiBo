@@ -8,7 +8,7 @@
         private static readonly IHost _host = Host.CreateDefaultBuilder()
             .ConfigureServices((context, services) =>
             {
-                services.AddSingleton<ISettingsService,SettingsService>(sp => new SettingsService("app.config"));
+                services.AddSingleton<ISettingsService,SettingsService>();
                 services.AddSingleton<ITimeService, TimeService>();
                 services.AddSingleton<INavigationService, NavigationService>();
                 services.AddSingleton<IDialogService, DialogService>();
