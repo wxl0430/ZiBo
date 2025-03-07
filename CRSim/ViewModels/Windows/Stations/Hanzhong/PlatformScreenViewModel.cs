@@ -9,6 +9,7 @@
         {
             _timeService = timeService;
             timeService.RefreshSecondsElapsed += RefreshDisplay;
+            Text = "请注意列车与站台之间的间隙，请勿携带危险品上车";
             Initialize();
         }
         private async void Initialize()

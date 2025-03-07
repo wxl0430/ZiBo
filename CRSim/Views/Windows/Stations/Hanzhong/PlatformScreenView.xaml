@@ -71,7 +71,7 @@
                     </Grid>
                     <TextBlock Grid.Column="2" TextAlignment="Center" Text="{Binding Screen[0].Terminal}" FontSize="36" Foreground="#09F2F6" FontWeight="Bold"/>
                 </Grid>
-                <TextBlock Grid.Row="2" TextAlignment="Center" Foreground="White" Text="请注意列车与站台之间的间隙，请勿携带危险品上车" Margin="0,5"/>
+                <TextBlock Grid.Row="2" TextAlignment="Center" Foreground="White" Text="{Binding Text}" Margin="0,5"/>
             </Grid>
         </Border>
         <TextBlock Foreground="#FDB441" FontFamily="微软雅黑" Text="站台边缘危险，请在安全线内行走，请看管好您的随身物品。" TextAlignment="Center"

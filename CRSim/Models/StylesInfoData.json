@@ -83,7 +83,8 @@
     "ImagePath": "Assets/StyleImages/Hanzhong/PlatformScreen.png",
     "Parameters": [
       "Station",
-      "Platform"
+      "Platform",
+      "Text"
     ]
   },
   {
@@ -123,7 +124,8 @@
     "StyleName": "SecondaryScreenView",
     "ImagePath": "Assets/StyleImages/GuangdongIntercity/SecondaryScreen.png",
     "Parameters": [
-      "Station"
+      "Station",
+      "Text"
     ]
   }
 ]
