@@ -12,7 +12,7 @@
                 services.AddSingleton<ITimeService, TimeService>();
                 services.AddSingleton<INavigationService, NavigationService>();
                 services.AddSingleton<IDialogService, DialogService>();
-                services.AddSingleton<IDatabaseService, DatabaseService>(sp => new DatabaseService("data.json"));
+                services.AddSingleton<IDatabaseService, DatabaseService>();
                 services.AddSingleton<INetworkService, NetworkService>();
                 services.AddSingleton<MainWindow>();
                 services.AddSingleton<MainWindowViewModel>();

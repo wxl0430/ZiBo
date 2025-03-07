@@ -5,16 +5,17 @@ namespace CRSim.Core.Services
 {
     public class DatabaseService : IDatabaseService
     {
-        private readonly string _jsonFilePath;
+        private readonly string _jsonFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CRSim");
         private List<Station> _stations;
         private List<TrainNumber> _trainNumbers;
 
         private readonly JsonSerializerOptions options = new() { WriteIndented = true };
 
-        public DatabaseService(string jsonFilePath)
+        public DatabaseService()
         {
-            ImportData(jsonFilePath);
-            _jsonFilePath = jsonFilePath;
+            if (!Directory.Exists(_jsonFilePath)) Directory.CreateDirectory(_jsonFilePath);
+            _jsonFilePath += "\\data.json";
+            ImportData(_jsonFilePath);
         }
 
         public List<Station> GetAllStations()
