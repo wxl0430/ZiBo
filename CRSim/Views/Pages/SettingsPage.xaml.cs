@@ -19,15 +19,5 @@ namespace CRSim.Views
             DataContext = this;
             InitializeComponent();
         }
-        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new("^[0-9]+$"); 
-            e.Handled = !regex.IsMatch(e.Text);
-        }
-        private void NumberValidationTextBox2(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new("^-?[0-9]*$"); 
-            e.Handled = !regex.IsMatch(e.Text);
-        }
     }
 }

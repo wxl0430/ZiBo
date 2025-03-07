@@ -20,8 +20,8 @@
                 services.AddTransient<DashboardPage>();
                 services.AddTransient<DashboardPageViewModel>();
 
-                services.AddSingleton<SettingsPage>();
-                services.AddSingleton<SettingsPageViewModel>();
+                services.AddTransient<SettingsPage>();
+                services.AddTransient<SettingsPageViewModel>();
 
                 services.AddTransient<DataManagementPage>();
                 services.AddTransient<DataManagementPageViewModel>();

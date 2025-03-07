@@ -6,14 +6,29 @@
         private string _pageTitle = "设置";
         [ObservableProperty]
         private string _appVersion = "";
-        private readonly Settings _settings;
+        private Settings _settings;
         private readonly ISettingsService _settingsService;
         private readonly IDatabaseService _databaseService;
         private readonly IDialogService _dialogService;
-
+        #region 偏好设置
+        [ObservableProperty]
+        public string _timeOffset;
+        [ObservableProperty]
+        public string _departureCheckInAdvanceDuration;
+        [ObservableProperty]
+        public string _passingCheckInAdvanceDuration;
+        [ObservableProperty]
+        public string _stopDisplayUntilDepartureDuration;
+        [ObservableProperty]
+        public string _stopCheckInAdvanceDuration;
+        [ObservableProperty]
+        public string _maxPages;
+        [ObservableProperty]
+        public string _switchPageSeconds;
+        #endregion
         public SettingsPageViewModel(ISettingsService settingsService, IDatabaseService databaseService, IDialogService dialogService)
         {
-            _settings = settingsService.GetSettings();
+            LoadSettings(settingsService);
             _settingsService = settingsService;
             _databaseService = databaseService;
             _dialogService = dialogService;
@@ -21,107 +36,52 @@
             AppVersion = $"CRSim v{version}";
             _dialogService = dialogService;
         }
-        #region 偏好设置
-        public string TimeOffset
+
+        private void LoadSettings(ISettingsService settingsService)
         {
-            get => _settings.TimeOffset.TotalMinutes.ToString();
-            set
-            {
-                if (double.TryParse(value, out double minutes))
-                {
-                    _settings.TimeOffset = TimeSpan.FromMinutes(minutes);
-                    OnPropertyChanged(nameof(TimeOffset));
-                    _settingsService.SaveSettings();
-                }
-            }
-        }
-        public string DepartureCheckInAdvanceDuration
-        {
-            get => _settings.DepartureCheckInAdvanceDuration.TotalMinutes.ToString();
-            set
-            {
-                if (int.TryParse(value, out int minutes))
-                {
-                    _settings.DepartureCheckInAdvanceDuration = TimeSpan.FromMinutes(minutes);
-                    OnPropertyChanged(nameof(DepartureCheckInAdvanceDuration));
-                    _settingsService.SaveSettings();
-                }
-            }
+            _settings = settingsService.GetSettings();
+            TimeOffset = _settings.TimeOffset.TotalMinutes.ToString();
+            DepartureCheckInAdvanceDuration = _settings.DepartureCheckInAdvanceDuration.TotalMinutes.ToString();
+            PassingCheckInAdvanceDuration = _settings.PassingCheckInAdvanceDuration.TotalMinutes.ToString();
+            StopDisplayUntilDepartureDuration = _settings.StopDisplayUntilDepartureDuration.TotalMinutes.ToString();
+            StopCheckInAdvanceDuration = _settings.StopCheckInAdvanceDuration.TotalMinutes.ToString();
+            MaxPages = _settings.MaxPages.ToString();
+            SwitchPageSeconds = _settings.SwitchPageSeconds.ToString();
         }
 
-        public string PassingCheckInAdvanceDuration
+        [RelayCommand]
+        public void Unload()
         {
-            get => _settings.PassingCheckInAdvanceDuration.TotalMinutes.ToString();
-            set
+            if (int.TryParse(_timeOffset,out int i))
             {
-                if (int.TryParse(value, out int minutes))
-                {
-                    _settings.PassingCheckInAdvanceDuration = TimeSpan.FromMinutes(minutes);
-                    OnPropertyChanged(nameof(PassingCheckInAdvanceDuration));
-                    _settingsService.SaveSettings();
-                }
+                _settings.TimeOffset = TimeSpan.FromMinutes(i);
             }
-        }
-
-        public string StopDisplayUntilDepartureDuration
-        {
-            get => _settings.StopDisplayUntilDepartureDuration.TotalMinutes.ToString();
-            set
+            if (int.TryParse(DepartureCheckInAdvanceDuration, out int j) && j >= 0)
             {
-                if (int.TryParse(value, out int minutes))
-                {
-                    _settings.StopDisplayUntilDepartureDuration = TimeSpan.FromMinutes(minutes);
-                    OnPropertyChanged(nameof(StopDisplayUntilDepartureDuration));
-                    _settingsService.SaveSettings();
-                }
+                _settings.DepartureCheckInAdvanceDuration = TimeSpan.FromMinutes(j);
             }
-        }
-
-        public string StopCheckInAdvanceDuration
-        {
-            get => _settings.StopCheckInAdvanceDuration.TotalMinutes.ToString();
-            set
+            if (int.TryParse(PassingCheckInAdvanceDuration, out int k) && k >= 0)
             {
-                if (int.TryParse(value, out int minutes))
-                {
-                    _settings.StopCheckInAdvanceDuration = TimeSpan.FromMinutes(minutes);
-                    OnPropertyChanged(nameof(StopCheckInAdvanceDuration));
-                    _settingsService.SaveSettings();
-                }
+                _settings.PassingCheckInAdvanceDuration = TimeSpan.FromMinutes(k);
             }
-        }
-
-        public string MaxPages
-        {
-            get => _settings.MaxPages.ToString();
-            set
+            if (int.TryParse(StopDisplayUntilDepartureDuration, out int l) && l >= 0)
             {
-                if (int.TryParse(value, out int maxPages))
-                {
-                    _settings.MaxPages = maxPages;
-                    OnPropertyChanged(nameof(MaxPages));
-                    _settingsService.SaveSettings();
-                }
+                _settings.StopDisplayUntilDepartureDuration = TimeSpan.FromMinutes(l);
             }
-        }
-
-        public string SwitchPageSeconds
-        {
-            get => _settings.SwitchPageSeconds.ToString();
-            set
+            if (int.TryParse(StopCheckInAdvanceDuration, out int m) && m >= 0)
             {
-                if (int.TryParse(value, out int switchPageSeconds))
-                {
-                    _settings.SwitchPageSeconds = switchPageSeconds;
-                    OnPropertyChanged(nameof(SwitchPageSeconds));
-                    _settingsService.SaveSettings();
-                }
+                _settings.StopCheckInAdvanceDuration = TimeSpan.FromMinutes(m);
             }
+            if (int.TryParse(MaxPages, out int n) && n >= 0)
+            {
+                _settings.MaxPages = n;
+            }
+            if (int.TryParse(SwitchPageSeconds, out int o) && o >= 0)
+            {
+                _settings.SwitchPageSeconds = o;
+            }
+            _settingsService.SaveSettings();
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName) =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        #endregion
         [RelayCommand]
         public async Task ClearData()
         {

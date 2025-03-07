@@ -6,12 +6,18 @@
     xmlns:local="clr-namespace:CRSim.Views"
     xmlns:controls="clr-namespace:CRSim.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     FontFamily="Microsoft YaHei"
     Title="SettingsPage"
     d:DesignHeight="450"
     d:DesignWidth="800"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding ViewModel.UnloadCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Page.Resources>
         <Style x:Key="LinkTextBlockStyle" TargetType="TextBlock">
             <Setter Property="Margin" Value="0,4,0,4" />
@@ -85,8 +91,8 @@
                                         正值为推后时间，负值为提前时间
                                         </TextBlock>
                                     </StackPanel>
-                                    <TextBox Grid.Column="2" Width="72" VerticalAlignment="Center" Text="{Binding ViewModel.TimeOffset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          FontFamily="Microsoft YaHei" Margin="0,0,8,0" PreviewTextInput="NumberValidationTextBox2">
+                                    <TextBox Grid.Column="2" Width="72" VerticalAlignment="Center" Text="{Binding ViewModel.TimeOffset, Mode=TwoWay}"
+                                          FontFamily="Microsoft YaHei" Margin="0,0,8,0">
                                     </TextBox>
                                     <TextBlock Text="分钟" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"
                                                Grid.Column="3"/>
@@ -128,8 +134,8 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Text="最大显示页数" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"
                                                Grid.Column="0"/>
-                                        <TextBox Grid.Column="2" Width="72" VerticalAlignment="Center" Text="{Binding ViewModel.MaxPages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          FontFamily="Microsoft YaHei" Margin="0,0,8,0" PreviewTextInput="NumberValidationTextBox">
+                                        <TextBox Grid.Column="2" Width="72" VerticalAlignment="Center" Text="{Binding ViewModel.MaxPages, Mode=TwoWay}"
+                                          FontFamily="Microsoft YaHei" Margin="0,0,8,0">
                                         </TextBox>
                                         <TextBlock Text="页" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"
                                                Grid.Column="3"/>
@@ -145,8 +151,8 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Text="页面切换时长" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"
                                                Grid.Column="0"/>
-                                        <TextBox Grid.Column="2" Width="72"  Text="{Binding ViewModel.SwitchPageSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          FontFamily="Microsoft YaHei" Margin="0,0,8,0" PreviewTextInput="NumberValidationTextBox">
+                                        <TextBox Grid.Column="2" Width="72"  Text="{Binding ViewModel.SwitchPageSeconds, Mode=TwoWay}"
+                                          FontFamily="Microsoft YaHei" Margin="0,0,8,0">
                                         </TextBox>
                                         <TextBlock Text="秒" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"
                                                Grid.Column="3"/>
@@ -188,8 +194,8 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Text="始发车提前检票时长" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"
                                                Grid.Column="0"/>
-                                        <TextBox Grid.Column="2" Width="72"  Text="{Binding ViewModel.DepartureCheckInAdvanceDuration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          FontFamily="Microsoft YaHei" Margin="0,0,8,0" PreviewTextInput="NumberValidationTextBox">
+                                        <TextBox Grid.Column="2" Width="72"  Text="{Binding ViewModel.DepartureCheckInAdvanceDuration, Mode=TwoWay}"
+                                          FontFamily="Microsoft YaHei" Margin="0,0,8,0">
                                         </TextBox>
                                         <TextBlock Text="分钟" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"
                                                Grid.Column="3"/>
@@ -205,8 +211,8 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Text="过路车提前检票时长" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"
                                                Grid.Column="0"/>
-                                        <TextBox Grid.Column="2" Width="72"  Text="{Binding ViewModel.PassingCheckInAdvanceDuration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          FontFamily="Microsoft YaHei" Margin="0,0,8,0" PreviewTextInput="NumberValidationTextBox">
+                                        <TextBox Grid.Column="2" Width="72"  Text="{Binding ViewModel.PassingCheckInAdvanceDuration, Mode=TwoWay}"
+                                          FontFamily="Microsoft YaHei" Margin="0,0,8,0">
                                         </TextBox>
                                         <TextBlock Text="分钟" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"
                                                Grid.Column="3"/>
@@ -222,8 +228,8 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Text="提前停止检票时长" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"
                                                Grid.Column="0"/>
-                                        <TextBox Grid.Column="2" Width="72"  Text="{Binding ViewModel.StopCheckInAdvanceDuration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          FontFamily="Microsoft YaHei" Margin="0,0,8,0" PreviewTextInput="NumberValidationTextBox">
+                                        <TextBox Grid.Column="2" Width="72"  Text="{Binding ViewModel.StopCheckInAdvanceDuration, Mode=TwoWay}"
+                                          FontFamily="Microsoft YaHei" Margin="0,0,8,0">
                                         </TextBox>
                                         <TextBlock Text="分钟" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"
                                                Grid.Column="3"/>
@@ -239,8 +245,8 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Text="显示停检至开点前时长" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"
                                                Grid.Column="0"/>
-                                        <TextBox Grid.Column="2" Width="72"  Text="{Binding ViewModel.StopDisplayUntilDepartureDuration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          FontFamily="Microsoft YaHei" Margin="0,0,8,0" PreviewTextInput="NumberValidationTextBox">
+                                        <TextBox Grid.Column="2" Width="72"  Text="{Binding ViewModel.StopDisplayUntilDepartureDuration, Mode=TwoWay}"
+                                          FontFamily="Microsoft YaHei" Margin="0,0,8,0">
                                         </TextBox>
                                         <TextBlock Text="分钟" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"
                                                Grid.Column="3"/>
