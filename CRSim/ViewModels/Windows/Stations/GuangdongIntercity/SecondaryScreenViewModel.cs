@@ -9,12 +9,12 @@
             ItemsPerPage = 8;
             PageCount = 1;
             timeService.RefreshSecondsElapsed += RefreshDisplay;
+            Text = $"列 车 到 发 信 息";
             Initialize();
         }
         private async void Initialize()
         {
             await WaitForDataLoadAsync();
-            Text = $"列 车 到 发 信 息";
             RefreshDisplay(null,null);
         }
         private void RefreshDisplay(object? sender, EventArgs e)
