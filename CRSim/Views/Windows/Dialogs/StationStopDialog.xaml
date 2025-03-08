@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="StationStopDialog"
         WindowStyle="None" FontFamily="Microsoft YaHei"
-        MinWidth="562" MaxWidth="562" MinHeight="546.77" MaxHeight="546.77"
+        SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterOwner">
-    <Grid Background="{DynamicResource ButtonBackground}">
+    <Grid Background="{DynamicResource SolidBackgroundFillColorQuarternaryBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -32,27 +32,23 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource BodyTextBlockStyle}" Text="车次" Margin="0,0,0,12"/>
                     <TextBox Grid.Row="1" Grid.Column="0" x:Name="NumberTextBox" Width="96" HorizontalAlignment="Left" Margin="0,0,0,16" TextChanged="NumberTextBox_TextChanged"/>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="站台" Margin="24,0,0,12"/>
-                    <ComboBox Grid.Row="1" Grid.Column="1" x:Name="PlatformComboBox" Width="96" HorizontalAlignment="Left" Margin="24,0,0,16" SelectedIndex="0" ItemsSource="{Binding Platforms}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="长度" Margin="24,0,0,12"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="LengthTextBox" Width="96" HorizontalAlignment="Left" Margin="24,0,0,16" TextChanged="NumberTextBox_TextChanged"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource BodyTextBlockStyle}" Text="站台" Margin="0,0,0,12"/>
+                    <ComboBox Grid.Row="4" Grid.Column="0" x:Name="PlatformComboBox" Width="96" HorizontalAlignment="Left" Margin="0,0,0,16" SelectedIndex="0" ItemsSource="{Binding Platforms}"/>
                     <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource BodyTextBlockStyle}" Text="地标" Margin="24,0,0,12"/>
                     <ComboBox Grid.Row="1" Grid.Column="2" x:Name="LandmarkComboBox" Width="96" HorizontalAlignment="Left" Margin="24,0,0,16" SelectedIndex="0" ItemsSource="{Binding Landmarks}"/>
-                </Grid>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource BodyTextBlockStyle}" Text="始发站" Margin="0,0,0,12"/>
-                    <TextBox Grid.Row="1" Grid.Column="0" x:Name="DepartureTextBox" Width="96" HorizontalAlignment="Left" Margin="0,0,0,16" TextChanged="NumberTextBox_TextChanged"/>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="终到站" Margin="24,0,0,12"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="ArrivalTextBox" Width="96" HorizontalAlignment="Left" Margin="24,0,0,16" TextChanged="NumberTextBox_TextChanged"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="始发站" Margin="24,0,0,12"/>
+                    <TextBox Grid.Row="4" Grid.Column="1" x:Name="DepartureTextBox" Width="96" HorizontalAlignment="Left" Margin="24,0,0,16" TextChanged="NumberTextBox_TextChanged"/>
+                    <TextBlock Grid.Row="3" Grid.Column="2" Style="{StaticResource BodyTextBlockStyle}" Text="终到站" Margin="24,0,0,12"/>
+                    <TextBox Grid.Row="4" Grid.Column="2" x:Name="ArrivalTextBox" Width="96" HorizontalAlignment="Left" Margin="24,0,0,16" TextChanged="NumberTextBox_TextChanged"/>
+
                 </Grid>
                 <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="站点类型" Margin="0,0,0,12"/>
                 <StackPanel x:Name="StationKindPanel" Orientation="Horizontal" Margin="0,0,0,16">
@@ -84,8 +80,8 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Style="{StaticResource BodyTextBlockStyle}" Text="检票口" Margin="0,0,0,12"/>
-                <Border Grid.Row="1" Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
-                        BorderBrush="#EAEAEA" BorderThickness="1" CornerRadius="4" Width="154" Height="310.336">
+                <Border Grid.Row="1" Background="{DynamicResource ExpanderHeaderBackground}" CornerRadius="{DynamicResource ControlCornerRadius}"
+                        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1" Width="154" Height="300">
                     <ScrollViewer VerticalAlignment="Stretch">
                         <ListView PreviewMouseWheel="TicketChecksCheckList_PreviewMouseWheel" x:Name="TicketChecksCheckList" ItemsSource="{Binding TicketChecksList}">
                             <ListView.ItemTemplate>
@@ -99,12 +95,7 @@
                 </Border>
             </Grid>
         </Grid>
-
-        <Rectangle Grid.Row="2" Height="1">
-            <Rectangle.Fill>
-                <SolidColorBrush Color="#CCCCCC"/>
-            </Rectangle.Fill>
-        </Rectangle>
+        <Rectangle Grid.Row="2" Height="1" Fill="{DynamicResource SeparatorBorderBrush}"/>
         <Grid Grid.Row="3" HorizontalAlignment="Stretch" Background="{DynamicResource SolidBackgroundFillColorBaseBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

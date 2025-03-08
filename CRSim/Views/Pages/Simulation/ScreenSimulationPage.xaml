@@ -12,6 +12,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    FontFamily="Microsoft YaHei"
     mc:Ignorable="d">
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -96,8 +97,7 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Text="车站" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"/>
-                                    <ComboBox Grid.Column="2" MinWidth="128" ItemsSource="{Binding ViewModel.StationNames}" x:Name="StationsComboBox"
-                                          FontFamily="Microsoft YaHei">
+                                    <ComboBox Grid.Column="2" MinWidth="128" ItemsSource="{Binding ViewModel.StationNames}" x:Name="StationsComboBox">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="SelectionChanged">
                                                 <i:InvokeCommandAction Command="{Binding ViewModel.SelectStationCommand}"
@@ -115,8 +115,7 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Text="站台" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"/>
-                                    <ComboBox Grid.Column="2" MinWidth="128" ItemsSource="{Binding ViewModel.Platforms}" x:Name="PlatformsComboBox"
-                                          FontFamily="Microsoft YaHei">
+                                    <ComboBox Grid.Column="2" MinWidth="128" ItemsSource="{Binding ViewModel.Platforms}" x:Name="PlatformsComboBox" DisplayMemberPath="Name">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="SelectionChanged">
                                                 <i:InvokeCommandAction Command="{Binding ViewModel.SelectPlatformCommand}"
@@ -135,8 +134,7 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Text="检票口" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"/>
-                                    <ComboBox Grid.Column="2" MinWidth="128" ItemsSource="{Binding ViewModel.TicketChecks}" x:Name="TicketChecksComboBox"
-                                          FontFamily="Microsoft YaHei">
+                                    <ComboBox Grid.Column="2" MinWidth="128" ItemsSource="{Binding ViewModel.TicketChecks}" x:Name="TicketChecksComboBox">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="SelectionChanged">
                                                 <i:InvokeCommandAction Command="{Binding ViewModel.SelectTicketCheckCommand}"
@@ -153,8 +151,13 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="文字提示" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"/>
-                                    <TextBox Grid.Column="2" MaxWidth="256" MinWidth="128" FontFamily="Microsoft YaHei" Text="{Binding ViewModel.Text ,Mode=TwoWay}"/>
+                                    <StackPanel Grid.Column="0" Orientation="Vertical">
+                                        <TextBlock Text="文字提示" Style="{StaticResource BodyTextBlockStyle}"/>
+                                        <TextBlock Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}">
+                                            留空即为默认
+                                        </TextBlock>
+                                    </StackPanel> 
+                                    <TextBox Grid.Column="2" MaxWidth="256" MinWidth="128" Text="{Binding ViewModel.Text ,Mode=TwoWay}"/>
                                 </Grid>
                             </Border>
 
@@ -179,7 +182,7 @@
                             <TextBlock Opacity="0.7" FontSize="12" Style="{StaticResource CaptionTextBlockStyle}">按下Esc以关闭窗口</TextBlock>
                         </StackPanel>
                         <Button HorizontalAlignment="Right" Margin="10" Grid.Column="2" Command="{Binding ViewModel.StartSimulationCommand}" IsEnabled="{Binding ViewModel.IsStartSimulationAvailable}"
-                                    FontFamily="Microsoft YaHei" FontSize="14" Style="{DynamicResource AccentButtonStyle}" Content="启动窗口" />
+                                FontSize="14" Style="{DynamicResource AccentButtonStyle}" Content="启动窗口" />
                     </Grid>
 
                 </Border>

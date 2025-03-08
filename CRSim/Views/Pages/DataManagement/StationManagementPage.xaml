@@ -11,12 +11,47 @@
     Title="StationManagementPage"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    FontFamily="Microsoft YaHei"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d"
-    FontFamily="Microsoft YaHei">
+   >
     <Page.Resources>
         <converters:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
         <converters:TicketCheckConverter x:Key="TicketCheckConverter" Separator=", " />
+        <Style BasedOn="{StaticResource {x:Type DataGrid}}" x:Key="CustomDataGridStyle" TargetType="DataGrid">
+            <Setter Property="CellStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridCell">
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="RowStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource CardStrokeColorDefaultBrush}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="GridLinesVisibility" Value="Vertical"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+        </Style>
     </Page.Resources>
     <Grid x:Name="ContentPagePane" Height="Auto">
 
@@ -84,8 +119,8 @@
                         </MenuItem>
                     </MenuItem>
                 </Menu>
-                <Border Grid.Row="1" Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
-                            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="4">
+                <Border Grid.Row="1" Background="{DynamicResource ExpanderHeaderBackground}" CornerRadius="{DynamicResource ControlCornerRadius}"
+                            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1">
                     <ScrollViewer VerticalAlignment="Stretch">
                         <ListView PreviewMouseWheel="StationsList_PreviewMouseWheel" x:Name="StationsList" ItemsSource="{Binding ViewModel.StationNames}"  SelectionMode="Single">
                             <i:Interaction.Triggers>
@@ -143,6 +178,7 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -160,9 +196,13 @@
                                            Style="{StaticResource BodyTextBlockStyle}"/>
                                 <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ViewModel.WaitingAreaNames.Count}"
                                            Style="{StaticResource DetailTextBlockStyle}"/>
-                                <TextBlock Grid.Row="3" Grid.Column="0" Text="检票口数：" Margin="0,0,12,0"
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="检票口数：" Margin="0,0,12,12"
                                            Style="{StaticResource BodyTextBlockStyle}"/>
                                 <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding ViewModel.TicketChecks.Count}"
+                                           Style="{StaticResource DetailTextBlockStyle}"/>
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="站台数：" Margin="0,0,12,0"
+                                           Style="{StaticResource BodyTextBlockStyle}"/>
+                                <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding ViewModel.Platforms.Count}"
                                            Style="{StaticResource DetailTextBlockStyle}"/>
                             </Grid>
                         </Expander.Content>
@@ -234,10 +274,8 @@
 
                                 </Grid>
                                 <ScrollViewer MaxHeight="250">
-                                    <DataGrid ItemsSource="{Binding ViewModel.WaitingAreaNames}" AutoGenerateColumns="False"
-                                          CanUserAddRows="False" CanUserResizeRows="False" SelectionMode="Single"
-                                          GridLinesVisibility="Vertical" x:Name="WaitingAreasList" IsReadOnly="True"
-                                          HeadersVisibility="Column" FontFamily="Microsoft YaHei" PreviewMouseWheel="WaitingAreasList_PreviewMouseWheel">
+                                    <DataGrid Style="{StaticResource CustomDataGridStyle}" ItemsSource="{Binding ViewModel.WaitingAreaNames}"
+                                          x:Name="WaitingAreasList" PreviewMouseWheel="WaitingAreasList_PreviewMouseWheel">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Binding="{Binding .}">
                                                 <DataGridTextColumn.Header>
@@ -245,36 +283,6 @@
                                                 </DataGridTextColumn.Header>
                                             </DataGridTextColumn>
                                         </DataGrid.Columns>
-                                        <DataGrid.CellStyle>
-                                            <Style TargetType="DataGridCell">
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsSelected" Value="True">
-                                                        <Setter Property="Background">
-                                                            <Setter.Value>
-                                                                <SolidColorBrush Color="#F6F6F6"/>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                        <Setter Property="BorderBrush" Value="Transparent"/>
-                                                        <Setter Property="Foreground" Value="Black"/>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                                <Setter Property="VerticalAlignment" Value="Center"/>
-                                            </Style>
-                                        </DataGrid.CellStyle>
-                                        <DataGrid.RowStyle>
-                                            <Style TargetType="DataGridRow">
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsSelected" Value="True">
-                                                        <Setter Property="Background">
-                                                            <Setter.Value>
-                                                                <SolidColorBrush Color="#F6F6F6"/>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </DataGrid.RowStyle>
-
                                     </DataGrid>
                                 </ScrollViewer>
                             </StackPanel>
@@ -349,10 +357,8 @@
 
                                 </Grid>
                                 <ScrollViewer MaxHeight="250">
-                                    <DataGrid ItemsSource="{Binding ViewModel.TicketChecks}" AutoGenerateColumns="False"
-                                          CanUserAddRows="False" CanUserResizeRows="False" SelectionMode="Single"
-                                          GridLinesVisibility="Vertical" x:Name="TicketChecksList" IsReadOnly="True"
-                                          HeadersVisibility="Column" FontFamily="Microsoft YaHei" PreviewMouseWheel="TicketChecksList_PreviewMouseWheel">
+                                    <DataGrid Style="{StaticResource CustomDataGridStyle}" ItemsSource="{Binding ViewModel.TicketChecks}"
+                                          x:Name="TicketChecksList" PreviewMouseWheel="TicketChecksList_PreviewMouseWheel">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Binding="{Binding WaitingAreaName}">
                                                 <DataGridTextColumn.Header>
@@ -365,36 +371,6 @@
                                                 </DataGridTextColumn.Header>
                                             </DataGridTextColumn>
                                         </DataGrid.Columns>
-                                        <DataGrid.CellStyle>
-                                            <Style TargetType="DataGridCell">
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsSelected" Value="True">
-                                                        <Setter Property="Background">
-                                                            <Setter.Value>
-                                                                <SolidColorBrush Color="#F6F6F6"/>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                        <Setter Property="BorderBrush" Value="Transparent"/>
-                                                        <Setter Property="Foreground" Value="Black"/>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                                <Setter Property="VerticalAlignment" Value="Center"/>
-                                            </Style>
-                                        </DataGrid.CellStyle>
-                                        <DataGrid.RowStyle>
-                                            <Style TargetType="DataGridRow">
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsSelected" Value="True">
-                                                        <Setter Property="Background">
-                                                            <Setter.Value>
-                                                                <SolidColorBrush Color="#F6F6F6"/>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </DataGrid.RowStyle>
-
                                     </DataGrid>
                                 </ScrollViewer>
                             </StackPanel>
@@ -468,47 +444,20 @@
 
                                 </Grid>
                                 <ScrollViewer MaxHeight="250">
-                                    <DataGrid ItemsSource="{Binding ViewModel.Platforms}" AutoGenerateColumns="False"
-                                          CanUserAddRows="False" CanUserResizeRows="False" SelectionMode="Single"
-                                          GridLinesVisibility="Vertical" x:Name="PlatformsList" IsReadOnly="True"
-                                          HeadersVisibility="Column" FontFamily="Microsoft YaHei" PreviewMouseWheel="PlatformsList_PreviewMouseWheel">
+                                    <DataGrid Style="{StaticResource CustomDataGridStyle}" ItemsSource="{Binding ViewModel.Platforms}"
+                                          x:Name="PlatformsList" PreviewMouseWheel="PlatformsList_PreviewMouseWheel">
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn Binding="{Binding .}">
+                                            <DataGridTextColumn Binding="{Binding Name}">
                                                 <DataGridTextColumn.Header>
                                                     <TextBlock Text="站台" Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}"/>
                                                 </DataGridTextColumn.Header>
                                             </DataGridTextColumn>
+                                            <DataGridTextColumn Binding="{Binding Length}">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="长度" Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}"/>
+                                                </DataGridTextColumn.Header>
+                                            </DataGridTextColumn>
                                         </DataGrid.Columns>
-                                        <DataGrid.CellStyle>
-                                            <Style TargetType="DataGridCell">
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsSelected" Value="True">
-                                                        <Setter Property="Background">
-                                                            <Setter.Value>
-                                                                <SolidColorBrush Color="#F6F6F6"/>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                        <Setter Property="BorderBrush" Value="Transparent"/>
-                                                        <Setter Property="Foreground" Value="Black"/>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                                <Setter Property="VerticalAlignment" Value="Center"/>
-                                            </Style>
-                                        </DataGrid.CellStyle>
-                                        <DataGrid.RowStyle>
-                                            <Style TargetType="DataGridRow">
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsSelected" Value="True">
-                                                        <Setter Property="Background">
-                                                            <Setter.Value>
-                                                                <SolidColorBrush Color="#F6F6F6"/>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </DataGrid.RowStyle>
-
                                     </DataGrid>
                                 </ScrollViewer>
                             </StackPanel>
@@ -610,14 +559,17 @@
                                     </Menu>
                                 </Grid>
                                 <ScrollViewer MaxHeight="250">
-                                    <DataGrid ItemsSource="{Binding ViewModel.StationStops}" AutoGenerateColumns="False"
-                                          CanUserAddRows="False" CanUserResizeRows="False" SelectionMode="Single"
-                                          GridLinesVisibility="Vertical" x:Name="StationStopsList" IsReadOnly="True"
-                                          HeadersVisibility="Column" CanUserSortColumns="False" FontFamily="Microsoft YaHei" PreviewMouseWheel="StationStopsList_PreviewMouseWheel">
+                                    <DataGrid Style="{StaticResource CustomDataGridStyle}" ItemsSource="{Binding ViewModel.StationStops}"
+                                          x:Name="StationStopsList" PreviewMouseWheel="StationStopsList_PreviewMouseWheel">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Binding="{Binding Number}">
                                                 <DataGridTextColumn.Header>
                                                     <TextBlock Text="车次" Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}"/>
+                                                </DataGridTextColumn.Header>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn Binding="{Binding Length}">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="长度" Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}"/>
                                                 </DataGridTextColumn.Header>
                                             </DataGridTextColumn>
                                             <DataGridTextColumn Binding="{Binding ArrivalTime,Converter={StaticResource DateTimeToStringConverter}}">
@@ -656,39 +608,7 @@
                                                 </DataGridTextColumn.Header>
                                             </DataGridTextColumn>
                                         </DataGrid.Columns>
-
-                                        <DataGrid.CellStyle>
-                                            <Style TargetType="DataGridCell">
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsSelected" Value="True">
-                                                        <Setter Property="Background">
-                                                            <Setter.Value>
-                                                                <SolidColorBrush Color="#F6F6F6"/>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                        <Setter Property="BorderBrush" Value="Transparent"/>
-                                                        <Setter Property="Foreground" Value="Black"/>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                                <Setter Property="VerticalAlignment" Value="Center"/>
-                                            </Style>
-                                        </DataGrid.CellStyle>
-                                        <DataGrid.RowStyle>
-                                            <Style TargetType="DataGridRow">
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsSelected" Value="True">
-                                                        <Setter Property="Background">
-                                                            <Setter.Value>
-                                                                <SolidColorBrush Color="#F6F6F6"/>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </DataGrid.RowStyle>
-
                                     </DataGrid>
-
                                 </ScrollViewer>
                             </StackPanel>
                         </Expander.Content>
@@ -711,7 +631,7 @@
                                 <TextBlock Opacity="0.7" FontSize="12" Style="{StaticResource CaptionTextBlockStyle}">请再次检查各设施配置是否正确</TextBlock>
                             </StackPanel>
                             <Button HorizontalAlignment="Right" Margin="10" Grid.Column="2" Command="{Binding ViewModel.SaveChangesCommand}"
-                                    FontFamily="Microsoft YaHei" FontSize="14" Style="{DynamicResource AccentButtonStyle}" Content="保存配置" />
+                                    FontSize="14" Style="{DynamicResource AccentButtonStyle}" Content="保存配置" />
                         </Grid>
 
                     </Border>

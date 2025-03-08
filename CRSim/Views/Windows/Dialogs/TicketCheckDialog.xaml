@@ -11,7 +11,7 @@
         MinWidth="432" MinHeight="272.91"
         MaxWidth="432" MaxHeight="272.91"
         WindowStartupLocation="CenterOwner">
-    <Grid Background="{DynamicResource ButtonBackground}">
+    <Grid Background="{DynamicResource SolidBackgroundFillColorQuarternaryBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -33,11 +33,7 @@
             <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="检票口" Margin="24,0,0,0"/>
             <TextBox Grid.Row="1" Grid.Column="1" x:Name="TicketCheckInputBox" Width="128" Margin="24,0,0,0" TextChanged="InputTextBox_TextChanged" KeyDown="InputTextBox_KeyDown"/>
         </Grid>
-        <Rectangle Grid.Row="2" Height="1">
-            <Rectangle.Fill>
-                <SolidColorBrush Color="#CCCCCC"/>
-            </Rectangle.Fill>
-        </Rectangle>
+        <Rectangle Grid.Row="2" Height="1" Fill="{DynamicResource SeparatorBorderBrush}"/>
         <Grid Grid.Row="3" HorizontalAlignment="Stretch" Background="{DynamicResource SolidBackgroundFillColorBaseBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

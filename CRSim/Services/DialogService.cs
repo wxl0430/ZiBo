@@ -145,5 +145,19 @@ namespace CRSim.Services
             }
             return null;
         }
+
+        public List<Platform>? GetInputPlatform()
+        {
+            var dialog = new PlatformDialog()
+            {
+                Owner = _owner
+            };
+            bool? result = dialog.ShowDialog();
+            if (result == true)
+            {
+                return dialog.GeneratedPlatforms;
+            }
+            return null;
+        }
     }
 }

@@ -12,5 +12,6 @@
         public string Platform { get; set; }
         public TimeSpan State { get; set; }
         public string? Landmark { get; set; }
+        public int Length { get; set; }
     }
 }

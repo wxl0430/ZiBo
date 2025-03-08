@@ -37,6 +37,7 @@ namespace CRSim.Views
             );
             InitializeComponent();
             IntermediateStation.IsChecked = true;
+            LengthTextBox.Text = "16";
             TicketChecksList.Clear();
             foreach (string s in ticketChecks)
             {
@@ -72,6 +73,7 @@ namespace CRSim.Views
             NumberTextBox.Text = stationStop.Number;
             ArrivalTextBox.Text = stationStop.Terminal;
             DepartureTextBox.Text = stationStop.Origin;
+            LengthTextBox.Text = stationStop.Length.ToString();
             StationKindPanel.IsEnabled = false;
             if (stationStop.ArrivalTime != null)
             {
@@ -124,6 +126,7 @@ namespace CRSim.Views
                 DepartureTime = EndHour.IsEnabled ? DateTime.Parse($"{EndHour.Text}:{EndMinute.Text}") : null,
                 TicketChecks = TicketChecksList.Where(x => x.Checked).Select(x => x.TicketCheck).ToList(),
                 Platform = (string)PlatformComboBox.SelectedItem,
+                Length = int.Parse(LengthTextBox.Text),
                 Landmark = (string)LandmarkComboBox.SelectedItem == "无" ? null: (string)LandmarkComboBox.SelectedItem,
             };
             DialogResult = true;
@@ -189,7 +192,13 @@ namespace CRSim.Views
                 (!EndMinute.IsEnabled || ValidateTime(EndMinute.Text, 60));
 
             // 当所有条件满足时，启用 AccentButton
-            AccentButton.IsEnabled = areTextBoxesFilled && !string.IsNullOrWhiteSpace(NumberTextBox.Text) && !string.IsNullOrWhiteSpace(ArrivalTextBox.Text) && !string.IsNullOrWhiteSpace(DepartureTextBox.Text) && PlatformComboBox.SelectedItem!=null;
+            AccentButton.IsEnabled =
+                areTextBoxesFilled &&
+                !string.IsNullOrWhiteSpace(NumberTextBox.Text) &&
+                !string.IsNullOrWhiteSpace(ArrivalTextBox.Text) &&
+                !string.IsNullOrWhiteSpace(DepartureTextBox.Text) &&
+                int.TryParse(LengthTextBox.Text,out int i) && i > 0 &&
+                PlatformComboBox.SelectedItem != null;
         }
 
         private T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject

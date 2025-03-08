@@ -35,11 +35,11 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
 
     public string SelectedTicketCheck = "";
 
-    public string SelectedPlatform = "";
+    public string SelectedPlatformName = "";
 
     public ObservableCollection<string> StationNames { get; private set; } = [];
     public ObservableCollection<string> TicketChecks { get; private set; } = [];
-    public ObservableCollection<string> Platforms { get; private set; } = [];
+    public ObservableCollection<Platform> Platforms { get; private set; } = [];
 
     [ObservableProperty]
     private bool _isStartSimulationAvailable = false;
@@ -65,7 +65,7 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
         IsStartSimulationAvailable = selectedStyle!=null &&
             (!StationNeeded || !string.IsNullOrWhiteSpace(SelectedStationName))&&
             (!TicketCheckNeeded || !string.IsNullOrWhiteSpace(SelectedTicketCheck)) &&
-            (!PlatformNeeded || !string.IsNullOrWhiteSpace(SelectedPlatform));
+            (!PlatformNeeded || !string.IsNullOrWhiteSpace(SelectedPlatformName));
     }
 
     [RelayCommand]
@@ -89,13 +89,15 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
         if(s is string station)
         {
             SelectedStationName = station;
+            SelectedPlatformName = "";
+            SelectedTicketCheck = "";
             TicketChecks.Clear();
             foreach(string ticketCheck in _databaseService.GetStationByName(SelectedStationName).TicketChecks)
             {
                 TicketChecks.Add(ticketCheck);
             }
             Platforms.Clear();
-            foreach (string platform in _databaseService.GetStationByName(SelectedStationName).Platforms)
+            foreach (var platform in _databaseService.GetStationByName(SelectedStationName).Platforms)
             {
                 Platforms.Add(platform);
             }
@@ -114,9 +116,9 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
     [RelayCommand]
     public void SelectPlatform(object s)
     {
-        if (s is string platform)
+        if (s is Platform platform)
         {
-            SelectedPlatform = platform;
+            SelectedPlatformName = platform.Name;
         }
         CheckCanStart();
     }
@@ -132,7 +134,7 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
 
         Window.ViewModel.LoadData(_databaseService.GetStationByName(SelectedStationName),
             TicketCheckNeeded ? SelectedTicketCheck : string.Empty,
-            PlatformNeeded ? SelectedPlatform : string.Empty);
+            PlatformNeeded ? SelectedPlatformName : string.Empty);
         Window.Show();
     }
 }

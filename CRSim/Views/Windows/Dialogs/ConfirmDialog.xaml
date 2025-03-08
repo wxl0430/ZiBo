@@ -10,14 +10,10 @@
         MinHeight="224.43" MaxHeight="224.43"
         WindowStyle="None"
         WindowStartupLocation="CenterOwner">
-    <StackPanel Background="{DynamicResource ButtonBackground}">
+    <StackPanel Background="{DynamicResource SolidBackgroundFillColorQuarternaryBrush}">
         <TextBlock FontFamily="Microsoft YaHei" FontSize="28" Margin="24,32,0,24" Text="操作提醒"/>
         <TextBlock x:Name="Notice" FontFamily="Microsoft YaHei" Margin="24,0,24,24" Style="{StaticResource BodyTextBlockStyle}"/>
-        <Rectangle Height="1">
-            <Rectangle.Fill>
-                <SolidColorBrush Color="#CCCCCC"/>
-            </Rectangle.Fill>
-        </Rectangle>
+        <Rectangle Height="1" Fill="{DynamicResource SeparatorBorderBrush}"/>
         <StackPanel Background="{DynamicResource SolidBackgroundFillColorBaseBrush}" Orientation="Horizontal">
             <Button Style="{DynamicResource AccentButtonStyle}" Content="确定" FontFamily="Microsoft YaHei"
                 HorizontalAlignment="Stretch" Click="OkButton_Click" Margin="24,24,4,24" x:Name="AccentButton"

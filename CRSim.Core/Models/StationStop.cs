@@ -27,5 +27,7 @@ namespace CRSim.Core.Models
         public string Platform { get; set; }
 
         public string? Landmark { get; set; }
+
+        public int Length { get; set; }
     }
 }

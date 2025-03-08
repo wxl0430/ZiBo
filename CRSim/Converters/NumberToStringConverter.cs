@@ -10,15 +10,15 @@ namespace CRSim.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value is string number)
+            if(value is int l)
             {
-                if(number.StartsWith('G')|| number.StartsWith('D')|| number.StartsWith('C'))
+                if (l % 2 == 0)
                 {
-                    return Math.Abs(number.GetHashCode()) % 3 == 0 ? "1-8" : "9-16";
+                    return (new List<string> { $"1-{l / 2}", $"{l / 2 + 1}-{l}" })[l.GetHashCode() % 2];
                 }
                 else
                 {
-                    return Math.Abs(number.GetHashCode()) % 2 == 0 ? "1-9" : "10-18";
+                    return (new List<string> { $"1-{(l + 1) / 2}", $"{(l + 1) / 2}-{l}" })[l.GetHashCode() % 2];
                 }
             }
             return value;
