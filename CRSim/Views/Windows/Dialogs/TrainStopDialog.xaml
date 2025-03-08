@@ -10,7 +10,7 @@
         MinWidth="432" MinHeight="468.82"
         MaxWidth="432" MaxHeight="468.82"
         WindowStartupLocation="CenterOwner">
-    <Grid Background="{DynamicResource ButtonBackground}">
+    <Grid Background="{DynamicResource SolidBackgroundFillColorQuarternaryBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -51,11 +51,8 @@
             </StackPanel>
         </Grid>
 
-        <Rectangle Grid.Row="2" Height="1">
-            <Rectangle.Fill>
-                <SolidColorBrush Color="#CCCCCC"/>
-            </Rectangle.Fill>
-        </Rectangle>
+        <Rectangle Grid.Row="2" Height="1" Fill="{DynamicResource SeparatorBorderBrush}"/>
+
         <Grid Grid.Row="3" HorizontalAlignment="Stretch" Background="{DynamicResource SolidBackgroundFillColorBaseBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

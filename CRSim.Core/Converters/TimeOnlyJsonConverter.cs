@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using System.Text.Json;
-using System.Threading.Tasks;
+using CRSim.Core.Services;
 
 namespace CRSim.Core.Converters
 {
     public class TimeOnlyJsonConverter : JsonConverter<DateTime?>
     {
         private const string TimeFormat = "HH:mm:ss";
+
 
         public override DateTime? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

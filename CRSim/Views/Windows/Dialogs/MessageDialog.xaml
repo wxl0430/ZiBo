@@ -12,14 +12,10 @@
         MaxWidth="432"
         WindowStyle="None"
         WindowStartupLocation="CenterOwner">
-    <StackPanel Background="{DynamicResource ButtonBackground}">
+    <StackPanel Background="{DynamicResource SolidBackgroundFillColorQuarternaryBrush}">
         <TextBlock x:Name="Title" FontFamily="Microsoft YaHei" FontSize="28" Margin="24,32,0,20"/>
         <TextBlock x:Name="Description" Style="{StaticResource BodyTextBlockStyle}" Margin="24,0,0,24"/>
-        <Rectangle Height="1">
-            <Rectangle.Fill>
-                <SolidColorBrush Color="#CCCCCC"/>
-            </Rectangle.Fill>
-        </Rectangle>
+        <Rectangle Height="1" Fill="{DynamicResource SeparatorBorderBrush}"/>
         <StackPanel Background="{DynamicResource SolidBackgroundFillColorBaseBrush}" Orientation="Horizontal" HorizontalAlignment="Stretch" FlowDirection="RightToLeft">
             <Button Style="{DynamicResource AccentButtonStyle}" Content="关闭" FontFamily="Microsoft YaHei" Click="OkButton_Click" Margin="24,24,0,24" x:Name="AccentButton"
                     Width="170" Height="40" HorizontalAlignment="Right" FontSize="14"/>

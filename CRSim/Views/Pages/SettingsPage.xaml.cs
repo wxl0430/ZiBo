@@ -19,5 +19,25 @@ namespace CRSim.Views
             DataContext = this;
             InitializeComponent();
         }
+
+        private void Open_ToolkitInformation(object sender, RoutedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("https://www.nuget.org/packages/CommunityToolkit.Mvvm/") { UseShellExecute = true });
+        }
+
+        private void Open_DIInformation(object sender, RoutedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection/") { UseShellExecute = true });
+        }
+
+        private void Open_HostingInformation(object sender, RoutedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("https://www.nuget.org/packages/Microsoft.Extensions.Hosting") { UseShellExecute = true });
+        }
+
+        private void Open_Issues(object sender, RoutedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("https://github.com/denglihong2007/CRSim/issues/new") { UseShellExecute = true });
+        }
     }
 }

@@ -12,10 +12,10 @@
         MaxWidth="432"
         WindowStyle="None"
         WindowStartupLocation="CenterOwner">
-    <StackPanel Background="{DynamicResource ButtonBackground}">
+    <StackPanel Background="{DynamicResource SolidBackgroundFillColorQuarternaryBrush}">
         <TextBlock x:Name="Notice" FontFamily="Microsoft YaHei" FontSize="28" Margin="24,32,0,24"/>
         <TextBox KeyDown="InputTextBox_KeyDown" FontFamily="Microsoft YaHei" x:Name="InputTextBox" Margin="24,0,24,24" MinWidth="384" TextChanged="InputTextBox_TextChanged"/>
-        <Rectangle Height="1" Fill="#CCCCCC"/>
+        <Rectangle Height="1" Fill="{DynamicResource SeparatorBorderBrush}"/>
         <StackPanel Background="{DynamicResource SolidBackgroundFillColorBaseBrush}" Orientation="Horizontal">
             <Button Style="{DynamicResource AccentButtonStyle}" Content="确定" FontFamily="Microsoft YaHei"
                 HorizontalAlignment="Stretch" Click="OkButton_Click" Margin="24,24,4,24" x:Name="AccentButton"

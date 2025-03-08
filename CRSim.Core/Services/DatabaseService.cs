@@ -133,10 +133,12 @@ namespace CRSim.Core.Services
                 var platform = string.IsNullOrWhiteSpace(data[5]) ? "未知" : data[5];
                 var ticketCheck = string.IsNullOrWhiteSpace(data[4]) ? string.Empty : data[4];
 
-                if (!station.Platforms.Contains(platform))
+                var existingPlatform = station.Platforms.FirstOrDefault(x => x.Name == platform);
+                if (existingPlatform == null)
                 {
-                    station.Platforms.Add(platform);
+                    station.Platforms.Add(new Platform { Name = platform, Length = 20 });
                 }
+
 
                 var waitingArea = station.WaitingAreas.FirstOrDefault(x => x.Name == waitingAreaName);
                 if (waitingArea == null)
@@ -181,6 +183,7 @@ namespace CRSim.Core.Services
                         ArrivalTime = arrivalTime,
                         DepartureTime = departureTime,
                         Platform = platform,
+                        Length = data[0].StartsWith('G') || data[0].StartsWith('D') || data[0].StartsWith('C') ? Math.Abs(data[0].GetHashCode()) % 3 == 0 ? 8 : 16 : 18,
                         Landmark = data[8] + "色" ?? null,
                     });
                 }

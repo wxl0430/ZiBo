@@ -2,6 +2,7 @@ using CRSim.Core.Models;
 using System.IO;
 using System.Linq;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CRSim.ViewModels;
 
@@ -28,7 +29,7 @@ public partial class StationManagementPageViewModel : ObservableObject
     private Station _selectedStation = new();
 
     public ObservableCollection<string> WaitingAreaNames { get; private set; } = [];
-    public ObservableCollection<string> Platforms { get; private set; } = [];
+    public ObservableCollection<Platform> Platforms { get; private set; } = [];
 
     public ObservableCollection<TicketCheck> TicketChecks { get; private set; } = [];
 
@@ -75,7 +76,7 @@ public partial class StationManagementPageViewModel : ObservableObject
             {
                 StationStops.Add(stationStop);
             }
-            foreach(string platform in SelectedStation.Platforms)
+            foreach(var platform in SelectedStation.Platforms)
             {
                 Platforms.Add(platform);
             }
@@ -151,29 +152,14 @@ public partial class StationManagementPageViewModel : ObservableObject
     [RelayCommand]
     public void AddPlatform()
     {
-        string? platform = _dialogService.GetInput("请输入站台名称");
-        if (platform != null)
+        var platforms = _dialogService.GetInputPlatform();
+        if (platforms != null)
         {
-            string[] platforms = platform.Split('-');
-            if (platforms.Length == 2 && int.TryParse(platforms[0],out int startindex) && int.TryParse(platforms[1], out int endindex))
+            foreach (var platform in platforms)
             {
-                var startIndex = Math.Min(startindex, endindex);
-                var endIndex = Math.Max(startindex, endindex);
-                for(int i = startIndex; i < endIndex + 1; i++)
+                if (Platforms.Any(x=>x.Name==platform.Name))
                 {
-                    if (Platforms.Contains(i.ToString()))
-                    {
-                        _dialogService.ShowMessage("添加失败", $"名称 {i} 站台已存在。");
-                        return;
-                    }
-                    Platforms.Add(i.ToString());
-                }
-            }
-            else
-            {
-                if (Platforms.Contains(platform))
-                {
-                    _dialogService.ShowMessage("添加失败", $"名称 {platform} 站台已存在。");
+                    _dialogService.ShowMessage("添加失败", $"编号 {platform.Name} 站台已存在。");
                     return;
                 }
                 Platforms.Add(platform);
@@ -184,9 +170,9 @@ public partial class StationManagementPageViewModel : ObservableObject
     [RelayCommand]
     public void DeletePlatform(object selectedPlatform)
     {
-        if (selectedPlatform is string n)
+        if (selectedPlatform is Platform p)
         {
-            Platforms.Remove(n);
+            Platforms.Remove(p);
         }
     }
     [RelayCommand]
@@ -240,7 +226,7 @@ public partial class StationManagementPageViewModel : ObservableObject
         _databaseService.UpdateStation(SelectedStation.Name, GenerateStation(SelectedStation.Name,WaitingAreaNames,TicketChecks,StationStops,Platforms));
         await _databaseService.SaveData();
     }
-    public static Station GenerateStation(string stationName, ObservableCollection<string> waitingAreaNames, ObservableCollection<TicketCheck> ticketChecks,ObservableCollection<StationStop> stationStops,ObservableCollection<string> platforms)
+    public static Station GenerateStation(string stationName, ObservableCollection<string> waitingAreaNames, ObservableCollection<TicketCheck> ticketChecks,ObservableCollection<StationStop> stationStops,ObservableCollection<Platform> platforms)
     {
         var station = new Station
         {
@@ -336,7 +322,8 @@ public partial class StationManagementPageViewModel : ObservableObject
                         ArrivalTime = arrivalTime,
                         DepartureTime = departureTime, 
                         TicketChecks = [TicketChecks[new Random().Next(TicketChecks.Count)].Name],
-                        Platform = Platforms[new Random().Next(Platforms.Count)],
+                        Platform = Platforms[new Random().Next(Platforms.Count)].Name,
+                        Length = firstColumn.StartsWith('G') || firstColumn.StartsWith('D') || firstColumn.StartsWith('C') ? Math.Abs(firstColumn.GetHashCode()) % 3 == 0 ? 8 : 16 : 18,
                         Landmark = new[] { "红色", "绿色", "褐色", "蓝色", "紫色", "黄色", "橙色",null}[new Random().Next(8)]
                     });
                 }
@@ -366,7 +353,7 @@ public partial class StationManagementPageViewModel : ObservableObject
     [RelayCommand]
     public void AddStationStop()
     {
-        var newStationStop = _dialogService.GetInputStationStop([.. TicketChecks.Select(x => x.Name)], [.. Platforms]);
+        var newStationStop = _dialogService.GetInputStationStop([.. TicketChecks.Select(x => x.Name)], [.. Platforms.Select(x => x.Name)]);
         if (newStationStop != null)
         {
             if (StationStops.Any(x => x.Number == newStationStop.Number))
@@ -396,7 +383,7 @@ public partial class StationManagementPageViewModel : ObservableObject
     {
         if (_selectedStationStop is StationStop selectedStationStop)
         {
-            var newStationStop = _dialogService.GetInputStationStop([.. TicketChecks.Select(x => x.Name)], [.. Platforms], selectedStationStop);
+            var newStationStop = _dialogService.GetInputStationStop([.. TicketChecks.Select(x => x.Name)], [.. Platforms.Select(x => x.Name)], selectedStationStop);
             if (newStationStop != null)
             {
                 StationStops[StationStops.IndexOf(selectedStationStop)] = newStationStop;
@@ -431,8 +418,9 @@ public partial class StationManagementPageViewModel : ObservableObject
             foreach (StationStop t in stops)
             {
                 t.TicketChecks = [TicketChecks[new Random().Next(TicketChecks.Count)].Name];
-                t.Platform = Platforms[new Random().Next(Platforms.Count)];
+                t.Platform = Platforms[new Random().Next(Platforms.Count)].Name;
                 t.Landmark = new[] { "红色", "绿色", "褐色", "蓝色", "紫色", "黄色", "橙色", null }[new Random().Next(8)];
+                t.Length = t.Number.StartsWith('G') || t.Number.StartsWith('D') || t.Number.StartsWith('C') ? Math.Abs(t.Number.GetHashCode()) % 3 == 0 ? 8 : 16 : 18;
                 StationStops.Add(t);
             }
         }

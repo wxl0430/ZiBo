@@ -32,7 +32,14 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-
+        <Style x:Key="SelectionTextBox" TargetType="TextBox">
+            <Setter Property="Foreground" Value="{DynamicResource TextControlForeground}" />
+            <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -326,17 +333,16 @@
                     </Border>
                 </Grid>
                 <TextBlock Text="关于" FontWeight="SemiBold" Margin="10" FontSize="14"/>
-                <Border Grid.Row="2" Background="{DynamicResource ExpanderHeaderBackground}"
-                            BorderBrush="{DynamicResource ExpanderHeaderBorderBrush}" BorderThickness="{StaticResource ExpanderBorderThemeThickness}"
-                            Padding="{StaticResource ExpanderPadding}" CornerRadius="{DynamicResource ControlCornerRadius}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                <Expander>
+                    <Expander.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                        <Image
+                            <Image
                                 Grid.Column="0"
                                 Width="20"
                                 Height="20"
@@ -344,15 +350,80 @@
                                 VerticalAlignment="Center"
                                 Source="pack://application:,,,/Assets/CRSimIcon.png" />
 
-                        <StackPanel
+                            <StackPanel
                                 Grid.Column="1"
                                 Margin="12"
                                 Orientation="Vertical">
-                            <TextBlock Text="{Binding ViewModel.AppVersion}" Style="{StaticResource BodyTextBlockStyle}" />
-                            <TextBlock Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}">© 电排骨 2025</TextBlock>
-                        </StackPanel>
-                    </Grid>
-                </Border>
+                                <TextBlock Text="{Binding ViewModel.AppVersion}" />
+                                <TextBlock Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}">© 电排骨 2025</TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </Expander.Header>
+                    <Expander.Content>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" Style="{StaticResource TopSettingsCardStyle}">
+                                <Grid Margin="48,0,16,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="克隆项目仓库" />
+                                    <TextBox Grid.Column="2" Style="{StaticResource SelectionTextBox}" Text="git clone https://github.com/denglihong2007/CRSim.git" Focusable="False"/>
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Row="1" Style="{StaticResource SettingsCardStyle}">
+                                <Grid Margin="48,0,16,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="报告漏洞或请求新样式" />
+                                    <Button Grid.Column="2" Padding="8" FocusManager.IsFocusScope="True" Click="Open_Issues">
+                                        <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xe8a7;" />
+                                    </Button>
+                                </Grid>
+                            </Border>
+
+                            <GroupBox Grid.Row="2" BorderThickness="0">
+                                <Border Style="{StaticResource SettingsCardStyle}">
+                                    <StackPanel Margin="48,0,16,0" Orientation="Vertical">
+                                        <TextBlock Margin="0,0,0,12" Text="项目引用" />
+                                        <TextBlock Style="{StaticResource LinkTextBlockStyle}">
+                                            <Hyperlink Click="Open_ToolkitInformation" Style="{StaticResource DefaultHyperlinkStyle}">CommunityToolkit.Mvvm</Hyperlink>
+                                        </TextBlock>
+                                        <TextBlock Style="{StaticResource LinkTextBlockStyle}">
+                                            <Hyperlink Click="Open_DIInformation" AutomationProperties.Name="Link to Dependency Injection NuGet Package" Style="{StaticResource DefaultHyperlinkStyle}">Microsoft.Extensions.DependencyInjection</Hyperlink>
+                                        </TextBlock>
+                                        <TextBlock Style="{StaticResource LinkTextBlockStyle}">
+                                            <Hyperlink Click="Open_HostingInformation" AutomationProperties.Name="Link to .NET Generic Host Package" Style="{StaticResource DefaultHyperlinkStyle}">Microsoft.Extensions.Hosting</Hyperlink>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Border>
+                            </GroupBox>
+
+                            <GroupBox Grid.Row="3" BorderThickness="0">
+                                <Border Style="{StaticResource BottomSettingsCardStyle}">
+                                    <StackPanel Margin="48,0,16,0" Orientation="Vertical">
+                                        <TextBlock Margin="0,0,0,12" Text="贡献者"/>
+                                        <TextBlock
+                                            Text="wxl0430"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Border>
+                            </GroupBox>
+                        </Grid>
+                    </Expander.Content>
+                </Expander>
             </StackPanel>
         </ScrollViewer>
     </Grid>

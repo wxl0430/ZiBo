@@ -58,6 +58,7 @@ namespace CRSim.ViewModels
             var trains = station.StationStops;
             foreach (var trainNumber in trains)
             {
+
                 if (trainNumber != null && trainNumber.DepartureTime != null && (ticketCheck==string.Empty || trainNumber.TicketChecks.Contains(ticketCheck)) && (platform == string.Empty || trainNumber.Platform==platform))
                 {
                     TrainInfo.Add(new TrainInfo
@@ -70,6 +71,7 @@ namespace CRSim.ViewModels
                         TicketChecks = trainNumber.TicketChecks,
                         WaitingArea = station.WaitingAreas.Where(x => x.TicketChecks.Intersect(trainNumber.TicketChecks).ToList().Count!=0).FirstOrDefault().Name,
                         Platform = trainNumber.Platform,
+                        Length  =trainNumber.Length,
                         Landmark = trainNumber.Landmark,
                         State = TimeSpan.Zero
                     });

@@ -128,7 +128,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding TrainNumber,Converter={StaticResource NumberToStringConverter}}">
+                <DataGridTextColumn Binding="{Binding Length,Converter={StaticResource NumberToStringConverter}}">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <TextBlock Text="车厢" Padding="2" HorizontalAlignment="Stretch" TextAlignment="Center" Background="#0036DF" Width="145"/>
