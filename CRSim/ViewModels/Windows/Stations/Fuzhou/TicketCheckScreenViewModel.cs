@@ -1,18 +1,18 @@
-﻿namespace CRSim.ViewModels.ChengduDong
+﻿namespace CRSim.ViewModels.Fuzhou
 {
-    public class PrimaryTicketCheckScreenViewModel : ScreenViewModel
+    public class TicketCheckScreenViewModel : ScreenViewModel
     {
         public ObservableCollection<TrainInfo> Screen { get; set; } = [];
-        public PrimaryTicketCheckScreenViewModel(ITimeService timeService, ISettingsService settingsService)
+        public TicketCheckScreenViewModel(ITimeService timeService, ISettingsService settingsService)
             : base(timeService, settingsService)
         {
-            Text = "持户口簿、护照、临时身份证的旅客，请在非居民身份证通道排队。请主动礼让老、弱、病、残、孕的旅客。";
+            Text = $"开车前{settingsService.GetSettings().StopCheckInAdvanceDuration.TotalMinutes}分钟停止检票";
             timeService.RefreshSecondsElapsed += RefreshDisplay;
             Initialize();
         }
         private async void Initialize()
         {
-            ItemsPerPage = 2;
+            ItemsPerPage = 4;
             await WaitForDataLoadAsync();
             RefreshDisplay(null,null);
         }

@@ -14,6 +14,7 @@
 
 	<ItemGroup>
 		<ApplicationDefinition Remove="App.xaml" />
+		<None Remove="Assets\StyleImages\Fuzhou\TicketCheckScreen.png" />
 		<None Remove="Assets\StyleImages\Tianjin\image.png" />
 		<None Remove="Assets\StyleImages\Tianjin\PlatformScreen.png" />
 		<Content Include="Assets\Advertisement.mp4">
@@ -37,6 +38,7 @@
 		<Resource Include="Assets\StyleImages\ChengduDong\SecondaryScreen.png" />
 		<Resource Include="Assets\StyleImages\ChengduMetro\ChengduMetro-Icon.png" />
 		<Resource Include="Assets\StyleImages\ChengduMetro\PlatformScreen.png" />
+		<Resource Include="Assets\StyleImages\Fuzhou\TicketCheckScreen.png" />
 		<Resource Include="Assets\StyleImages\GuangdongIntercity\SecondaryScreen.png" />
 		<Resource Include="Assets\StyleImages\Guangyuan\PrimaryScreen.png" />
 		<Resource Include="Assets\StyleImages\Hanzhong\Image.png" />

@@ -23,6 +23,18 @@
     ]
   },
   {
+    "UniqueId": "Fuzhou TicketCheckScreen",
+    "Title": "福州站检票口看板",
+    "Station": "Fuzhou",
+    "StyleName": "TicketCheckScreenView",
+    "ImagePath": "Assets/StyleImages/Fuzhou/TicketCheckScreen.png",
+    "Parameters": [
+      "Station",
+      "TicketCheck",
+      "Text"
+    ]
+  },
+  {
     "UniqueId": "BeijingXi PrimaryScreen",
     "Title": "北京西站主要看板",
     "Station": "BeijingXi",

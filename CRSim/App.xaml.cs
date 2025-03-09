@@ -37,7 +37,7 @@
 
                 services.AddTransient<ViewModels.ChengduDong.SecondaryScreenViewModel>();
                 services.AddTransient<Views.ChengduDong.SecondaryScreenView>();
-                services.AddTransient<ViewModels.ChengduDong.PlatformScreenViewModel>();
+                services.AddTransient<ViewModels.ChengduDong.PrimaryTicketCheckScreenViewModel>();
                 services.AddTransient<Views.ChengduDong.PrimaryTicketCheckScreenView>();
                 services.AddTransient<ViewModels.BeijingXi.PrimaryScreenViewModel>();
                 services.AddTransient<Views.BeijingXi.PrimaryScreenView>();
@@ -61,6 +61,8 @@
                 services.AddTransient<Views.GuangdongIntercity.SecondaryScreenView>();
                 services.AddTransient<ViewModels.Tianjin.PlatformScreenViewModel>();
                 services.AddTransient<Views.Tianjin.PlatformScreenView>();
+                services.AddTransient<ViewModels.Fuzhou.TicketCheckScreenViewModel>();
+                services.AddTransient<Views.Fuzhou.TicketCheckScreenView>();
             }).Build();
 
         [STAThread]

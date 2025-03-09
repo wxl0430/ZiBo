@@ -11,6 +11,7 @@ namespace CRSim.Views.Tianjin
         public PlatformScreenView(PlatformScreenViewModel viewModel)
         {
             InitializeComponent();
+            RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);
             ViewModel = viewModel;
             DataContext = viewModel;
         }

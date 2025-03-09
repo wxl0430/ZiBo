@@ -11,6 +11,7 @@ namespace CRSim.Views.Zibo
         public PrimaryScreenView(PrimaryScreenViewModel viewModel)
         {
             InitializeComponent();
+            RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);
             ViewModel = viewModel;
             DataContext = viewModel;
         }

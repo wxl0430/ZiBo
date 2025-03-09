@@ -1,14 +1,14 @@
-﻿using CRSim.ViewModels.Jinanxi;
+﻿using CRSim.ViewModels.Fuzhou;
 
-namespace CRSim.Views.Jinanxi
+namespace CRSim.Views.Fuzhou
 {
     /// <summary>
     /// SecondaryScreen.xaml 的交互逻辑
     /// </summary>
-    public partial class SmallScreenView : Window
+    public partial class TicketCheckScreenView : Window
     {
-        public SmallScreenViewModel ViewModel { get; }
-        public SmallScreenView(SmallScreenViewModel viewModel)
+        public TicketCheckScreenViewModel ViewModel { get; }
+        public TicketCheckScreenView(TicketCheckScreenViewModel viewModel)
         {
             InitializeComponent();
             RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);

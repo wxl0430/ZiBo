@@ -11,6 +11,7 @@ namespace CRSim.Views.GuangdongIntercity
         public SecondaryScreenView(SecondaryScreenViewModel viewModel)
         {
             InitializeComponent();
+            RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);
             ViewModel = viewModel;
             DataContext = viewModel;
         }

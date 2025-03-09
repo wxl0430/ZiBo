@@ -11,6 +11,7 @@ namespace CRSim.Views.BeijingXi
         public PrimaryScreenView(PrimaryScreenViewModel viewModel)
         {
             InitializeComponent();
+            RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);
             ViewModel = viewModel;
             DataContext = viewModel;
         }
