@@ -59,6 +59,8 @@
                 services.AddTransient<Views.Jinanxi.SmallScreenView>();
                 services.AddTransient<ViewModels.GuangdongIntercity.SecondaryScreenViewModel>();
                 services.AddTransient<Views.GuangdongIntercity.SecondaryScreenView>();
+                services.AddTransient<ViewModels.Tianjin.PlatformScreenViewModel>();
+                services.AddTransient<Views.Tianjin.PlatformScreenView>();
             }).Build();
 
         [STAThread]

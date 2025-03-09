@@ -9,11 +9,13 @@
     <LangVersion>13.0</LangVersion>
     <StartupObject>CRSim.App</StartupObject>
     <ApplicationIcon>Assets\CRSimIcon.ico</ApplicationIcon>
-    <Version>1.2.5.0</Version>
+    <Version>1.2.6.0</Version>
   </PropertyGroup>
 
 	<ItemGroup>
 		<ApplicationDefinition Remove="App.xaml" />
+		<None Remove="Assets\StyleImages\Tianjin\image.png" />
+		<None Remove="Assets\StyleImages\Tianjin\PlatformScreen.png" />
 		<Content Include="Assets\Advertisement.mp4">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -42,6 +44,8 @@
 		<Resource Include="Assets\StyleImages\Harbin\PrimaryScreen.png" />
 		<Resource Include="Assets\StyleImages\Jinanxi\SmallScreen.png" />
 		<Resource Include="Assets\StyleImages\Shanghai\OutsideScreen.png" />
+		<Resource Include="Assets\StyleImages\Tianjin\image.png" />
+		<Resource Include="Assets\StyleImages\Tianjin\PlatformScreen.png" />
 		<Resource Include="Assets\StyleImages\Zibo\PrimaryScreen.png" />
 		<Resource Include="Assets\StyleImages\Zibo\SecondaryScreen.png" />
 		<Resource Include="Assets\win11-dashboard.dark.png" />
@@ -76,6 +80,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Windows\Stations\ChengduDong\PrimaryTicketCheckScreenView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\Stations\Tianjin\PlatformScreenView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Windows\Stations\Hanzhong\PlatformScreenView.xaml.cs">

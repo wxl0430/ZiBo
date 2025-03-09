@@ -88,6 +88,18 @@
     ]
   },
   {
+    "UniqueId": "Tianjin PlatformScreen",
+    "Title": "天津站站台看板",
+    "Station": "Tianjin",
+    "StyleName": "PlatformScreenView",
+    "ImagePath": "Assets/StyleImages/Tianjin/PlatformScreen.png",
+    "Parameters": [
+      "Station",
+      "Platform",
+      "Location"
+    ]
+  },
+  {
     "UniqueId": "Zibo PrimaryScreen",
     "Title": "淄博站主要看板",
     "Station": "Zibo",
