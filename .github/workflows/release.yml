@@ -21,11 +21,6 @@ jobs:
         with:
           fetch-depth: 0  # 获取全部提交历史以便比较标签
 
-      - name: Setup .NET 9.0
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '9.0.x'
-
       - name: Extract version from csproj
         id: get_version
         shell: pwsh
@@ -72,6 +67,12 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '9.0.x'
+
+      - name: Set Encoding
+        run: |
+          echo "DOTNET_CLI_UI_LANGUAGE=zh-CN" >> $GITHUB_ENV
+          chcp 65001
+
 
       - name: Restore and Build
         run: |

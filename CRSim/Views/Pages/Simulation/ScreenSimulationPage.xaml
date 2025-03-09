@@ -125,7 +125,6 @@
                                     </ComboBox>
                                 </Grid>
                             </Border>
-
                             <Border Style="{StaticResource SettingsCardStyle}" Visibility="{Binding ViewModel.TicketCheckNeeded,Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -144,6 +143,25 @@
                                     </ComboBox>
                                 </Grid>
                             </Border>
+                            <Border Style="{StaticResource SettingsCardStyle}" Visibility="{Binding ViewModel.LocationNeeded,Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="位置" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"/>
+                                    <ComboBox Grid.Column="2" MinWidth="128" ItemsSource="{Binding ViewModel.Locations}" x:Name="LocationsComboBox">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectionChanged">
+                                                <i:InvokeCommandAction Command="{Binding ViewModel.SelectLocationCommand}"
+                                                           CommandParameter="{Binding SelectedItem,ElementName=LocationsComboBox}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ComboBox>
+                                </Grid>
+                            </Border>
+
                             <Border Style="{StaticResource BottomSettingsCardStyle}">
                                 <Grid IsEnabled="{Binding ViewModel.TextNeeded}">
                                     <Grid.ColumnDefinitions>

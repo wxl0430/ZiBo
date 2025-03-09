@@ -29,6 +29,9 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
     private bool _textNeeded;
 
     [ObservableProperty]
+    private bool _locationNeeded;
+
+    [ObservableProperty]
     private string _text = "";
 
     public string SelectedStationName = "";
@@ -37,9 +40,12 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
 
     public string SelectedPlatformName = "";
 
+    public int SelectedLoaction = 0;
+
     public ObservableCollection<string> StationNames { get; private set; } = [];
     public ObservableCollection<string> TicketChecks { get; private set; } = [];
     public ObservableCollection<Platform> Platforms { get; private set; } = [];
+    public ObservableCollection<int> Locations { get; private set; } = [];
 
     [ObservableProperty]
     private bool _isStartSimulationAvailable = false;
@@ -62,9 +68,10 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
 
     private void CheckCanStart()
     {
-        IsStartSimulationAvailable = selectedStyle!=null &&
-            (!StationNeeded || !string.IsNullOrWhiteSpace(SelectedStationName))&&
+        IsStartSimulationAvailable = selectedStyle != null &&
+            (!StationNeeded || !string.IsNullOrWhiteSpace(SelectedStationName)) &&
             (!TicketCheckNeeded || !string.IsNullOrWhiteSpace(SelectedTicketCheck)) &&
+            (!LocationNeeded || SelectedLoaction != 0) &&
             (!PlatformNeeded || !string.IsNullOrWhiteSpace(SelectedPlatformName));
     }
 
@@ -80,27 +87,31 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
             TicketCheckNeeded = neededParameters.Contains("TicketCheck");
             PlatformNeeded = neededParameters.Contains("Platform");
             TextNeeded = neededParameters.Contains("Text");
+            LocationNeeded = neededParameters.Contains("Location");
         }
         CheckCanStart();
     }
     [RelayCommand]
     public void SelectStation(object s)
     {
-        if(s is string station)
+        if(s is string v)
         {
-            SelectedStationName = station;
+            var station = _databaseService.GetStationByName(v);
+            SelectedStationName = station.Name;
             SelectedPlatformName = "";
             SelectedTicketCheck = "";
+            SelectedLoaction = 0;
             TicketChecks.Clear();
-            foreach(string ticketCheck in _databaseService.GetStationByName(SelectedStationName).TicketChecks)
+            foreach(string ticketCheck in station.TicketChecks)
             {
                 TicketChecks.Add(ticketCheck);
             }
             Platforms.Clear();
-            foreach (var platform in _databaseService.GetStationByName(SelectedStationName).Platforms)
+            foreach (var platform in station.Platforms)
             {
                 Platforms.Add(platform);
             }
+            Locations.Clear();
         }
         CheckCanStart();
     }
@@ -114,11 +125,26 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
         CheckCanStart();
     }
     [RelayCommand]
+    public void SelectLocation(object s)
+    {
+        if (s is int location)
+        {
+            SelectedLoaction = location;
+        }
+        CheckCanStart();
+    }
+    [RelayCommand]
     public void SelectPlatform(object s)
     {
         if (s is Platform platform)
         {
             SelectedPlatformName = platform.Name;
+            SelectedLoaction = 0;
+            Locations.Clear();
+            for (int i = 1; i <= platform.Length; i++)
+            {
+                Locations.Add(i);
+            }
         }
         CheckCanStart();
     }
@@ -130,6 +156,10 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
         if (TextNeeded && Text != string.Empty)
         {
             Window.ViewModel.Text = Text;
+        }
+        if (LocationNeeded && SelectedLoaction != 0)
+        {
+            Window.ViewModel.Location = SelectedLoaction;
         }
 
         Window.ViewModel.LoadData(_databaseService.GetStationByName(SelectedStationName),
