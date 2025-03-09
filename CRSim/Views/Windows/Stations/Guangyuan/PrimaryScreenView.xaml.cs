@@ -11,6 +11,7 @@ namespace CRSim.Views.Guangyuan
         public PrimaryScreenView(OutsideScreenViewModel viewModel)
         {
             InitializeComponent();
+            RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);
             ViewModel = viewModel;
             DataContext = viewModel;
         }

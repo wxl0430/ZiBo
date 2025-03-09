@@ -14,6 +14,7 @@ namespace CRSim.Views.ChengduMetro
         {
             InitializeComponent();
             ViewModel = viewModel;
+            RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);
             DataContext = this;
             player.Source = new Uri("Assets\\Advertisement.mp4", UriKind.Relative);
             player.Play();

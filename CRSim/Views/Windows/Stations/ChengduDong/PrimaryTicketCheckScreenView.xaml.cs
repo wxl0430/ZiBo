@@ -7,10 +7,11 @@ namespace CRSim.Views.ChengduDong
     /// </summary>
     public partial class PrimaryTicketCheckScreenView : Window
     {
-        public PlatformScreenViewModel ViewModel { get; }
-        public PrimaryTicketCheckScreenView(PlatformScreenViewModel viewModel)
+        public PrimaryTicketCheckScreenViewModel ViewModel { get; }
+        public PrimaryTicketCheckScreenView(PrimaryTicketCheckScreenViewModel viewModel)
         {
             InitializeComponent();
+            RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);
             ViewModel = viewModel;
             DataContext = viewModel;
         }

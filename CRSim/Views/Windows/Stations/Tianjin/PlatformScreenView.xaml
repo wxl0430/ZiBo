@@ -16,13 +16,13 @@
         <converters:LocationToStringConverter x:Key="LocationToStringConverter" />
     </Window.Resources>
     <StackPanel Orientation="Horizontal">
-        <Grid Width="100">
+        <Grid MinWidth="100">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="{Binding Text}" Foreground="Yellow" FontWeight="Bold" FontSize="64" TextAlignment="Center"/>
+            <TextBlock Grid.Row="0" Text="{Binding ThisPlatform}" Foreground="Yellow" FontWeight="Bold" FontSize="64" TextAlignment="Center"/>
             <TextBlock Grid.Row="1" Text="站台" Foreground="Yellow" TextAlignment="Center" FontSize="32"/>
             <TextBlock Grid.Row="2" Text="platform" Foreground="Yellow" FontSize="12" TextAlignment="Center" Margin="0,0,0,8"/>
         </Grid>
