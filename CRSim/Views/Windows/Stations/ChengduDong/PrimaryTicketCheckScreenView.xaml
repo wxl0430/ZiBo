@@ -22,6 +22,7 @@
         <converters:TrainStateConverter x:Key="TrainStateConverter" WaitingText="正在候车"/>
         <converters:TrainStateColorConverter x:Key="TrainStateColorConverter"/>
         <converters:LandmarkToStringConverter x:Key="LandmarkToStringConverter"/>
+        <converters:EmptyToVisibilityConverter x:Key="EmptyToVisibilityConverter" />
         <converters:NumberToStringConverter x:Key="NumberToStringConverter"/>
         <converters:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
     </Window.Resources>
@@ -96,6 +97,7 @@
                             <Setter Property="VerticalAlignment" Value="Center"/>
                             <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="Foreground" Value="#EF66F4"/>
+                            <Setter Property="Visibility" Value="{Binding TrainNumber,Converter={StaticResource EmptyToVisibilityConverter}}"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -138,6 +140,7 @@
                         <Style TargetType="TextBlock">
                             <Setter Property="VerticalAlignment" Value="Center"/>
                             <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="Visibility" Value="{Binding TrainNumber,Converter={StaticResource EmptyToVisibilityConverter}}"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>

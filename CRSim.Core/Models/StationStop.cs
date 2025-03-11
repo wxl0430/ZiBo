@@ -29,5 +29,22 @@ namespace CRSim.Core.Models
         public string? Landmark { get; set; }
 
         public int Length { get; set; }
+
+        [JsonIgnore]
+        public StationType StationType
+        {
+            get
+            {
+                if (ArrivalTime == null)
+                {
+                    return StationType.Departure;
+                }
+                else if (DepartureTime == null)
+                {
+                    return StationType.Arrival;
+                }
+                return StationType.Both;
+            }
+        }
     }
 }

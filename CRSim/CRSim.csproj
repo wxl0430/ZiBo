@@ -14,6 +14,7 @@
 
 	<ItemGroup>
 		<ApplicationDefinition Remove="App.xaml" />
+		<None Remove="Assets\StyleImages\Ankang\ExitScreen.png" />
 		<None Remove="Assets\StyleImages\Fuzhou\TicketCheckScreen.png" />
 		<None Remove="Assets\StyleImages\Tianjin\image.png" />
 		<None Remove="Assets\StyleImages\Tianjin\PlatformScreen.png" />
@@ -33,6 +34,7 @@
 		<Resource Include="Assets\HomeHeaderTiles\Header-Afdian.png" />
 		<Resource Include="Assets\HomeHeaderTiles\Header-bilibili.png" />
 		<Resource Include="Assets\HomeHeaderTiles\Header-QQ.png" />
+		<Resource Include="Assets\StyleImages\Ankang\ExitScreen.png" />
 		<Resource Include="Assets\StyleImages\BeijingXi\PrimaryScreen.png" />
 		<Resource Include="Assets\StyleImages\ChengduDong\PrimaryTicketCheckScreen.png" />
 		<Resource Include="Assets\StyleImages\ChengduDong\SecondaryScreen.png" />
@@ -82,6 +84,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Windows\Stations\ChengduDong\PrimaryTicketCheckScreenView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\Stations\Ankang\ExitScreenView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Windows\Stations\Tianjin\PlatformScreenView.xaml.cs">

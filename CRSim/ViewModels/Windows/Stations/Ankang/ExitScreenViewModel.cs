@@ -1,16 +1,16 @@
-﻿namespace CRSim.ViewModels.Harbin
+﻿namespace CRSim.ViewModels.Ankang
 {
-    public class PrimaryScreenViewModel : ScreenViewModel
+    public class ExitScreenViewModel : ScreenViewModel
     {
         public ObservableCollection<TrainInfo> LeftScreen { get; private set; } = [];
         public ObservableCollection<TrainInfo> RightScreen { get; private set; } = [];
-        public PrimaryScreenViewModel(ITimeService timeService, ISettingsService settingsService)
+        public ExitScreenViewModel(ITimeService timeService, ISettingsService settingsService)
             : base(timeService, settingsService)
         {
-            Text = $"开车前{settingsService.GetSettings().StopCheckInAdvanceDuration.TotalMinutes}分钟停止检票";
-            ItemsPerPage = 6;
-            PageCount = 2;
-            StationType = StationType.Departure;
+            Text = $"西安局集团公司推出西铁行APP站车服务产品，欢迎体验使用。";
+            ItemsPerPage = 7;
+            PageCount = 1;
+            StationType = StationType.Arrival;
             timeService.RefreshSecondsElapsed += RefreshDisplay;
             Initialize();
         }

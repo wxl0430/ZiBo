@@ -8,6 +8,7 @@
         {
             ItemsPerPage = 9;
             PageCount = 1;
+            StationType = StationType.Departure;
             timeService.RefreshSecondsElapsed += RefreshDisplay;
             Initialize();
         }

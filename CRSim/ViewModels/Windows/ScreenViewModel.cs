@@ -25,6 +25,8 @@ namespace CRSim.ViewModels
 
         public List<TrainInfo> TrainInfo { get; set; } = [];
 
+        public StationType StationType = StationType.Both;
+
         protected ScreenViewModel(ITimeService timeService, ISettingsService settingsService)
         {
 
@@ -42,7 +44,7 @@ namespace CRSim.ViewModels
         {
             if (CurrentPageIndex==0)
             {
-                List<TrainInfo> itemsToRemove = [.. TrainInfo.Where(info => info.DepartureTime.Subtract(_settings.StopDisplayUntilDepartureDuration) < _timeService.GetDateTimeNow())];
+                List<TrainInfo> itemsToRemove = [.. TrainInfo.Where(info => (info.DepartureTime??info.ArrivalTime).Value.Subtract(_settings.StopDisplayUntilDepartureDuration) < _timeService.GetDateTimeNow())];
 
                 foreach (var item in itemsToRemove)
                 {
@@ -58,7 +60,7 @@ namespace CRSim.ViewModels
 
         public Task WaitForDataLoadAsync() => _dataLoaded.Task;
 
-        public void LoadData(Station station,string ticketCheck,string platform)
+        public void LoadData(Station station, string ticketCheck, string platform)
         {
             ThisStation = station;
             ThisPlatform = platform;
@@ -67,15 +69,20 @@ namespace CRSim.ViewModels
             foreach (var trainNumber in trains)
             {
 
-                if (trainNumber != null && trainNumber.DepartureTime != null && (ticketCheck==string.Empty || trainNumber.TicketChecks.Contains(ticketCheck)) && (platform == string.Empty || trainNumber.Platform==platform))
+                if (trainNumber != null &&
+                    (StationType == StationType.Both ||
+                    trainNumber.StationType == StationType.Both ||
+                    StationType == trainNumber.StationType) &&
+                    (ticketCheck == string.Empty || trainNumber.TicketChecks.Contains(ticketCheck)) &&
+                    (platform == string.Empty || trainNumber.Platform == platform))
                 {
                     TrainInfo.Add(new TrainInfo
                     {
                         TrainNumber = trainNumber.Number,
                         Terminal = trainNumber.Terminal,
                         Origin = trainNumber.Origin,
-                        ArrivalTime = trainNumber.ArrivalTime == null ? null : trainNumber.DepartureTime.Value < _timeService.GetDateTimeNow() ? trainNumber.ArrivalTime.Value.AddDays(1) : trainNumber.ArrivalTime.Value,
-                        DepartureTime = trainNumber.DepartureTime.Value < _timeService.GetDateTimeNow() ? trainNumber.DepartureTime.Value.AddDays(1) : trainNumber.DepartureTime.Value,
+                        ArrivalTime = trainNumber.ArrivalTime == null ? null : trainNumber.ArrivalTime,
+                        DepartureTime = trainNumber.DepartureTime == null ? null : trainNumber.DepartureTime,
                         TicketChecks = trainNumber.TicketChecks,
                         WaitingArea = station.WaitingAreas.Where(x => x.TicketChecks.Intersect(trainNumber.TicketChecks).ToList().Count!=0).FirstOrDefault().Name,
                         Platform = trainNumber.Platform,
