@@ -151,5 +151,16 @@
       "Station",
       "Text"
     ]
+  },
+  {
+    "UniqueId": "Ankang ExitScreen",
+    "Title": "安康站出站口看板",
+    "Station": "Ankang",
+    "StyleName": "ExitScreenView",
+    "ImagePath": "Assets/StyleImages/Ankang/ExitScreen.png",
+    "Parameters": [
+      "Station",
+      "Text"
+    ]
   }
 ]

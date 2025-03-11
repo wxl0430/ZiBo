@@ -9,6 +9,7 @@
             Text = "成都铁路客服电话：028-12306";
             ItemsPerPage = 12;
             PageCount = 1;
+            StationType = StationType.Departure;
             timeService.RefreshSecondsElapsed += RefreshDisplay;
             Initialize();
         }

@@ -63,6 +63,8 @@
                 services.AddTransient<Views.Tianjin.PlatformScreenView>();
                 services.AddTransient<ViewModels.Fuzhou.TicketCheckScreenViewModel>();
                 services.AddTransient<Views.Fuzhou.TicketCheckScreenView>();
+                services.AddTransient<ViewModels.Ankang.ExitScreenViewModel>();
+                services.AddTransient<Views.Ankang.ExitScreenView>();
             }).Build();
 
         [STAThread]

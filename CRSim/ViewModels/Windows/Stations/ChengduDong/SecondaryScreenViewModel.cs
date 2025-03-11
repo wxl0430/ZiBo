@@ -10,6 +10,7 @@
             Text = "    检票口信息请以车站显示屏信息为准。公共场所请妥善保管个人贵重物品。";
             ItemsPerPage = 12;
             PageCount = 2;
+            StationType = StationType.Departure;
             timeService.RefreshSecondsElapsed += RefreshDisplay;
             Initialize();
         }
