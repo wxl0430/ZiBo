@@ -20,6 +20,8 @@
         [ObservableProperty]
         public string _stopDisplayUntilDepartureDuration;
         [ObservableProperty]
+        public string _stopDisplayFromArrivalDuration;
+        [ObservableProperty]
         public string _stopCheckInAdvanceDuration;
         [ObservableProperty]
         public string _maxPages;
@@ -44,6 +46,7 @@
             DepartureCheckInAdvanceDuration = _settings.DepartureCheckInAdvanceDuration.TotalMinutes.ToString();
             PassingCheckInAdvanceDuration = _settings.PassingCheckInAdvanceDuration.TotalMinutes.ToString();
             StopDisplayUntilDepartureDuration = _settings.StopDisplayUntilDepartureDuration.TotalMinutes.ToString();
+            StopDisplayFromArrivalDuration = _settings.StopDisplayFromArrivalDuration.TotalMinutes.ToString();
             StopCheckInAdvanceDuration = _settings.StopCheckInAdvanceDuration.TotalMinutes.ToString();
             MaxPages = _settings.MaxPages.ToString();
             SwitchPageSeconds = _settings.SwitchPageSeconds.ToString();
@@ -67,6 +70,10 @@
             if (int.TryParse(StopDisplayUntilDepartureDuration, out int l) && l >= 0)
             {
                 _settings.StopDisplayUntilDepartureDuration = TimeSpan.FromMinutes(l);
+            }
+            if (int.TryParse(StopDisplayFromArrivalDuration, out int p) && p >= 0)
+            {
+                _settings.StopDisplayFromArrivalDuration = TimeSpan.FromMinutes(p);
             }
             if (int.TryParse(StopCheckInAdvanceDuration, out int m) && m >= 0)
             {

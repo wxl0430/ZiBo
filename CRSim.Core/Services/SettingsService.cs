@@ -19,6 +19,7 @@ namespace CRSim.Core.Services
             _key.SetValue("MaxPages", _settings.MaxPages);
             _key.SetValue("StopCheckInAdvanceDuration", (int)_settings.StopCheckInAdvanceDuration.TotalMinutes);
             _key.SetValue("StopDisplayUntilDepartureDuration", (int)_settings.StopDisplayUntilDepartureDuration.TotalMinutes);
+            _key.SetValue("StopDisplayFromArrivalDuration", (int)_settings.StopDisplayFromArrivalDuration.TotalMinutes);
             _key.SetValue("PassingCheckInAdvanceDuration", (int)_settings.PassingCheckInAdvanceDuration.TotalMinutes);
             _key.SetValue("DepartureCheckInAdvanceDuration", (int)_settings.DepartureCheckInAdvanceDuration.TotalMinutes);
         }
@@ -34,13 +35,14 @@ namespace CRSim.Core.Services
             else
             {
                 _settings = new Settings();
-                _settings.TimeOffset = TimeSpan.FromMinutes((int)_key.GetValue("TimeOffset"));
-                _settings.SwitchPageSeconds = (int)_key.GetValue("SwitchPageSeconds");
-                _settings.MaxPages = (int)_key.GetValue("MaxPages");
-                _settings.StopCheckInAdvanceDuration = TimeSpan.FromMinutes((int)_key.GetValue("StopCheckInAdvanceDuration"));
-                _settings.StopDisplayUntilDepartureDuration = TimeSpan.FromMinutes((int)_key.GetValue("StopDisplayUntilDepartureDuration"));
-                _settings.PassingCheckInAdvanceDuration = TimeSpan.FromMinutes((int)_key.GetValue("PassingCheckInAdvanceDuration"));
-                _settings.DepartureCheckInAdvanceDuration = TimeSpan.FromMinutes((int)_key.GetValue("DepartureCheckInAdvanceDuration"));
+                if (_key.GetValue("TimeOffset") != null) _settings.TimeOffset = TimeSpan.FromMinutes((int)_key.GetValue("TimeOffset"));
+                if (_key.GetValue("SwitchPageSeconds") != null) _settings.SwitchPageSeconds = (int)_key.GetValue("SwitchPageSeconds");
+                if (_key.GetValue("MaxPages") != null) _settings.MaxPages = (int)_key.GetValue("MaxPages");
+                if (_key.GetValue("StopCheckInAdvanceDuration") != null) _settings.StopCheckInAdvanceDuration = TimeSpan.FromMinutes((int)_key.GetValue("StopCheckInAdvanceDuration"));
+                if (_key.GetValue("StopDisplayUntilDepartureDuration") != null) _settings.StopDisplayUntilDepartureDuration = TimeSpan.FromMinutes((int)_key.GetValue("StopDisplayUntilDepartureDuration"));
+                if (_key.GetValue("StopDisplayFromArrivalDuration") != null) _settings.StopDisplayFromArrivalDuration = TimeSpan.FromMinutes((int)_key.GetValue("StopDisplayFromArrivalDuration"));
+                if (_key.GetValue("PassingCheckInAdvanceDuration") != null) _settings.PassingCheckInAdvanceDuration = TimeSpan.FromMinutes((int)_key.GetValue("PassingCheckInAdvanceDuration"));
+                if (_key.GetValue("DepartureCheckInAdvanceDuration") != null) _settings.DepartureCheckInAdvanceDuration = TimeSpan.FromMinutes((int)_key.GetValue("DepartureCheckInAdvanceDuration"));
             }
         }
 

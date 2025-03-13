@@ -242,7 +242,7 @@
                                                Grid.Column="3"/>
                                     </Grid>
                                 </Border>
-                                <Border Style="{StaticResource BottomSettingsCardStyle}">
+                                <Border Style="{StaticResource SettingsCardStyle}">
                                     <Grid Margin="48,0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
@@ -253,6 +253,23 @@
                                         <TextBlock Text="显示停检至开点前时长" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"
                                                Grid.Column="0"/>
                                         <TextBox Grid.Column="2" Width="72"  Text="{Binding ViewModel.StopDisplayUntilDepartureDuration, Mode=TwoWay}"
+                                          FontFamily="Microsoft YaHei" Margin="0,0,8,0">
+                                        </TextBox>
+                                        <TextBlock Text="分钟" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"
+                                               Grid.Column="3"/>
+                                    </Grid>
+                                </Border>
+                                <Border Style="{StaticResource BottomSettingsCardStyle}">
+                                    <Grid Margin="48,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="终到车显示至到达后时长" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"
+                                               Grid.Column="0"/>
+                                        <TextBox Grid.Column="2" Width="72"  Text="{Binding ViewModel.StopDisplayFromArrivalDuration, Mode=TwoWay}"
                                           FontFamily="Microsoft YaHei" Margin="0,0,8,0">
                                         </TextBox>
                                         <TextBlock Text="分钟" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"
