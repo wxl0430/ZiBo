@@ -191,13 +191,13 @@ namespace CRSim.Views
                 (!EndHour.IsEnabled || ValidateTime(EndHour.Text, 24)) &&
                 (!EndMinute.IsEnabled || ValidateTime(EndMinute.Text, 60));
 
-            // 当所有条件满足时，启用 AccentButton
             AccentButton.IsEnabled =
+                (!TicketChecksCheckList.IsEnabled || TicketChecksList.Any(x => x.Checked)) &&
                 areTextBoxesFilled &&
                 !string.IsNullOrWhiteSpace(NumberTextBox.Text) &&
                 !string.IsNullOrWhiteSpace(ArrivalTextBox.Text) &&
                 !string.IsNullOrWhiteSpace(DepartureTextBox.Text) &&
-                int.TryParse(LengthTextBox.Text,out int i) && i > 0 &&
+                int.TryParse(LengthTextBox.Text, out int i) && i > 0 &&
                 PlatformComboBox.SelectedItem != null;
         }
 
