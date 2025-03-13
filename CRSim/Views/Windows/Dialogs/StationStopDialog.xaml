@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="StationStopDialog"
         WindowStyle="None" FontFamily="Microsoft YaHei"
-        SizeToContent="WidthAndHeight"
+        MaxWidth="562" MinWidth="562" MaxHeight="551.77" MinHeight="551.77"
         WindowStartupLocation="CenterOwner">
     <Grid Background="{DynamicResource SolidBackgroundFillColorQuarternaryBrush}">
         <Grid.RowDefinitions>
