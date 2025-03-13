@@ -30,7 +30,24 @@
         {
             if (CurrentPageIndex == 0)
             {
-                List<TrainInfo> itemsToRemove = [.. TrainInfo.Where(info => info.DepartureTime < _timeService.GetDateTimeNow())];
+                List<TrainInfo> itemsToRemove = [];
+                foreach (TrainInfo trainInfo in TrainInfo)
+                {
+                    if (trainInfo.DepartureTime == null)
+                    {
+                        if (trainInfo.ArrivalTime.Value.Add(_settings.StopDisplayFromArrivalDuration) < _timeService.GetDateTimeNow())
+                        {
+                            itemsToRemove.Add(trainInfo);
+                        }
+                    }
+                    else
+                    {
+                        if (trainInfo.DepartureTime.Value < _timeService.GetDateTimeNow())
+                        {
+                            itemsToRemove.Add(trainInfo);
+                        }
+                    }
+                }
                 foreach (var item in itemsToRemove)
                 {
                     TrainInfo.Remove(item);
