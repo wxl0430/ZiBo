@@ -16,6 +16,10 @@ namespace CRSim.Core.Models
         /// </summary>
         public TimeSpan StopDisplayUntilDepartureDuration { get; set; } = TimeSpan.FromMinutes(1);
 
+        /// <summary>
+        /// 直到终到后多久停止显示
+        /// </summary>
+        public TimeSpan StopDisplayFromArrivalDuration { get; set; } = TimeSpan.FromMinutes(10);
         public TimeSpan StopCheckInAdvanceDuration { get; set; } = TimeSpan.FromMinutes(2);
 
         public int MaxPages { get; set; } = 3;
