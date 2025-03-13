@@ -1,8 +1,10 @@
-﻿global using System.Diagnostics;
+﻿global using System.IO;
+global using System.Diagnostics;
 global using System.Globalization;
 global using System.ComponentModel;
 global using System.Collections.ObjectModel;
 global using System.Reflection;
+global using System.Text;
 global using System.Text.Json;
 global using System.Windows;
 global using System.Windows.Data;

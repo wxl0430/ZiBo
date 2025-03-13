@@ -628,7 +628,7 @@
                             <StackPanel
                                 Grid.Column="1" Margin="12" Orientation="Vertical">
                                 <TextBlock Text="保存车站配置" FontSize="14" Style="{StaticResource BodyTextBlockStyle}"/>
-                                <TextBlock Opacity="0.7" FontSize="12" Style="{StaticResource CaptionTextBlockStyle}">请再次检查各设施配置是否正确</TextBlock>
+                                <TextBlock Opacity="0.7" FontSize="12" Style="{StaticResource CaptionTextBlockStyle}">验证并保存数据配置</TextBlock>
                             </StackPanel>
                             <Button HorizontalAlignment="Right" Margin="10" Grid.Column="2" Command="{Binding ViewModel.SaveChangesCommand}"
                                     FontSize="14" Style="{DynamicResource AccentButtonStyle}" Content="保存配置" />
