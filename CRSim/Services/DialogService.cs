@@ -37,10 +37,8 @@ namespace CRSim.Services
         }
         public void ShowMessage(string title, string message)
         {
-            var dialog = new MessageDialog(title, message)
-            {
-                Owner = _owner
-            };
+            dynamic dialog = message.Length > 25 ? new LongMessageDialog(title, message) : new MessageDialog(title, message);
+            dialog.Owner = _owner;
             dialog.ShowDialog();
         }
 

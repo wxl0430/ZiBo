@@ -1,9 +1,3 @@
-using CRSim.Core.Models;
-using System.IO;
-using System.Linq;
-using System.Text;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
 namespace CRSim.ViewModels;
 
 public partial class StationManagementPageViewModel : ObservableObject 
@@ -223,9 +217,40 @@ public partial class StationManagementPageViewModel : ObservableObject
     [RelayCommand]
     public async Task SaveChanges()
     {
+        if (!(await Validate())) return;
         _databaseService.UpdateStation(SelectedStation.Name, GenerateStation(SelectedStation.Name,WaitingAreaNames,TicketChecks,StationStops,Platforms));
         await _databaseService.SaveData();
     }
+
+    private Task<bool> Validate()
+    {
+        string message = "";
+        foreach(var t in TicketChecks)
+        {
+            if (!WaitingAreaNames.Contains(t.WaitingAreaName))
+            {
+                message += $"\n检票口 {t.Name} 所在的候车室 {t.WaitingAreaName} 不存在；";
+            }
+        }
+        foreach(var s in StationStops)
+        {
+            if(!Platforms.Any(x=> x.Name == s.Platform))
+            {
+                message += $"\n车次 {s.Number} 所分配的站台 {s.Platform} 不存在；";
+            }
+            foreach(var t in s.TicketChecks)
+            {
+                if (!TicketChecks.Any(x => x.Name==t))
+                {
+                    message += $"\n车次 {s.Number} 所分配的检票口 {t} 不存在；";
+                }
+            }
+        }
+        if (message == "") return Task.FromResult(true);
+        _dialogService.ShowMessage("保存失败", $"发现 {message.Split("\n").Length-1} 个错误：{message}\n请修复所有错误后再次尝试保存。");
+        return Task.FromResult(false);
+    }
+
     public static Station GenerateStation(string stationName, ObservableCollection<string> waitingAreaNames, ObservableCollection<TicketCheck> ticketChecks,ObservableCollection<StationStop> stationStops,ObservableCollection<Platform> platforms)
     {
         var station = new Station
