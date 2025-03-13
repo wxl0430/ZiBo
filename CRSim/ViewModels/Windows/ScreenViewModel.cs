@@ -44,8 +44,24 @@ namespace CRSim.ViewModels
         {
             if (CurrentPageIndex==0)
             {
-                List<TrainInfo> itemsToRemove = [.. TrainInfo.Where(info => (info.DepartureTime??info.ArrivalTime).Value.Subtract(_settings.StopDisplayUntilDepartureDuration) < _timeService.GetDateTimeNow())];
-
+                List<TrainInfo> itemsToRemove = [];
+                foreach(TrainInfo trainInfo in TrainInfo)
+                {
+                    if (trainInfo.DepartureTime == null)
+                    {
+                        if (trainInfo.ArrivalTime.Value.Add(_settings.StopDisplayFromArrivalDuration) < _timeService.GetDateTimeNow())
+                        {
+                            itemsToRemove.Add(trainInfo);
+                        }
+                    }
+                    else
+                    {
+                        if (trainInfo.DepartureTime.Value.Subtract(_settings.StopDisplayUntilDepartureDuration) < _timeService.GetDateTimeNow())
+                        {
+                            itemsToRemove.Add(trainInfo);
+                        }
+                    }
+                }
                 foreach (var item in itemsToRemove)
                 {
                     TrainInfo.Remove(item);
@@ -81,10 +97,10 @@ namespace CRSim.ViewModels
                         TrainNumber = trainNumber.Number,
                         Terminal = trainNumber.Terminal,
                         Origin = trainNumber.Origin,
-                        ArrivalTime = trainNumber.ArrivalTime == null ? null : trainNumber.ArrivalTime,
-                        DepartureTime = trainNumber.DepartureTime == null ? null : trainNumber.DepartureTime,
+                        ArrivalTime = trainNumber.ArrivalTime == null ? null : (trainNumber.ArrivalTime.Value > _timeService.GetDateTimeNow() ? trainNumber.ArrivalTime.Value : trainNumber.ArrivalTime.Value.AddDays(1)),
+                        DepartureTime = trainNumber.DepartureTime == null ? null : (trainNumber.DepartureTime.Value > _timeService.GetDateTimeNow() ? trainNumber.DepartureTime.Value : trainNumber.DepartureTime.Value.AddDays(1)),
                         TicketChecks = trainNumber.TicketChecks,
-                        WaitingArea = station.WaitingAreas.Where(x => x.TicketChecks.Intersect(trainNumber.TicketChecks).ToList().Count!=0).FirstOrDefault().Name,
+                        WaitingArea = trainNumber.StationType==StationType.Arrival ? "" : station.WaitingAreas.Where(x => x.TicketChecks.Intersect(trainNumber.TicketChecks).ToList().Count!=0).FirstOrDefault().Name,
                         Platform = trainNumber.Platform,
                         Length  =trainNumber.Length,
                         Landmark = trainNumber.Landmark,
@@ -92,7 +108,7 @@ namespace CRSim.ViewModels
                     });
                 }
             }
-            TrainInfo = [.. TrainInfo.OrderBy(x => x.DepartureTime)];
+            TrainInfo = [.. TrainInfo.OrderBy(x => x.DepartureTime??x.ArrivalTime)];
             RefreshData(null, null);
             _dataLoaded.SetResult(true);
         }

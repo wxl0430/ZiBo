@@ -28,8 +28,8 @@
                     {
                         TrainNumber = trainNumber.Number,
                         Terminal = trainNumber.Terminal,
-                        ArrivalTime = trainNumber.ArrivalTime == null ? null : trainNumber.DepartureTime.Value < _timeService.GetDateTimeNow() ? trainNumber.ArrivalTime.Value.AddDays(1) : trainNumber.ArrivalTime.Value,
-                        DepartureTime = trainNumber.DepartureTime.Value < _timeService.GetDateTimeNow() ? trainNumber.DepartureTime.Value.AddDays(1) : trainNumber.DepartureTime.Value,
+                        ArrivalTime = trainNumber.ArrivalTime == null ? null : (trainNumber.ArrivalTime.Value > _timeService.GetDateTimeNow() ? trainNumber.ArrivalTime.Value : trainNumber.ArrivalTime.Value.AddDays(1)),
+                        DepartureTime = trainNumber.DepartureTime == null ? null : (trainNumber.DepartureTime.Value > _timeService.GetDateTimeNow() ? trainNumber.DepartureTime.Value : trainNumber.DepartureTime.Value.AddDays(1)),
                         State = TimeSpan.Zero
                     });
                 }

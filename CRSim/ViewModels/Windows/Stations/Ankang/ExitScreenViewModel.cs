@@ -2,11 +2,13 @@
 {
     public class ExitScreenViewModel : ScreenViewModel
     {
+        private ITimeService _timeService;
         public ObservableCollection<TrainInfo> LeftScreen { get; private set; } = [];
         public ObservableCollection<TrainInfo> RightScreen { get; private set; } = [];
         public ExitScreenViewModel(ITimeService timeService, ISettingsService settingsService)
             : base(timeService, settingsService)
         {
+            _timeService = timeService;
             Text = $"西安局集团公司推出西铁行APP站车服务产品，欢迎体验使用。";
             ItemsPerPage = 7;
             PageCount = 1;
@@ -51,5 +53,34 @@
                 CurrentPageIndex = CurrentPageIndex + 1 >= Math.Min(_settings.MaxPages, pageCount) ? 0 : CurrentPageIndex + 1;
             });
         }
+        public override void RefreshData(object? sender, EventArgs e)
+        {
+            if (CurrentPageIndex == 0)
+            {
+                List<TrainInfo> itemsToRemove = [];
+                foreach (TrainInfo trainInfo in TrainInfo)
+                {
+                    if (trainInfo.DepartureTime == null)
+                    {
+                        if (trainInfo.ArrivalTime.Value.Add(_settings.StopDisplayFromArrivalDuration) < _timeService.GetDateTimeNow())
+                        {
+                            itemsToRemove.Add(trainInfo);
+                        }
+                    }
+                    else
+                    {
+                        if (trainInfo.DepartureTime.Value < _timeService.GetDateTimeNow())
+                        {
+                            itemsToRemove.Add(trainInfo);
+                        }
+                    }
+                }
+                foreach (var item in itemsToRemove)
+                {
+                    TrainInfo.Remove(item);
+                }
+            }
+        }
+
     }
 }
