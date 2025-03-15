@@ -27,7 +27,7 @@ namespace CRSim.Core.Services
         {
             try
             {
-                var json =  File.ReadAllText(jsonFilePath);
+                var json =  File.ReadAllText(jsonFilePath).Replace("StationStop", "TrainStop");// 修复旧版本的数据
                 var data = JsonSerializer.Deserialize<Json>(json);
                 _stations = data.Stations;
                 _trainNumbers = data.TrainNumbers;
@@ -72,7 +72,7 @@ namespace CRSim.Core.Services
                 // 直接更新 targetStation 中的内容
                 targetStation.Name = station.Name;
                 targetStation.WaitingAreas = station.WaitingAreas;
-                targetStation.StationStops = station.StationStops;
+                targetStation.TrainStops = station.TrainStops;
                 targetStation.Platforms = station.Platforms;
             }
         }
@@ -118,7 +118,7 @@ namespace CRSim.Core.Services
 
         public async Task ImportStationFrom7D(string path)
         {
-            Station station = new() { Platforms = [], WaitingAreas = [], StationStops = [] };
+            Station station = new() { Platforms = [], WaitingAreas = [], TrainStops = [] };
             var stationName = (await File.ReadAllTextAsync(path.Replace("车站广播系统.exe", "info.ini"))).Split("|")[0];
             if (_stations.Any(x => x.Name == stationName))
             {
@@ -155,26 +155,26 @@ namespace CRSim.Core.Services
                     }
                 }
 
-                if (!string.IsNullOrEmpty(data[0]) && !station.StationStops.Any(x => x.Number == data[0]))
+                if (!string.IsNullOrEmpty(data[0]) && !station.TrainStops.Any(x => x.Number == data[0]))
                 {
-                    DateTime? arrivalTime = null;
-                    DateTime? departureTime = null;
+                    TimeSpan? arrivalTime = null;
+                    TimeSpan? departureTime = null;
 
                     if (data[2] == stationName)
                     {
-                        departureTime = DateTime.Parse(lines.FirstOrDefault(x => x.Split(",")[0] == data[0] && x.Split(",")[1].Contains("送车"))?.Split(",")[7] ?? string.Empty);
+                        departureTime = TimeSpan.Parse(lines.FirstOrDefault(x => x.Split(",")[0] == data[0] && x.Split(",")[1].Contains("送车"))?.Split(",")[7] ?? string.Empty);
                     }
                     else if (data[3] == stationName)
                     {
-                        arrivalTime = DateTime.Parse(data[7]);
+                        arrivalTime = TimeSpan.Parse(data[7]);
                     }
                     else
                     {
-                        arrivalTime = DateTime.Parse(data[7]);
-                        departureTime = DateTime.Parse(lines.FirstOrDefault(x => x.Split(",")[0] == data[0] && x.Split(",")[1].Contains("送车"))?.Split(",")[7] ?? string.Empty);
+                        arrivalTime = TimeSpan.Parse(data[7]);
+                        departureTime = TimeSpan.Parse(lines.FirstOrDefault(x => x.Split(",")[0] == data[0] && x.Split(",")[1].Contains("送车"))?.Split(",")[7] ?? string.Empty);
                     }
 
-                    station.StationStops.Add(new StationStop
+                    station.TrainStops.Add(new TrainStop
                     {
                         Number = data[0],
                         Terminal = data[3],

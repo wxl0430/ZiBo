@@ -1,4 +1,4 @@
-﻿using static CRSim.Views.TrainStopDialog;
+﻿using CRSim.Core.Models;
 
 namespace CRSim.Views
 {
@@ -7,9 +7,21 @@ namespace CRSim.Views
     /// </summary>
     public partial class TrainStopDialog : Window
     {
+        public class ticketCheck
+        {
+            public string TicketCheck { get; set; }
+            public bool Checked { get; set; } = false;
+        }
+
+        public ObservableCollection<string> Landmarks { get; set; } = ["无", "红色", "绿色", "褐色", "蓝色", "紫色", "黄色", "橙色"];
+
         public TrainStop GeneratedTrainStop;
 
-        public TrainStopDialog()
+        public ObservableCollection<ticketCheck> TicketChecksList { get; set; } = [];
+
+        public ObservableCollection<string> Platforms { get; set; } = [];
+
+        public TrainStopDialog(List<string> ticketChecks,List<string> platforms)
         {
             DataContext = this;
             WindowChrome.SetWindowChrome(
@@ -25,10 +37,24 @@ namespace CRSim.Views
             );
             InitializeComponent();
             IntermediateStation.IsChecked = true;
+            LengthTextBox.Text = "16";
+            TicketChecksList.Clear();
+            foreach (string s in ticketChecks)
+            {
+                TicketChecksList.Add(new ticketCheck()
+                {
+                    TicketCheck = s,
+                    Checked = false
+                });
+            }
+            foreach (string s in platforms)
+            {
+                Platforms.Add(s);
+            }
             ValidateInput();
         }
 
-        public TrainStopDialog(TrainStop trainStop)
+        public TrainStopDialog(List<string> ticketChecks, List<string> platforms, TrainStop trainStop)
         {
             DataContext = this;
             WindowChrome.SetWindowChrome(
@@ -43,13 +69,16 @@ namespace CRSim.Views
                 }
             );
             InitializeComponent();
-            StationTextBox.IsEnabled = false;
-            StationTextBox.Text = trainStop.Station;
+            NumberTextBox.IsEnabled = false;
+            NumberTextBox.Text = trainStop.Number;
+            ArrivalTextBox.Text = trainStop.Terminal;
+            DepartureTextBox.Text = trainStop.Origin;
+            LengthTextBox.Text = trainStop.Length.ToString();
             StationKindPanel.IsEnabled = false;
             if (trainStop.ArrivalTime != null)
             {
-                StartHour.Text = trainStop.ArrivalTime.Value.Hour.ToString();
-                StartMinute.Text = trainStop.ArrivalTime.Value.Minute.ToString();
+                StartHour.Text = trainStop.ArrivalTime.Value.Hours.ToString();
+                StartMinute.Text = trainStop.ArrivalTime.Value.Minutes.ToString();
             }
             else
             {
@@ -57,13 +86,32 @@ namespace CRSim.Views
             }
             if (trainStop.DepartureTime != null)
             {
-                EndHour.Text = trainStop.DepartureTime.Value.Hour.ToString();
-                EndMinute.Text = trainStop.DepartureTime.Value.Minute.ToString();
+                EndHour.Text = trainStop.DepartureTime.Value.Hours.ToString();
+                EndMinute.Text = trainStop.DepartureTime.Value.Minutes.ToString();
             }
             else
             {
                 FinalStation.IsChecked = true;
             }
+            if(!StartingStation.IsChecked.Value && !FinalStation.IsChecked.Value)
+            {
+                IntermediateStation.IsChecked = true;
+            }
+            TicketChecksList.Clear();
+            foreach (string s in ticketChecks)
+            {
+                TicketChecksList.Add(new ticketCheck()
+                {
+                    TicketCheck = s,
+                    Checked = trainStop.TicketChecks.Contains(s)
+                });
+            }
+            foreach (string s in platforms)
+            {
+                Platforms.Add(s);
+            }
+            PlatformComboBox.SelectedIndex = Platforms.IndexOf(trainStop.Platform);
+            LandmarkComboBox.SelectedIndex = trainStop.Landmark == null ? 0 : Landmarks.IndexOf(trainStop.Landmark);
             ValidateInput();
         }
 
@@ -71,9 +119,15 @@ namespace CRSim.Views
         {
             GeneratedTrainStop = new TrainStop
             {
-                Station = StationTextBox.Text,
-                ArrivalTime = StartHour.IsEnabled ? DateTime.Parse($"{StartHour.Text}:{StartMinute.Text}") : null,
-                DepartureTime = EndHour.IsEnabled ? DateTime.Parse($"{EndHour.Text}:{EndMinute.Text}") : null
+                Number = NumberTextBox.Text,
+                Terminal = ArrivalTextBox.Text,
+                Origin = DepartureTextBox.Text,
+                ArrivalTime = StartHour.IsEnabled ? TimeSpan.Parse($"{StartHour.Text}:{StartMinute.Text}") : null,
+                DepartureTime = EndHour.IsEnabled ? TimeSpan.Parse($"{EndHour.Text}:{EndMinute.Text}") : null,
+                TicketChecks = TicketChecksList.Where(x => x.Checked).Select(x => x.TicketCheck).ToList(),
+                Platform = (string)PlatformComboBox.SelectedItem,
+                Length = int.Parse(LengthTextBox.Text),
+                Landmark = (string)LandmarkComboBox.SelectedItem == "无" ? null: (string)LandmarkComboBox.SelectedItem,
             };
             DialogResult = true;
             Close();
@@ -119,9 +173,9 @@ namespace CRSim.Views
             ValidateInput();
         }
 
-        private static bool ValidateTime(string input,int maxValue)
+        private static bool ValidateTime(string input, int maxValue)
         {
-            if(!string.IsNullOrWhiteSpace(input) && int.TryParse(input,null,out int time))
+            if (!string.IsNullOrWhiteSpace(input) && int.TryParse(input, null, out int time))
             {
                 return 0 <= time && time < maxValue;
             }
@@ -132,13 +186,19 @@ namespace CRSim.Views
         {
             // 检查四个文本框是否非空
             bool areTextBoxesFilled =
-                (!StartHour.IsEnabled || ValidateTime(StartHour.Text,23)) &&
-                (!StartMinute.IsEnabled || ValidateTime(StartMinute.Text, 59)) &&
-                (!EndHour.IsEnabled || ValidateTime(EndHour.Text, 23)) &&
-                (!EndMinute.IsEnabled || ValidateTime(EndMinute.Text, 59));
+                (!StartHour.IsEnabled || ValidateTime(StartHour.Text, 24)) &&
+                (!StartMinute.IsEnabled || ValidateTime(StartMinute.Text, 60)) &&
+                (!EndHour.IsEnabled || ValidateTime(EndHour.Text, 24)) &&
+                (!EndMinute.IsEnabled || ValidateTime(EndMinute.Text, 60));
 
-            // 当所有条件满足时，启用 AccentButton
-            AccentButton.IsEnabled = areTextBoxesFilled && !string.IsNullOrWhiteSpace(StationTextBox.Text);
+            AccentButton.IsEnabled =
+                (!TicketChecksCheckList.IsEnabled || TicketChecksList.Any(x => x.Checked)) &&
+                areTextBoxesFilled &&
+                !string.IsNullOrWhiteSpace(NumberTextBox.Text) &&
+                !string.IsNullOrWhiteSpace(ArrivalTextBox.Text) &&
+                !string.IsNullOrWhiteSpace(DepartureTextBox.Text) &&
+                int.TryParse(LengthTextBox.Text, out int i) && i > 0 &&
+                PlatformComboBox.SelectedItem != null;
         }
 
         private T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
@@ -170,6 +230,7 @@ namespace CRSim.Views
             StartMinute.IsEnabled = false;
             EndHour.IsEnabled = true;
             EndMinute.IsEnabled = true;
+            TicketChecksCheckList.IsEnabled = true;
         }
 
         private void IntermediateStation_Checked(object sender, RoutedEventArgs e)
@@ -179,6 +240,7 @@ namespace CRSim.Views
             StartMinute.IsEnabled = true;
             EndHour.IsEnabled = true;
             EndMinute.IsEnabled = true;
+            TicketChecksCheckList.IsEnabled = true;
         }
 
         private void FinalStation_Checked(object sender, RoutedEventArgs e)
@@ -188,9 +250,20 @@ namespace CRSim.Views
             StartMinute.IsEnabled = true;
             EndHour.IsEnabled = false;
             EndMinute.IsEnabled = false;
+            TicketChecksCheckList.IsEnabled = false;
         }
 
-        private void StationTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void TicketChecksCheckList_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
+            {
+                RoutedEvent = UIElement.MouseWheelEvent,
+                Source = sender
+            };
+            TicketChecksCheckList.RaiseEvent(eventArg);
+        }
+
+        private void NumberTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             ValidateInput();
         }

@@ -24,7 +24,7 @@ namespace CRSim.Core.Models
             }
         }
         
-        public List<StationStop> StationStops { get; set; } = [];
+        public List<TrainStop> TrainStops { get; set; } = [];
 
         public List<Platform> Platforms { get; set; } = [];
     }

@@ -81,7 +81,7 @@ namespace CRSim.ViewModels
             ThisStation = station;
             ThisPlatform = platform;
             ThisTicketCheck = ticketCheck;
-            var trains = station.StationStops;
+            var trains = station.TrainStops;
             foreach (var trainNumber in trains)
             {
 
@@ -92,20 +92,29 @@ namespace CRSim.ViewModels
                     (ticketCheck == string.Empty || trainNumber.TicketChecks.Contains(ticketCheck)) &&
                     (platform == string.Empty || trainNumber.Platform == platform))
                 {
+                    var now = _timeService.GetDateTimeNow();
+                    var today = now.Date;
+
+                    DateTime? AdjustTime(TimeSpan? time) =>
+                        time.HasValue ? (today.Add(time.Value) > now ? today.Add(time.Value) : today.Add(time.Value).AddDays(1)) : null;
+
                     TrainInfo.Add(new TrainInfo
                     {
                         TrainNumber = trainNumber.Number,
                         Terminal = trainNumber.Terminal,
                         Origin = trainNumber.Origin,
-                        ArrivalTime = trainNumber.ArrivalTime == null ? null : (trainNumber.ArrivalTime.Value > _timeService.GetDateTimeNow() ? trainNumber.ArrivalTime.Value : trainNumber.ArrivalTime.Value.AddDays(1)),
-                        DepartureTime = trainNumber.DepartureTime == null ? null : (trainNumber.DepartureTime.Value > _timeService.GetDateTimeNow() ? trainNumber.DepartureTime.Value : trainNumber.DepartureTime.Value.AddDays(1)),
+                        ArrivalTime = AdjustTime(trainNumber.ArrivalTime),
+                        DepartureTime = AdjustTime(trainNumber.DepartureTime),
                         TicketChecks = trainNumber.TicketChecks,
-                        WaitingArea = trainNumber.StationType==StationType.Arrival ? "" : station.WaitingAreas.Where(x => x.TicketChecks.Intersect(trainNumber.TicketChecks).ToList().Count!=0).FirstOrDefault().Name,
+                        WaitingArea = trainNumber.StationType == StationType.Arrival
+                            ? string.Empty
+                            : station.WaitingAreas.FirstOrDefault(x => x.TicketChecks.Intersect(trainNumber.TicketChecks).Any())?.Name ?? string.Empty,
                         Platform = trainNumber.Platform,
-                        Length  =trainNumber.Length,
+                        Length = trainNumber.Length,
                         Landmark = trainNumber.Landmark,
                         State = TimeSpan.Zero
                     });
+
                 }
             }
             TrainInfo = [.. TrainInfo.OrderBy(x => x.DepartureTime??x.ArrivalTime)];

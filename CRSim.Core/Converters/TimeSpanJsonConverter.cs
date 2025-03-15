@@ -1,20 +1,19 @@
 ﻿using System.Text.Json.Serialization;
 using System.Text.Json;
-using CRSim.Core.Services;
 
 namespace CRSim.Core.Converters
 {
-    public class TimeOnlyJsonConverter : JsonConverter<DateTime?>
+    public class TimeSpanJsonConverter : JsonConverter<TimeSpan?>
     {
-        private const string TimeFormat = "HH:mm:ss";
+        private const string TimeFormat = @"hh\:mm\:ss";
 
 
-        public override DateTime? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override TimeSpan? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             if (reader.TokenType == JsonTokenType.String)
             {
                 string timeString = reader.GetString();
-                if (DateTime.TryParseExact(timeString, TimeFormat, null, System.Globalization.DateTimeStyles.None, out DateTime result))
+                if (TimeSpan.TryParseExact(timeString, TimeFormat, null, System.Globalization.TimeSpanStyles.None, out TimeSpan result))
                 {
                     return result;
                 }
@@ -22,7 +21,7 @@ namespace CRSim.Core.Converters
             return null; // 处理 null 值
         }
 
-        public override void Write(Utf8JsonWriter writer, DateTime? value, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, TimeSpan? value, JsonSerializerOptions options)
         {
             if (value.HasValue)
             {
