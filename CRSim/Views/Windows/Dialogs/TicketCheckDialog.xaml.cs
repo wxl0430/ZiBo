@@ -90,7 +90,7 @@ namespace CRSim.Views
 
             int min = Math.Min(startNum, endNum);
             int max = Math.Max(startNum, endNum);
-            List<int> numbers = Enumerable.Range(min, max - min + 1).ToList();
+            List<int> numbers = [.. Enumerable.Range(min, max - min + 1)];
 
             List<string> result = [];
 

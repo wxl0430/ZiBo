@@ -124,7 +124,7 @@ namespace CRSim.Views
                 Origin = DepartureTextBox.Text,
                 ArrivalTime = StartHour.IsEnabled ? TimeSpan.Parse($"{StartHour.Text}:{StartMinute.Text}") : null,
                 DepartureTime = EndHour.IsEnabled ? TimeSpan.Parse($"{EndHour.Text}:{EndMinute.Text}") : null,
-                TicketChecks = TicketChecksList.Where(x => x.Checked).Select(x => x.TicketCheck).ToList(),
+                TicketChecks = [.. TicketChecksList.Where(x => x.Checked).Select(x => x.TicketCheck)],
                 Platform = (string)PlatformComboBox.SelectedItem,
                 Length = int.Parse(LengthTextBox.Text),
                 Landmark = (string)LandmarkComboBox.SelectedItem == "无" ? null: (string)LandmarkComboBox.SelectedItem,

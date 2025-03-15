@@ -101,7 +101,7 @@ namespace CRSim.Models
 
         public ICollection<ControlInfoDataItem> GetGroupedControlsInfo()
         {
-            return ControlsInfo.Where(x => x.IsGroup == true).ToList();
+            return [.. ControlsInfo.Where(x => x.IsGroup == true)];
         }
     }
 }
