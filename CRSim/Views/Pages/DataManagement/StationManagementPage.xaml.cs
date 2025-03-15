@@ -41,14 +41,14 @@ public partial class StationManagementPage : Page
         TicketChecksList.RaiseEvent(eventArg);
     }
 
-    private void StationStopsList_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+    private void TrainStopsList_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
     {
         var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
         {
             RoutedEvent = UIElement.MouseWheelEvent,
             Source = sender
         };
-        StationStopsList.RaiseEvent(eventArg);
+        TrainStopsList.RaiseEvent(eventArg);
     }
 
     private void PlatformsList_PreviewMouseWheel(object sender, MouseWheelEventArgs e)

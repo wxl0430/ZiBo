@@ -9,7 +9,7 @@ namespace CRSim.Core.Services
 {
     public interface INetworkService
     {
-        Task<List<TrainStop>?> GetTrainStopsAsync(string number);
-        Task<List<StationStop>> GetStationStopsAsync(string name);
+        //Task<List<TrainStop>?> GetTrainStopsAsync(string number);
+        Task<List<TrainStop>> GetTrainStopsAsync(string name);
     }
 }

@@ -16,7 +16,7 @@
     mc:Ignorable="d"
    >
     <Page.Resources>
-        <converters:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
+        <converters:TimeSpanToStringConverter x:Key="TimeSpanToStringConverter" />
         <converters:TicketCheckConverter x:Key="TicketCheckConverter" Separator=", " />
         <Style BasedOn="{StaticResource {x:Type DataGrid}}" x:Key="CustomDataGridStyle" TargetType="DataGrid">
             <Setter Property="CellStyle">
@@ -190,7 +190,7 @@
                                            Style="{StaticResource DetailTextBlockStyle}"/>
                                 <TextBlock Grid.Row="1" Grid.Column="0" Text="列车停靠数：" Margin="0,0,12,12"
                                            Style="{StaticResource BodyTextBlockStyle}"/>
-                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ViewModel.StationStops.Count}"
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ViewModel.TrainStops.Count}"
                                            Style="{StaticResource DetailTextBlockStyle}"/>
                                 <TextBlock Grid.Row="2" Grid.Column="0" Text="候车室数：" Margin="0,0,12,12"
                                            Style="{StaticResource BodyTextBlockStyle}"/>
@@ -498,7 +498,7 @@
                                             </MenuItem.Header>
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="Click">
-                                                    <i:InvokeCommandAction Command="{Binding ViewModel.AddStationStopCommand}"/>
+                                                    <i:InvokeCommandAction Command="{Binding ViewModel.AddTrainStopCommand}"/>
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
                                         </MenuItem>
@@ -509,7 +509,7 @@
                                             </MenuItem.Header>
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="Click">
-                                                    <i:InvokeCommandAction Command="{Binding ViewModel.EditStationStopCommand}" CommandParameter="{Binding SelectedItem,ElementName=StationStopsList}"/>
+                                                    <i:InvokeCommandAction Command="{Binding ViewModel.EditTrainStopCommand}" CommandParameter="{Binding SelectedItem,ElementName=TrainStopsList}"/>
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
                                         </MenuItem>
@@ -520,7 +520,7 @@
                                             </MenuItem.Header>
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="Click">
-                                                    <i:InvokeCommandAction Command="{Binding ViewModel.DeleteStationStopCommand}" CommandParameter="{Binding SelectedItem,ElementName=StationStopsList}"/>
+                                                    <i:InvokeCommandAction Command="{Binding ViewModel.DeleteTrainStopCommand}" CommandParameter="{Binding SelectedItem,ElementName=TrainStopsList}"/>
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
                                         </MenuItem>
@@ -532,7 +532,7 @@
                                             </MenuItem.Header>
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="Click">
-                                                    <i:InvokeCommandAction Command="{Binding ViewModel.DeleteAllStationStopCommand}"/>
+                                                    <i:InvokeCommandAction Command="{Binding ViewModel.DeleteAllTrainStopCommand}"/>
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
                                         </MenuItem>
@@ -559,8 +559,8 @@
                                     </Menu>
                                 </Grid>
                                 <ScrollViewer MaxHeight="250">
-                                    <DataGrid Style="{StaticResource CustomDataGridStyle}" ItemsSource="{Binding ViewModel.StationStops}"
-                                          x:Name="StationStopsList" PreviewMouseWheel="StationStopsList_PreviewMouseWheel">
+                                    <DataGrid Style="{StaticResource CustomDataGridStyle}" ItemsSource="{Binding ViewModel.TrainStops}"
+                                          x:Name="TrainStopsList" PreviewMouseWheel="TrainStopsList_PreviewMouseWheel">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Binding="{Binding Number}">
                                                 <DataGridTextColumn.Header>
@@ -572,12 +572,12 @@
                                                     <TextBlock Text="长度" Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}"/>
                                                 </DataGridTextColumn.Header>
                                             </DataGridTextColumn>
-                                            <DataGridTextColumn Binding="{Binding ArrivalTime,Converter={StaticResource DateTimeToStringConverter}}">
+                                            <DataGridTextColumn Binding="{Binding ArrivalTime,Converter={StaticResource TimeSpanToStringConverter}}">
                                                 <DataGridTextColumn.Header>
                                                     <TextBlock Text="到时" Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}"/>
                                                 </DataGridTextColumn.Header>
                                             </DataGridTextColumn>
-                                            <DataGridTextColumn Binding="{Binding DepartureTime,Converter={StaticResource DateTimeToStringConverter}}">
+                                            <DataGridTextColumn Binding="{Binding DepartureTime,Converter={StaticResource TimeSpanToStringConverter}}">
                                                 <DataGridTextColumn.Header>
                                                     <TextBlock Text="发时" Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}"/>
                                                 </DataGridTextColumn.Header>

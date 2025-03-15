@@ -104,43 +104,43 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
     [RelayCommand]
     public void AddTrainStop(object selectedTrainStop)
     {
-        var newTrainStop = _dialogService.GetInputTrainStop();
-        if (newTrainStop != null)
-        {
-            if (TrainStopsList.Any(x => x.Station == newTrainStop.Station))
-            {
-                _dialogService.ShowMessage("添加失败", $"停站 {newTrainStop.Station} 已存在。");
-                return;
-            }
-            if (TrainStopsList.Any(x => x.ArrivalTime == null) && newTrainStop.ArrivalTime == null)
-            {
-                _dialogService.ShowMessage("添加失败", $"始发站已存在。");
-                return;
-            }
-            if (TrainStopsList.Any(x => x.DepartureTime == null) && newTrainStop.DepartureTime == null)
-            {
-                _dialogService.ShowMessage("添加失败", $"终到站已存在。");
-                return;
-            }
-            if (selectedTrainStop != null && newTrainStop.DepartureTime == null && TrainStopsList.IndexOf((TrainStop)selectedTrainStop) != TrainStopsList.Count-1)
-            {
-                _dialogService.ShowMessage("添加失败", $"终到站只能加在时刻表末位。");
-                return;
-            }
-            if(TrainStopsList.Count==0 && newTrainStop.ArrivalTime != null)
-            {
-                _dialogService.ShowMessage("添加失败", $"时刻表首位只能是始发站。");
-                return;
-            }
-            if (selectedTrainStop != null)
-            {
-                TrainStopsList.Insert(TrainStopsList.IndexOf((TrainStop)selectedTrainStop)+1, newTrainStop);
-            }
-            else
-            {
-                TrainStopsList.Add(newTrainStop);
-            }
-        }
+        //var newTrainStop = _dialogService.GetInputTrainStop();
+        //if (newTrainStop != null)
+        //{
+        //    if (TrainStopsList.Any(x => x.Station == newTrainStop.Station))
+        //    {
+        //        _dialogService.ShowMessage("添加失败", $"停站 {newTrainStop.Station} 已存在。");
+        //        return;
+        //    }
+        //    if (TrainStopsList.Any(x => x.ArrivalTime == null) && newTrainStop.ArrivalTime == null)
+        //    {
+        //        _dialogService.ShowMessage("添加失败", $"始发站已存在。");
+        //        return;
+        //    }
+        //    if (TrainStopsList.Any(x => x.DepartureTime == null) && newTrainStop.DepartureTime == null)
+        //    {
+        //        _dialogService.ShowMessage("添加失败", $"终到站已存在。");
+        //        return;
+        //    }
+        //    if (selectedTrainStop != null && newTrainStop.DepartureTime == null && TrainStopsList.IndexOf((TrainStop)selectedTrainStop) != TrainStopsList.Count-1)
+        //    {
+        //        _dialogService.ShowMessage("添加失败", $"终到站只能加在时刻表末位。");
+        //        return;
+        //    }
+        //    if(TrainStopsList.Count==0 && newTrainStop.ArrivalTime != null)
+        //    {
+        //        _dialogService.ShowMessage("添加失败", $"时刻表首位只能是始发站。");
+        //        return;
+        //    }
+        //    if (selectedTrainStop != null)
+        //    {
+        //        TrainStopsList.Insert(TrainStopsList.IndexOf((TrainStop)selectedTrainStop)+1, newTrainStop);
+        //    }
+        //    else
+        //    {
+        //        TrainStopsList.Add(newTrainStop);
+        //    }
+        //}
     }
     [RelayCommand]
     public void DeleteTrainStop(object selectedTrainStop)
@@ -153,14 +153,14 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
     [RelayCommand]
     public void EditTrainStop(object _selectedTrainStop)
     {
-        if (_selectedTrainStop is TrainStop selectedTrainStop)
-        {
-            var newTrainStop = _dialogService.GetInputTrainStop(selectedTrainStop);
-            if (newTrainStop != null)
-            {
-                TrainStopsList[TrainStopsList.IndexOf(selectedTrainStop)] = newTrainStop;
-            }
-        }
+        //if (_selectedTrainStop is TrainStop selectedTrainStop)
+        //{
+        //    var newTrainStop = _dialogService.GetInputTrainStop(selectedTrainStop);
+        //    if (newTrainStop != null)
+        //    {
+        //        TrainStopsList[TrainStopsList.IndexOf(selectedTrainStop)] = newTrainStop;
+        //    }
+        //}
     }
     [RelayCommand]
     public async Task AddTrainNumber()

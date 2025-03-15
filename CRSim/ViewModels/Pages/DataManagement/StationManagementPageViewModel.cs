@@ -29,7 +29,7 @@ public partial class StationManagementPageViewModel : ObservableObject
 
     public ObservableCollection<TicketCheck> TicketChecks { get; private set; } = [];
 
-    public ObservableCollection<StationStop> StationStops { get; private set; } = [];
+    public ObservableCollection<TrainStop> TrainStops { get; private set; } = [];
 
     private readonly IDatabaseService _databaseService;
 
@@ -56,7 +56,7 @@ public partial class StationManagementPageViewModel : ObservableObject
         WaitingAreaNames.Clear();
         Platforms.Clear();
         TicketChecks.Clear();
-        StationStops.Clear();
+        TrainStops.Clear();
         if(selectedStation is string selectedStationName)
         {
             SelectedStation = _databaseService.GetStationByName(selectedStationName);
@@ -68,9 +68,9 @@ public partial class StationManagementPageViewModel : ObservableObject
                     TicketChecks.Add(new TicketCheck { WaitingAreaName = waitingArea.Name,Name=ticketCheck });
                 }
             }
-            foreach (StationStop stationStop in SelectedStation.StationStops)
+            foreach (TrainStop trainStop in SelectedStation.TrainStops)
             {
-                StationStops.Add(stationStop);
+                TrainStops.Add(trainStop);
             }
             foreach(var platform in SelectedStation.Platforms)
             {
@@ -220,7 +220,7 @@ public partial class StationManagementPageViewModel : ObservableObject
     public async Task SaveChanges()
     {
         if (!(await Validate())) return;
-        _databaseService.UpdateStation(SelectedStation.Name, GenerateStation(SelectedStation.Name,WaitingAreaNames,TicketChecks,StationStops,Platforms));
+        _databaseService.UpdateStation(SelectedStation.Name, GenerateStation(SelectedStation.Name,WaitingAreaNames,TicketChecks,TrainStops,Platforms));
         await _databaseService.SaveData();
     }
 
@@ -234,7 +234,7 @@ public partial class StationManagementPageViewModel : ObservableObject
                 message += $"\n检票口 {t.Name} 所在的候车室 {t.WaitingAreaName} 不存在；";
             }
         }
-        foreach(var s in StationStops)
+        foreach(var s in TrainStops)
         {
             if(!Platforms.Any(x=> x.Name == s.Platform))
             {
@@ -253,13 +253,13 @@ public partial class StationManagementPageViewModel : ObservableObject
         return Task.FromResult(false);
     }
 
-    public static Station GenerateStation(string stationName, ObservableCollection<string> waitingAreaNames, ObservableCollection<TicketCheck> ticketChecks,ObservableCollection<StationStop> stationStops,ObservableCollection<Platform> platforms)
+    public static Station GenerateStation(string stationName, ObservableCollection<string> waitingAreaNames, ObservableCollection<TicketCheck> ticketChecks,ObservableCollection<TrainStop> trainStops,ObservableCollection<Platform> platforms)
     {
         var station = new Station
         {
             Name = stationName,
             WaitingAreas = [.. waitingAreaNames.Select(name => new WaitingArea { Name = name })],
-            StationStops = [.. stationStops],
+            TrainStops = [.. trainStops],
             Platforms = [..platforms]
         };
 
@@ -275,24 +275,24 @@ public partial class StationManagementPageViewModel : ObservableObject
     [RelayCommand]
     public async Task ImportFromTimeTable()
     {
-        List<string> stationNamesToAdd = [];
-        foreach(TrainNumber trainNumber in _databaseService.GetAllTrainNumbers())
-        {
-            var stationNames = trainNumber.TimeTable.Select(x => x.Station).ToList();
-            foreach(string stationName in stationNames)
-            {
-                if(!stationNamesToAdd.Contains(stationName) && !StationNames.Contains(stationName))
-                {
-                    stationNamesToAdd.Add(stationName);
-                }
-            }
-        }
-        foreach(string stationName in stationNamesToAdd)
-        {
-            _databaseService.AddStationByName(stationName);
-        }
-        await SaveChanges();
-        RefreshStationList();
+        //List<string> stationNamesToAdd = [];
+        //foreach(TrainNumber trainNumber in _databaseService.GetAllTrainNumbers())
+        //{
+        //    var stationNames = trainNumber.TimeTable.Select(x => x.Station).ToList();
+        //    foreach(string stationName in stationNames)
+        //    {
+        //        if(!stationNamesToAdd.Contains(stationName) && !StationNames.Contains(stationName))
+        //        {
+        //            stationNamesToAdd.Add(stationName);
+        //        }
+        //    }
+        //}
+        //foreach(string stationName in stationNamesToAdd)
+        //{
+        //    _databaseService.AddStationByName(stationName);
+        //}
+        //await SaveChanges();
+        //RefreshStationList();
     }
     [RelayCommand]
     public async Task ImportFromLulutong()
@@ -330,9 +330,9 @@ public partial class StationManagementPageViewModel : ObservableObject
                     {
                         firstColumn = firstColumn[..spaceIndex];
                     }
-                    if (StationStops.Any(x => x.Number == firstColumn)) continue;
-                    DateTime? departureTime = DateTime.Parse(data[4]);
-                    DateTime? arrivalTime = departureTime.Value.Subtract(TimeSpan.FromMinutes(2));
+                    if (TrainStops.Any(x => x.Number == firstColumn)) continue;
+                    TimeSpan? departureTime = TimeSpan.Parse(data[4]);
+                    TimeSpan? arrivalTime = departureTime.Value.Subtract(TimeSpan.FromMinutes(2));
                     if (data[1].Split("-")[0] == SelectedStation.Name)
                     {
                         arrivalTime = null;
@@ -341,7 +341,7 @@ public partial class StationManagementPageViewModel : ObservableObject
                     {
                         departureTime = null;
                     }
-                    var stationStop = new StationStop()
+                    var trainStop = new TrainStop()
                     {
                         Number = firstColumn,
                         Origin = data[1].Split("-")[0],
@@ -352,9 +352,9 @@ public partial class StationManagementPageViewModel : ObservableObject
                         Length = firstColumn.StartsWith('G') || firstColumn.StartsWith('D') || firstColumn.StartsWith('C') ? Math.Abs(firstColumn.GetHashCode()) % 3 == 0 ? 8 : 16 : 18,
                         Landmark = new[] { "红色", "绿色", "褐色", "蓝色", "紫色", "黄色", "橙色", null }[new Random().Next(8)]
                     };
-                    stationStop.TicketChecks = TicketChecks.Where(x => x.Name == stationStop.Platform + "A" || x.Name == stationStop.Platform + "B").Select(x => x.Name).ToList();
-                    if (stationStop.TicketChecks.Count == 0) stationStop.TicketChecks = [TicketChecks[new Random().Next(TicketChecks.Count)].Name];
-                    StationStops.Add(stationStop);
+                    trainStop.TicketChecks = TicketChecks.Where(x => x.Name == trainStop.Platform + "A" || x.Name == trainStop.Platform + "B").Select(x => x.Name).ToList();
+                    if (trainStop.TicketChecks.Count == 0) trainStop.TicketChecks = [TicketChecks[new Random().Next(TicketChecks.Count)].Name];
+                    TrainStops.Add(trainStop);
                 }
             }
         }
@@ -380,42 +380,42 @@ public partial class StationManagementPageViewModel : ObservableObject
         }
     }
     [RelayCommand]
-    public void AddStationStop()
+    public void AddTrainStop()
     {
-        var newStationStop = _dialogService.GetInputStationStop([.. TicketChecks.Select(x => x.Name)], [.. Platforms.Select(x => x.Name)]);
-        if (newStationStop != null)
+        var newTrainStop = _dialogService.GetInputTrainStop([.. TicketChecks.Select(x => x.Name)], [.. Platforms.Select(x => x.Name)]);
+        if (newTrainStop != null)
         {
-            if (StationStops.Any(x => x.Number == newStationStop.Number))
+            if (TrainStops.Any(x => x.Number == newTrainStop.Number))
             {
-                _dialogService.ShowMessage("添加失败", $"车次 {newStationStop.Number} 已存在。");
+                _dialogService.ShowMessage("添加失败", $"车次 {newTrainStop.Number} 已存在。");
                 return;
             }
-            StationStops.Add(newStationStop);
+            TrainStops.Add(newTrainStop);
         }
     }
     [RelayCommand]
-    public void DeleteStationStop(object selectedStationStop)
+    public void DeleteTrainStop(object selectedTrainStop)
     {
-        if (selectedStationStop is StationStop s)
+        if (selectedTrainStop is TrainStop s)
         {
-            StationStops.Remove(s);
+            TrainStops.Remove(s);
         }
     }
     [RelayCommand]
-    public void DeleteAllStationStop()
+    public void DeleteAllTrainStop()
     {
         if (!_dialogService.GetConfirm("当前操作会删除全部车次，是否继续？")) return;
-        StationStops.Clear();
+        TrainStops.Clear();
     }
     [RelayCommand]
-    public void EditStationStop(object _selectedStationStop)
+    public void EditTrainStop(object _selectedTrainStop)
     {
-        if (_selectedStationStop is StationStop selectedStationStop)
+        if (_selectedTrainStop is TrainStop selectedTrainStop)
         {
-            var newStationStop = _dialogService.GetInputStationStop([.. TicketChecks.Select(x => x.Name)], [.. Platforms.Select(x => x.Name)], selectedStationStop);
-            if (newStationStop != null)
+            var newTrainStop = _dialogService.GetInputTrainStop([.. TicketChecks.Select(x => x.Name)], [.. Platforms.Select(x => x.Name)], selectedTrainStop);
+            if (newTrainStop != null)
             {
-                StationStops[StationStops.IndexOf(selectedStationStop)] = newStationStop;
+                TrainStops[TrainStops.IndexOf(selectedTrainStop)] = newTrainStop;
             }
         }
     }
@@ -432,7 +432,7 @@ public partial class StationManagementPageViewModel : ObservableObject
             _dialogService.ShowMessage("导入失败", "请先添加站台。");
             return;
         }
-        if (StationStops.Count != 0)
+        if (TrainStops.Count != 0)
         {
             if (!_dialogService.GetConfirm("当前操作会清空时刻表。是否继续？"))
             {
@@ -440,18 +440,18 @@ public partial class StationManagementPageViewModel : ObservableObject
             }
         }
 
-        var stops = await _networkService.GetStationStopsAsync(SelectedStation.Name);
+        var stops = await _networkService.GetTrainStopsAsync(SelectedStation.Name);
         if (stops.Count !=0)
         {
-            StationStops.Clear();
-            foreach (StationStop t in stops)
+            TrainStops.Clear();
+            foreach (TrainStop t in stops)
             {
                 t.Platform = Platforms[new Random().Next(Platforms.Count)].Name;
                 t.Landmark = new[] { "红色", "绿色", "褐色", "蓝色", "紫色", "黄色", "橙色", null }[new Random().Next(8)];
                 t.Length = t.Number.StartsWith('G') || t.Number.StartsWith('D') || t.Number.StartsWith('C') ? Math.Abs(t.Number.GetHashCode()) % 3 == 0 ? 8 : 16 : 18;
                 t.TicketChecks = TicketChecks.Where(x => x.Name == t.Platform + "A" || x.Name == t.Platform + "B").Select(x => x.Name).ToList();
                 if (t.TicketChecks.Count == 0) t.TicketChecks = [TicketChecks[new Random().Next(TicketChecks.Count)].Name];
-                StationStops.Add(t);
+                TrainStops.Add(t);
             }
         }
         else

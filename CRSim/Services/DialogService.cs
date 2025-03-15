@@ -42,34 +42,6 @@ namespace CRSim.Services
             dialog.ShowDialog();
         }
 
-        public TrainStop? GetInputTrainStop()
-        {
-            var dialog = new TrainStopDialog()
-            {
-                Owner = _owner
-            };
-            bool? result = dialog.ShowDialog();
-            if (result == true)
-            {
-                return dialog.GeneratedTrainStop;
-            }
-            return null;
-        }
-
-        public TrainStop? GetInputTrainStop(TrainStop trainStop)
-        {
-            var dialog = new TrainStopDialog(trainStop)
-            {
-                Owner = _owner
-            };
-            bool? result = dialog.ShowDialog();
-            if (result == true)
-            {
-                return dialog.GeneratedTrainStop;
-            }
-            return null;
-        }
-
         public (string, List<string>) GetInputTicketCheck(List<string> waitingAreaNames)
         {
             var dialog = new TicketCheckDialog(waitingAreaNames)
@@ -98,31 +70,31 @@ namespace CRSim.Services
             return null;
         }
 
-        public StationStop? GetInputStationStop(List<string> ticketChecks, List<string> platforms)
+        public TrainStop? GetInputTrainStop(List<string> ticketChecks, List<string> platforms)
         {
-            var dialog = new StationStopDialog(ticketChecks,platforms)
+            var dialog = new TrainStopDialog(ticketChecks,platforms)
             {
                 Owner = _owner
             };
             bool? result = dialog.ShowDialog();
             if (result == true)
             {
-                return dialog.GeneratedStationStop;
+                return dialog.GeneratedTrainStop;
             }
             return null;
 
         }
 
-        public StationStop? GetInputStationStop(List<string> ticketChecks, List<string> platforms, StationStop stationStop)
+        public TrainStop? GetInputTrainStop(List<string> ticketChecks, List<string> platforms, TrainStop trainStop)
         {
-            var dialog = new StationStopDialog(ticketChecks,platforms, stationStop)
+            var dialog = new TrainStopDialog(ticketChecks,platforms, trainStop)
             {
                 Owner = _owner
             };
             bool? result = dialog.ShowDialog();
             if (result == true)
             {
-                return dialog.GeneratedStationStop;
+                return dialog.GeneratedTrainStop;
             }
             return null;
 

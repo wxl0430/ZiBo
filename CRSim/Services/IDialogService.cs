@@ -7,10 +7,8 @@
         string? GetInput(string title);
         bool GetConfirm(string title);
         void ShowMessage(string title, string message);
-        TrainStop? GetInputTrainStop();
-        TrainStop? GetInputTrainStop(TrainStop trainStop);
-        StationStop? GetInputStationStop(List<string> ticketChecks, List<string> platforms);
-        StationStop? GetInputStationStop(List<string> ticketChecks, List<string> platforms, StationStop stationStop);
+        TrainStop? GetInputTrainStop(List<string> ticketChecks, List<string> platforms);
+        TrainStop? GetInputTrainStop(List<string> ticketChecks, List<string> platforms, TrainStop trainStop);
         List<Platform>? GetInputPlatform();
         (string, List<string>) GetInputTicketCheck(List<string> waitingAreaNames);
         void SetOwner(Window owner);

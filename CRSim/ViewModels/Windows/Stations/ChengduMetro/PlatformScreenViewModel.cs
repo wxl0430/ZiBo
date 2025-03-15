@@ -19,17 +19,23 @@
         }
         public void LoadData(Station station,string _ticketCheck,string _platform)
         {
-            var trains = station.StationStops;
+            var trains = station.TrainStops;
             foreach (var trainNumber in trains)
             {
                 if (trainNumber != null && trainNumber.DepartureTime != null)
                 {
+                    var now = _timeService.GetDateTimeNow();
+                    var today = now.Date;
+
+                    DateTime? AdjustTime(TimeSpan? time) =>
+                        time.HasValue ? (today.Add(time.Value) > now ? today.Add(time.Value) : today.Add(time.Value).AddDays(1)) : null;
+
                     TrainInfos.Add(new TrainInfo
                     {
                         TrainNumber = trainNumber.Number,
                         Terminal = trainNumber.Terminal,
-                        ArrivalTime = trainNumber.ArrivalTime == null ? null : (trainNumber.ArrivalTime.Value > _timeService.GetDateTimeNow() ? trainNumber.ArrivalTime.Value : trainNumber.ArrivalTime.Value.AddDays(1)),
-                        DepartureTime = trainNumber.DepartureTime == null ? null : (trainNumber.DepartureTime.Value > _timeService.GetDateTimeNow() ? trainNumber.DepartureTime.Value : trainNumber.DepartureTime.Value.AddDays(1)),
+                        ArrivalTime = AdjustTime(trainNumber.ArrivalTime),
+                        DepartureTime = AdjustTime(trainNumber.DepartureTime),
                         State = TimeSpan.Zero
                     });
                 }
