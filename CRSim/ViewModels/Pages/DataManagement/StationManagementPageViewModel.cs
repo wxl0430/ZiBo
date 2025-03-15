@@ -1,3 +1,5 @@
+using CRSim.Core.Models;
+
 namespace CRSim.ViewModels;
 
 public partial class StationManagementPageViewModel : ObservableObject 
@@ -328,7 +330,7 @@ public partial class StationManagementPageViewModel : ObservableObject
                     {
                         firstColumn = firstColumn[..spaceIndex];
                     }
-                    if (StationStops.Any(x=> x.Number==firstColumn)) continue;
+                    if (StationStops.Any(x => x.Number == firstColumn)) continue;
                     DateTime? departureTime = DateTime.Parse(data[4]);
                     DateTime? arrivalTime = departureTime.Value.Subtract(TimeSpan.FromMinutes(2));
                     if (data[1].Split("-")[0] == SelectedStation.Name)
@@ -339,18 +341,20 @@ public partial class StationManagementPageViewModel : ObservableObject
                     {
                         departureTime = null;
                     }
-                    StationStops.Add(new StationStop()
-                    { 
-                        Number = firstColumn, 
-                        Origin = data[1].Split("-")[0], 
-                        Terminal = data[1].Split("-")[1], 
+                    var stationStop = new StationStop()
+                    {
+                        Number = firstColumn,
+                        Origin = data[1].Split("-")[0],
+                        Terminal = data[1].Split("-")[1],
                         ArrivalTime = arrivalTime,
-                        DepartureTime = departureTime, 
-                        TicketChecks = [TicketChecks[new Random().Next(TicketChecks.Count)].Name],
+                        DepartureTime = departureTime,
                         Platform = Platforms[new Random().Next(Platforms.Count)].Name,
                         Length = firstColumn.StartsWith('G') || firstColumn.StartsWith('D') || firstColumn.StartsWith('C') ? Math.Abs(firstColumn.GetHashCode()) % 3 == 0 ? 8 : 16 : 18,
-                        Landmark = new[] { "红色", "绿色", "褐色", "蓝色", "紫色", "黄色", "橙色",null}[new Random().Next(8)]
-                    });
+                        Landmark = new[] { "红色", "绿色", "褐色", "蓝色", "紫色", "黄色", "橙色", null }[new Random().Next(8)]
+                    };
+                    stationStop.TicketChecks = TicketChecks.Where(x => x.Name == stationStop.Platform + "A" || x.Name == stationStop.Platform + "B").Select(x => x.Name).ToList();
+                    if (stationStop.TicketChecks.Count == 0) stationStop.TicketChecks = [TicketChecks[new Random().Next(TicketChecks.Count)].Name];
+                    StationStops.Add(stationStop);
                 }
             }
         }
@@ -442,10 +446,11 @@ public partial class StationManagementPageViewModel : ObservableObject
             StationStops.Clear();
             foreach (StationStop t in stops)
             {
-                t.TicketChecks = [TicketChecks[new Random().Next(TicketChecks.Count)].Name];
                 t.Platform = Platforms[new Random().Next(Platforms.Count)].Name;
                 t.Landmark = new[] { "红色", "绿色", "褐色", "蓝色", "紫色", "黄色", "橙色", null }[new Random().Next(8)];
                 t.Length = t.Number.StartsWith('G') || t.Number.StartsWith('D') || t.Number.StartsWith('C') ? Math.Abs(t.Number.GetHashCode()) % 3 == 0 ? 8 : 16 : 18;
+                t.TicketChecks = TicketChecks.Where(x => x.Name == t.Platform + "A" || x.Name == t.Platform + "B").Select(x => x.Name).ToList();
+                if (t.TicketChecks.Count == 0) t.TicketChecks = [TicketChecks[new Random().Next(TicketChecks.Count)].Name];
                 StationStops.Add(t);
             }
         }
