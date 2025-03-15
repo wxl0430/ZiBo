@@ -383,6 +383,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
                             <Border Grid.Row="0" Style="{StaticResource TopSettingsCardStyle}">
@@ -429,11 +430,22 @@
                             </GroupBox>
 
                             <GroupBox Grid.Row="3" BorderThickness="0">
-                                <Border Style="{StaticResource BottomSettingsCardStyle}">
+                                <Border Style="{StaticResource SettingsCardStyle}">
                                     <StackPanel Margin="48,0,16,0" Orientation="Vertical">
                                         <TextBlock Margin="0,0,0,12" Text="贡献者"/>
                                         <TextBlock
                                             Text="wxl0430"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Border>
+                            </GroupBox>
+
+                            <GroupBox Grid.Row="4" BorderThickness="0">
+                                <Border Style="{StaticResource BottomSettingsCardStyle}">
+                                    <StackPanel Margin="48,0,16,0" Orientation="Vertical">
+                                        <TextBlock Margin="0,0,0,12" Text="捐赠者"/>
+                                        <TextBlock
+                                            Text="车迷小黄"
                                             TextWrapping="Wrap" />
                                     </StackPanel>
                                 </Border>
