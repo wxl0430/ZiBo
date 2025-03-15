@@ -12,6 +12,10 @@ namespace CRSim.Converters
         {
             if(value is int l)
             {
+                if (l < 9)
+                {
+                    return $"1-{l}";
+                }
                 if (l % 2 == 0)
                 {
                     return (new List<string> { $"1-{l / 2}", $"{l / 2 + 1}-{l}" })[l.GetHashCode() % 2];

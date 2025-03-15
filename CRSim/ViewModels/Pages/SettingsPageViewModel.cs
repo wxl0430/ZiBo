@@ -55,40 +55,24 @@
         [RelayCommand]
         public void Unload()
         {
-            if (int.TryParse(_timeOffset,out int i))
-            {
-                _settings.TimeOffset = TimeSpan.FromMinutes(i);
-            }
-            if (int.TryParse(DepartureCheckInAdvanceDuration, out int j) && j >= 0)
-            {
-                _settings.DepartureCheckInAdvanceDuration = TimeSpan.FromMinutes(j);
-            }
-            if (int.TryParse(PassingCheckInAdvanceDuration, out int k) && k >= 0)
-            {
-                _settings.PassingCheckInAdvanceDuration = TimeSpan.FromMinutes(k);
-            }
-            if (int.TryParse(StopDisplayUntilDepartureDuration, out int l) && l >= 0)
-            {
-                _settings.StopDisplayUntilDepartureDuration = TimeSpan.FromMinutes(l);
-            }
-            if (int.TryParse(StopDisplayFromArrivalDuration, out int p) && p >= 0)
-            {
-                _settings.StopDisplayFromArrivalDuration = TimeSpan.FromMinutes(p);
-            }
-            if (int.TryParse(StopCheckInAdvanceDuration, out int m) && m >= 0)
-            {
-                _settings.StopCheckInAdvanceDuration = TimeSpan.FromMinutes(m);
-            }
-            if (int.TryParse(MaxPages, out int n) && n >= 0)
-            {
-                _settings.MaxPages = n;
-            }
-            if (int.TryParse(SwitchPageSeconds, out int o) && o >= 0)
-            {
-                _settings.SwitchPageSeconds = o;
-            }
+            UpdateSettings(_timeOffset, value => _settings.TimeOffset = TimeSpan.FromMinutes(value));
+            UpdateSettings(DepartureCheckInAdvanceDuration, value => _settings.DepartureCheckInAdvanceDuration = TimeSpan.FromMinutes(value));
+            UpdateSettings(PassingCheckInAdvanceDuration, value => _settings.PassingCheckInAdvanceDuration = TimeSpan.FromMinutes(value));
+            UpdateSettings(StopDisplayUntilDepartureDuration, value => _settings.StopDisplayUntilDepartureDuration = TimeSpan.FromMinutes(value));
+            UpdateSettings(StopDisplayFromArrivalDuration, value => _settings.StopDisplayFromArrivalDuration = TimeSpan.FromMinutes(value));
+            UpdateSettings(StopCheckInAdvanceDuration, value => _settings.StopCheckInAdvanceDuration = TimeSpan.FromMinutes(value));
+            UpdateSettings(MaxPages, value => _settings.MaxPages = value);
+            UpdateSettings(SwitchPageSeconds, value => _settings.SwitchPageSeconds = value);
             _settingsService.SaveSettings();
         }
+        private void UpdateSettings(string input, Action<int> updateAction)
+        {
+            if (int.TryParse(input, out int value) && value >= 0)
+            {
+                updateAction(value);
+            }
+        }
+
         [RelayCommand]
         public async Task ClearData()
         {
