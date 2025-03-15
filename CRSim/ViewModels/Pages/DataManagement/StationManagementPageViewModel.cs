@@ -1,4 +1,5 @@
 using CRSim.Core.Models;
+using OfficeOpenXml;
 
 namespace CRSim.ViewModels;
 
@@ -247,6 +248,18 @@ public partial class StationManagementPageViewModel : ObservableObject
                     message += $"\n车次 {s.Number} 所分配的检票口 {t} 不存在；";
                 }
             }
+            if (s.DepartureTime!=null && s.ArrivalTime!=null && s.DepartureTime < s.ArrivalTime)
+            {
+                message += $"\n车次 {s.Number} 出发时间早于到达时间；";
+            }
+            if (s.DepartureTime == null && s.ArrivalTime == null)
+            {
+                message += $"\n车次 {s.Number} 未配置到发时间；";
+            }
+            if (s.Length==0)
+            {
+                message += $"\n车次 {s.Number} 长度为0；";
+            }
         }
         if (message == "") return Task.FromResult(true);
         _dialogService.ShowMessage("保存失败", $"发现 {message.Split("\n").Length-1} 个错误：{message}\n请修复所有错误后再次尝试保存。");
@@ -379,6 +392,88 @@ public partial class StationManagementPageViewModel : ObservableObject
             _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。");
         }
     }
+    [RelayCommand]
+    public async Task ImportFromExcel()
+    {
+        if (TrainStops.Count != 0)
+        {
+            if (!_dialogService.GetConfirm("当前操作可能会清空时刻表。是否继续？"))
+            {
+                return;
+            }
+        }
+        var path = _dialogService.GetFile("Excel 工作薄 (*.xlsx)|*.xlsx|所有文件 (*.*)|*.*");
+        if (path == null) return;
+        try
+        {
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+            using var package = new ExcelPackage(new FileInfo(path));
+            var worksheet = package.Workbook.Worksheets[0];
+            int rowCount = worksheet.Dimension.Rows;
+            TrainStops.Clear();
+            for (int row = 2; row <= rowCount; row++) 
+            {
+                if (worksheet.Cells[row, 1].Text.Trim() == ""||
+                    worksheet.Cells[row, 2].Text.Trim() == "" ||
+                    worksheet.Cells[row, 5].Text.Trim() == "" ||
+                    worksheet.Cells[row, 6].Text.Trim() == "" ||
+                    worksheet.Cells[row, 8].Text.Trim() == "" ||
+                    worksheet.Cells[row, 9].Text.Trim() == "")
+                {
+                    continue;
+                }
+
+                TrainStops.Add(new TrainStop
+                {
+                    Number = worksheet.Cells[row, 1].Text.Trim(),
+                    Length = int.TryParse(worksheet.Cells[row, 2].Text, out int length) ? length : 0,
+                    ArrivalTime = TimeSpan.TryParseExact(worksheet.Cells[row, 3].Text, @"hh\:mm", null, out TimeSpan arrival) ? arrival : null,
+                    DepartureTime = TimeSpan.TryParseExact(worksheet.Cells[row, 4].Text, @"hh\:mm", null, out TimeSpan departure) ? departure : null,
+                    TicketChecks = [.. worksheet.Cells[row, 5].Text.Split(' ', StringSplitOptions.RemoveEmptyEntries)],
+                    Platform = worksheet.Cells[row, 6].Text.Trim(),
+                    Landmark = worksheet.Cells[row, 7].Text.Trim() == "" ? "无" : worksheet.Cells[row, 7].Text.Trim(),
+                    Origin = worksheet.Cells[row, 8].Text.Trim(),
+                    Terminal = worksheet.Cells[row, 9].Text.Trim()
+                });
+            }
+        }
+        catch
+        {
+            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。");
+        }
+    }
+    [RelayCommand]
+    public void ExportToExcel()
+    {
+        var path = _dialogService.SaveFile("Excel 工作薄 (*.xlsx)|*.xlsx|所有文件 (*.*)|*.*","data");
+        if (path == null) return;
+        ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+        using var package = new ExcelPackage();
+        var worksheet = package.Workbook.Worksheets.Add("Sheet1");
+        worksheet.Cells[1, 1].Value = "车次";
+        worksheet.Cells[1, 2].Value = "长度";
+        worksheet.Cells[1, 3].Value = "到时";
+        worksheet.Cells[1, 4].Value = "发时";
+        worksheet.Cells[1, 5].Value = "检票口";
+        worksheet.Cells[1, 6].Value = "站台";
+        worksheet.Cells[1, 7].Value = "地标";
+        worksheet.Cells[1, 8].Value = "始发站";
+        worksheet.Cells[1, 9].Value = "终到站";
+        for (int i = 0; i < TrainStops.Count; i++)
+        {
+            worksheet.Cells[i + 2, 1].Value = TrainStops[i].Number;
+            worksheet.Cells[i + 2, 2].Value = TrainStops[i].Length;
+            worksheet.Cells[i + 2, 3].Value = TrainStops[i].ArrivalTime?.ToString(@"hh\:mm") ?? string.Empty;
+            worksheet.Cells[i + 2, 4].Value = TrainStops[i].DepartureTime?.ToString(@"hh\:mm") ?? string.Empty;
+            worksheet.Cells[i + 2, 5].Value = TrainStops[i].TicketChecks.Count == 0 ? string.Empty : string.Join(" ", TrainStops[i].TicketChecks);
+            worksheet.Cells[i + 2, 6].Value = TrainStops[i].Platform;
+            worksheet.Cells[i + 2, 7].Value = TrainStops[i].Landmark;
+            worksheet.Cells[i + 2, 8].Value = TrainStops[i].Origin;
+            worksheet.Cells[i + 2, 9].Value = TrainStops[i].Terminal;
+        }
+        package.SaveAs(new FileInfo(path));
+    }
+
     [RelayCommand]
     public void AddTrainStop()
     {

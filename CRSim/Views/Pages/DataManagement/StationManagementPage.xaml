@@ -539,6 +539,19 @@
                                         <MenuItem>
                                             <MenuItem.Header>
                                                 <TextBlock Focusable="False" FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                                           FontSize="16" Text="&#xEDE1;" VerticalAlignment="Center"/>
+                                            </MenuItem.Header>
+                                            <MenuItem Header="导出到Excel表格" FontSize="14">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Click">
+                                                        <i:InvokeCommandAction Command="{Binding ViewModel.ExportToExcelCommand}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </MenuItem>
+                                        </MenuItem>
+                                        <MenuItem>
+                                            <MenuItem.Header>
+                                                <TextBlock Focusable="False" FontFamily="{StaticResource SymbolThemeFontFamily}"
                                                            FontSize="16" Text="&#xE8B6;" VerticalAlignment="Center"/>
                                             </MenuItem.Header>
                                             <MenuItem Header="联网获取" FontSize="14">
@@ -552,6 +565,13 @@
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="Click">
                                                         <i:InvokeCommandAction Command="{Binding ViewModel.ImportFromLulutongCommand}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </MenuItem>
+                                            <MenuItem Header="从Excel表格导入" FontSize="14">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Click">
+                                                        <i:InvokeCommandAction Command="{Binding ViewModel.ImportFromExcelCommand}"/>
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                             </MenuItem>
