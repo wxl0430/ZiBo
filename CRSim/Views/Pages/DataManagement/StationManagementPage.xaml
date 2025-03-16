@@ -7,7 +7,7 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:CRSim.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converters="clr-namespace:CRSim.Converters"
+    xmlns:converters="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
     Title="StationManagementPage"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -17,7 +17,7 @@
    >
     <Page.Resources>
         <converters:TimeSpanToStringConverter x:Key="TimeSpanToStringConverter" />
-        <converters:TicketCheckConverter x:Key="TicketCheckConverter" Separator=", " />
+        <converters:ListToStringConverter x:Key="ListToStringConverter" Separator=", " />
         <Style BasedOn="{StaticResource {x:Type DataGrid}}" x:Key="CustomDataGridStyle" TargetType="DataGrid">
             <Setter Property="CellStyle">
                 <Setter.Value>
@@ -602,7 +602,7 @@
                                                     <TextBlock Text="发时" Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}"/>
                                                 </DataGridTextColumn.Header>
                                             </DataGridTextColumn>
-                                            <DataGridTextColumn Binding="{Binding TicketChecks,Converter={StaticResource TicketCheckConverter}}">
+                                            <DataGridTextColumn Binding="{Binding TicketChecks,Converter={StaticResource ListToStringConverter}}">
                                                 <DataGridTextColumn.Header>
                                                     <TextBlock Text="检票口" Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}"/>
                                                 </DataGridTextColumn.Header>

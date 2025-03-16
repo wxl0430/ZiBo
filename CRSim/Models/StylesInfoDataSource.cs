@@ -11,8 +11,8 @@ namespace CRSim.Models
         {
             get
             {
-                string type = $"CRSim.Views.{Station}.{StyleName}";
-                return _assembly.GetType(type);
+                string type = $"CRSim.ScreenSimulator.Views.{Station}.{StyleName}";
+                return Assembly.Load("CRSim.ScreenSimulator").GetType(type);
             }
         }
 
@@ -30,8 +30,6 @@ namespace CRSim.Models
         {
             return Title;
         }
-
-        private static readonly Assembly _assembly = typeof(StylesInfoDataItem).Assembly;
     }
 
     public sealed class StylesInfoDataSource

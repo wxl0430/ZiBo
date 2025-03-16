@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CRSim"
-        xmlns:converterss="clr-namespace:CRSim.Converters"
+        xmlns:converterss="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
         Title="{Binding ViewModel.ApplicationTitle}"
         d:DataContext="{d:DesignInstance local:MainWindow, IsDesignTimeCreatable=False}"
         d:DesignHeight="650"

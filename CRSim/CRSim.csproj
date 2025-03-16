@@ -66,54 +66,13 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.3" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.3" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
-    <PackageReference Include="PP.Wpf" Version="1.0.8" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CRSim.Core\CRSim.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Views\Windows\Stations\BeijingXi\PrimaryScreenView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\Windows\Stations\Guangyuan\PrimaryScreenView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\Windows\Stations\ChengduMetro\PlatformScreenView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\Windows\Stations\ChengduDong\PrimaryTicketCheckScreenView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\Windows\Stations\Ankang\ExitScreenView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\Windows\Stations\Tianjin\PlatformScreenView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\Windows\Stations\Hanzhong\PlatformScreenView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\Windows\Stations\Harbin\PrimaryScreenView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\Windows\Stations\Shanghai\OutsideScreenView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\Windows\Stations\Zibo\PrimaryScreenView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\Windows\Stations\Zibo\SecondaryScreenView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\Windows\Stations\Jinanxi\SmallScreenView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\Windows\Stations\GuangdongIntercity\SecondaryScreenView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <ProjectReference Include="..\CRSim.ScreenSimulator\CRSim.ScreenSimulator.csproj" />
+    <ProjectReference Include="..\CRSim.Shared\CRSim.Shared.csproj" />
   </ItemGroup>
 
 </Project>
