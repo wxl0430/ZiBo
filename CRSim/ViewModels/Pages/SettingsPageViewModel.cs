@@ -55,19 +55,19 @@
         [RelayCommand]
         public void Unload()
         {
-            UpdateSettings(_timeOffset, value => _settings.TimeOffset = TimeSpan.FromMinutes(value));
-            UpdateSettings(DepartureCheckInAdvanceDuration, value => _settings.DepartureCheckInAdvanceDuration = TimeSpan.FromMinutes(value));
-            UpdateSettings(PassingCheckInAdvanceDuration, value => _settings.PassingCheckInAdvanceDuration = TimeSpan.FromMinutes(value));
-            UpdateSettings(StopDisplayUntilDepartureDuration, value => _settings.StopDisplayUntilDepartureDuration = TimeSpan.FromMinutes(value));
-            UpdateSettings(StopDisplayFromArrivalDuration, value => _settings.StopDisplayFromArrivalDuration = TimeSpan.FromMinutes(value));
-            UpdateSettings(StopCheckInAdvanceDuration, value => _settings.StopCheckInAdvanceDuration = TimeSpan.FromMinutes(value));
-            UpdateSettings(MaxPages, value => _settings.MaxPages = value);
-            UpdateSettings(SwitchPageSeconds, value => _settings.SwitchPageSeconds = value);
+            UpdateSettings(TimeOffset, true, value => _settings.TimeOffset = TimeSpan.FromMinutes(value));
+            UpdateSettings(DepartureCheckInAdvanceDuration, false, value => _settings.DepartureCheckInAdvanceDuration = TimeSpan.FromMinutes(value));
+            UpdateSettings(PassingCheckInAdvanceDuration, false, value => _settings.PassingCheckInAdvanceDuration = TimeSpan.FromMinutes(value));
+            UpdateSettings(StopDisplayUntilDepartureDuration, false, value => _settings.StopDisplayUntilDepartureDuration = TimeSpan.FromMinutes(value));
+            UpdateSettings(StopDisplayFromArrivalDuration, false, value => _settings.StopDisplayFromArrivalDuration = TimeSpan.FromMinutes(value));
+            UpdateSettings(StopCheckInAdvanceDuration, false, value => _settings.StopCheckInAdvanceDuration = TimeSpan.FromMinutes(value));
+            UpdateSettings(MaxPages, false, value => _settings.MaxPages = value);
+            UpdateSettings(SwitchPageSeconds, false, value => _settings.SwitchPageSeconds = value);
             _settingsService.SaveSettings();
         }
-        private void UpdateSettings(string input, Action<int> updateAction)
+        private void UpdateSettings(string input,bool allowNegative, Action<int> updateAction)
         {
-            if (int.TryParse(input, out int value) && value >= 0)
+            if (int.TryParse(input, out int value) && (allowNegative || value >= 0))
             {
                 updateAction(value);
             }

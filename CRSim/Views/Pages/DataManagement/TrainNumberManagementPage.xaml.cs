@@ -10,14 +10,4 @@ public partial class TrainNumberManagementPage : Page
         DataContext = this;
         InitializeComponent();
     }
-
-    private void NumbersList_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-    {
-        var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
-        {
-            RoutedEvent = UIElement.MouseWheelEvent,
-            Source = sender
-        };
-        NumbersList.RaiseEvent(eventArg);
-    }
 }
