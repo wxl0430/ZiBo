@@ -74,12 +74,12 @@ namespace CRSim.Models
 
         public ICollection<string> GetParametersInfo(Type type)
         {
-            return StylesInfo.Where(x => x.ViewType == type).FirstOrDefault()?.Parameters;
+            return StylesInfo.FirstOrDefault(x => x.ViewType == type)?.Parameters;
         }
 
         public string GetStyleName(Type type)
         {
-            return StylesInfo.Where(x => x.ViewType == type).FirstOrDefault()?.Title;
+            return StylesInfo.FirstOrDefault(x => x.ViewType == type)?.Title;
         }
     }
 }

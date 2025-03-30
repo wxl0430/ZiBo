@@ -69,6 +69,19 @@ namespace CRSim.Services
             }
             return null;
         }
+        public TrainStop? GetInputTrainNumberStop(TrainStop? t)
+        {
+            var dialog = new TrainNumberStopDialog(t)
+            {
+                Owner = _owner
+            };
+            bool? result = dialog.ShowDialog();
+            if (result == true)
+            {
+                return dialog.GeneratedTrainStop;
+            }
+            return null;
+        }
 
         public TrainStop? GetInputTrainStop(List<string> ticketChecks, List<string> platforms)
         {
@@ -82,7 +95,6 @@ namespace CRSim.Services
                 return dialog.GeneratedTrainStop;
             }
             return null;
-
         }
 
         public TrainStop? GetInputTrainStop(List<string> ticketChecks, List<string> platforms, TrainStop trainStop)

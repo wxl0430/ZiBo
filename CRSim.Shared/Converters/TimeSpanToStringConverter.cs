@@ -13,7 +13,7 @@ namespace CRSim.Shared.Converters
             if (value is TimeSpan dateTime && dateTime != new TimeSpan())
             {
                 var CultureInfo = new CultureInfo(Culture);
-                return dateTime.ToString(Format,CultureInfo);
+                return (dateTime-dateTime.Days*TimeSpan.FromHours(24)).ToString(Format,CultureInfo);
             }
             return string.Empty;
         }

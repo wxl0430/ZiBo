@@ -27,6 +27,8 @@
         public string _maxPages;
         [ObservableProperty]
         public string _switchPageSeconds;
+        [ObservableProperty]
+        public string _userKey;
         #endregion
         public SettingsPageViewModel(ISettingsService settingsService, IDatabaseService databaseService, IDialogService dialogService)
         {
@@ -50,6 +52,7 @@
             StopCheckInAdvanceDuration = _settings.StopCheckInAdvanceDuration.TotalMinutes.ToString();
             MaxPages = _settings.MaxPages.ToString();
             SwitchPageSeconds = _settings.SwitchPageSeconds.ToString();
+            UserKey = _settings.UserKey;
         }
 
         [RelayCommand]
@@ -63,6 +66,7 @@
             UpdateSettings(StopCheckInAdvanceDuration, false, value => _settings.StopCheckInAdvanceDuration = TimeSpan.FromMinutes(value));
             UpdateSettings(MaxPages, false, value => _settings.MaxPages = value);
             UpdateSettings(SwitchPageSeconds, false, value => _settings.SwitchPageSeconds = value);
+            _settings.UserKey = UserKey;
             _settingsService.SaveSettings();
         }
         private void UpdateSettings(string input,bool allowNegative, Action<int> updateAction)

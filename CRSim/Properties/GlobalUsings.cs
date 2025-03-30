@@ -31,3 +31,5 @@ global using CRSim.Services;
 global using CRSim.Models;
 global using CRSim.Views;
 global using CRSim.ViewModels;
+
+global using CRSim.WebsiteSimulator;

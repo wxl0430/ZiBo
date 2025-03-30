@@ -22,14 +22,14 @@
     "Items": [
       {
         "UniqueId": "Station",
-        "Title": "车站管理",
+        "Title": "车站",
         "PageName": "StationManagementPage",
         "ImagePath": "Assets/ControlImages/Station Management.png",
         "Description": "管理车站数据库。"
       },
       {
         "UniqueId": "Train Number",
-        "Title": "车次管理",
+        "Title": "车次",
         "PageName": "TrainNumberManagementPage",
         "ImagePath": "Assets/ControlImages/TrainNumber Management.png",
         "Description": "管理车次数据库。"
@@ -47,22 +47,22 @@
     "Items": [
       {
         "UniqueId": "Screen",
-        "Title": "引导屏模拟",
+        "Title": "引导屏",
         "PageName": "ScreenSimulationPage",
         "ImagePath": "Assets/ControlImages/Screen Simulation.png",
         "Description": "旅客引导显示屏模拟。"
       },
       {
         "UniqueId": "Gate",
-        "Title": "闸机模拟",
+        "Title": "闸机",
         "PageName": "GateSimulationPage",
         "ImagePath": "Assets/ControlImages/Gate Simulation.png",
         "Description": "闸机模拟。（开发中）"
       },
       {
-        "UniqueId": "TVM",
-        "Title": "TVM模拟",
-        "PageName": "TVMSimulationPage",
+        "UniqueId": "12306",
+        "Title": "12306",
+        "PageName": "WebsiteSimulationPage",
         "ImagePath": "Assets/ControlImages/TVM Simulation.png",
         "Description": "自助服务机模拟。（开发中）"
       }

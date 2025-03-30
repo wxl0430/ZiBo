@@ -22,6 +22,7 @@ namespace CRSim.Core.Services
             _key.SetValue("StopDisplayFromArrivalDuration", (int)_settings.StopDisplayFromArrivalDuration.TotalMinutes);
             _key.SetValue("PassingCheckInAdvanceDuration", (int)_settings.PassingCheckInAdvanceDuration.TotalMinutes);
             _key.SetValue("DepartureCheckInAdvanceDuration", (int)_settings.DepartureCheckInAdvanceDuration.TotalMinutes);
+            _key.SetValue("UserKey", _settings.UserKey);
         }
         private void LoadSettings()
         {
@@ -43,6 +44,7 @@ namespace CRSim.Core.Services
                 if (_key.GetValue("StopDisplayFromArrivalDuration") != null) _settings.StopDisplayFromArrivalDuration = TimeSpan.FromMinutes((int)_key.GetValue("StopDisplayFromArrivalDuration"));
                 if (_key.GetValue("PassingCheckInAdvanceDuration") != null) _settings.PassingCheckInAdvanceDuration = TimeSpan.FromMinutes((int)_key.GetValue("PassingCheckInAdvanceDuration"));
                 if (_key.GetValue("DepartureCheckInAdvanceDuration") != null) _settings.DepartureCheckInAdvanceDuration = TimeSpan.FromMinutes((int)_key.GetValue("DepartureCheckInAdvanceDuration"));
+                if (_key.GetValue("UserKey") != null) _settings.UserKey = (string)_key.GetValue("UserKey");
             }
         }
 

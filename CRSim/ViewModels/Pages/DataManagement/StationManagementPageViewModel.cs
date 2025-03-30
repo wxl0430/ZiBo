@@ -406,7 +406,7 @@ public partial class StationManagementPageViewModel : ObservableObject
         if (path == null) return;
         try
         {
-            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+            ExcelPackage.License.SetNonCommercialPersonal("CRSim");
             using var package = new ExcelPackage(new FileInfo(path));
             var worksheet = package.Workbook.Worksheets[0];
             int rowCount = worksheet.Dimension.Rows;
@@ -447,7 +447,7 @@ public partial class StationManagementPageViewModel : ObservableObject
     {
         var path = _dialogService.SaveFile("Excel 工作薄 (*.xlsx)|*.xlsx|所有文件 (*.*)|*.*","data");
         if (path == null) return;
-        ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+        ExcelPackage.License.SetNonCommercialPersonal("CRSim");
         using var package = new ExcelPackage();
         var worksheet = package.Workbook.Worksheets.Add("Sheet1");
         worksheet.Cells[1, 1].Value = "车次";
@@ -535,7 +535,7 @@ public partial class StationManagementPageViewModel : ObservableObject
             }
         }
 
-        var stops = await _networkService.GetTrainStopsAsync(SelectedStation.Name);
+        var stops = await _networkService.GetTrainNumnersAsync(SelectedStation.Name);
         if (stops.Count !=0)
         {
             TrainStops.Clear();

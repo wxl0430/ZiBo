@@ -55,6 +55,32 @@
 
         <ScrollViewer Grid.Row="1" Margin="0,0,0,24" Padding="0,0,24,0">
             <StackPanel>
+                <TextBlock Text="用户设置" FontWeight="SemiBold" Margin="10" FontSize="14"/>
+                <Grid Background="Transparent" Margin="0,0,0,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="{DynamicResource ExpanderHeaderBackground}"
+                            BorderBrush="{DynamicResource ExpanderHeaderBorderBrush}" BorderThickness="{StaticResource ExpanderBorderThemeThickness}"
+                            Padding="{StaticResource ExpanderPadding}" CornerRadius="{DynamicResource ControlCornerRadius}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Width="20" Height="20" Text="&#xE8D7;" FontSize="20"
+                                       Margin="10,5,10,5" VerticalAlignment="Center" FontFamily="{StaticResource SymbolThemeFontFamily}"/>
+                            <StackPanel
+                                Grid.Column="1" Margin="12" Orientation="Vertical">
+                                <TextBlock Text="密钥" FontSize="14" Style="{StaticResource BodyTextBlockStyle}"/>
+                                <TextBlock Opacity="0.7" FontSize="12" Style="{StaticResource CaptionTextBlockStyle}">解锁特定功能</TextBlock>
+                            </StackPanel>
+                            <TextBox Width="168" VerticalAlignment="Center" HorizontalAlignment="Right" Text="{Binding ViewModel.UserKey, Mode=TwoWay}" Margin="10" Grid.Column="2"/>
+                        </Grid>
+                    </Border>
+                </Grid>
                 <TextBlock Text="偏好设置" FontWeight="SemiBold" Margin="10" FontSize="14"/>
                 <Grid Background="Transparent" Margin="0,0,0,20">
                     <Grid.RowDefinitions>
