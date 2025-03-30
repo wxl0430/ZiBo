@@ -221,7 +221,7 @@
                                            Text="&#xECA5;" FontSize="20"/>
 
                                 <StackPanel Grid.Column="1" Margin="12" Orientation="Vertical">
-                                    <TextBlock Text="候车室管理" Style="{StaticResource BodyTextBlockStyle}"/>
+                                    <TextBlock Text="候车室" Style="{StaticResource BodyTextBlockStyle}"/>
                                     <TextBlock Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}">
                                         管理车站候车室设施
                                     </TextBlock>
@@ -235,7 +235,7 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <Menu Grid.Column="1" HorizontalContentAlignment="Right" Margin="0,0,0,8">
+                                    <Menu Grid.Column="1" HorizontalContentAlignment="Right">
                                         <MenuItem>
                                             <MenuItem.Header>
                                                 <TextBlock Focusable="False" FontFamily="{StaticResource SymbolThemeFontFamily}"
@@ -303,7 +303,7 @@
                                            Text="&#xF161;" FontSize="20"/>
 
                                 <StackPanel Grid.Column="1" Margin="12" Orientation="Vertical">
-                                    <TextBlock Text="检票口管理" Style="{StaticResource BodyTextBlockStyle}"/>
+                                    <TextBlock Text="检票口" Style="{StaticResource BodyTextBlockStyle}"/>
                                     <TextBlock Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}">
                                         管理车站检票口设施
                                     </TextBlock>
@@ -391,7 +391,7 @@
                                            Text="&#xE799;" FontSize="20"/>
 
                                 <StackPanel Grid.Column="1" Margin="12" Orientation="Vertical">
-                                    <TextBlock Text="站台管理" Style="{StaticResource BodyTextBlockStyle}"/>
+                                    <TextBlock Text="站台" Style="{StaticResource BodyTextBlockStyle}"/>
                                     <TextBlock Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}">
                                         管理车站站台设施
                                     </TextBlock>
@@ -405,7 +405,7 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <Menu Grid.Column="1" HorizontalContentAlignment="Right" Margin="0,0,0,8">
+                                    <Menu Grid.Column="1" HorizontalContentAlignment="Right">
                                         <MenuItem>
                                             <MenuItem.Header>
                                                 <TextBlock Focusable="False" FontFamily="{StaticResource SymbolThemeFontFamily}"
@@ -476,7 +476,7 @@
                                            VerticalAlignment="Center" FontFamily="{StaticResource SymbolThemeFontFamily}"
                                            Text="&#xE932;" FontSize="20"/>
                                 <StackPanel Grid.Column="1" Margin="12" Orientation="Vertical">
-                                    <TextBlock Text="车次管理" Style="{StaticResource BodyTextBlockStyle}"/>
+                                    <TextBlock Text="车站车次" Style="{StaticResource BodyTextBlockStyle}"/>
                                     <TextBlock Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}">
                                         编辑此车站的车次
                                     </TextBlock>

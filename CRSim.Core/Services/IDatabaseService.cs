@@ -1,4 +1,6 @@
 ﻿using CRSim.Core.Models;
+using static System.Collections.Specialized.BitVector32;
+using Section = CRSim.Core.Models.Section;
 
 namespace CRSim.Core.Services
 {
@@ -15,7 +17,7 @@ namespace CRSim.Core.Services
         void DeleteStation(Station station);
         void DeleteTrainNumber(TrainNumber trainNumber);
         void UpdateStation(string stationName,Station station);
-        void UpdateTimeTable(TrainNumber trainNumber, List<TrainStop> trainStopsList);
+        void UpdateTrainNumber(TrainNumber trainNumber, List<TrainStop> timeTable, List<Section>? sections);
         Task SaveData();
         void ImportData(string jsonFilePath);
         Task ExportData(string path);

@@ -78,7 +78,7 @@ namespace CRSim.Models
 
         public ICollection<ControlInfoDataItem> GetControlsInfo(string groupName)
         {
-            return ControlsInfo.Where(x => x.UniqueId == groupName).FirstOrDefault()?.Items;
+            return ControlsInfo.FirstOrDefault(x => x.UniqueId == groupName)?.Items;
         }
 
         public ICollection<ControlInfoDataItem> GetAllControlsInfo()

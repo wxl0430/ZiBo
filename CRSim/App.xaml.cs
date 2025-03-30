@@ -34,6 +34,10 @@
                 services.AddTransient<StartSimulationPageViewModel>();
                 services.AddTransient<ScreenSimulationPage>();
                 services.AddTransient<ScreenSimulationPageViewModel>();
+                services.AddTransient<WebsiteSimulationPage>();
+                services.AddTransient<WebsiteSimulationPageViewModel>();
+
+                services.AddTransient<WebsiteSimulator.Simulator>();
 
                 services.AddTransient<ScreenSimulator.ViewModels.ChengduDong.SecondaryScreenViewModel>();
                 services.AddTransient<ScreenSimulator.Views.ChengduDong.SecondaryScreenView>();

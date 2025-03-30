@@ -1,5 +1,6 @@
 ﻿using CRSim.Core.Models;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace CRSim.Core.Services
 {
@@ -9,7 +10,11 @@ namespace CRSim.Core.Services
         private List<Station> _stations;
         private List<TrainNumber> _trainNumbers;
 
-        private readonly JsonSerializerOptions options = new() { WriteIndented = true };
+        private readonly JsonSerializerOptions options = new() 
+        {
+            WriteIndented = true,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+        };
 
         public DatabaseService()
         {
@@ -77,10 +82,14 @@ namespace CRSim.Core.Services
             }
         }
 
-        public void UpdateTimeTable(TrainNumber trainNumber, List<TrainStop> trainStopsList)
+        public void UpdateTrainNumber(TrainNumber trainNumber, List<TrainStop> timeTable, List<Section>? sections)
         {
             var targetTrainNumber = _trainNumbers.FirstOrDefault(x => x.Number == trainNumber.Number);
-            targetTrainNumber.TimeTable = trainStopsList;
+            targetTrainNumber.TimeTable = timeTable;
+            if (sections!= null)
+            {
+                targetTrainNumber.Sections = sections;
+            }
         }
 
         public async Task SaveData()

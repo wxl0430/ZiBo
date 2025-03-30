@@ -24,5 +24,6 @@ namespace CRSim.Core.Models
 
         public int MaxPages { get; set; } = 3;
         public int SwitchPageSeconds { get; set; } = 20;
+        public string UserKey { get; set; } = "";
     }
 }
