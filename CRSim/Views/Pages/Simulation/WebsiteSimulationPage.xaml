@@ -33,6 +33,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Border Grid.Row="0" Background="{DynamicResource InfoBarErrorSeverityBackgroundBrush}"
                             BorderBrush="{DynamicResource InfoBarBorderBrush}" BorderThickness="{StaticResource ExpanderBorderThemeThickness}"
@@ -79,10 +80,26 @@
                         <TextBlock Grid.Column="0" Width="20" Height="20" Text="&#xE814;" FontSize="20" Foreground="{DynamicResource InfoBarWarningSeverityIconBackground}"
                                        Margin="10,5,10,5" VerticalAlignment="Center" FontFamily="{StaticResource SymbolThemeFontFamily}"/>
                         <TextBlock Grid.Column="1" Margin="12" FontSize="14" Style="{StaticResource BodyTextBlockStyle}"
-                                   Text="如果该系统侵犯到您的权益，请立即联系QQ：2639367181并告知作者，作者将会在第一时间删除相关内容。"/>
+                                   Text="如果该系统侵犯到您的权益，请立即联系电子邮件support@mstscn.com告知作者，作者将会在第一时间删除相关内容。"/>
                     </Grid>
                 </Border>
-                <Border Grid.Row="3" Background="{DynamicResource ExpanderHeaderBackground}"
+                <Border Grid.Row="3" Background="{DynamicResource InfoBarWarningSeverityBackgroundBrush}"
+                            BorderBrush="{DynamicResource InfoBarBorderBrush}" BorderThickness="{StaticResource ExpanderBorderThemeThickness}"
+                            Padding="{StaticResource ExpanderPadding}" CornerRadius="{DynamicResource ControlCornerRadius}" Margin="0,4,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Width="20" Height="20" Text="&#xF167;" FontSize="20" Foreground="{DynamicResource InfoBarWarningSeverityIconBackground}"
+                                       Margin="10,5,10,5" VerticalAlignment="Center" FontFamily="{StaticResource SymbolThemeFontFamily}"/>
+                        <TextBlock Grid.Column="1" Margin="12" FontSize="14" Style="{StaticResource BodyTextBlockStyle}"
+                                   Text="本功能需要设置用户Key后才可使用，具体步骤请参考http://47.122.74.193/CRSim/Key"/>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="4" Background="{DynamicResource ExpanderHeaderBackground}"
                             BorderBrush="{DynamicResource ExpanderHeaderBorderBrush}" BorderThickness="{StaticResource ExpanderBorderThemeThickness}"
                             Padding="{StaticResource ExpanderPadding}" CornerRadius="{DynamicResource ControlCornerRadius}" Margin="0,4,0,0">
                     <Grid>
@@ -104,7 +121,7 @@
                     </Grid>
 
                 </Border>
-                <Border Grid.Row="4" Background="{DynamicResource ExpanderHeaderBackground}"
+                <Border Grid.Row="5" Background="{DynamicResource ExpanderHeaderBackground}"
                             BorderBrush="{DynamicResource ExpanderHeaderBorderBrush}" BorderThickness="{StaticResource ExpanderBorderThemeThickness}"
                             Padding="{StaticResource ExpanderPadding}" CornerRadius="{DynamicResource ControlCornerRadius}" Margin="0,4,0,0">
                     <Grid>
