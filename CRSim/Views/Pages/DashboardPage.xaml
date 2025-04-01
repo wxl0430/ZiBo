@@ -45,7 +45,7 @@
                             MaxWidth="300"
                             Margin="0,0,0,0"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="一个可以模拟售票网站、车站显示屏、车站广播等要素的综合模拟器。虽然现在只有显示屏模拟。"
+                            Text="一个可以模拟售票网站、车站显示屏、车站广播等要素的综合模拟器。最近上新了售票网站模拟哦！"
                             TextAlignment="Left" HorizontalAlignment="Left" Padding="0,8,12,8"/>
                     </Border>
                 </StackPanel>
