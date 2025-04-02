@@ -1,4 +1,4 @@
-﻿
+
 using CRSim.Core.Models;
 using System.Timers;
 

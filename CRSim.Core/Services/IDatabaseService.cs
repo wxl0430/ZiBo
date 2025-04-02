@@ -1,4 +1,4 @@
-﻿using CRSim.Core.Models;
+using CRSim.Core.Models;
 using static System.Collections.Specialized.BitVector32;
 using Section = CRSim.Core.Models.Section;
 

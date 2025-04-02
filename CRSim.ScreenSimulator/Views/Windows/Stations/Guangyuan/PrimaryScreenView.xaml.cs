@@ -1,4 +1,4 @@
-﻿using CRSim.ScreenSimulator.ViewModels.Guangyuan;
+using CRSim.ScreenSimulator.ViewModels.Guangyuan;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;

@@ -1,4 +1,4 @@
-﻿using CRSim.Core.Models;
+using CRSim.Core.Models;
 using Microsoft.Win32;
 using System.Text.Json;
 

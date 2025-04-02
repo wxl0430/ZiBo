@@ -1,4 +1,4 @@
-﻿using CRSim.Core.Models;
+using CRSim.Core.Models;
 using System.Net;
 using System.Text.Json;
 
@@ -77,7 +77,7 @@ namespace CRSim.Core.Services
             return null;
         }
 
-        public async Task<List<TrainStop>> GetTrainNumnersAsync(string name)
+        public async Task<List<TrainStop>> GetTrainNumbersAsync(string name)
         {
             var client = new HttpClient();
             var stations = (await client.GetStringAsync("https://kyfw.12306.cn/otn/resources/js/framework/station_name.js")).Split("|||");

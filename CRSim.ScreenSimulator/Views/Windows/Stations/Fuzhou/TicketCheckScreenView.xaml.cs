@@ -1,4 +1,4 @@
-﻿using CRSim.ScreenSimulator.ViewModels.Fuzhou;
+using CRSim.ScreenSimulator.ViewModels.Fuzhou;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;

@@ -1,4 +1,4 @@
-﻿namespace CRSim.Core.Models
+namespace CRSim.Core.Models
 {
     public class TrainNumber
     {
