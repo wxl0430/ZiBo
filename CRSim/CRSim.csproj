@@ -10,6 +10,7 @@
     <StartupObject>CRSim.App</StartupObject>
     <ApplicationIcon>Assets\CRSimIcon.ico</ApplicationIcon>
     <Version>2.0.1.0</Version>
+	<RepositoryUrl>https://github.com/denhlihong2007/CRSim</RepositoryUrl>
   </PropertyGroup>
 
 	<ItemGroup>
