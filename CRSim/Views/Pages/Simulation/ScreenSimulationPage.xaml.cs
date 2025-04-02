@@ -1,4 +1,4 @@
-﻿namespace CRSim.Views;
+namespace CRSim.Views;
     public partial class ScreenSimulationPage : Page
     {
         public ScreenSimulationPageViewModel ViewModel { get; }

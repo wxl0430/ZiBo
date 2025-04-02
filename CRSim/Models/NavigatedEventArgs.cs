@@ -1,4 +1,4 @@
-﻿namespace CRSim.Models
+namespace CRSim.Models
 {
     public class NavigatingEventArgs
     {

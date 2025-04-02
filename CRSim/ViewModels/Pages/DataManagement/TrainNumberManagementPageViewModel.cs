@@ -9,10 +9,10 @@ namespace CRSim.ViewModels;
 public partial class TrainNumberManagementPageViewModel : ObservableObject 
 {
 	[ObservableProperty]
-	private string _pageTitle = "³µ´Î¹ÜÀí";
+	private string _pageTitle = "è½¦æ¬¡ç®¡ç†";
 
 	[ObservableProperty]
-	private string _pageDescription = "¿´ÆğÀ´²»ÊÇºÜÎÂÜ°µÄÌáĞÑ£º¸ÄÍê¼ÇµÃ±£´æ! Owo";
+	private string _pageDescription = "çœ‹èµ·æ¥ä¸æ˜¯å¾ˆæ¸©é¦¨çš„æé†’ï¼šæ”¹å®Œè®°å¾—ä¿å­˜! Owo";
 
     [ObservableProperty]
     private bool _isSelected = false;
@@ -128,12 +128,12 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
     [RelayCommand]
     public async Task AddTrainNumber()
     {
-        string? number = _dialogService.GetInput("ÇëÊäÈë³µ´ÎºÅ")?.ToUpper();
+        string? number = _dialogService.GetInput("è¯·è¾“å…¥è½¦æ¬¡å·")?.ToUpper();
         if (number != null)
         {
             if (TrainNumbers.Select(x => x.Number).Contains(number))
             {
-                _dialogService.ShowMessage("Ìí¼ÓÊ§°Ü", $"³µ´ÎºÅ {number} ÒÑ´æÔÚ¡£");
+                _dialogService.ShowMessage("æ·»åŠ å¤±è´¥", $"è½¦æ¬¡å· {number} å·²å­˜åœ¨ã€‚");
                 return;
             }
             _databaseService.AddTrainNumber(number);
@@ -154,7 +154,7 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
     [RelayCommand]
     public async Task DeleteAllTrainNumbers()
     {
-        if (!_dialogService.GetConfirm("µ±Ç°²Ù×÷»áÉ¾³ıÈ«²¿³µ´Î£¬ÊÇ·ñ¼ÌĞø£¿")) return;
+        if (!_dialogService.GetConfirm("å½“å‰æ“ä½œä¼šåˆ é™¤å…¨éƒ¨è½¦æ¬¡ï¼Œæ˜¯å¦ç»§ç»­ï¼Ÿ")) return;
         var trainNumbers = _databaseService.GetAllTrainNumbers().ToList();
         foreach (TrainNumber trainNumber in trainNumbers)
         {
@@ -171,7 +171,7 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
     {
         if (TimeTable.Count != 0)
         {
-            if (!_dialogService.GetConfirm("µ±Ç°²Ù×÷¿ÉÄÜÇå¿ÕÊ±¿Ì±í¡£ÊÇ·ñ¼ÌĞø£¿"))
+            if (!_dialogService.GetConfirm("å½“å‰æ“ä½œå¯èƒ½æ¸…ç©ºæ—¶åˆ»è¡¨ã€‚æ˜¯å¦ç»§ç»­ï¼Ÿ"))
             {
                 return;
             }
@@ -189,7 +189,7 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
         }
         else
         {
-            _dialogService.ShowMessage("»ñÈ¡Ê§°Ü", "Î´ÕÒµ½¸Ã³µ´Î¡£");
+            _dialogService.ShowMessage("è·å–å¤±è´¥", "æœªæ‰¾åˆ°è¯¥è½¦æ¬¡ã€‚");
         }
     }
     [RelayCommand]
@@ -200,7 +200,7 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
         {
             if (TimeTable.Any(x => x.Station == newTrainStop.Station))
             {
-                _dialogService.ShowMessage("´íÎó", $"³µÕ¾ {newTrainStop.Station} ÒÑ´æÔÚ¡£");
+                _dialogService.ShowMessage("é”™è¯¯", $"è½¦ç«™ {newTrainStop.Station} å·²å­˜åœ¨ã€‚");
             }
             if (selectedTrainStop != null)
             {
@@ -225,7 +225,7 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
     [RelayCommand]
     public void DeleteAllTrainStop()
     {
-        if (!_dialogService.GetConfirm("µ±Ç°²Ù×÷»áÉ¾³ıÈ«²¿Í£Õ¾£¬ÊÇ·ñ¼ÌĞø£¿")) return;
+        if (!_dialogService.GetConfirm("å½“å‰æ“ä½œä¼šåˆ é™¤å…¨éƒ¨åœç«™ï¼Œæ˜¯å¦ç»§ç»­ï¼Ÿ")) return;
         TimeTable.Clear();
         RefreshSections();
     }
@@ -244,14 +244,14 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
     [RelayCommand]
     public void TimeTableExportToExcel()
     {
-        var path = _dialogService.SaveFile("Excel ¹¤×÷±¡ (*.xlsx)|*.xlsx|ËùÓĞÎÄ¼ş (*.*)|*.*", "data");
+        var path = _dialogService.SaveFile("Excel å·¥ä½œè–„ (*.xlsx)|*.xlsx|æ‰€æœ‰æ–‡ä»¶ (*.*)|*.*", "data");
         if (path == null) return;
         ExcelPackage.License.SetNonCommercialPersonal("CRSim");
         using var package = new ExcelPackage();
         var worksheet = package.Workbook.Worksheets.Add("Sheet1");
-        worksheet.Cells[1, 1].Value = "³µÕ¾Ãû";
-        worksheet.Cells[1, 2].Value = "µ½µã";
-        worksheet.Cells[1, 3].Value = "¿ªµã";
+        worksheet.Cells[1, 1].Value = "è½¦ç«™å";
+        worksheet.Cells[1, 2].Value = "åˆ°ç‚¹";
+        worksheet.Cells[1, 3].Value = "å¼€ç‚¹";
         for (int i = 0; i < TimeTable.Count; i++)
         {
             worksheet.Cells[i + 2, 1].Value = TimeTable[i].Station;
@@ -265,12 +265,12 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
     {
         if (TimeTable.Count != 0)
         {
-            if (!_dialogService.GetConfirm("µ±Ç°²Ù×÷¿ÉÄÜ»áÇå¿ÕÊ±¿Ì±í¡£ÊÇ·ñ¼ÌĞø£¿"))
+            if (!_dialogService.GetConfirm("å½“å‰æ“ä½œå¯èƒ½ä¼šæ¸…ç©ºæ—¶åˆ»è¡¨ã€‚æ˜¯å¦ç»§ç»­ï¼Ÿ"))
             {
                 return;
             }
         }
-        var path = _dialogService.GetFile("Excel ¹¤×÷±¡ (*.xlsx)|*.xlsx|ËùÓĞÎÄ¼ş (*.*)|*.*");
+        var path = _dialogService.GetFile("Excel å·¥ä½œè–„ (*.xlsx)|*.xlsx|æ‰€æœ‰æ–‡ä»¶ (*.*)|*.*");
         if (path == null) return;
         try
         {
@@ -299,7 +299,7 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
         }
         catch
         {
-            _dialogService.ShowMessage("µ¼ÈëÊ§°Ü", "ÎÄ¼ş¸ñÊ½´íÎó»ò±»Õ¼ÓÃ¡£");
+            _dialogService.ShowMessage("å¯¼å…¥å¤±è´¥", "æ–‡ä»¶æ ¼å¼é”™è¯¯æˆ–è¢«å ç”¨ã€‚");
         }
     }
     #endregion
@@ -368,7 +368,7 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
     [RelayCommand]
     public void PriceImportFromExcel()
     {
-        var path = _dialogService.GetFile("Excel ¹¤×÷±¡ (*.xlsx)|*.xlsx|ËùÓĞÎÄ¼ş (*.*)|*.*");
+        var path = _dialogService.GetFile("Excel å·¥ä½œè–„ (*.xlsx)|*.xlsx|æ‰€æœ‰æ–‡ä»¶ (*.*)|*.*");
         if (path == null) return;
         try
         {
@@ -427,29 +427,29 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
         }
         catch
         {
-            _dialogService.ShowMessage("µ¼ÈëÊ§°Ü", "ÎÄ¼ş¸ñÊ½´íÎó»ò±»Õ¼ÓÃ¡£");
+            _dialogService.ShowMessage("å¯¼å…¥å¤±è´¥", "æ–‡ä»¶æ ¼å¼é”™è¯¯æˆ–è¢«å ç”¨ã€‚");
         }
     }
     [RelayCommand]
     public void PriceExportToExcel()
     {
-        var path = _dialogService.SaveFile("Excel ¹¤×÷±¡ (*.xlsx)|*.xlsx|ËùÓĞÎÄ¼ş (*.*)|*.*", "data");
+        var path = _dialogService.SaveFile("Excel å·¥ä½œè–„ (*.xlsx)|*.xlsx|æ‰€æœ‰æ–‡ä»¶ (*.*)|*.*", "data");
         if (path == null) return;
         ExcelPackage.License.SetNonCommercialPersonal("CRSim");
         using var package = new ExcelPackage();
         var worksheet = package.Workbook.Worksheets.Add("Sheet1");
-        worksheet.Cells[1, 1].Value = "Çø¼äÆğµã";
-        worksheet.Cells[1, 2].Value = "Çø¼äÖÕµã";
-        worksheet.Cells[1, 3].Value = "ÉÌÎñ×ù ÌØµÈ×ù";
-        worksheet.Cells[1, 4].Value = "ÓÅÑ¡Ò»µÈ×ù";
-        worksheet.Cells[1, 5].Value = "Ò»µÈ×ù";
-        worksheet.Cells[1, 6].Value = "¶şµÈ×ù ¶şµÈ°ü×ù";
-        worksheet.Cells[1, 7].Value = "¸ß¼¶ÈíÎÔ";
-        worksheet.Cells[1, 8].Value = "ÈíÎÔ/¶¯ÎÔ Ò»µÈÎÔ";
-        worksheet.Cells[1, 9].Value = "Ó²ÎÔ ¶şµÈÎÔ";
-        worksheet.Cells[1, 10].Value = "Èí×ù";
-        worksheet.Cells[1, 11].Value = "Ó²×ù";
-        worksheet.Cells[1, 12].Value = "ÎŞ×ù";
+        worksheet.Cells[1, 1].Value = "åŒºé—´èµ·ç‚¹";
+        worksheet.Cells[1, 2].Value = "åŒºé—´ç»ˆç‚¹";
+        worksheet.Cells[1, 3].Value = "å•†åŠ¡åº§ ç‰¹ç­‰åº§";
+        worksheet.Cells[1, 4].Value = "ä¼˜é€‰ä¸€ç­‰åº§";
+        worksheet.Cells[1, 5].Value = "ä¸€ç­‰åº§";
+        worksheet.Cells[1, 6].Value = "äºŒç­‰åº§ äºŒç­‰åŒ…åº§";
+        worksheet.Cells[1, 7].Value = "é«˜çº§è½¯å§";
+        worksheet.Cells[1, 8].Value = "è½¯å§/åŠ¨å§ ä¸€ç­‰å§";
+        worksheet.Cells[1, 9].Value = "ç¡¬å§ äºŒç­‰å§";
+        worksheet.Cells[1, 10].Value = "è½¯åº§";
+        worksheet.Cells[1, 11].Value = "ç¡¬åº§";
+        worksheet.Cells[1, 12].Value = "æ— åº§";
         for (int i = 0; i < Sections.Count; i++)
         {
             worksheet.Cells[i + 2, 1].Value = Sections[i].From;
@@ -478,7 +478,7 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
     [RelayCommand]
     public void QuantityImportFromExcel()
     {
-        var path = _dialogService.GetFile("Excel ¹¤×÷±¡ (*.xlsx)|*.xlsx|ËùÓĞÎÄ¼ş (*.*)|*.*");
+        var path = _dialogService.GetFile("Excel å·¥ä½œè–„ (*.xlsx)|*.xlsx|æ‰€æœ‰æ–‡ä»¶ (*.*)|*.*");
         if (path == null) return;
         try
         {
@@ -537,29 +537,29 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
         }
         catch
         {
-            _dialogService.ShowMessage("µ¼ÈëÊ§°Ü", "ÎÄ¼ş¸ñÊ½´íÎó»ò±»Õ¼ÓÃ¡£");
+            _dialogService.ShowMessage("å¯¼å…¥å¤±è´¥", "æ–‡ä»¶æ ¼å¼é”™è¯¯æˆ–è¢«å ç”¨ã€‚");
         }
     }
     [RelayCommand]
     public void QuantityExportToExcel()
     {
-        var path = _dialogService.SaveFile("Excel ¹¤×÷±¡ (*.xlsx)|*.xlsx|ËùÓĞÎÄ¼ş (*.*)|*.*", "data");
+        var path = _dialogService.SaveFile("Excel å·¥ä½œè–„ (*.xlsx)|*.xlsx|æ‰€æœ‰æ–‡ä»¶ (*.*)|*.*", "data");
         if (path == null) return;
         ExcelPackage.License.SetNonCommercialPersonal("CRSim");
         using var package = new ExcelPackage();
         var worksheet = package.Workbook.Worksheets.Add("Sheet1");
-        worksheet.Cells[1, 1].Value = "Çø¼äÆğµã";
-        worksheet.Cells[1, 2].Value = "Çø¼äÖÕµã";
-        worksheet.Cells[1, 3].Value = "ÉÌÎñ×ù ÌØµÈ×ù";
-        worksheet.Cells[1, 4].Value = "ÓÅÑ¡Ò»µÈ×ù";
-        worksheet.Cells[1, 5].Value = "Ò»µÈ×ù";
-        worksheet.Cells[1, 6].Value = "¶şµÈ×ù ¶şµÈ°ü×ù";
-        worksheet.Cells[1, 7].Value = "¸ß¼¶ÈíÎÔ";
-        worksheet.Cells[1, 8].Value = "ÈíÎÔ/¶¯ÎÔ Ò»µÈÎÔ";
-        worksheet.Cells[1, 9].Value = "Ó²ÎÔ ¶şµÈÎÔ";
-        worksheet.Cells[1, 10].Value = "Èí×ù";
-        worksheet.Cells[1, 11].Value = "Ó²×ù";
-        worksheet.Cells[1, 12].Value = "ÎŞ×ù";
+        worksheet.Cells[1, 1].Value = "åŒºé—´èµ·ç‚¹";
+        worksheet.Cells[1, 2].Value = "åŒºé—´ç»ˆç‚¹";
+        worksheet.Cells[1, 3].Value = "å•†åŠ¡åº§ ç‰¹ç­‰åº§";
+        worksheet.Cells[1, 4].Value = "ä¼˜é€‰ä¸€ç­‰åº§";
+        worksheet.Cells[1, 5].Value = "ä¸€ç­‰åº§";
+        worksheet.Cells[1, 6].Value = "äºŒç­‰åº§ äºŒç­‰åŒ…åº§";
+        worksheet.Cells[1, 7].Value = "é«˜çº§è½¯å§";
+        worksheet.Cells[1, 8].Value = "è½¯å§/åŠ¨å§ ä¸€ç­‰å§";
+        worksheet.Cells[1, 9].Value = "ç¡¬å§ äºŒç­‰å§";
+        worksheet.Cells[1, 10].Value = "è½¯åº§";
+        worksheet.Cells[1, 11].Value = "ç¡¬åº§";
+        worksheet.Cells[1, 12].Value = "æ— åº§";
         for (int i = 0; i < Sections.Count; i++)
         {
             worksheet.Cells[i + 2, 1].Value = Sections[i].From;
@@ -594,32 +594,32 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
         }
         if (TimeTable.First().ArrivalTime != null)
         {
-            message += "\nÊ±¿Ì±íÊ×Î»±ØĞëÊÇÊ¼·¢Õ¾£»";
+            message += "\næ—¶åˆ»è¡¨é¦–ä½å¿…é¡»æ˜¯å§‹å‘ç«™ï¼›";
         }
         if (TimeTable.Last().DepartureTime != null)
         {
-            message += "\nÊ±¿Ì±íÄ©Î»±ØĞëÊÇÖÕµ½Õ¾£»";
+            message += "\næ—¶åˆ»è¡¨æœ«ä½å¿…é¡»æ˜¯ç»ˆåˆ°ç«™ï¼›";
         }
         if (TimeTable.Select(x => x.Station).GroupBy(x => x).Any(g => g.Count() > 1))
         {
-            message += "\n´æÔÚ¶à¸öÖØ¸´Í£Õ¾£»";
+            message += "\nå­˜åœ¨å¤šä¸ªé‡å¤åœç«™ï¼›";
         }
         if (TimeTable.Count(x => x.ArrivalTime == null)!=1)
         {
-            message += "\n´æÔÚ¶à¸öÊ¼·¢Õ¾£»";
+            message += "\nå­˜åœ¨å¤šä¸ªå§‹å‘ç«™ï¼›";
         }
         if (TimeTable.Count(x => x.DepartureTime == null) != 1)
         {
-            message += "\n´æÔÚ¶à¸öÖÕµ½Õ¾£»";
+            message += "\nå­˜åœ¨å¤šä¸ªç»ˆåˆ°ç«™ï¼›";
         }
         if (message == "") return Task.FromResult(true);
-        _dialogService.ShowMessage("±£´æÊ§°Ü", $"·¢ÏÖ {message.Split("\n").Length - 1} ¸ö´íÎó£º{message}\nÇëĞŞ¸´ËùÓĞ´íÎóºóÔÙ´Î³¢ÊÔ±£´æ¡£");
+        _dialogService.ShowMessage("ä¿å­˜å¤±è´¥", $"å‘ç° {message.Split("\n").Length - 1} ä¸ªé”™è¯¯ï¼š{message}\nè¯·ä¿®å¤æ‰€æœ‰é”™è¯¯åå†æ¬¡å°è¯•ä¿å­˜ã€‚");
         return Task.FromResult(false);
     }
     [RelayCommand]
     public async Task ImportFromLulutong()
     {
-        var path = _dialogService.GetFile("CSV ÎÄ¼ş (*.csv)|*.csv|ËùÓĞÎÄ¼ş (*.*)|*.*");
+        var path = _dialogService.GetFile("CSV æ–‡ä»¶ (*.csv)|*.csv|æ‰€æœ‰æ–‡ä»¶ (*.*)|*.*");
         if (path == null) return;
         try
         {
@@ -627,7 +627,7 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
             var intersection = numbers.Intersect(TrainNumbers.Select(x => x.Number)).ToList();
             if (intersection.Count != 0)
             {
-                if (!_dialogService.GetConfirm("µ±Ç°²Ù×÷¿ÉÄÜ¸²¸ÇÏÖÓĞ³µ´ÎÅäÖÃ£¬ÊÇ·ñ¼ÌĞø£¿")) return;
+                if (!_dialogService.GetConfirm("å½“å‰æ“ä½œå¯èƒ½è¦†ç›–ç°æœ‰è½¦æ¬¡é…ç½®ï¼Œæ˜¯å¦ç»§ç»­ï¼Ÿ")) return;
             }
             foreach (string s in intersection)
             {
@@ -675,7 +675,7 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
         }
         catch
         {
-            _dialogService.ShowMessage("µ¼ÈëÊ§°Ü", "ÎÄ¼ş¸ñÊ½´íÎó»ò±»Õ¼ÓÃ¡£");
+            _dialogService.ShowMessage("å¯¼å…¥å¤±è´¥", "æ–‡ä»¶æ ¼å¼é”™è¯¯æˆ–è¢«å ç”¨ã€‚");
             ProgressValue = 0;
         }
     }
@@ -683,28 +683,28 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
     {
         var firstColumnData = new List<string>();
 
-        // Ê¹ÓÃ StreamReader ¶ÁÈ¡ÎÄ¼ş
+        // ä½¿ç”¨ StreamReader è¯»å–æ–‡ä»¶
         using (var reader = new StreamReader(filePath))
         {
             while (!reader.EndOfStream)
             {
-                var line = reader.ReadLine(); // ¶ÁÈ¡Ã¿Ò»ĞĞ
-                var columns = line.Split(','); // °´ÕÕ¶ººÅ·Ö¸ôÁĞ
+                var line = reader.ReadLine(); // è¯»å–æ¯ä¸€è¡Œ
+                var columns = line.Split(','); // æŒ‰ç…§é€—å·åˆ†éš”åˆ—
 
                 if (columns.Length > 0)
                 {
-                    var firstColumn = columns[0].Trim(); // »ñÈ¡²¢È¥³ıÊ×Î²¿Õ¸ñ
+                    var firstColumn = columns[0].Trim(); // è·å–å¹¶å»é™¤é¦–å°¾ç©ºæ ¼
 
                     if (!string.IsNullOrEmpty(firstColumn) && (char.IsLetterOrDigit(firstColumn[0])))
                     {
                         int spaceIndex = firstColumn.IndexOf(' ');
                         if (spaceIndex != -1)
                         {
-                            firstColumn = firstColumn[..spaceIndex]; // È¡¿Õ¸ñÇ°µÄ²¿·Ö
+                            firstColumn = firstColumn[..spaceIndex]; // å–ç©ºæ ¼å‰çš„éƒ¨åˆ†
                         }
 
                         if (firstColumnData.Contains(firstColumn)) continue;
-                        firstColumnData.Add(firstColumn); // Ìí¼Óµ½½á¹ûÁĞ±í
+                        firstColumnData.Add(firstColumn); // æ·»åŠ åˆ°ç»“æœåˆ—è¡¨
                     }
                 }
             }

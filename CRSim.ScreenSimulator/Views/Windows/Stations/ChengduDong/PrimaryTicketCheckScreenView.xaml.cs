@@ -1,4 +1,4 @@
-﻿using CRSim.ScreenSimulator.ViewModels.ChengduDong;
+using CRSim.ScreenSimulator.ViewModels.ChengduDong;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;

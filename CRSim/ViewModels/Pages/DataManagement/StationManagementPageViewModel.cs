@@ -11,10 +11,10 @@ public partial class StationManagementPageViewModel : ObservableObject
         public string Name { get; set; }
     }
     [ObservableProperty]
-	private string _pageTitle = "³µÕ¾¹ÜÀí";
+	private string _pageTitle = "è½¦ç«™ç®¡ç†";
     
 	[ObservableProperty]
-	private string _pageDescription = "¿´ÆğÀ´²»ÊÇºÜÎÂÜ°µÄÌáĞÑ£º¸ÄÍê¼ÇµÃ±£´æ! Owo";
+	private string _pageDescription = "çœ‹èµ·æ¥ä¸æ˜¯å¾ˆæ¸©é¦¨çš„æé†’ï¼šæ”¹å®Œè®°å¾—ä¿å­˜! Owo";
 
     [ObservableProperty]
     private bool _isSelected = false;
@@ -42,15 +42,15 @@ public partial class StationManagementPageViewModel : ObservableObject
 		_databaseService = databaseService;
         _dialogService = dialogService;
         _networkService = networkService;
-        RefreshStationList();
+        RefreshStations();
     }
 
-	public void RefreshStationList()
+    #region Station
+    public void RefreshStations()
     {
         var stationsList = _databaseService.GetAllStations();
         StationNames = [.. stationsList.Select(s => s.Name)];
     }
-
     [RelayCommand]
     public void StationSelected(object selectedStation)
     {
@@ -58,55 +58,128 @@ public partial class StationManagementPageViewModel : ObservableObject
         Platforms.Clear();
         TicketChecks.Clear();
         TrainStops.Clear();
-        if(selectedStation is string selectedStationName)
+        if (selectedStation is string selectedStationName)
         {
             SelectedStation = _databaseService.GetStationByName(selectedStationName);
-            foreach(WaitingArea waitingArea in SelectedStation.WaitingAreas)
+            foreach (WaitingArea waitingArea in SelectedStation.WaitingAreas)
             {
                 WaitingAreaNames.Add(waitingArea.Name);
                 foreach (string ticketCheck in waitingArea.TicketChecks)
                 {
-                    TicketChecks.Add(new TicketCheck { WaitingAreaName = waitingArea.Name,Name=ticketCheck });
+                    TicketChecks.Add(new TicketCheck { WaitingAreaName = waitingArea.Name, Name = ticketCheck });
                 }
             }
             foreach (TrainStop trainStop in SelectedStation.TrainStops)
             {
                 TrainStops.Add(trainStop);
             }
-            foreach(var platform in SelectedStation.Platforms)
+            foreach (var platform in SelectedStation.Platforms)
             {
                 Platforms.Add(platform);
             }
             IsSelected = true;
         }
-        if(selectedStation == null)
+        if (selectedStation == null)
         {
             IsSelected = false;
         }
     }
+    [RelayCommand]
+    public async Task AddStation()
+    {
+        string? station = _dialogService.GetInput("è¯·è¾“å…¥è½¦ç«™åç§°");
+        if (station != null)
+        {
+            if (StationNames.Contains(station))
+            {
+                _dialogService.ShowMessage("æ·»åŠ å¤±è´¥", $"è½¦ç«™ {station} å·²å­˜åœ¨ã€‚");
+                return;
+            }
+            _databaseService.AddStationByName(station);
+            await _databaseService.SaveData();
+            RefreshStations();
+        }
+    }
+    [RelayCommand]
+    public async Task DeleteStation(object selectedStation)
+    {
+        if (selectedStation is string s && !string.IsNullOrEmpty(s))
+        {
+            _databaseService.DeleteStation(_databaseService.GetStationByName(s));
+            await _databaseService.SaveData();
+            RefreshStations();
+        }
+    }
+    [RelayCommand]
+    public async Task DeleteAllStations()
+    {
+        if (!_dialogService.GetConfirm("å½“å‰æ“ä½œä¼šåˆ é™¤å…¨éƒ¨è½¦ç«™ï¼Œæ˜¯å¦ç»§ç»­ï¼Ÿ")) return;
+        foreach (string stationName in StationNames)
+        {
+            _databaseService.DeleteStation(_databaseService.GetStationByName(stationName));
+        }
+        await _databaseService.SaveData();
+        RefreshStations();
+    }
+    public static Station GenerateStation(string stationName, ObservableCollection<string> waitingAreaNames, ObservableCollection<TicketCheck> ticketChecks, ObservableCollection<TrainStop> trainStops, ObservableCollection<Platform> platforms)
+    {
+        var station = new Station
+        {
+            Name = stationName,
+            WaitingAreas = [.. waitingAreaNames.Select(name => new WaitingArea { Name = name })],
+            TrainStops = [.. trainStops],
+            Platforms = [.. platforms]
+        };
 
+        // å°† TicketCheck æ˜ å°„åˆ°å¯¹åº”çš„ WaitingArea
+        foreach (var ticketCheck in ticketChecks)
+        {
+            var waitingArea = station.WaitingAreas.FirstOrDefault(wa => wa.Name == ticketCheck.WaitingAreaName);
+            waitingArea?.TicketChecks.Add(ticketCheck.Name);
+        }
+
+        return station;
+    }
+    [RelayCommand]
+    public async Task ImportFrom7D()
+    {
+        var path = _dialogService.GetFile("å¯æ‰§è¡Œç¨‹åºæ–‡ä»¶ (*.exe)|*.exe|æ‰€æœ‰æ–‡ä»¶ (*.*)|*.*");
+        if (path == null) return;
+        try
+        {
+            await _databaseService.ImportStationFrom7D(path);
+            await _databaseService.SaveData();
+            RefreshStations();
+        }
+        catch
+        {
+            _dialogService.ShowMessage("å¯¼å…¥å¤±è´¥", "æ–‡ä»¶æ ¼å¼é”™è¯¯æˆ–è¢«å ç”¨ã€‚");
+        }
+    }
+    #endregion
+
+    #region TicketCheck
     [RelayCommand]
     public void AddTicketCheck()
     {
-        (string waitingAreaName,List<string> ticketChecks) = _dialogService.GetInputTicketCheck([.. WaitingAreaNames]);
+        (string waitingAreaName, List<string> ticketChecks) = _dialogService.GetInputTicketCheck([.. WaitingAreaNames]);
         if (ticketChecks != null && waitingAreaName != null)
         {
-            foreach(string ticketCheck in ticketChecks)
+            foreach (string ticketCheck in ticketChecks)
             {
                 if (TicketChecks.Select(x => x.Name).Contains(ticketCheck))
                 {
-                    _dialogService.ShowMessage("Ìí¼ÓÊ§°Ü", $"±àºÅ {ticketCheck} ¼ìÆ±¿ÚÒÑ´æÔÚ¡£");
+                    _dialogService.ShowMessage("æ·»åŠ å¤±è´¥", $"ç¼–å· {ticketCheck} æ£€ç¥¨å£å·²å­˜åœ¨ã€‚");
                     return;
                 }
                 TicketChecks.Add(new TicketCheck { WaitingAreaName = waitingAreaName, Name = ticketCheck });
             }
         }
     }
-
     [RelayCommand]
     public void DeleteTicketCheck(object selectedTicketCheck)
     {
-        if(selectedTicketCheck is TicketCheck ticketCheck)
+        if (selectedTicketCheck is TicketCheck ticketCheck)
         {
             TicketChecks.Remove(ticketCheck);
         }
@@ -114,28 +187,30 @@ public partial class StationManagementPageViewModel : ObservableObject
     [RelayCommand]
     public void DeleteAllTicketCheck()
     {
-        if (!_dialogService.GetConfirm("µ±Ç°²Ù×÷»áÉ¾³ıÈ«²¿¼ìÆ±¿Ú£¬ÊÇ·ñ¼ÌĞø£¿")) return;
+        if (!_dialogService.GetConfirm("å½“å‰æ“ä½œä¼šåˆ é™¤å…¨éƒ¨æ£€ç¥¨å£ï¼Œæ˜¯å¦ç»§ç»­ï¼Ÿ")) return;
         TicketChecks.Clear();
     }
+    #endregion
+
+    #region WaitingArea
     [RelayCommand]
     public void AddWaitingArea()
     {
-        string? waitingAreaName = _dialogService.GetInput("ÇëÊäÈëºò³µÊÒÃû³Æ");
+        string? waitingAreaName = _dialogService.GetInput("è¯·è¾“å…¥å€™è½¦å®¤åç§°");
         if (waitingAreaName != null)
         {
             if (WaitingAreaNames.Contains(waitingAreaName))
             {
-                _dialogService.ShowMessage("Ìí¼ÓÊ§°Ü",$"Ãû³Æ {waitingAreaName} ºò³µÊÒÒÑ´æÔÚ¡£");
+                _dialogService.ShowMessage("æ·»åŠ å¤±è´¥", $"åç§° {waitingAreaName} å€™è½¦å®¤å·²å­˜åœ¨ã€‚");
                 return;
             }
             WaitingAreaNames.Add(waitingAreaName);
         }
     }
-
     [RelayCommand]
     public void DeleteWaitingArea(object selectedWaitingArea)
     {
-        if(selectedWaitingArea is string n)
+        if (selectedWaitingArea is string n)
         {
             WaitingAreaNames.Remove(n);
         }
@@ -143,9 +218,12 @@ public partial class StationManagementPageViewModel : ObservableObject
     [RelayCommand]
     public void DeleteAllWaitingArea()
     {
-        if (!_dialogService.GetConfirm("µ±Ç°²Ù×÷»áÉ¾³ıÈ«²¿ºò³µÊÒ£¬ÊÇ·ñ¼ÌĞø£¿")) return;
+        if (!_dialogService.GetConfirm("å½“å‰æ“ä½œä¼šåˆ é™¤å…¨éƒ¨å€™è½¦å®¤ï¼Œæ˜¯å¦ç»§ç»­ï¼Ÿ")) return;
         WaitingAreaNames.Clear();
     }
+    #endregion
+
+    #region Platform
     [RelayCommand]
     public void AddPlatform()
     {
@@ -154,16 +232,15 @@ public partial class StationManagementPageViewModel : ObservableObject
         {
             foreach (var platform in platforms)
             {
-                if (Platforms.Any(x=>x.Name==platform.Name))
+                if (Platforms.Any(x => x.Name == platform.Name))
                 {
-                    _dialogService.ShowMessage("Ìí¼ÓÊ§°Ü", $"±àºÅ {platform.Name} Õ¾Ì¨ÒÑ´æÔÚ¡£");
+                    _dialogService.ShowMessage("æ·»åŠ å¤±è´¥", $"ç¼–å· {platform.Name} ç«™å°å·²å­˜åœ¨ã€‚");
                     return;
                 }
                 Platforms.Add(platform);
             }
         }
     }
-
     [RelayCommand]
     public void DeletePlatform(object selectedPlatform)
     {
@@ -175,148 +252,37 @@ public partial class StationManagementPageViewModel : ObservableObject
     [RelayCommand]
     public void DeleteAllPlatform()
     {
-        if (!_dialogService.GetConfirm("µ±Ç°²Ù×÷»áÉ¾³ıÈ«²¿Õ¾Ì¨£¬ÊÇ·ñ¼ÌĞø£¿")) return;
+        if (!_dialogService.GetConfirm("å½“å‰æ“ä½œä¼šåˆ é™¤å…¨éƒ¨ç«™å°ï¼Œæ˜¯å¦ç»§ç»­ï¼Ÿ")) return;
         Platforms.Clear();
     }
+    #endregion
 
+    #region TrainStop
     [RelayCommand]
-    public async Task AddStation()
+    public void ImportFromTrainNumbers()
     {
-        string? station = _dialogService.GetInput("ÇëÊäÈë³µÕ¾Ãû³Æ");
-        if (station != null)
+        if (!CheckCanImport()) return;
+        var trainNumbers = _databaseService.GetAllTrainNumbers();
+        if (trainNumbers.Count != 0)
         {
-            if (StationNames.Contains(station))
-            {
-                _dialogService.ShowMessage("Ìí¼ÓÊ§°Ü", $"³µÕ¾ {station} ÒÑ´æÔÚ¡£");
-                return;
-            }
-            _databaseService.AddStationByName(station);
-            await _databaseService.SaveData();
-            RefreshStationList();
+            TrainStops.Clear();
         }
-    }
-
-    [RelayCommand]
-    public async Task DeleteStation(object selectedStation)
-    {
-        if (selectedStation is string s && !string.IsNullOrEmpty(s))
+        foreach (TrainNumber trainNumber in trainNumbers)
         {
-            _databaseService.DeleteStation(_databaseService.GetStationByName(s));
-            await _databaseService.SaveData();
-            RefreshStationList();
+            var t = trainNumber.TimeTable.First(x => x.Station == SelectedStation.Name);
+            if (t == null) continue;
+            t.Number = trainNumber.Number;
+            t = RandomTrainStopProperties(t);
+            t.Origin = trainNumber.TimeTable.First().Station;
+            t.Terminal = trainNumber.TimeTable.Last().Station;
+            TrainStops.Add(t);
         }
-    }
-    [RelayCommand]
-    public async Task DeleteAllStations()
-    {
-        if (!_dialogService.GetConfirm("µ±Ç°²Ù×÷»áÉ¾³ıÈ«²¿³µÕ¾£¬ÊÇ·ñ¼ÌĞø£¿")) return;
-        foreach(string stationName in StationNames)
-        {
-            _databaseService.DeleteStation(_databaseService.GetStationByName(stationName));
-        }
-        await _databaseService.SaveData();
-        RefreshStationList();
-    }
-    [RelayCommand]
-    public async Task SaveChanges()
-    {
-        if (!(await Validate())) return;
-        _databaseService.UpdateStation(SelectedStation.Name, GenerateStation(SelectedStation.Name,WaitingAreaNames,TicketChecks,TrainStops,Platforms));
-        await _databaseService.SaveData();
-    }
-
-    private Task<bool> Validate()
-    {
-        string message = "";
-        foreach(var t in TicketChecks)
-        {
-            if (!WaitingAreaNames.Contains(t.WaitingAreaName))
-            {
-                message += $"\n¼ìÆ±¿Ú {t.Name} ËùÔÚµÄºò³µÊÒ {t.WaitingAreaName} ²»´æÔÚ£»";
-            }
-        }
-        foreach(var s in TrainStops)
-        {
-            if(!Platforms.Any(x=> x.Name == s.Platform))
-            {
-                message += $"\n³µ´Î {s.Number} Ëù·ÖÅäµÄÕ¾Ì¨ {s.Platform} ²»´æÔÚ£»";
-            }
-            foreach(var t in s.TicketChecks)
-            {
-                if (!TicketChecks.Any(x => x.Name==t))
-                {
-                    message += $"\n³µ´Î {s.Number} Ëù·ÖÅäµÄ¼ìÆ±¿Ú {t} ²»´æÔÚ£»";
-                }
-            }
-            if (s.DepartureTime == null && s.ArrivalTime == null)
-            {
-                message += $"\n³µ´Î {s.Number} Î´ÅäÖÃµ½·¢Ê±¼ä£»";
-            }
-            if (s.Length==0)
-            {
-                message += $"\n³µ´Î {s.Number} ³¤¶ÈÎª0£»";
-            }
-        }
-        if (message == "") return Task.FromResult(true);
-        _dialogService.ShowMessage("±£´æÊ§°Ü", $"·¢ÏÖ {message.Split("\n").Length-1} ¸ö´íÎó£º{message}\nÇëĞŞ¸´ËùÓĞ´íÎóºóÔÙ´Î³¢ÊÔ±£´æ¡£");
-        return Task.FromResult(false);
-    }
-
-    public static Station GenerateStation(string stationName, ObservableCollection<string> waitingAreaNames, ObservableCollection<TicketCheck> ticketChecks,ObservableCollection<TrainStop> trainStops,ObservableCollection<Platform> platforms)
-    {
-        var station = new Station
-        {
-            Name = stationName,
-            WaitingAreas = [.. waitingAreaNames.Select(name => new WaitingArea { Name = name })],
-            TrainStops = [.. trainStops],
-            Platforms = [..platforms]
-        };
-
-        // ½« TicketCheck Ó³Éäµ½¶ÔÓ¦µÄ WaitingArea
-        foreach (var ticketCheck in ticketChecks)
-        {
-            var waitingArea = station.WaitingAreas.FirstOrDefault(wa => wa.Name == ticketCheck.WaitingAreaName);
-            waitingArea?.TicketChecks.Add(ticketCheck.Name);
-        }
-
-        return station;
-    }
-    [RelayCommand]
-    public async Task ImportFromTimeTable()
-    {
-        //List<string> stationNamesToAdd = [];
-        //foreach(TrainNumber trainNumber in _databaseService.GetAllTrainNumbers())
-        //{
-        //    var stationNames = trainNumber.TimeTable.Select(x => x.Station).ToList();
-        //    foreach(string stationName in stationNames)
-        //    {
-        //        if(!stationNamesToAdd.Contains(stationName) && !StationNames.Contains(stationName))
-        //        {
-        //            stationNamesToAdd.Add(stationName);
-        //        }
-        //    }
-        //}
-        //foreach(string stationName in stationNamesToAdd)
-        //{
-        //    _databaseService.AddStationByName(stationName);
-        //}
-        //await SaveChanges();
-        //RefreshStationList();
     }
     [RelayCommand]
     public async Task ImportFromLulutong()
     {
-        if (TicketChecks.Count == 0)
-        {
-            _dialogService.ShowMessage("µ¼ÈëÊ§°Ü", "ÇëÏÈÌí¼Ó¼ìÆ±¿Ú¡£");
-            return;
-        }
-        if (Platforms.Count == 0)
-        {
-            _dialogService.ShowMessage("µ¼ÈëÊ§°Ü", "ÇëÏÈÌí¼ÓÕ¾Ì¨¡£");
-            return;
-        }
-        var path = _dialogService.GetFile("CSV ÎÄ¼ş (*.csv)|*.csv|ËùÓĞÎÄ¼ş (*.*)|*.*");
+        if (!CheckCanImport()) return;
+        var path = _dialogService.GetFile("CSV æ–‡ä»¶ (*.csv)|*.csv|æ‰€æœ‰æ–‡ä»¶ (*.*)|*.*");
         if (path == null) return;
         try
         {
@@ -357,35 +323,14 @@ public partial class StationManagementPageViewModel : ObservableObject
                         Terminal = data[1].Split("-")[1],
                         ArrivalTime = arrivalTime,
                         DepartureTime = departureTime,
-                        Platform = Platforms[new Random().Next(Platforms.Count)].Name,
-                        Length = firstColumn.StartsWith('G') || firstColumn.StartsWith('D') || firstColumn.StartsWith('C') ? Math.Abs(firstColumn.GetHashCode()) % 3 == 0 ? 8 : 16 : 18,
-                        Landmark = new[] { "ºìÉ«", "ÂÌÉ«", "ºÖÉ«", "À¶É«", "×ÏÉ«", "»ÆÉ«", "³ÈÉ«", null }[new Random().Next(8)]
                     };
-                    trainStop.TicketChecks = [.. TicketChecks.Where(x => x.Name == trainStop.Platform + "A" || x.Name == trainStop.Platform + "B").Select(x => x.Name)];
-                    if (trainStop.TicketChecks.Count == 0) trainStop.TicketChecks = [TicketChecks[new Random().Next(TicketChecks.Count)].Name];
-                    TrainStops.Add(trainStop);
+                    TrainStops.Add(RandomTrainStopProperties(trainStop));
                 }
             }
         }
         catch
         {
-            _dialogService.ShowMessage("µ¼ÈëÊ§°Ü", "ÎÄ¼ş¸ñÊ½´íÎó»ò±»Õ¼ÓÃ¡£");
-        }
-    }
-    [RelayCommand]
-    public async Task ImportFrom7D()
-    {
-        var path = _dialogService.GetFile("¿ÉÖ´ĞĞ³ÌĞòÎÄ¼ş (*.exe)|*.exe|ËùÓĞÎÄ¼ş (*.*)|*.*");
-        if (path == null) return;
-        try
-        {
-            await _databaseService.ImportStationFrom7D(path);
-            await _databaseService.SaveData();
-            RefreshStationList();
-        }
-        catch
-        {
-            _dialogService.ShowMessage("µ¼ÈëÊ§°Ü", "ÎÄ¼ş¸ñÊ½´íÎó»ò±»Õ¼ÓÃ¡£");
+            _dialogService.ShowMessage("å¯¼å…¥å¤±è´¥", "æ–‡ä»¶æ ¼å¼é”™è¯¯æˆ–è¢«å ç”¨ã€‚");
         }
     }
     [RelayCommand]
@@ -393,12 +338,12 @@ public partial class StationManagementPageViewModel : ObservableObject
     {
         if (TrainStops.Count != 0)
         {
-            if (!_dialogService.GetConfirm("µ±Ç°²Ù×÷¿ÉÄÜ»áÇå¿ÕÊ±¿Ì±í¡£ÊÇ·ñ¼ÌĞø£¿"))
+            if (!_dialogService.GetConfirm("å½“å‰æ“ä½œå¯èƒ½ä¼šæ¸…ç©ºæ—¶åˆ»è¡¨ã€‚æ˜¯å¦ç»§ç»­ï¼Ÿ"))
             {
                 return;
             }
         }
-        var path = _dialogService.GetFile("Excel ¹¤×÷±¡ (*.xlsx)|*.xlsx|ËùÓĞÎÄ¼ş (*.*)|*.*");
+        var path = _dialogService.GetFile("Excel å·¥ä½œè–„ (*.xlsx)|*.xlsx|æ‰€æœ‰æ–‡ä»¶ (*.*)|*.*");
         if (path == null) return;
         try
         {
@@ -407,9 +352,9 @@ public partial class StationManagementPageViewModel : ObservableObject
             var worksheet = package.Workbook.Worksheets[0];
             int rowCount = worksheet.Dimension.Rows;
             TrainStops.Clear();
-            for (int row = 2; row <= rowCount; row++) 
+            for (int row = 2; row <= rowCount; row++)
             {
-                if (worksheet.Cells[row, 1].Text.Trim() == ""||
+                if (worksheet.Cells[row, 1].Text.Trim() == "" ||
                     worksheet.Cells[row, 2].Text.Trim() == "" ||
                     worksheet.Cells[row, 5].Text.Trim() == "" ||
                     worksheet.Cells[row, 6].Text.Trim() == "" ||
@@ -427,7 +372,7 @@ public partial class StationManagementPageViewModel : ObservableObject
                     DepartureTime = TimeSpan.TryParseExact(worksheet.Cells[row, 4].Text, @"hh\:mm", null, out TimeSpan departure) ? departure : null,
                     TicketChecks = [.. worksheet.Cells[row, 5].Text.Split(' ', StringSplitOptions.RemoveEmptyEntries)],
                     Platform = worksheet.Cells[row, 6].Text.Trim(),
-                    Landmark = worksheet.Cells[row, 7].Text.Trim() == "" ? "ÎŞ" : worksheet.Cells[row, 7].Text.Trim(),
+                    Landmark = worksheet.Cells[row, 7].Text.Trim() == "" ? "æ— " : worksheet.Cells[row, 7].Text.Trim(),
                     Origin = worksheet.Cells[row, 8].Text.Trim(),
                     Terminal = worksheet.Cells[row, 9].Text.Trim()
                 });
@@ -435,26 +380,26 @@ public partial class StationManagementPageViewModel : ObservableObject
         }
         catch
         {
-            _dialogService.ShowMessage("µ¼ÈëÊ§°Ü", "ÎÄ¼ş¸ñÊ½´íÎó»ò±»Õ¼ÓÃ¡£");
+            _dialogService.ShowMessage("å¯¼å…¥å¤±è´¥", "æ–‡ä»¶æ ¼å¼é”™è¯¯æˆ–è¢«å ç”¨ã€‚");
         }
     }
     [RelayCommand]
     public void ExportToExcel()
     {
-        var path = _dialogService.SaveFile("Excel ¹¤×÷±¡ (*.xlsx)|*.xlsx|ËùÓĞÎÄ¼ş (*.*)|*.*","data");
+        var path = _dialogService.SaveFile("Excel å·¥ä½œè–„ (*.xlsx)|*.xlsx|æ‰€æœ‰æ–‡ä»¶ (*.*)|*.*", "data");
         if (path == null) return;
         ExcelPackage.License.SetNonCommercialPersonal("CRSim");
         using var package = new ExcelPackage();
         var worksheet = package.Workbook.Worksheets.Add("Sheet1");
-        worksheet.Cells[1, 1].Value = "³µ´Î";
-        worksheet.Cells[1, 2].Value = "³¤¶È";
-        worksheet.Cells[1, 3].Value = "µ½Ê±";
-        worksheet.Cells[1, 4].Value = "·¢Ê±";
-        worksheet.Cells[1, 5].Value = "¼ìÆ±¿Ú";
-        worksheet.Cells[1, 6].Value = "Õ¾Ì¨";
-        worksheet.Cells[1, 7].Value = "µØ±ê";
-        worksheet.Cells[1, 8].Value = "Ê¼·¢Õ¾";
-        worksheet.Cells[1, 9].Value = "ÖÕµ½Õ¾";
+        worksheet.Cells[1, 1].Value = "è½¦æ¬¡";
+        worksheet.Cells[1, 2].Value = "é•¿åº¦";
+        worksheet.Cells[1, 3].Value = "åˆ°æ—¶";
+        worksheet.Cells[1, 4].Value = "å‘æ—¶";
+        worksheet.Cells[1, 5].Value = "æ£€ç¥¨å£";
+        worksheet.Cells[1, 6].Value = "ç«™å°";
+        worksheet.Cells[1, 7].Value = "åœ°æ ‡";
+        worksheet.Cells[1, 8].Value = "å§‹å‘ç«™";
+        worksheet.Cells[1, 9].Value = "ç»ˆåˆ°ç«™";
         for (int i = 0; i < TrainStops.Count; i++)
         {
             worksheet.Cells[i + 2, 1].Value = TrainStops[i].Number;
@@ -469,7 +414,6 @@ public partial class StationManagementPageViewModel : ObservableObject
         }
         package.SaveAs(new FileInfo(path));
     }
-
     [RelayCommand]
     public void AddTrainStop()
     {
@@ -478,7 +422,7 @@ public partial class StationManagementPageViewModel : ObservableObject
         {
             if (TrainStops.Any(x => x.Number == newTrainStop.Number))
             {
-                _dialogService.ShowMessage("Ìí¼ÓÊ§°Ü", $"³µ´Î {newTrainStop.Number} ÒÑ´æÔÚ¡£");
+                _dialogService.ShowMessage("æ·»åŠ å¤±è´¥", $"è½¦æ¬¡ {newTrainStop.Number} å·²å­˜åœ¨ã€‚");
                 return;
             }
             TrainStops.Add(newTrainStop);
@@ -495,7 +439,7 @@ public partial class StationManagementPageViewModel : ObservableObject
     [RelayCommand]
     public void DeleteAllTrainStop()
     {
-        if (!_dialogService.GetConfirm("µ±Ç°²Ù×÷»áÉ¾³ıÈ«²¿³µ´Î£¬ÊÇ·ñ¼ÌĞø£¿")) return;
+        if (!_dialogService.GetConfirm("å½“å‰æ“ä½œä¼šåˆ é™¤å…¨éƒ¨è½¦æ¬¡ï¼Œæ˜¯å¦ç»§ç»­ï¼Ÿ")) return;
         TrainStops.Clear();
     }
     [RelayCommand]
@@ -513,42 +457,96 @@ public partial class StationManagementPageViewModel : ObservableObject
     [RelayCommand]
     public async Task ImportFromInternet()
     {
-        if (TicketChecks.Count == 0)
-        {
-            _dialogService.ShowMessage("µ¼ÈëÊ§°Ü", "ÇëÏÈÌí¼Ó¼ìÆ±¿Ú¡£");
-            return;
-        }
-        if (Platforms.Count == 0)
-        {
-            _dialogService.ShowMessage("µ¼ÈëÊ§°Ü", "ÇëÏÈÌí¼ÓÕ¾Ì¨¡£");
-            return;
-        }
-        if (TrainStops.Count != 0)
-        {
-            if (!_dialogService.GetConfirm("µ±Ç°²Ù×÷»áÇå¿ÕÊ±¿Ì±í¡£ÊÇ·ñ¼ÌĞø£¿"))
-            {
-                return;
-            }
-        }
-
-        var stops = await _networkService.GetTrainNumnersAsync(SelectedStation.Name);
-        if (stops.Count !=0)
+        if (!CheckCanImport()) return;
+        var stops = await _networkService.GetTrainNumbersAsync(SelectedStation.Name);
+        if (stops.Count != 0)
         {
             TrainStops.Clear();
             foreach (TrainStop t in stops)
             {
-                t.Platform = Platforms[new Random().Next(Platforms.Count)].Name;
-                t.Landmark = new[] { "ºìÉ«", "ÂÌÉ«", "ºÖÉ«", "À¶É«", "×ÏÉ«", "»ÆÉ«", "³ÈÉ«", null }[new Random().Next(8)];
-                t.Length = t.Number.StartsWith('G') || t.Number.StartsWith('D') || t.Number.StartsWith('C') ? Math.Abs(t.Number.GetHashCode()) % 3 == 0 ? 8 : 16 : 18;
-                t.TicketChecks = [.. TicketChecks.Where(x => x.Name == t.Platform + "A" || x.Name == t.Platform + "B").Select(x => x.Name)];
-                if (t.TicketChecks.Count == 0) t.TicketChecks = [TicketChecks[new Random().Next(TicketChecks.Count)].Name];
-                TrainStops.Add(t);
+                TrainStops.Add(RandomTrainStopProperties(t));
             }
         }
         else
         {
-            _dialogService.ShowMessage("»ñÈ¡Ê§°Ü", "·şÎñÆ÷·±Ã¦»ò³µÕ¾²»´æÔÚ¡£");
+            _dialogService.ShowMessage("è·å–å¤±è´¥", "æœåŠ¡å™¨ç¹å¿™æˆ–è½¦ç«™ä¸å­˜åœ¨ã€‚");
         }
+    }
+    private bool CheckCanImport()
+    {
+        if (TicketChecks.Count == 0)
+        {
+            _dialogService.ShowMessage("å¯¼å…¥å¤±è´¥", "è¯·å…ˆæ·»åŠ æ£€ç¥¨å£ã€‚");
+            return false;
+        }
+        if (Platforms.Count == 0)
+        {
+            _dialogService.ShowMessage("å¯¼å…¥å¤±è´¥", "è¯·å…ˆæ·»åŠ ç«™å°ã€‚");
+            return false;
+        }
+        if (TrainStops.Count != 0)
+        {
+            if (!_dialogService.GetConfirm("å½“å‰æ“ä½œä¼šæ¸…ç©ºæ—¶åˆ»è¡¨ã€‚æ˜¯å¦ç»§ç»­ï¼Ÿ"))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    private TrainStop RandomTrainStopProperties(TrainStop t)
+    {
+        t.Platform = Platforms[new Random().Next(Platforms.Count)].Name;
+        t.Landmark = new[] { "çº¢è‰²", "ç»¿è‰²", "è¤è‰²", "è“è‰²", "ç´«è‰²", "é»„è‰²", "æ©™è‰²", null }[new Random().Next(8)];
+        t.Length = t.Number.StartsWith('G') || t.Number.StartsWith('D') || t.Number.StartsWith('C') ? Math.Abs(t.Number.GetHashCode()) % 3 == 0 ? 8 : 16 : 18;
+        t.TicketChecks = [.. TicketChecks.Where(x => x.Name == t.Platform + "A" || x.Name == t.Platform + "B").Select(x => x.Name)];
+        if (t.TicketChecks.Count == 0) t.TicketChecks = [TicketChecks[new Random().Next(TicketChecks.Count)].Name];
+        return t;
+    }
+    #endregion
+
+    [RelayCommand]
+    public async Task SaveChanges()
+    {
+        if (!(await Validate())) return;
+        _databaseService.UpdateStation(SelectedStation.Name, GenerateStation(SelectedStation.Name,WaitingAreaNames,TicketChecks,TrainStops,Platforms));
+        await _databaseService.SaveData();
+    }
+
+    private Task<bool> Validate()
+    {
+        string message = "";
+        foreach(var t in TicketChecks)
+        {
+            if (!WaitingAreaNames.Contains(t.WaitingAreaName))
+            {
+                message += $"\næ£€ç¥¨å£ {t.Name} æ‰€åœ¨çš„å€™è½¦å®¤ {t.WaitingAreaName} ä¸å­˜åœ¨ï¼›";
+            }
+        }
+        foreach(var s in TrainStops)
+        {
+            if(!Platforms.Any(x=> x.Name == s.Platform))
+            {
+                message += $"\nè½¦æ¬¡ {s.Number} æ‰€åˆ†é…çš„ç«™å° {s.Platform} ä¸å­˜åœ¨ï¼›";
+            }
+            foreach(var t in s.TicketChecks)
+            {
+                if (!TicketChecks.Any(x => x.Name==t))
+                {
+                    message += $"\nè½¦æ¬¡ {s.Number} æ‰€åˆ†é…çš„æ£€ç¥¨å£ {t} ä¸å­˜åœ¨ï¼›";
+                }
+            }
+            if (s.DepartureTime == null && s.ArrivalTime == null)
+            {
+                message += $"\nè½¦æ¬¡ {s.Number} æœªé…ç½®åˆ°å‘æ—¶é—´ï¼›";
+            }
+            if (s.Length==0)
+            {
+                message += $"\nè½¦æ¬¡ {s.Number} é•¿åº¦ä¸º0ï¼›";
+            }
+        }
+        if (message == "") return Task.FromResult(true);
+        _dialogService.ShowMessage("ä¿å­˜å¤±è´¥", $"å‘ç° {message.Split("\n").Length-1} ä¸ªé”™è¯¯ï¼š{message}\nè¯·ä¿®å¤æ‰€æœ‰é”™è¯¯åå†æ¬¡å°è¯•ä¿å­˜ã€‚");
+        return Task.FromResult(false);
     }
 
 }

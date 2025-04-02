@@ -1,4 +1,4 @@
-﻿namespace CRSim.Controls
+namespace CRSim.Controls
 {
     /// <summary>
     /// Interaction logic for HeaderTile.xaml

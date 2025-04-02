@@ -3,7 +3,7 @@ namespace CRSim.ViewModels;
 public partial class ScreenSimulationPageViewModel : ObservableObject 
 {
 	[ObservableProperty]
-	private string _pageTitle = "Òıµ¼ÆÁÄ£Äâ";
+	private string _pageTitle = "å¼•å¯¼å±æ¨¡æ‹Ÿ";
 
 	[ObservableProperty]
 	private string _pageDescription = "";

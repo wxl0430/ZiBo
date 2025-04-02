@@ -1,4 +1,4 @@
-﻿using CRSim.Core.Models;
+using CRSim.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +10,6 @@ namespace CRSim.Core.Services
     public interface INetworkService
     {
         Task<List<TrainStop>?> GetTimeTableAsync(string number);
-        Task<List<TrainStop>> GetTrainNumnersAsync(string name);
+        Task<List<TrainStop>> GetTrainNumbersAsync(string name);
     }
 }

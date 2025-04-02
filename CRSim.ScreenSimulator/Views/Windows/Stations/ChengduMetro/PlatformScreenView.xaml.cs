@@ -1,4 +1,4 @@
-﻿using CRSim.ScreenSimulator.ViewModels.ChengduMetro;
+using CRSim.ScreenSimulator.ViewModels.ChengduMetro;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;

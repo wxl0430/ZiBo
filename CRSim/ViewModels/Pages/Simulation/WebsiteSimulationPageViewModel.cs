@@ -5,7 +5,7 @@ namespace CRSim.ViewModels;
 public partial class WebsiteSimulationPageViewModel : ObservableObject 
 {
 	[ObservableProperty]
-	private string _pageTitle = "12306Ä£Äâ";
+	private string _pageTitle = "12306æ¨¡æ‹Ÿ";
 
 	[ObservableProperty]
 	private string _pageDescription = "";

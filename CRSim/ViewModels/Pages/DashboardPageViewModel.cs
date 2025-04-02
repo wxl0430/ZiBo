@@ -1,4 +1,4 @@
-﻿namespace CRSim.ViewModels
+namespace CRSim.ViewModels
 {
     public partial class DashboardPageViewModel(INavigationService navigationService) : ObservableObject
     {

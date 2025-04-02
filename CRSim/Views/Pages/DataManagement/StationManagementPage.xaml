@@ -1,4 +1,4 @@
-﻿<Page
+<Page
     x:Class="CRSim.Views.StationManagementPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -572,6 +572,13 @@
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="Click">
                                                         <i:InvokeCommandAction Command="{Binding ViewModel.ImportFromExcelCommand}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </MenuItem>
+                                            <MenuItem Header="从车次数据库导入" FontSize="14">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Click">
+                                                        <i:InvokeCommandAction Command="{Binding ViewModel.ImportFromTrainNumbersCommand}"/>
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                             </MenuItem>

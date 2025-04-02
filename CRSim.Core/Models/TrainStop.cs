@@ -1,4 +1,4 @@
-﻿using CRSim.Core.Converters;
+using CRSim.Core.Converters;
 using System.Text.Json.Serialization;
 
 namespace CRSim.Core.Models

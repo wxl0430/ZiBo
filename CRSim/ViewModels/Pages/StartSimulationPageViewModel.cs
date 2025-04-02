@@ -3,10 +3,10 @@ namespace CRSim.ViewModels
     public partial class StartSimulationPageViewModel(INavigationService navigationService) : ObservableObject
     {
         [ObservableProperty]
-        private string _pageTitle = "¿ªÊ¼Ä£Äâ";
+        private string _pageTitle = "å¼€å§‹æ¨¡æ‹Ÿ";
 
         [ObservableProperty]
-        private string _pageDescription = "ÇëÑ¡ÔñÄãÏëÄ£ÄâµÄÏîÄ¿";
+        private string _pageDescription = "è¯·é€‰æ‹©ä½ æƒ³æ¨¡æ‹Ÿçš„é¡¹ç›®";
 
         [ObservableProperty]
         private ICollection<ControlInfoDataItem> _navigationCards = ControlsInfoDataSource.Instance.GetControlsInfo("Start Simulation");

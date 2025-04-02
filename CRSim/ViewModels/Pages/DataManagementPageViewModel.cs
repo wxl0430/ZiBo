@@ -3,10 +3,10 @@ namespace CRSim.ViewModels
     public partial class DataManagementPageViewModel(INavigationService navigationService) : ObservableObject
     {
         [ObservableProperty]
-        private string _pageTitle = "数据管理";
+        private string _pageTitle = "鏁版嵁绠＄悊";
 
         [ObservableProperty]
-        private string _pageDescription = "车站、车次、交路等信息管理";
+        private string _pageDescription = "杞︾珯銆佽溅娆°�佷氦璺瓑淇℃伅绠＄悊";
 
         [ObservableProperty]
         private ICollection<ControlInfoDataItem> _navigationCards = ControlsInfoDataSource.Instance.GetControlsInfo("Data Management");
