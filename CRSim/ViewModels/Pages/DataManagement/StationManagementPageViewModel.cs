@@ -248,10 +248,6 @@ public partial class StationManagementPageViewModel : ObservableObject
                     message += $"\n车次 {s.Number} 所分配的检票口 {t} 不存在；";
                 }
             }
-            if (s.DepartureTime!=null && s.ArrivalTime!=null && s.DepartureTime < s.ArrivalTime)
-            {
-                message += $"\n车次 {s.Number} 出发时间早于到达时间；";
-            }
             if (s.DepartureTime == null && s.ArrivalTime == null)
             {
                 message += $"\n车次 {s.Number} 未配置到发时间；";
