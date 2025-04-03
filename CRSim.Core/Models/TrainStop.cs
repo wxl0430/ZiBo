@@ -5,9 +5,9 @@ namespace CRSim.Core.Models
 {
     public class TrainStop
     {
-        public string Number { get; set; }
+        public string? Number { get; set; }
 
-        public string Station { get; set; }
+        public string? Station { get; set; }
 
         [JsonConverter(typeof(TimeSpanJsonConverter))]
         public TimeSpan? ArrivalTime { get; set; }
@@ -15,13 +15,15 @@ namespace CRSim.Core.Models
         [JsonConverter(typeof(TimeSpanJsonConverter))]
         public TimeSpan? DepartureTime { get; set; }
 
-        public List<string> TicketChecks { get; set; }
+        public List<string>? TicketChecks { get; set; }
 
-        public string Origin { get; set; }
+        public string? WaitingArea { get; set; }
 
-        public string Terminal { get; set; }
+        public string? Origin { get; set; }
 
-        public string Platform { get; set; }
+        public string? Terminal { get; set; }
+
+        public string? Platform { get; set; }
 
         public string? Landmark { get; set; }
 

@@ -480,13 +480,6 @@
                                                 <TextBlock Focusable="False" FontFamily="{StaticResource SymbolThemeFontFamily}"
                                                         FontSize="16" Text="&#xE8B6;" VerticalAlignment="Center"/>
                                             </MenuItem.Header>
-                                            <MenuItem Header="联网获取" FontSize="14" IsEnabled="False">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="Click">
-                                                        <i:InvokeCommandAction Command="{Binding ViewModel.QuantityImportFromInternetCommand}"/>
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </MenuItem>
                                             <MenuItem Header="从Excel表格导入" FontSize="14">
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="Click">
@@ -613,13 +606,6 @@
                                                 <TextBlock Focusable="False" FontFamily="{StaticResource SymbolThemeFontFamily}"
                                                         FontSize="16" Text="&#xE8B6;" VerticalAlignment="Center"/>
                                             </MenuItem.Header>
-                                            <MenuItem Header="联网获取" FontSize="14" IsEnabled="False">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="Click">
-                                                        <i:InvokeCommandAction Command="{Binding ViewModel.PriceImportFromInternetCommand}"/>
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </MenuItem>
                                             <MenuItem Header="从Excel表格导入" FontSize="14">
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="Click">

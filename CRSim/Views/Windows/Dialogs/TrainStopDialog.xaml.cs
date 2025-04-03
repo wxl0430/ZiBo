@@ -124,10 +124,11 @@ namespace CRSim.Views
                 Origin = DepartureTextBox.Text,
                 ArrivalTime = StartHour.IsEnabled ? TimeSpan.Parse($"{StartHour.Text}:{StartMinute.Text}") : null,
                 DepartureTime = EndHour.IsEnabled ? TimeSpan.Parse($"{EndHour.Text}:{EndMinute.Text}") : null,
-                TicketChecks = [.. TicketChecksList.Where(x => x.Checked).Select(x => x.TicketCheck)],
+                WaitingArea = TicketChecksList.Where(x => x.Checked).FirstOrDefault().TicketCheck.Split(" - ")[0],
+                TicketChecks = [.. TicketChecksList.Where(x => x.Checked).Select(x => x.TicketCheck.Split(" - ")[1])],
                 Platform = (string)PlatformComboBox.SelectedItem,
                 Length = int.Parse(LengthTextBox.Text),
-                Landmark = (string)LandmarkComboBox.SelectedItem == "无" ? null: (string)LandmarkComboBox.SelectedItem,
+                Landmark = (string)LandmarkComboBox.SelectedItem == "无" ? null : (string)LandmarkComboBox.SelectedItem,
             };
             DialogResult = true;
             Close();
@@ -192,7 +193,8 @@ namespace CRSim.Views
                 (!EndMinute.IsEnabled || ValidateTime(EndMinute.Text, 60));
 
             AccentButton.IsEnabled =
-                (!TicketChecksCheckList.IsEnabled || TicketChecksList.Any(x => x.Checked)) &&
+                (!TicketChecksCheckList.IsEnabled ||
+                (TicketChecksList.Any(x => x.Checked) && TicketChecksList.Where(x=>x.Checked).Select(x=>x.TicketCheck.Split(" - ")[0]).Distinct().Count() <= 1)) &&
                 areTextBoxesFilled &&
                 !string.IsNullOrWhiteSpace(NumberTextBox.Text) &&
                 !string.IsNullOrWhiteSpace(ArrivalTextBox.Text) &&

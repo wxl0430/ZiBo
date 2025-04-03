@@ -36,6 +36,17 @@ namespace CRSim.Core.Services
                 var data = JsonSerializer.Deserialize<Json>(json);
                 _stations = data.Stations;
                 _trainNumbers = data.TrainNumbers;
+
+                foreach (var station in _stations)
+                {
+                    foreach(var trainStop in station.TrainStops)
+                    {
+                        if (trainStop.WaitingArea == null)
+                        {
+                            trainStop.WaitingArea = station.WaitingAreas.Where(x => x.TicketChecks.Contains(trainStop.TicketChecks[0])).FirstOrDefault().Name;
+                        }
+                    }
+                }// 修复旧版本的数据
             }
             catch
             {
@@ -191,6 +202,7 @@ namespace CRSim.Core.Services
                         TicketChecks = [.. ticketCheck.Split('|')],
                         ArrivalTime = arrivalTime,
                         DepartureTime = departureTime,
+                        WaitingArea = waitingAreaName,
                         Platform = platform,
                         Length = data[0].StartsWith('G') || data[0].StartsWith('D') || data[0].StartsWith('C') ? Math.Abs(data[0].GetHashCode()) % 3 == 0 ? 8 : 16 : 18,
                         Landmark = data[8] + "色" ?? null,

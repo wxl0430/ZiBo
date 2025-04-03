@@ -109,9 +109,12 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
             SelectedTicketCheck = "";
             SelectedLoaction = 0;
             TicketChecks.Clear();
-            foreach(string ticketCheck in station.TicketChecks)
+            foreach (var waitingArea in station.WaitingAreas)
             {
-                TicketChecks.Add(ticketCheck);
+                foreach (string ticketCheck in waitingArea.TicketChecks)
+                {
+                    TicketChecks.Add($"{waitingArea.Name} - {ticketCheck}");//重复检票口名称的临时解决方案
+                }
             }
             Platforms.Clear();
             foreach (var platform in station.Platforms)

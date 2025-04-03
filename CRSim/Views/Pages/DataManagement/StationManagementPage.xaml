@@ -609,6 +609,11 @@
                                                     <TextBlock Text="发时" Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}"/>
                                                 </DataGridTextColumn.Header>
                                             </DataGridTextColumn>
+                                            <DataGridTextColumn Binding="{Binding WaitingArea}">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="候车区" Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}"/>
+                                                </DataGridTextColumn.Header>
+                                            </DataGridTextColumn>
                                             <DataGridTextColumn Binding="{Binding TicketChecks,Converter={StaticResource ListToStringConverter}}">
                                                 <DataGridTextColumn.Header>
                                                     <TextBlock Text="检票口" Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}"/>

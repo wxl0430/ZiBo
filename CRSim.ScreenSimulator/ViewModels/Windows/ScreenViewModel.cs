@@ -82,7 +82,7 @@ namespace CRSim.ScreenSimulator.ViewModels
         {
             ThisStation = station;
             ThisPlatform = platform;
-            ThisTicketCheck = ticketCheck;
+            ThisTicketCheck = ticketCheck.Split(" - ")[1];//重复检票口名称的临时解决方案
             var trains = station.TrainStops;
             foreach (var trainNumber in trains)
             {
@@ -91,7 +91,7 @@ namespace CRSim.ScreenSimulator.ViewModels
                     (StationType == StationType.Both ||
                     trainNumber.StationType == StationType.Both ||
                     StationType == trainNumber.StationType) &&
-                    (ticketCheck == string.Empty || trainNumber.TicketChecks.Contains(ticketCheck)) &&
+                    (ticketCheck == string.Empty || (trainNumber.WaitingArea==ticketCheck.Split(" - ")[0] && trainNumber.TicketChecks.Contains(ticketCheck.Split(" - ")[1]))) &&//重复检票口名称的临时解决方案
                     (platform == string.Empty || trainNumber.Platform == platform))
                 {
                     var now = _timeService.GetDateTimeNow();
