@@ -269,7 +269,7 @@ public partial class StationManagementPageViewModel : ObservableObject
         }
         foreach (TrainNumber trainNumber in trainNumbers)
         {
-            var t = trainNumber.TimeTable.First(x => x.Station == SelectedStation.Name);
+            var t = trainNumber.TimeTable.FirstOrDefault(x => x.Station == SelectedStation.Name);
             if (t == null) continue;
             t.Number = trainNumber.Number;
             t = RandomTrainStopProperties(t);
@@ -334,7 +334,7 @@ public partial class StationManagementPageViewModel : ObservableObject
         }
     }
     [RelayCommand]
-    public async Task ImportFromExcel()
+    public void ImportFromExcel()
     {
         if (TrainStops.Count != 0)
         {
