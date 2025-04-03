@@ -1,4 +1,4 @@
-﻿<Window x:Class="CRSim.ScreenSimulator.Views.ChengduMetro.PlatformScreenView"
+<Window x:Class="CRSim.ScreenSimulator.Views.ChengduMetro.PlatformScreenView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -106,7 +106,8 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <MediaElement Grid.Row="0" Name="player" HorizontalAlignment="Center" VerticalAlignment="Stretch" LoadedBehavior="Manual" UnloadedBehavior="Stop" Volume="0" MediaEnded="MediaElement_MediaEnded"/>
+            <MediaElement Grid.Row="0" Name="player" HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                          LoadedBehavior="Manual" UnloadedBehavior="Stop" Volume="0" MediaEnded="MediaElement_MediaEnded" Source="{Binding ViewModel.Video}"/>
             <pp:RunningText Grid.Row="1" x:Name="rt" Background="Orange" Foreground="White" Padding="4" FontSize="20" Speed="75"
                         Text="{Binding ViewModel.Text,Mode=OneWay}">
                 <pp:RunningText.Style>

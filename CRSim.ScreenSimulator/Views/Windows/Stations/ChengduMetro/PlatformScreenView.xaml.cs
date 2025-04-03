@@ -17,7 +17,6 @@ namespace CRSim.ScreenSimulator.Views.ChengduMetro
             ViewModel = viewModel;
             RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);
             DataContext = this;
-            player.Source = new Uri("Assets\\Advertisement.mp4", UriKind.Relative);
             player.Play();
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

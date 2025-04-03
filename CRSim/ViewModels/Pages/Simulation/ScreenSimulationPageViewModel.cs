@@ -29,10 +29,16 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
     private bool _textNeeded;
 
     [ObservableProperty]
+    private bool _videoNeeded;
+
+    [ObservableProperty]
     private bool _locationNeeded;
 
     [ObservableProperty]
     private string _text = "";
+
+    [ObservableProperty]
+    private string _video = "";
 
     public string SelectedStationName = "";
 
@@ -86,6 +92,7 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
             StationNeeded = neededParameters.Contains("Station");
             TicketCheckNeeded = neededParameters.Contains("TicketCheck");
             PlatformNeeded = neededParameters.Contains("Platform");
+            VideoNeeded = neededParameters.Contains("Video");
             TextNeeded = neededParameters.Contains("Text");
             LocationNeeded = neededParameters.Contains("Location");
         }
@@ -149,6 +156,13 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
         CheckCanStart();
     }
     [RelayCommand]
+    public void SelectVideo()
+    {
+        string? Path = _dialogService.GetFile("视频文件 (*.mp4)|*.mp4|所有文件 (*.*)|*.*");
+        if (Path == null) return;
+        Video = Path;
+    }
+    [RelayCommand]
     public void StartSimulation()
     {
         var Window = _serviceProvider.GetRequiredService(selectedStyle) as dynamic;
@@ -160,6 +174,10 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
         if (LocationNeeded && SelectedLoaction != 0)
         {
             Window.ViewModel.Location = SelectedLoaction;
+        }
+        if (VideoNeeded && Video != string.Empty)
+        {
+            Window.ViewModel.Video = new Uri(Video, UriKind.Absolute);
         }
 
         Window.ViewModel.LoadData(_databaseService.GetStationByName(SelectedStationName),

@@ -63,7 +63,8 @@
     "ImagePath": "Assets/StyleImages/ChengduMetro/PlatformScreen.png",
     "Parameters": [
       "Station",
-      "Text"
+      "Text",
+      "Video"
     ]
   },
   {
