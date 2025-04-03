@@ -163,9 +163,122 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
         await _databaseService.SaveData();
         RefreshTrainNumbers();
     }
+    [RelayCommand]
+    public async Task ImportFromLulutong()
+    {
+        var path = _dialogService.GetFile("CSV 文件 (*.csv)|*.csv|所有文件 (*.*)|*.*");
+        if (path == null) return;
+        try
+        {
+            var numbers = ReadCsvFirstColumn(path);
+            var intersection = numbers.Intersect(TrainNumbers.Select(x => x.Number)).ToList();
+            if (intersection.Count != 0)
+            {
+                if (!_dialogService.GetConfirm("当前操作可能覆盖现有车次配置，是否继续？")) return;
+            }
+            foreach (string s in intersection)
+            {
+                _databaseService.DeleteTrainNumber(_databaseService.GetTrainNumberByNumber(s));
+            }
+            RefreshTrainNumbers();
+            int total = numbers.Count;
+            int current = 0;
+            foreach (string number in numbers)
+            {
+                current++;
+                ProgressValue = (int)((double)current / total * 100);
+                List<TrainStop>? timeTable = await _networkService.GetTimeTableAsync(number);
+                await Task.Delay(100);
+                timeTable ??= [];
+                _databaseService.AddTrainNumber(number);
+                var sections = new List<Section>();
+                var isEmu = number.StartsWith('G') || number.StartsWith('D') || number.StartsWith('C');
+                for (int i = 1; i < timeTable.Count; i++)
+                {
+                    sections.Add(new Section
+                    {
+                        From = timeTable[i - 1].Station,
+                        To = timeTable[i].Station,
+                        Tickets = new Tickets
+                        {
+                            SW = isEmu ? new() : null,
+                            ZYY = isEmu ? new() : null,
+                            ZY = isEmu ? new() : null,
+                            ZE = isEmu ? new() : null,
+                            RZ = !isEmu ? new() : null,
+                            GRW = !isEmu ? new() : null,
+                            RW = !isEmu ? new() : null,
+                            WZ = new(),
+                            YW = !isEmu ? new() : null,
+                            YZ = !isEmu ? new() : null
+                        }
+                    });
+                }
+                _databaseService.UpdateTrainNumber(_databaseService.GetTrainNumberByNumber(number), timeTable, sections);
+            }
+            ProgressValue = 0;
+            await _databaseService.SaveData();
+            RefreshTrainNumbers();
+        }
+        catch
+        {
+            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。");
+            ProgressValue = 0;
+        }
+    }
     #endregion
 
     #region TimeTable
+    [RelayCommand]
+    public async Task TimeTableImportFromInternetBatch()
+    {
+        if (!_dialogService.GetConfirm("当前操作会覆盖现有车次配置，是否继续？")) return;
+        TrainNumberSelected(null);
+        var numbers = TrainNumbers.Select(x => x.Number).ToList();
+        foreach (string s in numbers)
+        {
+            _databaseService.DeleteTrainNumber(_databaseService.GetTrainNumberByNumber(s));
+        }
+        RefreshTrainNumbers();
+        int total = numbers.Count;
+        int current = 0;
+        foreach (string number in numbers)
+        {
+            current++;
+            ProgressValue = (int)((double)current / total * 100);
+            List<TrainStop>? timeTable = await _networkService.GetTimeTableAsync(number);
+            await Task.Delay(100);
+            timeTable ??= [];
+            _databaseService.AddTrainNumber(number);
+            var sections = new List<Section>();
+            var isEmu = number.StartsWith('G') || number.StartsWith('D') || number.StartsWith('C');
+            for (int i = 1; i < timeTable.Count; i++)
+            {
+                sections.Add(new Section
+                {
+                    From = timeTable[i - 1].Station,
+                    To = timeTable[i].Station,
+                    Tickets = new Tickets
+                    {
+                        SW = isEmu ? new() : null,
+                        ZYY = isEmu ? new() : null,
+                        ZY = isEmu ? new() : null,
+                        ZE = isEmu ? new() : null,
+                        RZ = !isEmu ? new() : null,
+                        GRW = !isEmu ? new() : null,
+                        RW = !isEmu ? new() : null,
+                        WZ = new(),
+                        YW = !isEmu ? new() : null,
+                        YZ = !isEmu ? new() : null
+                    }
+                });
+            }
+            _databaseService.UpdateTrainNumber(_databaseService.GetTrainNumberByNumber(number), timeTable, sections);
+        }
+        ProgressValue = 0;
+        await _databaseService.SaveData();
+        RefreshTrainNumbers();
+    }
     [RelayCommand]
     public async Task TimeTableImportFromInternet() 
     {
@@ -320,7 +433,7 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
                     property.SetValue(section.Tickets, @checked ? new Ticket() : null);
                 }
             }
-            RefreshUI();
+            RefreshSectionsUI();
         }
 
     }
@@ -361,9 +474,50 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
 
     #region Price
     [RelayCommand]
-    public void PriceImportFromInternet()
+    public void SetPriceBatch(object s)
     {
-        throw new NotImplementedException();
+        if (s is string type)
+        {
+            if (!_dialogService.GetConfirm("当前操作会覆盖现有车次配置，是否继续？")) return;
+            TrainNumberSelected(null);
+
+            Dictionary<(string, string, string), double> sectionPrices = [];
+            string[] seatTypes = ["SW", "GRW", "YW", "ZE", "ZYY", "ZY", "WZ", "RW", "YZ", "RZ"];
+
+            foreach (var trainNumber in TrainNumbers)
+            {
+                bool isHighSpeed = trainNumber.Number.StartsWith('G') || trainNumber.Number.StartsWith('D') || trainNumber.Number.StartsWith('C');
+                if ((type == "1" && isHighSpeed) || (type == "2" && !isHighSpeed)) continue;
+
+                foreach (var section in trainNumber.Sections)
+                {
+                    foreach (var seatType in seatTypes)
+                    {
+                        if (section.Tickets.GetType().GetProperty(seatType)?.GetValue(section.Tickets) is Ticket ticket && (!sectionPrices.ContainsKey((section.From, section.To, seatType)) || sectionPrices[(section.From, section.To, seatType)] == 0.0))
+                        {
+                            sectionPrices[(section.From, section.To, seatType)] = ticket.Price;
+                        }
+                    }
+                }
+            }
+
+            foreach (var trainNumber in TrainNumbers)
+            {
+                bool isHighSpeed = trainNumber.Number.StartsWith('G') || trainNumber.Number.StartsWith('D') || trainNumber.Number.StartsWith('C');
+                if ((type == "1" && isHighSpeed) || (type == "2" && !isHighSpeed)) continue;
+
+                foreach (var section in trainNumber.Sections)
+                {
+                    foreach (var seatType in seatTypes)
+                    {
+                        if (section.Tickets.GetType().GetProperty(seatType)?.GetValue(section.Tickets) is Ticket ticket)
+                        {
+                            ticket.Price = sectionPrices[(section.From, section.To, seatType)];
+                        }
+                    }
+                }
+            }
+        }
     }
     [RelayCommand]
     public void PriceImportFromExcel()
@@ -423,7 +577,7 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
                     }
                 }
             }
-            RefreshUI();
+            RefreshSectionsUI();
         }
         catch
         {
@@ -471,9 +625,44 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
 
     #region Quantity
     [RelayCommand]
-    public void QuantityImportFromInternet()
+    public void SetQuantityBatch(object s)
     {
-        throw new NotImplementedException();
+        if(s is string extent)
+        {
+            if (!_dialogService.GetConfirm("当前操作会覆盖现有车次配置，是否继续？")) return;
+            TrainNumberSelected(null);
+            foreach(var trainNumber in TrainNumbers)
+            {
+                foreach(var Section in trainNumber.Sections)
+                {
+                    if (Section.Tickets.SW != null) Section.Tickets.SW.Quantity = RandomQuantity(extent);
+                    if (Section.Tickets.GRW != null) Section.Tickets.GRW.Quantity = RandomQuantity(extent);
+                    if (Section.Tickets.YW != null) Section.Tickets.YW.Quantity = RandomQuantity(extent);
+                    if (Section.Tickets.ZE != null) Section.Tickets.ZE.Quantity = RandomQuantity(extent);
+                    if (Section.Tickets.ZYY != null) Section.Tickets.ZYY.Quantity = RandomQuantity(extent);
+                    if (Section.Tickets.ZY != null) Section.Tickets.ZY.Quantity = RandomQuantity(extent);
+                    if (Section.Tickets.WZ != null) Section.Tickets.WZ.Quantity = RandomQuantity(extent);
+                    if (Section.Tickets.RW != null) Section.Tickets.RW.Quantity = RandomQuantity(extent);
+                    if (Section.Tickets.YZ != null) Section.Tickets.YZ.Quantity = RandomQuantity(extent);
+                    if (Section.Tickets.RZ != null) Section.Tickets.RZ.Quantity = RandomQuantity(extent);
+                }
+            }
+        }
+    }
+    private static int RandomQuantity(string extent)
+    {
+        switch (extent)
+        {
+            case "0":
+                return (new Random()).Next(10, 100);
+            case "1":
+                return (new Random()).Next(0, 25);
+            case "2":
+                return (new Random()).Next(0, 2) == 0 ? (new Random()).Next(1, 5) : 0;
+            default:
+                break;
+        }
+        return 0;
     }
     [RelayCommand]
     public void QuantityImportFromExcel()
@@ -533,7 +722,7 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
                     }
                 }
             }
-            RefreshUI();
+            RefreshSectionsUI();
         }
         catch
         {
@@ -578,6 +767,7 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
         package.SaveAs(new FileInfo(path));
     }
     #endregion
+
     [RelayCommand]
     public async Task SaveChanges()
     {
@@ -585,6 +775,7 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
         _databaseService.UpdateTrainNumber(SelectedTrainNumber, [.. TimeTable], [.. Sections]);
         await _databaseService.SaveData();
     }
+
     private Task<bool> Validate()
     {
         string message = "";
@@ -616,69 +807,7 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
         _dialogService.ShowMessage("保存失败", $"发现 {message.Split("\n").Length - 1} 个错误：{message}\n请修复所有错误后再次尝试保存。");
         return Task.FromResult(false);
     }
-    [RelayCommand]
-    public async Task ImportFromLulutong()
-    {
-        var path = _dialogService.GetFile("CSV 文件 (*.csv)|*.csv|所有文件 (*.*)|*.*");
-        if (path == null) return;
-        try
-        {
-            var numbers = ReadCsvFirstColumn(path);
-            var intersection = numbers.Intersect(TrainNumbers.Select(x => x.Number)).ToList();
-            if (intersection.Count != 0)
-            {
-                if (!_dialogService.GetConfirm("当前操作可能覆盖现有车次配置，是否继续？")) return;
-            }
-            foreach (string s in intersection)
-            {
-                _databaseService.DeleteTrainNumber(_databaseService.GetTrainNumberByNumber(s));
-            }
-            RefreshTrainNumbers();
-            int total = numbers.Count;
-            int current = 0;
-            foreach (string number in numbers)
-            {
-                current++;
-                ProgressValue = (int)((double)current / total * 100);
-                List<TrainStop>? timeTable = await _networkService.GetTimeTableAsync(number);
-                await Task.Delay(100);
-                timeTable ??= [];
-                _databaseService.AddTrainNumber(number);
-                var sections = new List<Section>();
-                var isEmu = number.StartsWith('G') || number.StartsWith('D') || number.StartsWith('C');
-                for (int i = 1; i < timeTable.Count; i++)
-                {
-                    sections.Add(new Section
-                    {
-                        From = timeTable[i - 1].Station,
-                        To = timeTable[i].Station,
-                        Tickets = new Tickets
-                        {
-                            SW = isEmu ? new() : null,
-                            ZYY = isEmu ? new() : null,
-                            ZY = isEmu ? new() : null,
-                            ZE = isEmu ? new() : null,
-                            RZ = !isEmu ? new() : null,
-                            GRW = !isEmu ? new() : null,
-                            RW = !isEmu ? new() : null,
-                            WZ = new(),
-                            YW = !isEmu ? new() : null,
-                            YZ = !isEmu ? new() : null
-                        }
-                    });
-                }
-                _databaseService.UpdateTrainNumber(_databaseService.GetTrainNumberByNumber(number), timeTable, sections);
-            }
-            ProgressValue = 0;
-            await _databaseService.SaveData();
-            RefreshTrainNumbers();
-        }
-        catch
-        {
-            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。");
-            ProgressValue = 0;
-        }
-    }
+
     private static List<string> ReadCsvFirstColumn(string filePath)
     {
         var firstColumnData = new List<string>();
@@ -711,7 +840,8 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
         }
         return firstColumnData;
     }
-    public void RefreshUI()
+
+    public void RefreshSectionsUI()
     {
         var temp = Sections.ToList();
         Sections.Clear();            
@@ -720,5 +850,4 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
             Sections.Add(item);      
         }
     }
-
 }

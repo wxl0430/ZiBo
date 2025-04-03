@@ -1,4 +1,4 @@
-﻿<Page
+<Page
     x:Class="CRSim.Views.TrainNumberManagementPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -116,9 +116,68 @@
                     <MenuItem>
                         <MenuItem.Header>
                             <TextBlock Focusable="False" FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                                               FontSize="16" Text="&#xE90F;" VerticalAlignment="Center"/>
+                        </MenuItem.Header>
+                        <MenuItem Header="批量获取时刻表" FontSize="14">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding ViewModel.TimeTableImportFromInternetBatchCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </MenuItem>
+                        <MenuItem Header="批量设置余票" FontSize="14">
+                            <MenuItem Header="余票充足" FontSize="14">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding ViewModel.SetQuantityBatchCommand}" CommandParameter="0"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </MenuItem>
+                            <MenuItem Header="一般假日" FontSize="14">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding ViewModel.SetQuantityBatchCommand}" CommandParameter="1"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </MenuItem>
+                            <MenuItem Header="春运返乡" FontSize="14">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding ViewModel.SetQuantityBatchCommand}" CommandParameter="2"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </MenuItem>
+                        </MenuItem>
+                        <MenuItem Header="统一区间票价" FontSize="14">
+                            <MenuItem Header="所有列车" FontSize="14">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding ViewModel.SetPriceBatchCommand}" CommandParameter="0"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </MenuItem>
+                            <MenuItem Header="高铁动车" FontSize="14">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding ViewModel.SetPriceBatchCommand}" CommandParameter="1"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </MenuItem>
+                            <MenuItem Header="普速列车" FontSize="14">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding ViewModel.SetPriceBatchCommand}" CommandParameter="2"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </MenuItem>
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem>
+                        <MenuItem.Header>
+                            <TextBlock Focusable="False" FontFamily="{StaticResource SymbolThemeFontFamily}"
                                                                FontSize="16" Text="&#xE8B6;" VerticalAlignment="Center"/>
                         </MenuItem.Header>
-                        <MenuItem Header="从模拟广播系统/路路通导入" FontSize="14">
+                        <MenuItem Header="从模拟广播系统/路路通导入并获取时刻表" FontSize="14">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <i:InvokeCommandAction Command="{Binding ViewModel.ImportFromLulutongCommand}"/>
