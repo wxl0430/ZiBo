@@ -12,17 +12,6 @@ namespace CRSim.Core.Models
         public string Name { get; set; }
 
         public List<WaitingArea> WaitingAreas { get; set; } = [];
-
-        [JsonIgnore]
-        public List<string> TicketChecks
-        {
-            get
-            {
-                List<string> ticketChecks = [];
-                ticketChecks.AddRange([.. WaitingAreas.SelectMany(wa => wa.TicketChecks)]);
-                return ticketChecks;
-            }
-        }
         
         public List<TrainStop> TrainStops { get; set; } = [];
 

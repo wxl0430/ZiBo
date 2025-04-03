@@ -167,7 +167,7 @@ public partial class StationManagementPageViewModel : ObservableObject
         {
             foreach (string ticketCheck in ticketChecks)
             {
-                if (TicketChecks.Select(x => x.Name).Contains(ticketCheck))
+                if (TicketChecks.Where(x => x.WaitingAreaName == waitingAreaName).Select(x => x.Name).Contains(ticketCheck))
                 {
                     _dialogService.ShowMessage("添加失败", $"编号 {ticketCheck} 检票口已存在。");
                     return;
@@ -417,7 +417,7 @@ public partial class StationManagementPageViewModel : ObservableObject
     [RelayCommand]
     public void AddTrainStop()
     {
-        var newTrainStop = _dialogService.GetInputTrainStop([.. TicketChecks.Select(x => x.Name)], [.. Platforms.Select(x => x.Name)]);
+        var newTrainStop = _dialogService.GetInputTrainStop([.. TicketChecks.Select(x => $"{x.WaitingAreaName} - {x.Name}")], [.. Platforms.Select(x => x.Name)]);
         if (newTrainStop != null)
         {
             if (TrainStops.Any(x => x.Number == newTrainStop.Number))
@@ -447,7 +447,7 @@ public partial class StationManagementPageViewModel : ObservableObject
     {
         if (_selectedTrainStop is TrainStop selectedTrainStop)
         {
-            var newTrainStop = _dialogService.GetInputTrainStop([.. TicketChecks.Select(x => x.Name)], [.. Platforms.Select(x => x.Name)], selectedTrainStop);
+            var newTrainStop = _dialogService.GetInputTrainStop([.. TicketChecks.Select(x => $"{x.WaitingAreaName} - {x.Name}")], [.. Platforms.Select(x => x.Name)], selectedTrainStop);
             if (newTrainStop != null)
             {
                 TrainStops[TrainStops.IndexOf(selectedTrainStop)] = newTrainStop;
@@ -495,11 +495,12 @@ public partial class StationManagementPageViewModel : ObservableObject
     }
     private TrainStop RandomTrainStopProperties(TrainStop t)
     {
-        t.Platform = Platforms[new Random().Next(Platforms.Count)].Name;
         t.Landmark = new[] { "红色", "绿色", "褐色", "蓝色", "紫色", "黄色", "橙色", null }[new Random().Next(8)];
         t.Length = t.Number.StartsWith('G') || t.Number.StartsWith('D') || t.Number.StartsWith('C') ? Math.Abs(t.Number.GetHashCode()) % 3 == 0 ? 8 : 16 : 18;
+        t.Platform = Platforms[new Random().Next(Platforms.Count)].Name;
         t.TicketChecks = [.. TicketChecks.Where(x => x.Name == t.Platform + "A" || x.Name == t.Platform + "B").Select(x => x.Name)];
         if (t.TicketChecks.Count == 0) t.TicketChecks = [TicketChecks[new Random().Next(TicketChecks.Count)].Name];
+        t.WaitingArea = TicketChecks.Where(x => x.Name == t.TicketChecks[0]).ToList()[new Random().Next(TicketChecks.Where(x => x.Name == t.TicketChecks[0]).ToList().Count)].WaitingAreaName;
         return t;
     }
     #endregion
