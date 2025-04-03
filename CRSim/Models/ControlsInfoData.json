@@ -50,7 +50,7 @@
         "Title": "引导屏",
         "PageName": "ScreenSimulationPage",
         "ImagePath": "Assets/ControlImages/Screen Simulation.png",
-        "Description": "旅客引导显示屏模拟。"
+        "Description": "模拟旅客引导显示屏。"
       },
       {
         "UniqueId": "Gate",
@@ -63,8 +63,8 @@
         "UniqueId": "12306",
         "Title": "12306",
         "PageName": "WebsiteSimulationPage",
-        "ImagePath": "Assets/ControlImages/TVM Simulation.png",
-        "Description": "自助服务机模拟。（开发中）"
+        "ImagePath": "Assets/ControlImages/Website Simulation.png",
+        "Description": "模拟12306网站。"
       }
     ]
   }

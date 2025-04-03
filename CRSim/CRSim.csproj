@@ -29,7 +29,7 @@
 		<Resource Include="Assets\ControlImages\Start Simulation.png" />
 		<Resource Include="Assets\ControlImages\Station Management.png" />
 		<Resource Include="Assets\ControlImages\TrainNumber Management.png" />
-		<Resource Include="Assets\ControlImages\TVM Simulation.png" />
+		<Resource Include="Assets\ControlImages\Website Simulation.png" />
 		<Resource Include="Assets\CRSimIcon.png" />
 		<Resource Include="Assets\HomeHeaderTiles\CRSim-Icon.ico" />
 		<Resource Include="Assets\HomeHeaderTiles\Header-Afdian.png" />
