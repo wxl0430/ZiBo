@@ -1,4 +1,4 @@
-﻿<Page
+<Page
     x:Class="CRSim.Views.ScreenSimulationPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -161,7 +161,24 @@
                                     </ComboBox>
                                 </Grid>
                             </Border>
-
+                            <Border Style="{StaticResource SettingsCardStyle}" Visibility="{Binding ViewModel.VideoNeeded,Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Vertical">
+                                        <TextBlock Text="视频资源路径" Style="{StaticResource BodyTextBlockStyle}"/>
+                                        <TextBlock Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}">
+                                            留空即为默认
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <TextBox Grid.Column="2" MaxWidth="256" MinWidth="128" Text="{Binding ViewModel.Video ,Mode=TwoWay}" Margin="0,0,8,0"/>
+                                    <Button Grid.Column="3" Content="浏览" Command="{Binding ViewModel.SelectVideoCommand}"/>
+                                </Grid>
+                            </Border>
                             <Border Style="{StaticResource BottomSettingsCardStyle}">
                                 <Grid IsEnabled="{Binding ViewModel.TextNeeded}">
                                     <Grid.ColumnDefinitions>
@@ -174,11 +191,10 @@
                                         <TextBlock Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}">
                                             留空即为默认
                                         </TextBlock>
-                                    </StackPanel> 
+                                    </StackPanel>
                                     <TextBox Grid.Column="2" MaxWidth="256" MinWidth="128" Text="{Binding ViewModel.Text ,Mode=TwoWay}"/>
                                 </Grid>
                             </Border>
-
                         </StackPanel>
                     </Expander.Content>
                 </Expander>
