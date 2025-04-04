@@ -16,7 +16,7 @@
     "Title": "数据管理",
     "PageName": "DataManagementPage",
     "IconGlyph": "\uE81E",
-    "Description": "车站、车次、交路等信息管理。",
+    "Description": "管理车站、车次、交路等信息。",
     "ImagePath": "Assets/ControlImages/Data Management.png",
     "IsGroup": true,
     "Items": [
@@ -57,7 +57,7 @@
         "Title": "闸机",
         "PageName": "GateSimulationPage",
         "ImagePath": "Assets/ControlImages/Gate Simulation.png",
-        "Description": "闸机模拟。（开发中）"
+        "Description": "模拟闸机。（新建文件夹中）"
       },
       {
         "UniqueId": "12306",
