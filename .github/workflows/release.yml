@@ -73,10 +73,14 @@ jobs:
           echo "DOTNET_CLI_UI_LANGUAGE=zh-CN" >> $GITHUB_ENV
           chcp 65001
 
+      - name: Add GitHub Package Source
+        env:
+          GHPKG_KEY: ${{ secrets.GHPKG_KEY }}
+        run: |
+          dotnet nuget add source --username denglihong2007 --password $env:GHPKG_KEY --store-password-in-clear-text --name github "https://nuget.pkg.github.com/denglihong2007/index.json"
 
       - name: Restore and Build
         run: |
-          dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/denglihong2007/index.json"
           dotnet restore
           dotnet build --configuration Release --no-restore
 
