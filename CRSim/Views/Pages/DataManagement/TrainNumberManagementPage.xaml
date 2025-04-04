@@ -184,6 +184,13 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </MenuItem>
+                        <MenuItem Header="从pyETRC/qETRC导入" FontSize="14">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding ViewModel.ImportFrompyETRCCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </MenuItem>
                     </MenuItem>
                 </Menu>
 

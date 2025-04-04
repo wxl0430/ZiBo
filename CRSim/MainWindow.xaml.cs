@@ -90,8 +90,8 @@ namespace CRSim
 
         private void UpdateWindowBackground()
         {
-            if ((!Utility.IsBackdropDisabled() &&
-                        !Utility.IsBackdropSupported()))
+            if ((!Utilities.IsBackdropDisabled() &&
+                        !Utilities.IsBackdropSupported()))
             {
                 this.SetResourceReference(BackgroundProperty, "WindowBackground");
             }
@@ -110,7 +110,7 @@ namespace CRSim
         }
         private void UpdateTitleBarButtonsVisibility()
         {
-            if (Utility.IsBackdropDisabled() || !Utility.IsBackdropSupported() ||
+            if (Utilities.IsBackdropDisabled() || !Utilities.IsBackdropSupported() ||
                     SystemParameters.HighContrast == true)
             {
                 MinimizeButton.Visibility = Visibility.Visible;

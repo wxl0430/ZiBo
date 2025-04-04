@@ -1,6 +1,6 @@
 namespace CRSim
 {
-    internal static class Utility
+    internal static class Utilities
     {
         public static bool IsBackdropSupported()
         {
@@ -21,6 +21,12 @@ namespace CRSim
             }
 
             return disableFluentThemeWindowBackdrop;
+        }
+        public static TimeSpan RoundToMinute(string timeString)
+        {
+            if (TimeSpan.TryParse(timeString, out var time))
+                return TimeSpan.FromMinutes(Math.Round(time.TotalMinutes));
+            return default;
         }
     }
 

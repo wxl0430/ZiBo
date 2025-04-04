@@ -3,6 +3,7 @@ using OfficeOpenXml;
 using System;
 using System.Collections.Specialized;
 using System.IO;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CRSim.ViewModels;
 
@@ -191,30 +192,7 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
                 await Task.Delay(100);
                 timeTable ??= [];
                 _databaseService.AddTrainNumber(number);
-                var sections = new List<Section>();
-                var isEmu = number.StartsWith('G') || number.StartsWith('D') || number.StartsWith('C');
-                for (int i = 1; i < timeTable.Count; i++)
-                {
-                    sections.Add(new Section
-                    {
-                        From = timeTable[i - 1].Station,
-                        To = timeTable[i].Station,
-                        Tickets = new Tickets
-                        {
-                            SW = isEmu ? new() : null,
-                            ZYY = isEmu ? new() : null,
-                            ZY = isEmu ? new() : null,
-                            ZE = isEmu ? new() : null,
-                            RZ = !isEmu ? new() : null,
-                            GRW = !isEmu ? new() : null,
-                            RW = !isEmu ? new() : null,
-                            WZ = new(),
-                            YW = !isEmu ? new() : null,
-                            YZ = !isEmu ? new() : null
-                        }
-                    });
-                }
-                _databaseService.UpdateTrainNumber(_databaseService.GetTrainNumberByNumber(number), timeTable, sections);
+                _databaseService.UpdateTrainNumber(_databaseService.GetTrainNumberByNumber(number), timeTable, GenerateSections(number,timeTable));
             }
             ProgressValue = 0;
             await _databaseService.SaveData();
@@ -224,6 +202,62 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
         {
             _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。");
             ProgressValue = 0;
+        }
+    }
+    [RelayCommand]
+    public async Task ImportFrompyETRC()
+    {
+        if (TrainNumbers.Count != 0)
+        {
+            if (!_dialogService.GetConfirm("当前操作可能覆盖现有车次配置，是否继续？")) return;
+        }
+        var path = _dialogService.GetFile("pyETRC 运行图文件 (*.pyetgr;*.json)|*.pyetgr;*.json|pyETRC 车次数据库文件 (*.pyetdb;*.json)|*.pyetdb;*.json|所有文件 (*.*)|*.*");
+        if (path == null) return;
+        try
+        {
+            using var fs = File.OpenRead(path);
+            var doc = await JsonDocument.ParseAsync(fs);
+
+            var root = doc.RootElement;
+            if (!root.TryGetProperty("trains", out var trains)) return;
+
+            foreach (var train in trains.EnumerateArray())
+            {
+                if (!train.TryGetProperty("timetable", out var timetable)) continue;
+                var stops = timetable.EnumerateArray().ToArray();
+                if (stops.Length == 0) continue;
+                List<TrainStop>? timeTable = [];
+                string number = train.GetProperty("checi").EnumerateArray().FirstOrDefault().GetString()?.Split('/')?.FirstOrDefault();
+                for (int i = 0; i < stops.Length; i++)
+                {
+                    TimeSpan? arrivalTime = null;
+                    TimeSpan? departureTime = null;
+                    var stop = stops[i];
+                    string name = stop.GetProperty("zhanming").GetString();
+                    string cfsj = stop.GetProperty("cfsj").GetString();
+                    string ddsj = stop.GetProperty("ddsj").GetString();
+                    if (i != 0) arrivalTime = Utilities.RoundToMinute(ddsj);
+                    if (i != stops.Length-1) departureTime = Utilities.RoundToMinute(cfsj);
+                    if (arrivalTime == departureTime) continue;
+                    timeTable.Add(new TrainStop
+                    {
+                        Station = name,
+                        ArrivalTime = arrivalTime,
+                        DepartureTime = departureTime,
+                    });
+                }
+                if (!TrainNumbers.Select(x => x.Number).Contains(number))
+                {
+                    _databaseService.AddTrainNumber(number);
+                }
+                _databaseService.UpdateTrainNumber(_databaseService.GetTrainNumberByNumber(number), timeTable, GenerateSections(number, timeTable));
+            }
+            await _databaseService.SaveData();
+            RefreshTrainNumbers();
+        }
+        catch
+        {
+            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。");
         }
     }
     #endregion
@@ -418,6 +452,34 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
     #endregion
 
     #region Sections
+    private static List<Section> GenerateSections(string number,List<TrainStop> timeTable)
+    {
+        var sections = new List<Section>();
+        var isEmu = number.StartsWith('G') || number.StartsWith('D') || number.StartsWith('C');
+        for (int i = 1; i < timeTable.Count; i++)
+        {
+            sections.Add(new Section
+            {
+                From = timeTable[i - 1].Station,
+                To = timeTable[i].Station,
+                Tickets = new Tickets
+                {
+                    SW = isEmu ? new() : null,
+                    ZYY = isEmu ? new() : null,
+                    ZY = isEmu ? new() : null,
+                    ZE = isEmu ? new() : null,
+                    RZ = !isEmu ? new() : null,
+                    GRW = !isEmu ? new() : null,
+                    RW = !isEmu ? new() : null,
+                    WZ = new(),
+                    YW = !isEmu ? new() : null,
+                    YZ = !isEmu ? new() : null
+                }
+            });
+        }
+        return sections;
+    }
+
     [RelayCommand]
     public void SeatChecked(object? parameter)
     {
