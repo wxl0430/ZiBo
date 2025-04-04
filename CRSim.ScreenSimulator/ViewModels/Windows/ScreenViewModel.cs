@@ -82,7 +82,7 @@ namespace CRSim.ScreenSimulator.ViewModels
         {
             ThisStation = station;
             ThisPlatform = platform;
-            ThisTicketCheck = ticketCheck.Split(" - ")[1];//重复检票口名称的临时解决方案
+            if (ticketCheck != string.Empty) ThisTicketCheck = ticketCheck.Split(" - ")[0];//重复检票口名称的临时解决方案
             var trains = station.TrainStops;
             foreach (var trainNumber in trains)
             {
