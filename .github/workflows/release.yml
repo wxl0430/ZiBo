@@ -76,6 +76,7 @@ jobs:
 
       - name: Restore and Build
         run: |
+          dotnet nuget add source --username ${{ github.actor }} --password ${{ github.token }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/denglihong2007/index.json"
           dotnet restore
           dotnet build --configuration Release --no-restore
 
