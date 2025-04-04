@@ -358,8 +358,9 @@ public partial class StationManagementPageViewModel : ObservableObject
                     worksheet.Cells[row, 2].Text.Trim() == "" ||
                     worksheet.Cells[row, 5].Text.Trim() == "" ||
                     worksheet.Cells[row, 6].Text.Trim() == "" ||
-                    worksheet.Cells[row, 8].Text.Trim() == "" ||
-                    worksheet.Cells[row, 9].Text.Trim() == "")
+                    worksheet.Cells[row, 7].Text.Trim() == "" ||
+                    worksheet.Cells[row, 9].Text.Trim() == "" ||
+                    worksheet.Cells[row, 10].Text.Trim() == "")
                 {
                     continue;
                 }
@@ -370,11 +371,12 @@ public partial class StationManagementPageViewModel : ObservableObject
                     Length = int.TryParse(worksheet.Cells[row, 2].Text, out int length) ? length : 0,
                     ArrivalTime = TimeSpan.TryParseExact(worksheet.Cells[row, 3].Text, @"hh\:mm", null, out TimeSpan arrival) ? arrival : null,
                     DepartureTime = TimeSpan.TryParseExact(worksheet.Cells[row, 4].Text, @"hh\:mm", null, out TimeSpan departure) ? departure : null,
-                    TicketChecks = [.. worksheet.Cells[row, 5].Text.Split(' ', StringSplitOptions.RemoveEmptyEntries)],
-                    Platform = worksheet.Cells[row, 6].Text.Trim(),
-                    Landmark = worksheet.Cells[row, 7].Text.Trim() == "" ? "无" : worksheet.Cells[row, 7].Text.Trim(),
-                    Origin = worksheet.Cells[row, 8].Text.Trim(),
-                    Terminal = worksheet.Cells[row, 9].Text.Trim()
+                    WaitingArea = worksheet.Cells[row, 5].Text.Trim(),
+                    TicketChecks = [.. worksheet.Cells[row, 6].Text.Split(' ', StringSplitOptions.RemoveEmptyEntries)],
+                    Platform = worksheet.Cells[row, 7].Text.Trim(),
+                    Landmark = worksheet.Cells[row, 8].Text.Trim() == "" ? "无" : worksheet.Cells[row, 8].Text.Trim(),
+                    Origin = worksheet.Cells[row, 9].Text.Trim(),
+                    Terminal = worksheet.Cells[row, 10].Text.Trim()
                 });
             }
         }
@@ -395,22 +397,24 @@ public partial class StationManagementPageViewModel : ObservableObject
         worksheet.Cells[1, 2].Value = "长度";
         worksheet.Cells[1, 3].Value = "到时";
         worksheet.Cells[1, 4].Value = "发时";
-        worksheet.Cells[1, 5].Value = "检票口";
-        worksheet.Cells[1, 6].Value = "站台";
-        worksheet.Cells[1, 7].Value = "地标";
-        worksheet.Cells[1, 8].Value = "始发站";
-        worksheet.Cells[1, 9].Value = "终到站";
+        worksheet.Cells[1, 5].Value = "候车区";
+        worksheet.Cells[1, 6].Value = "检票口";
+        worksheet.Cells[1, 7].Value = "站台";
+        worksheet.Cells[1, 8].Value = "地标";
+        worksheet.Cells[1, 9].Value = "始发站";
+        worksheet.Cells[1, 10].Value = "终到站";
         for (int i = 0; i < TrainStops.Count; i++)
         {
             worksheet.Cells[i + 2, 1].Value = TrainStops[i].Number;
             worksheet.Cells[i + 2, 2].Value = TrainStops[i].Length;
             worksheet.Cells[i + 2, 3].Value = TrainStops[i].ArrivalTime?.ToString(@"hh\:mm") ?? string.Empty;
             worksheet.Cells[i + 2, 4].Value = TrainStops[i].DepartureTime?.ToString(@"hh\:mm") ?? string.Empty;
-            worksheet.Cells[i + 2, 5].Value = TrainStops[i].TicketChecks.Count == 0 ? string.Empty : string.Join(" ", TrainStops[i].TicketChecks);
-            worksheet.Cells[i + 2, 6].Value = TrainStops[i].Platform;
-            worksheet.Cells[i + 2, 7].Value = TrainStops[i].Landmark;
-            worksheet.Cells[i + 2, 8].Value = TrainStops[i].Origin;
-            worksheet.Cells[i + 2, 9].Value = TrainStops[i].Terminal;
+            worksheet.Cells[i + 2, 5].Value = TrainStops[i].WaitingArea;
+            worksheet.Cells[i + 2, 6].Value = TrainStops[i].TicketChecks.Count == 0 ? string.Empty : string.Join(" ", TrainStops[i].TicketChecks);
+            worksheet.Cells[i + 2, 7].Value = TrainStops[i].Platform;
+            worksheet.Cells[i + 2, 8].Value = TrainStops[i].Landmark;
+            worksheet.Cells[i + 2, 9].Value = TrainStops[i].Origin;
+            worksheet.Cells[i + 2, 10].Value = TrainStops[i].Terminal;
         }
         package.SaveAs(new FileInfo(path));
     }
@@ -529,11 +533,18 @@ public partial class StationManagementPageViewModel : ObservableObject
             {
                 message += $"\n车次 {s.Number} 所分配的站台 {s.Platform} 不存在；";
             }
-            foreach(var t in s.TicketChecks)
+            if (!WaitingAreaNames.Contains(s.WaitingArea))
             {
-                if (!TicketChecks.Any(x => x.Name==t))
+                message += $"\n车次 {s.Number} 所分配的候车区 {s.WaitingArea} 不存在；";
+            }
+            else
+            {
+                foreach (var t in s.TicketChecks)
                 {
-                    message += $"\n车次 {s.Number} 所分配的检票口 {t} 不存在；";
+                    if (!TicketChecks.Any(x => x.Name == t && x.WaitingAreaName == s.WaitingArea))
+                    {
+                        message += $"\n车次 {s.Number} 所分配的检票口 {t} 在候车区 {s.WaitingArea} 中不存在；";
+                    }
                 }
             }
             if (s.DepartureTime == null && s.ArrivalTime == null)
