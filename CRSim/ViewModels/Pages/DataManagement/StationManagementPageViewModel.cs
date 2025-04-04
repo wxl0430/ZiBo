@@ -1,5 +1,6 @@
 using CRSim.Core.Models;
 using OfficeOpenXml;
+using System.Diagnostics.Eventing.Reader;
 
 namespace CRSim.ViewModels;
 
@@ -333,6 +334,82 @@ public partial class StationManagementPageViewModel : ObservableObject
             _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。");
         }
     }
+    [RelayCommand]
+    public async Task ImportFrompyETRC()
+    {
+        if (!CheckCanImport()) return;
+
+        var path = _dialogService.GetFile("pyETRC 运行图文件 (*.pyetgr;*.json)|*.pyetgr;*.json|pyETRC 车次数据库文件 (*.pyetdb;*.json)|*.pyetdb;*.json|所有文件 (*.*)|*.*");
+        if (path == null) return;
+        try
+        {
+            using var fs = File.OpenRead(path);
+            var doc = await JsonDocument.ParseAsync(fs);
+
+            var root = doc.RootElement;
+            if (!root.TryGetProperty("trains", out var trains)) return;
+
+            foreach (var train in trains.EnumerateArray())
+            {
+                if (!train.TryGetProperty("timetable", out var timetable)) continue;
+                var stops = timetable.EnumerateArray().ToArray();
+                if (stops.Length == 0) continue;
+
+                string origin = stops[0].GetProperty("zhanming").GetString();
+                string terminal = stops[^1].GetProperty("zhanming").GetString();
+
+                TimeSpan? arrivalTime = null;
+                TimeSpan? departureTime = null;
+
+                foreach (var stop in stops)
+                {
+                    string name = stop.GetProperty("zhanming").GetString();
+                    if (name != SelectedStation.Name) continue;
+
+                    string cfsj = stop.GetProperty("cfsj").GetString();
+                    string ddsj = stop.GetProperty("ddsj").GetString();
+
+                    if (cfsj == ddsj)
+                    {
+                        if (name == origin)
+                        {
+                            departureTime = Utilities.RoundToMinute(cfsj);
+                            arrivalTime = null;
+                        }
+                        else if (name == terminal)
+                        {
+                            departureTime = null;
+                            arrivalTime = Utilities.RoundToMinute(ddsj);
+                        }
+                    }
+                    else
+                    {
+                        departureTime = Utilities.RoundToMinute(cfsj);
+                        arrivalTime = Utilities.RoundToMinute(ddsj);
+                    }
+                    break;
+                }
+                if (arrivalTime == null && departureTime == null) continue;
+                string number = train.GetProperty("checi").EnumerateArray().FirstOrDefault().GetString()?.Split('/')?.FirstOrDefault() ?? string.Empty;
+
+                var trainStop = new TrainStop
+                {
+                    Number = number,
+                    Origin = origin,
+                    Terminal = terminal,
+                    ArrivalTime = arrivalTime,
+                    DepartureTime = departureTime,
+                };
+
+                TrainStops.Add(RandomTrainStopProperties(trainStop));
+            }
+        }
+        catch
+        {
+            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。");
+        }
+    }
+
     [RelayCommand]
     public void ImportFromExcel()
     {
