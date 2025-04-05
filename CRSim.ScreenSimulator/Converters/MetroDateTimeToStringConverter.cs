@@ -1,4 +1,4 @@
-using CRSim.Core.Services;
+﻿using CRSim.Core.Services;
 using CRSim.ScreenSimulator.Models;
 using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;

@@ -1,4 +1,4 @@
-namespace CRSim.Views
+﻿namespace CRSim.Views
 {
     /// <summary>
     /// UserInputDialog.xaml 的交互逻辑

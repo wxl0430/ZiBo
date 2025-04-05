@@ -1,4 +1,4 @@
-using CRSim.Core.Models;
+﻿using CRSim.Core.Models;
 using OfficeOpenXml;
 using System.Diagnostics.Eventing.Reader;
 

@@ -1,4 +1,4 @@
-using CRSim.ScreenSimulator.ViewModels.Hanzhong;
+﻿using CRSim.ScreenSimulator.ViewModels.Hanzhong;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;

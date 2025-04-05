@@ -1,4 +1,4 @@
-namespace CRSim
+﻿namespace CRSim
 {
     /// <summary>
     /// Interaction logic for App.xaml

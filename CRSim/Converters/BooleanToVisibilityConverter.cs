@@ -1,4 +1,4 @@
-namespace CRSim.Converters
+﻿namespace CRSim.Converters
 {
     public class BooleanToVisibilityConverter : IValueConverter
     {

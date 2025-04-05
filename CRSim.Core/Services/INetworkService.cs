@@ -1,4 +1,4 @@
-using CRSim.Core.Models;
+﻿using CRSim.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
