@@ -163,5 +163,17 @@
       "Station",
       "Text"
     ]
+  },
+  {
+    "UniqueId": "Zibo TicketCheckScreen",
+    "Title": "淄博站检票口看板",
+    "Station": "Zibo",
+    "StyleName": "TicketCheckScreenView",
+    "ImagePath": "Assets/StyleImages/Zibo/TicketCheckScreen.png",
+    "Parameters": [
+      "Station",
+      "TicketCheck",
+      "Text"
+    ]
   }
 ]
