@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CRSim.Controls.TileGallery"
+<UserControl x:Class="CRSim.Controls.TileGallery"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -27,8 +27,8 @@
                     Orientation="Horizontal">
                 <local:HeaderTile
                             Title="官方网站"
-                            Description="其实就是一个软件安装页面。高大上的还没有做出来。"
-                            Link="http://47.122.74.193/CRSim/"
+                            Description="访问我们的官网（部分地区可能访问缓慢）。"
+                            Link="https://crsim.tech/"
                             Margin="24 0 6 0">
                     <local:HeaderTile.Source>
                         <Image Source="pack://application:,,,/Assets/HomeHeaderTiles/CRSim-Icon.ico" />
