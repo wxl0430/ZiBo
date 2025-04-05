@@ -32,21 +32,21 @@ namespace CRSim.ScreenSimulator.ViewModels.Zibo
                 LeftScreen.Clear();
                 RightScreen.Clear();
                 int startIndex = CurrentPageIndex * ItemsPerPage * PageCount;
-                var leftItems = TrainInfo.Skip(startIndex).Take(ItemsPerPage).ToList();
-                var rightItems = TrainInfo.Skip(startIndex+1).Take(ItemsPerPage).ToList();
-                while (leftItems.Count+rightItems.Count < ItemsPerPage*2) 
+                var ItemsToShow = TrainInfo.Skip(startIndex).Take(ItemsPerPage * PageCount).ToList();
+                var leftItems = ItemsToShow.Where((item, index) => index % 2 == 0).ToList();
+                var rightItems = ItemsToShow.Where((item, index) => index % 2 == 1).ToList();
+                while (leftItems.Count < ItemsPerPage)
                 {
                     leftItems.Add(new TrainInfo());
+                }
+                while (rightItems.Count < ItemsPerPage)
+                {
                     rightItems.Add(new TrainInfo());
                 }
                 foreach (var item in leftItems)
                 {
                     LeftScreen.Add(item);
                 }
-                // while (rightItems.Count < ItemsPerPage) 
-                // {
-                //     rightItems.Add(new TrainInfo());
-                // }
                 foreach (var item in rightItems)
                 {
                     RightScreen.Add(item);
