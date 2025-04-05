@@ -9,11 +9,13 @@
     <LangVersion>13.0</LangVersion>
     <StartupObject>CRSim.App</StartupObject>
     <ApplicationIcon>Assets\CRSimIcon.ico</ApplicationIcon>
-    <Version>2.1.2.0</Version>
+    <Version>2.1.3.0</Version>
   </PropertyGroup>
 
 	<ItemGroup>
 		<ApplicationDefinition Remove="App.xaml" />
+		<None Remove="Assets\HomeHeaderTiles\Header-docs.png" />
+		<None Remove="Assets\HomeHeaderTiles\Header-docs.svg" />
 		<None Remove="Assets\StyleImages\Ankang\ExitScreen.png" />
 		<None Remove="Assets\StyleImages\Fuzhou\TicketCheckScreen.png" />
 		<None Remove="Assets\StyleImages\Tianjin\image.png" />
@@ -32,7 +34,7 @@
 		<Resource Include="Assets\CRSimIcon.png" />
 		<Resource Include="Assets\HomeHeaderTiles\CRSim-Icon.ico" />
 		<Resource Include="Assets\HomeHeaderTiles\Header-Afdian.png" />
-		<Resource Include="Assets\HomeHeaderTiles\Header-bilibili.png" />
+		<Resource Include="Assets\HomeHeaderTiles\Header-docs.png" />
 		<Resource Include="Assets\HomeHeaderTiles\Header-QQ.png" />
 		<Resource Include="Assets\StyleImages\Ankang\ExitScreen.png" />
 		<Resource Include="Assets\StyleImages\BeijingXi\PrimaryScreen.png" />
@@ -62,7 +64,7 @@
 
 	<ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-    <PackageReference Include="CRSim.WebsiteSimulator" Version="1.1.4" />
+    <PackageReference Include="CRSim.WebsiteSimulator" Version="1.1.5" />
     <PackageReference Include="EPPlus" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.3" />

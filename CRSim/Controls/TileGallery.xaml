@@ -46,11 +46,11 @@
 
                 <local:HeaderTile
                                 Title="使用教程"
-                                Description="一个优雅而简明扼要的食用教程。但是还没做，所以你将会看到作者主页。"
-                                Link="https://space.bilibili.com/436826066/"
+                                Description="一个优雅的食用或者开发教程，正在施工中。"
+                                Link="https://docs.crsim.tech/"
                                 Margin="0 0 6 0">
                     <local:HeaderTile.Source>
-                        <Image Source="pack://application:,,,/Assets/HomeHeaderTiles/Header-bilibili.png" />
+                        <Image Source="pack://application:,,,/Assets/HomeHeaderTiles/Header-docs.png"/>
                     </local:HeaderTile.Source>
                 </local:HeaderTile>
                 <local:HeaderTile
