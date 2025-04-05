@@ -1,4 +1,4 @@
-using CRSim.WebsiteSimulator;
+﻿using CRSim.WebsiteSimulator;
 
 namespace CRSim.ViewModels;
 

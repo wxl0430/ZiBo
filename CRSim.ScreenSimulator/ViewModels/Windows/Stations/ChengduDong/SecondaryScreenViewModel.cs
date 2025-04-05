@@ -1,4 +1,4 @@
-using CRSim.Core.Models;
+﻿using CRSim.Core.Models;
 using CRSim.Core.Services;
 using System.Windows;
 using CRSim.ScreenSimulator.Models;

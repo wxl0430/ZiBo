@@ -1,4 +1,4 @@
-namespace CRSim
+﻿namespace CRSim
 {
     internal static class Utilities
     {

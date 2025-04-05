@@ -1,4 +1,4 @@
-using CRSim.ScreenSimulator.ViewModels.Ankang;
+﻿using CRSim.ScreenSimulator.ViewModels.Ankang;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;

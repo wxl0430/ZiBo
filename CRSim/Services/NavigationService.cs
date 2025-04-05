@@ -1,4 +1,4 @@
-namespace CRSim.Services
+﻿namespace CRSim.Services
 {
     public class NavigationService(IServiceProvider serviceProvider) : INavigationService
     {

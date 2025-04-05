@@ -1,4 +1,4 @@
-namespace CRSim.Converters;
+﻿namespace CRSim.Converters;
 
 /// <summary>
 /// Converts a null value to Visibility.Collapsed

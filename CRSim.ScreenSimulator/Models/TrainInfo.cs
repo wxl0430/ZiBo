@@ -1,4 +1,4 @@
-namespace CRSim.ScreenSimulator.Models
+﻿namespace CRSim.ScreenSimulator.Models
 {
     public class TrainInfo
     {

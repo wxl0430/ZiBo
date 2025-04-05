@@ -1,4 +1,4 @@
-using CRSim.ScreenSimulator.ViewModels.BeijingXi;
+﻿using CRSim.ScreenSimulator.ViewModels.BeijingXi;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;

@@ -1,4 +1,4 @@
-namespace CRSim.Controls;
+﻿namespace CRSim.Controls;
 
 public class PageHeader : Control
 {

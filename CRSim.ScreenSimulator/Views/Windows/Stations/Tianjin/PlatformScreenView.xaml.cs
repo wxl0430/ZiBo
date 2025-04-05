@@ -1,4 +1,4 @@
-using CRSim.ScreenSimulator.ViewModels.Tianjin;
+﻿using CRSim.ScreenSimulator.ViewModels.Tianjin;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
