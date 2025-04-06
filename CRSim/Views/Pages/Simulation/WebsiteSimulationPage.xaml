@@ -1,4 +1,4 @@
-﻿<Page
+<Page
     x:Class="CRSim.Views.WebsiteSimulationPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -96,7 +96,7 @@
                         <TextBlock Grid.Column="0" Width="20" Height="20" Text="&#xF167;" FontSize="20" Foreground="{DynamicResource InfoBarWarningSeverityIconBackground}"
                                        Margin="10,5,10,5" VerticalAlignment="Center" FontFamily="{StaticResource SymbolThemeFontFamily}"/>
                         <TextBlock Grid.Column="1" Margin="12" FontSize="14" Style="{StaticResource BodyTextBlockStyle}"
-                                   Text="本功能需要设置用户Key后才可使用，具体步骤请参考http://47.122.74.193/CRSim/Key"/>
+                                   Text="本功能需要设置用户密钥后才可使用，具体步骤请参考https://docs.crsim.tech/app/key"/>
                     </Grid>
                 </Border>
                 <Border Grid.Row="4" Background="{DynamicResource ExpanderHeaderBackground}"
