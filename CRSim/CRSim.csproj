@@ -18,6 +18,7 @@
 		<None Remove="Assets\HomeHeaderTiles\Header-docs.svg" />
 		<None Remove="Assets\StyleImages\Ankang\ExitScreen.png" />
 		<None Remove="Assets\StyleImages\Fuzhou\TicketCheckScreen.png" />
+		<None Remove="Assets\StyleImages\Mianyang\PlatformScreen.png" />
 		<None Remove="Assets\StyleImages\Tianjin\image.png" />
 		<None Remove="Assets\StyleImages\Tianjin\PlatformScreen.png" />
 		<Content Include="Assets\Advertisement.mp4">
@@ -49,6 +50,7 @@
 		<Resource Include="Assets\StyleImages\Hanzhong\PlatformScreen.png" />
 		<Resource Include="Assets\StyleImages\Harbin\PrimaryScreen.png" />
 		<Resource Include="Assets\StyleImages\Jinanxi\SmallScreen.png" />
+		<Resource Include="Assets\StyleImages\Mianyang\PlatformScreen.png" />
 		<Resource Include="Assets\StyleImages\Shanghai\OutsideScreen.png" />
 		<Resource Include="Assets\StyleImages\Tianjin\image.png" />
 		<Resource Include="Assets\StyleImages\Tianjin\PlatformScreen.png" />

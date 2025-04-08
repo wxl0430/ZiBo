@@ -113,6 +113,18 @@
     ]
   },
   {
+    "UniqueId": "Mianyang PlatformScreen",
+    "Title": "绵阳站站台看板",
+    "Station": "Mianyang",
+    "StyleName": "PlatformScreenView",
+    "ImagePath": "Assets/StyleImages/Mianyang/PlatformScreen.png",
+    "Parameters": [
+      "Station",
+      "Platform",
+      "Location"
+    ]
+  },
+  {
     "UniqueId": "Zibo PrimaryScreen",
     "Title": "淄博站主要看板",
     "Station": "Zibo",
