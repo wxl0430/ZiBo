@@ -52,6 +52,9 @@
     <Compile Update="Views\Windows\Stations\Shanghai\OutsideScreenView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Windows\Stations\Mianyang\PlatformScreenView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Windows\Stations\Tianjin\PlatformScreenView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

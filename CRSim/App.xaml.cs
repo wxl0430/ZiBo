@@ -67,6 +67,8 @@
                 services.AddTransient<ScreenSimulator.Views.GuangdongIntercity.SecondaryScreenView>();
                 services.AddTransient<ScreenSimulator.ViewModels.Tianjin.PlatformScreenViewModel>();
                 services.AddTransient<ScreenSimulator.Views.Tianjin.PlatformScreenView>();
+                services.AddTransient<ScreenSimulator.ViewModels.Mianyang.PlatformScreenViewModel>();
+                services.AddTransient<ScreenSimulator.Views.Mianyang.PlatformScreenView>();
                 services.AddTransient<ScreenSimulator.ViewModels.Fuzhou.TicketCheckScreenViewModel>();
                 services.AddTransient<ScreenSimulator.Views.Fuzhou.TicketCheckScreenView>();
                 services.AddTransient<ScreenSimulator.ViewModels.Ankang.ExitScreenViewModel>();
