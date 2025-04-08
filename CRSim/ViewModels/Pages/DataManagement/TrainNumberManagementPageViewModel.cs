@@ -198,9 +198,9 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
             await _databaseService.SaveData();
             RefreshTrainNumbers();
         }
-        catch
+        catch (Exception e)
         {
-            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。");
+            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。\n"+e.Message);
             ProgressValue = 0;
         }
     }
@@ -255,9 +255,9 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
             await _databaseService.SaveData();
             RefreshTrainNumbers();
         }
-        catch
+        catch (Exception e)
         {
-            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。");
+            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。\n"+e.Message);
         }
     }
     #endregion
@@ -444,9 +444,9 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
             }
             RefreshSections();
         }
-        catch
+        catch (Exception e)
         {
-            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。");
+            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。\n"+e.Message);
         }
     }
     #endregion
@@ -641,9 +641,9 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
             }
             RefreshSectionsUI();
         }
-        catch
+        catch (Exception e)
         {
-            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。");
+            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。\n"+e.Message);
         }
     }
     [RelayCommand]
@@ -786,9 +786,9 @@ public partial class TrainNumberManagementPageViewModel : ObservableObject
             }
             RefreshSectionsUI();
         }
-        catch
+        catch (Exception e)
         {
-            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。");
+            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。\n"+e.Message);
         }
     }
     [RelayCommand]

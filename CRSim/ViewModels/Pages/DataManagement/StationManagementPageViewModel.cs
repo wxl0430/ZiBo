@@ -152,9 +152,9 @@ public partial class StationManagementPageViewModel : ObservableObject
             await _databaseService.SaveData();
             RefreshStations();
         }
-        catch
+        catch (Exception e)
         {
-            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。");
+            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。\n"+e.Message);
         }
     }
     #endregion
@@ -329,9 +329,9 @@ public partial class StationManagementPageViewModel : ObservableObject
                 }
             }
         }
-        catch
+        catch (Exception e)
         {
-            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。");
+            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。\n"+e.Message);
         }
     }
     [RelayCommand]
@@ -404,9 +404,9 @@ public partial class StationManagementPageViewModel : ObservableObject
                 TrainStops.Add(RandomTrainStopProperties(trainStop));
             }
         }
-        catch
+        catch (Exception e)
         {
-            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。");
+            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。\n"+e.Message);
         }
     }
 
@@ -457,9 +457,9 @@ public partial class StationManagementPageViewModel : ObservableObject
                 });
             }
         }
-        catch
+        catch (Exception e)
         {
-            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。");
+            _dialogService.ShowMessage("导入失败", "文件格式错误或被占用。\n"+e.Message);
         }
     }
     [RelayCommand]
