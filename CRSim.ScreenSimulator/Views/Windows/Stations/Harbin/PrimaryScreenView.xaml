@@ -130,7 +130,7 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
                                     <TextBlock Text="开点" Style="{StaticResource CommonHeaderStyle}" FontSize="24" Padding="0,2,0,0"/>
-                                    <TextBlock Text="Departa" Style="{StaticResource CommonHeaderStyle}" FontSize="17" Padding="0,3"/>
+                                    <TextBlock Text="Depart" Style="{StaticResource CommonHeaderStyle}" FontSize="17" Padding="0,3"/>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
@@ -256,7 +256,7 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
                                     <TextBlock Text="开点" Style="{StaticResource CommonHeaderStyle}" FontSize="24" Padding="0,2,0,0"/>
-                                    <TextBlock Text="Departa" Style="{StaticResource CommonHeaderStyle}" FontSize="17" Padding="0,3"/>
+                                    <TextBlock Text="Depart" Style="{StaticResource CommonHeaderStyle}" FontSize="17" Padding="0,3"/>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
