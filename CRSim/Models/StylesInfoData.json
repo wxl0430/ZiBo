@@ -145,6 +145,31 @@
     ]
   },
   {
+    "UniqueId": "Zibo TicketCheckScreen",
+    "Title": "淄博站检票口看板",
+    "Station": "Zibo",
+    "StyleName": "TicketCheckScreenView",
+    "ImagePath": "Assets/StyleImages/Zibo/TicketCheckScreen.png",
+    "Parameters": [
+      "Station",
+      "TicketCheck",
+      "Text"
+    ]
+  },
+  {
+    "UniqueId": "Zibo PlatformScreen",
+    "Title": "淄博站站台看板",
+    "Station": "Zibo",
+    "StyleName": "PlatformScreenView",
+    "ImagePath": "Assets/StyleImages/Zibo/PlatformScreen.png",
+    "Parameters": [
+      "Station",
+      "Platform",
+      "Location",
+      "Text"
+    ]
+  },
+  {
     "UniqueId": "Jinanxi SmallScreen",
     "Title": "济南西站小屏看板",
     "Station": "Jinanxi",
@@ -173,18 +198,6 @@
     "ImagePath": "Assets/StyleImages/Ankang/ExitScreen.png",
     "Parameters": [
       "Station",
-      "Text"
-    ]
-  },
-  {
-    "UniqueId": "Zibo TicketCheckScreen",
-    "Title": "淄博站检票口看板",
-    "Station": "Zibo",
-    "StyleName": "TicketCheckScreenView",
-    "ImagePath": "Assets/StyleImages/Zibo/TicketCheckScreen.png",
-    "Parameters": [
-      "Station",
-      "TicketCheck",
       "Text"
     ]
   }
