@@ -30,15 +30,23 @@ namespace CRSim.ScreenSimulator.Converters
                 {
                     if (Location > Length)
                     {
-                        return $"当前无车，1-{Length}车向后。";
+                        return $"当前无车，1-{Length}车向前。";
                     }
                     if (Location == Length)
                     {
-                        return $"当前{Length}车，1-{Length-1}车向后。";
+                        return $"当前{Location}车，1-{Length-1}车向前。";
                     }
                     if (Location == 1)
                     {
-                        return $"当前1车，2-{Length}车向前。";
+                        return $"当前1车，2-{Length}车向后。";
+                    }
+                    if (Location == Length-1)
+                    {
+                        return $"当前{Location}车，1-{Location - 1}车向前，{Length}车向后。";
+                    }
+                    if (Location == 2)
+                    {
+                        return $"当前2车，1车向前，3-{Length}车向后。";
                     }
                     return $"当前{Location}车，1-{Location - 1}车向前，{Location + 1}-{Length}车向后。";
                 }
