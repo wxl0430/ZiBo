@@ -61,6 +61,8 @@
                 services.AddTransient<ScreenSimulator.Views.Zibo.SecondaryScreenView>();
                 services.AddTransient<ScreenSimulator.ViewModels.Zibo.TicketCheckScreenViewModel>();
                 services.AddTransient<ScreenSimulator.Views.Zibo.TicketCheckScreenView>();
+                services.AddTransient<ScreenSimulator.ViewModels.Zibo.PlatformScreenViewModel>();
+                services.AddTransient<ScreenSimulator.Views.Zibo.PlatformScreenView>();
                 services.AddTransient<ScreenSimulator.ViewModels.Jinanxi.SmallScreenViewModel>();
                 services.AddTransient<ScreenSimulator.Views.Jinanxi.SmallScreenView>();
                 services.AddTransient<ScreenSimulator.ViewModels.GuangdongIntercity.SecondaryScreenViewModel>();
