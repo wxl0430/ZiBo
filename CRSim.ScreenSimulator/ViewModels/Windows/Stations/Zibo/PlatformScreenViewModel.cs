@@ -11,16 +11,14 @@ namespace CRSim.ScreenSimulator.ViewModels.Zibo
         public PlatformScreenViewModel(ITimeService timeService, ISettingsService settingsService)
             : base(timeService, settingsService)
         {
-            
-            // Text = $"请站在白色安全线以内排队候车"; //为什么 无效
             _timeService = timeService;
             timeService.RefreshSecondsElapsed += RefreshDisplay;
+            Text = $"请站在白色安全线以内排队候车";
             Initialize();
         }
         private async void Initialize()
         {
             await WaitForDataLoadAsync();
-            Text = ThisPlatform;
             RefreshDisplay(null,null);
         }
         private void RefreshDisplay(object? sender, EventArgs e)
