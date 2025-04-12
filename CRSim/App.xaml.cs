@@ -73,6 +73,8 @@
                 services.AddTransient<ScreenSimulator.Views.Mianyang.PlatformScreenView>();
                 services.AddTransient<ScreenSimulator.ViewModels.Fuzhou.TicketCheckScreenViewModel>();
                 services.AddTransient<ScreenSimulator.Views.Fuzhou.TicketCheckScreenView>();
+                services.AddTransient<ScreenSimulator.ViewModels.FuzhouNan.TicketCheckScreenViewModel>();
+                services.AddTransient<ScreenSimulator.Views.FuzhouNan.TicketCheckScreenView>();
                 services.AddTransient<ScreenSimulator.ViewModels.Ankang.ExitScreenViewModel>();
                 services.AddTransient<ScreenSimulator.Views.Ankang.ExitScreenView>();
             }).Build();
