@@ -35,6 +35,18 @@
     ]
   },
   {
+    "UniqueId": "FuzhouNan TicketCheckScreen",
+    "Title": "福州南站检票口看板",
+    "Station": "FuzhouNan",
+    "StyleName": "TicketCheckScreenView",
+    "ImagePath": "Assets/StyleImages/FuzhouNan/TicketCheckScreen.png",
+    "Parameters": [
+      "Station",
+      "TicketCheck",
+      "Text"
+    ]
+  },
+  {
     "UniqueId": "BeijingXi PrimaryScreen",
     "Title": "北京西站主要看板",
     "Station": "BeijingXi",

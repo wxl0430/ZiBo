@@ -17,6 +17,7 @@
 		<None Remove="Assets\HomeHeaderTiles\Header-docs.png" />
 		<None Remove="Assets\HomeHeaderTiles\Header-docs.svg" />
 		<None Remove="Assets\StyleImages\Ankang\ExitScreen.png" />
+		<None Remove="Assets\StyleImages\FuzhouNan\TicketCheckScreen.png" />
 		<None Remove="Assets\StyleImages\Fuzhou\TicketCheckScreen.png" />
 		<None Remove="Assets\StyleImages\Mianyang\PlatformScreen.png" />
 		<None Remove="Assets\StyleImages\Tianjin\image.png" />
@@ -43,6 +44,7 @@
 		<Resource Include="Assets\StyleImages\ChengduDong\SecondaryScreen.png" />
 		<Resource Include="Assets\StyleImages\ChengduMetro\ChengduMetro-Icon.png" />
 		<Resource Include="Assets\StyleImages\ChengduMetro\PlatformScreen.png" />
+		<Resource Include="Assets\StyleImages\FuzhouNan\TicketCheckScreen.png" />
 		<Resource Include="Assets\StyleImages\Fuzhou\TicketCheckScreen.png" />
 		<Resource Include="Assets\StyleImages\GuangdongIntercity\SecondaryScreen.png" />
 		<Resource Include="Assets\StyleImages\Guangyuan\PrimaryScreen.png" />
