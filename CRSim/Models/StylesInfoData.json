@@ -76,7 +76,21 @@
     "Parameters": [
       "Station",
       "Text",
-      "Video"
+      "Video",
+      "Platform"
+    ]
+  },
+  {
+    "UniqueId": "XuzhouMetro PlatformScreen",
+    "Title": "徐州地铁站台看板",
+    "Station": "XuzhouMetro",
+    "StyleName": "PlatformScreenView",
+    "ImagePath": "Assets/StyleImages/XuzhouMetro/PlatformScreen.png",
+    "Parameters": [
+      "Station",
+      "Text",
+      "Video",
+      "Platform"
     ]
   },
   {

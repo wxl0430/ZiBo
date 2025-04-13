@@ -31,6 +31,9 @@
     <Compile Update="Views\Windows\Stations\ChengduDong\SecondaryScreenView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Windows\Stations\XuzhouMetro\PlatformScreenView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Windows\Stations\ChengduMetro\PlatformScreenView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
