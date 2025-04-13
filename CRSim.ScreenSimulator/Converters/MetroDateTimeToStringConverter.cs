@@ -10,6 +10,9 @@ namespace CRSim.ScreenSimulator.Converters
     public class MetroDateTimeToStringConverter : IValueConverter
     {
         private ITimeService _timeService;
+        public string WaitingText { get; set; } = "请耐心等待";
+        public string ComingText { get; set; } = "即将进站";
+        public string ArrivedText { get; set; } = "列车进站";
         public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             var serviceProvider = (IServiceProvider)Application.Current.Resources["ServiceProvider"];
@@ -18,7 +21,7 @@ namespace CRSim.ScreenSimulator.Converters
             {
                 if(trainInfo.TrainNumber == null)
                 {
-                    return "请耐心等待";
+                    return WaitingText;
                 }
                 var timeDifference = (trainInfo.ArrivalTime ?? DateTime.MinValue) - _timeService.GetDateTimeNow();
                 bool isArrivalTimeNull = trainInfo.ArrivalTime == null;
@@ -31,10 +34,10 @@ namespace CRSim.ScreenSimulator.Converters
                         {
                             if(trainInfo.ArrivalTime - _timeService.GetDateTimeNow() > TimeSpan.Zero)
                             {
-                                return "即将进站";
+                                return ComingText;
                             }
                         }
-                        return "列车进站";
+                        return ArrivedText;
                     }
                 }
                 else
