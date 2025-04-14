@@ -1,9 +1,10 @@
 [
   {
-    "UniqueId": "ChengduDong SecondaryScreen",
+    "UniqueId": "ChengduDong.SecondaryScreen",
     "Title": "成都东站次要看板",
-    "Station": "ChengduDong",
-    "StyleName": "SecondaryScreenView",
+    "Station": "成都东",
+    "Author": "电排骨",
+    "Type": "车站大屏",
     "ImagePath": "Assets/StyleImages/ChengduDong/SecondaryScreen.png",
     "Parameters": [
       "Station",
@@ -11,10 +12,11 @@
     ]
   },
   {
-    "UniqueId": "ChengduDong PrimaryTicketCheckScreen",
+    "UniqueId": "ChengduDong.PrimaryTicketCheckScreen",
     "Title": "成都东站检票口主要看板",
-    "Station": "ChengduDong",
-    "StyleName": "PrimaryTicketCheckScreenView",
+    "Station": "成都东",
+    "Author": "电排骨",
+    "Type": "检票口屏",
     "ImagePath": "Assets/StyleImages/ChengduDong/PrimaryTicketCheckScreen.png",
     "Parameters": [
       "Station",
@@ -23,10 +25,11 @@
     ]
   },
   {
-    "UniqueId": "Fuzhou TicketCheckScreen",
+    "UniqueId": "Fuzhou.TicketCheckScreen",
     "Title": "福州站检票口看板",
-    "Station": "Fuzhou",
-    "StyleName": "TicketCheckScreenView",
+    "Station": "福州",
+    "Author": "电排骨",
+    "Type": "检票口屏",
     "ImagePath": "Assets/StyleImages/Fuzhou/TicketCheckScreen.png",
     "Parameters": [
       "Station",
@@ -35,10 +38,11 @@
     ]
   },
   {
-    "UniqueId": "FuzhouNan TicketCheckScreen",
+    "UniqueId": "FuzhouNan.TicketCheckScreen",
     "Title": "福州南站检票口看板",
-    "Station": "FuzhouNan",
-    "StyleName": "TicketCheckScreenView",
+    "Station": "福州南",
+    "Author": "电排骨",
+    "Type": "检票口屏",
     "ImagePath": "Assets/StyleImages/FuzhouNan/TicketCheckScreen.png",
     "Parameters": [
       "Station",
@@ -47,20 +51,22 @@
     ]
   },
   {
-    "UniqueId": "BeijingXi PrimaryScreen",
+    "UniqueId": "BeijingXi.PrimaryScreen",
     "Title": "北京西站主要看板",
-    "Station": "BeijingXi",
-    "StyleName": "PrimaryScreenView",
+    "Station": "北京西",
+    "Author": "电排骨",
+    "Type": "车站大屏",
     "ImagePath": "Assets/StyleImages/BeijingXi/PrimaryScreen.png",
     "Parameters": [
       "Station"
     ]
   },
   {
-    "UniqueId": "Harbin PrimaryScreen",
+    "UniqueId": "Harbin.PrimaryScreen",
     "Title": "哈尔滨站主要看板",
-    "Station": "Harbin",
-    "StyleName": "PrimaryScreenView",
+    "Station": "哈尔滨",
+    "Author": "电排骨",
+    "Type": "车站大屏",
     "ImagePath": "Assets/StyleImages/Harbin/PrimaryScreen.png",
     "Parameters": [
       "Station",
@@ -68,10 +74,11 @@
     ]
   },
   {
-    "UniqueId": "ChengduMetro PlatformScreen",
+    "UniqueId": "ChengduMetro.PlatformScreen",
     "Title": "成都地铁站台看板",
-    "Station": "ChengduMetro",
-    "StyleName": "PlatformScreenView",
+    "Station": "成都地铁",
+    "Author": "电排骨",
+    "Type": "站台屏",
     "ImagePath": "Assets/StyleImages/ChengduMetro/PlatformScreen.png",
     "Parameters": [
       "Station",
@@ -81,10 +88,11 @@
     ]
   },
   {
-    "UniqueId": "XuzhouMetro PlatformScreen",
+    "UniqueId": "XuzhouMetro.PlatformScreen",
     "Title": "徐州地铁站台看板",
-    "Station": "XuzhouMetro",
-    "StyleName": "PlatformScreenView",
+    "Station": "徐州地铁",
+    "Author": "电排骨",
+    "Type": "站台屏",
     "ImagePath": "Assets/StyleImages/XuzhouMetro/PlatformScreen.png",
     "Parameters": [
       "Station",
@@ -94,10 +102,11 @@
     ]
   },
   {
-    "UniqueId": "Guangyuan PrimaryScreen",
+    "UniqueId": "Guangyuan.PrimaryScreen",
     "Title": "广元站主要看板",
-    "Station": "Guangyuan",
-    "StyleName": "PrimaryScreenView",
+    "Station": "广元",
+    "Author": "电排骨",
+    "Type": "车站大屏",
     "ImagePath": "Assets/StyleImages/Guangyuan/PrimaryScreen.png",
     "Parameters": [
       "Station",
@@ -105,20 +114,22 @@
     ]
   },
   {
-    "UniqueId": "Shanghai OutsideScreen",
+    "UniqueId": "Shanghai.OutsideScreen",
     "Title": "上海站站外看板",
-    "Station": "Shanghai",
-    "StyleName": "OutsideScreenView",
+    "Station": "上海",
+    "Author": "电排骨",
+    "Type": "车站大屏",
     "ImagePath": "Assets/StyleImages/Shanghai/OutsideScreen.png",
     "Parameters": [
       "Station"
     ]
   },
   {
-    "UniqueId": "Hanzhong PlatformScreen",
+    "UniqueId": "Hanzhong.PlatformScreen",
     "Title": "汉中站站台看板",
-    "Station": "Hanzhong",
-    "StyleName": "PlatformScreenView",
+    "Station": "汉中",
+    "Author": "电排骨",
+    "Type": "站台屏",
     "ImagePath": "Assets/StyleImages/Hanzhong/PlatformScreen.png",
     "Parameters": [
       "Station",
@@ -127,10 +138,11 @@
     ]
   },
   {
-    "UniqueId": "Tianjin PlatformScreen",
+    "UniqueId": "Tianjin.PlatformScreen",
     "Title": "天津站站台看板",
-    "Station": "Tianjin",
-    "StyleName": "PlatformScreenView",
+    "Station": "天津",
+    "Author": "电排骨",
+    "Type": "站台屏",
     "ImagePath": "Assets/StyleImages/Tianjin/PlatformScreen.png",
     "Parameters": [
       "Station",
@@ -139,10 +151,11 @@
     ]
   },
   {
-    "UniqueId": "Mianyang PlatformScreen",
+    "UniqueId": "Mianyang.PlatformScreen",
     "Title": "绵阳站站台看板",
-    "Station": "Mianyang",
-    "StyleName": "PlatformScreenView",
+    "Station": "绵阳",
+    "Author": "电排骨",
+    "Type": "站台屏",
     "ImagePath": "Assets/StyleImages/Mianyang/PlatformScreen.png",
     "Parameters": [
       "Station",
@@ -151,30 +164,33 @@
     ]
   },
   {
-    "UniqueId": "Zibo PrimaryScreen",
+    "UniqueId": "Zibo.PrimaryScreen",
     "Title": "淄博站主要看板",
-    "Station": "Zibo",
-    "StyleName": "PrimaryScreenView",
+    "Station": "淄博",
+    "Author": "wxl0430",
+    "Type": "车站大屏",
     "ImagePath": "Assets/StyleImages/Zibo/PrimaryScreen.png",
     "Parameters": [
       "Station"
     ]
   },
   {
-    "UniqueId": "Zibo SecondaryScreen",
+    "UniqueId": "Zibo.SecondaryScreen",
     "Title": "淄博站次要看板",
-    "Station": "Zibo",
-    "StyleName": "SecondaryScreenView",
+    "Station": "淄博",
+    "Author": "wxl0430",
+    "Type": "车站大屏",
     "ImagePath": "Assets/StyleImages/Zibo/SecondaryScreen.png",
     "Parameters": [
       "Station"
     ]
   },
   {
-    "UniqueId": "Zibo TicketCheckScreen",
+    "UniqueId": "Zibo.TicketCheckScreen",
     "Title": "淄博站检票口看板",
-    "Station": "Zibo",
-    "StyleName": "TicketCheckScreenView",
+    "Station": "淄博",
+    "Author": "wxl0430",
+    "Type": "检票口屏",
     "ImagePath": "Assets/StyleImages/Zibo/TicketCheckScreen.png",
     "Parameters": [
       "Station",
@@ -183,10 +199,11 @@
     ]
   },
   {
-    "UniqueId": "Zibo PlatformScreen",
+    "UniqueId": "Zibo.PlatformScreen",
     "Title": "淄博站站台看板",
-    "Station": "Zibo",
-    "StyleName": "PlatformScreenView",
+    "Station": "淄博",
+    "Author": "wxl0430",
+    "Type": "站台屏",
     "ImagePath": "Assets/StyleImages/Zibo/PlatformScreen.png",
     "Parameters": [
       "Station",
@@ -196,20 +213,22 @@
     ]
   },
   {
-    "UniqueId": "Jinanxi SmallScreen",
+    "UniqueId": "Jinanxi.SmallScreen",
     "Title": "济南西站小屏看板",
-    "Station": "Jinanxi",
-    "StyleName": "SmallScreenView",
+    "Station": "济南西",
+    "Author": "wxl0430",
+    "Type": "车站大屏",
     "ImagePath": "Assets/StyleImages/Jinanxi/SmallScreen.png",
     "Parameters": [
       "Station"
     ]
   },
   {
-    "UniqueId": "GuangdongIntercity SecondaryScreen",
+    "UniqueId": "GuangdongIntercity.SecondaryScreen",
     "Title": "广东城际次要看板",
-    "Station": "GuangdongIntercity",
-    "StyleName": "SecondaryScreenView",
+    "Station": "广东城际",
+    "Author": "电排骨",
+    "Type": "车站大屏",
     "ImagePath": "Assets/StyleImages/GuangdongIntercity/SecondaryScreen.png",
     "Parameters": [
       "Station",
@@ -217,10 +236,11 @@
     ]
   },
   {
-    "UniqueId": "Ankang ExitScreen",
+    "UniqueId": "Ankang.ExitScreen",
     "Title": "安康站出站口看板",
-    "Station": "Ankang",
-    "StyleName": "ExitScreenView",
+    "Station": "安康",
+    "Author": "电排骨",
+    "Type": "出站口屏",
     "ImagePath": "Assets/StyleImages/Ankang/ExitScreen.png",
     "Parameters": [
       "Station",

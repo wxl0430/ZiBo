@@ -57,14 +57,62 @@
                         </Grid>
                     </Expander.Header>
                     <Expander.Content>
-                        <ItemsControl
-                                Margin="48,0,48,0"
+                        <StackPanel Orientation="Vertical" Margin="48,0,48,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center" FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE721;" FontSize="20"/>
+                                <TextBox Width="256" VerticalAlignment="Center" Margin="8,0" x:Name="SearchBox">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="TextChanged">
+                                            <i:InvokeCommandAction Command="{Binding ViewModel.TextSearchCommand}"
+                                                           CommandParameter="{Binding Text,ElementName=SearchBox}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
+                            </StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal" Grid.Column="0">
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="共有 " VerticalAlignment="Center"/>
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding ViewModel.StyleCards.Count}" VerticalAlignment="Center"/>
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text=" 个样式" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0,12">
+                                    <TextBlock Opacity="0.7" VerticalAlignment="Center" FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                                               Text="&#xE71C;" FontSize="12" Margin="0,0,8,0"/>
+                                    <TextBlock Opacity="0.7" Style="{StaticResource BodyTextBlockStyle}" Text="车站:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                    <ComboBox MinWidth="128" ItemsSource="{Binding ViewModel.StyleStations}" x:Name="FilterStationComboBox" Margin="0,0,24,0">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectionChanged">
+                                                <i:InvokeCommandAction Command="{Binding ViewModel.StationSearchCommand}"
+                                                           CommandParameter="{Binding SelectedItem,ElementName=FilterStationComboBox}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ComboBox>
+                                    <TextBlock Opacity="0.7" VerticalAlignment="Center" FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                                               Text="&#xE71C;" FontSize="12" Margin="0,0,8,0"/>
+                                    <TextBlock Opacity="0.7" Style="{StaticResource BodyTextBlockStyle}" Text="类别:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                    <ComboBox MinWidth="128" ItemsSource="{Binding ViewModel.StyleTypes}" x:Name="FilterTypeComboBox">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectionChanged">
+                                                <i:InvokeCommandAction Command="{Binding ViewModel.TypeSearchCommand}"
+                                                           CommandParameter="{Binding SelectedItem,ElementName=FilterTypeComboBox}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ComboBox>
+                                </StackPanel>
+                            </Grid>
+                            <ItemsControl
                                 AutomationProperties.Name="Items in group"
                                 ItemsSource="{Binding ViewModel.StyleCards}"
                                 Focusable="False"
                                 ItemsPanel="{StaticResource StyleCardPanelTemplate}"
                                 ItemTemplate="{StaticResource StyleCardTemplate}">
-                        </ItemsControl>
+                            </ItemsControl>
+                        </StackPanel>
                     </Expander.Content>
                 </Expander>
                 <Expander Grid.Row="1" Margin="0,4,0,0">

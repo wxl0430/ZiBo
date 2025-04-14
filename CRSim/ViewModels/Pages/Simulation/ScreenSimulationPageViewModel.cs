@@ -2,11 +2,11 @@
 
 public partial class ScreenSimulationPageViewModel : ObservableObject 
 {
-	[ObservableProperty]
-	private string _pageTitle = "引导屏模拟";
+    [ObservableProperty]
+    private string _pageTitle = "引导屏模拟";
 
-	[ObservableProperty]
-	private string _pageDescription = "";
+    [ObservableProperty]
+    private string _pageDescription = "";
 
     [ObservableProperty]
     private ICollection<StylesInfoDataItem> _styleCards = StylesInfoDataSource.Instance.StylesInfo;
@@ -63,7 +63,7 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
     private readonly IDialogService _dialogService;
     public ScreenSimulationPageViewModel(IDatabaseService databaseService, IServiceProvider serviceProvider, IDialogService dialogService)
     {
-		_databaseService = databaseService;
+        _databaseService = databaseService;
         _serviceProvider = serviceProvider;
         _dialogService = dialogService;
         foreach (Station station in _databaseService.GetAllStations())
@@ -188,4 +188,42 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
             PlatformNeeded ? SelectedPlatformName : string.Empty);
         Window.Show();
     }
+    #region StyleSearch
+    private string _keyWord = string.Empty;
+    private string _station = string.Empty;
+    private string _type = string.Empty;
+    public List<string> StyleStations { get; private set; } = [.. StylesInfoDataSource.Instance.StylesInfo.Select(x=>x.Station).Distinct()];
+    public List<string> StyleTypes { get; private set; } = [.. StylesInfoDataSource.Instance.StylesInfo.Select(x => x.Type).Distinct()];
+    [RelayCommand]
+    public void TextSearch(object s)
+    {
+        if(s is string str)
+        {
+            _keyWord = str;
+            Search();
+        }
+    }
+    [RelayCommand]
+    public void StationSearch(object s)
+    {
+        if (s is string str)
+        {
+            _station = str;
+            Search();
+        }
+    }
+    [RelayCommand]
+    public void TypeSearch(object s)
+    {
+        if (s is string str)
+        {
+            _type = str;
+            Search();
+        }
+    }
+    private void Search()
+    {
+        StyleCards = [.. StylesInfoDataSource.Instance.StylesInfo.Where(x =>(x.Station==_station||_station==string.Empty) && (x.Type==_type||_type==string.Empty) && x.Title.Contains(_keyWord))];
+    }
+    #endregion
 }
