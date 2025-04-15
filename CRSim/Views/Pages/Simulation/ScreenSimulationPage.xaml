@@ -84,7 +84,7 @@
                                     <TextBlock Opacity="0.7" VerticalAlignment="Center" FontFamily="{StaticResource SymbolThemeFontFamily}" 
                                                Text="&#xE71C;" FontSize="12" Margin="0,0,8,0"/>
                                     <TextBlock Opacity="0.7" Style="{StaticResource BodyTextBlockStyle}" Text="车站:" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                                    <ComboBox MinWidth="128" ItemsSource="{Binding ViewModel.StyleStations}" x:Name="FilterStationComboBox" Margin="0,0,24,0">
+                                    <ComboBox MinWidth="128" ItemsSource="{Binding ViewModel.StyleStations}" x:Name="FilterStationComboBox" Margin="0,0,24,0" SelectedIndex="0">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="SelectionChanged">
                                                 <i:InvokeCommandAction Command="{Binding ViewModel.StationSearchCommand}"
@@ -95,7 +95,7 @@
                                     <TextBlock Opacity="0.7" VerticalAlignment="Center" FontFamily="{StaticResource SymbolThemeFontFamily}" 
                                                Text="&#xE71C;" FontSize="12" Margin="0,0,8,0"/>
                                     <TextBlock Opacity="0.7" Style="{StaticResource BodyTextBlockStyle}" Text="类别:" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                                    <ComboBox MinWidth="128" ItemsSource="{Binding ViewModel.StyleTypes}" x:Name="FilterTypeComboBox">
+                                    <ComboBox MinWidth="128" ItemsSource="{Binding ViewModel.StyleTypes}" x:Name="FilterTypeComboBox" SelectedIndex="0">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="SelectionChanged">
                                                 <i:InvokeCommandAction Command="{Binding ViewModel.TypeSearchCommand}"
