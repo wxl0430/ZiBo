@@ -90,7 +90,7 @@
                         <Style TargetType="TextBlock" BasedOn="{StaticResource CommonTextBlockStyle}"/>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                
+
                 <DataGridTextColumn Binding="{Binding Terminal}" MinWidth="145">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
@@ -130,13 +130,6 @@
                 </DataGridTextColumn>
 
                 <DataGridTextColumn MinWidth="180">
-                    <DataGridTextColumn.Binding>
-                        <MultiBinding Mode="OneWay" Converter="{StaticResource TrainStateConverter}">
-                            <Binding Path="ArrivalTime" />
-                            <Binding Path="DepartureTime" />
-                            <Binding Path="State" />
-                        </MultiBinding>
-                    </DataGridTextColumn.Binding>
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}" Margin="0,0,0,1">
@@ -146,6 +139,7 @@
                     </DataGridTextColumn.HeaderTemplate>
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource CommonTextBlockStyle}">
+                            <Setter Property="Text" Value="正点"/>
                             <Setter Property="Visibility" Value="{Binding TrainNumber,Converter={StaticResource EmptyToVisibilityConverter}}"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
