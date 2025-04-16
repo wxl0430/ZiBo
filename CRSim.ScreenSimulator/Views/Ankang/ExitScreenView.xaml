@@ -90,7 +90,7 @@
                         <Style TargetType="TextBlock" BasedOn="{StaticResource CommonTextBlockStyle}"/>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                
+
                 <DataGridTextColumn Binding="{Binding Terminal}" MinWidth="145">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
