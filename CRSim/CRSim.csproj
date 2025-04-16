@@ -80,7 +80,7 @@
 
 	<ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-    <PackageReference Include="CRSim.WebsiteSimulator" Version="1.1.5" />
+    <PackageReference Include="CRSim.WebsiteSimulator" Version="1.2.0" />
     <PackageReference Include="EPPlus" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.3" />
