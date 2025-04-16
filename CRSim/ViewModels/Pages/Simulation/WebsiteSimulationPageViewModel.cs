@@ -2,7 +2,7 @@
 
 namespace CRSim.ViewModels;
 
-public partial class WebsiteSimulationPageViewModel : ObservableObject 
+public partial class WebsiteSimulationPageViewModel(Simulator simulator, IDialogService dialogService) : ObservableObject 
 {
 	[ObservableProperty]
 	private string _pageTitle = "12306模拟";
@@ -10,16 +10,21 @@ public partial class WebsiteSimulationPageViewModel : ObservableObject
 	[ObservableProperty]
 	private string _pageDescription = "";
 
-    private Simulator _simulator;
+    private readonly Simulator _simulator = simulator;
 
-    public WebsiteSimulationPageViewModel(Simulator simulator)
-    {
-        _simulator = simulator;
-    }
+    private readonly IDialogService _dialogService = dialogService;
+
     [RelayCommand]
     public async Task StartSimulation()
     {
-        await _simulator.Start();
+        try
+        {
+            await _simulator.Start();
+        }
+        catch(Exception e)
+        {
+            _dialogService.ShowMessage("认证失败", e.Message);
+        }
     }
     [RelayCommand]
     public void StopSimulation()
