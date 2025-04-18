@@ -19,6 +19,10 @@ namespace CRSim.ScreenSimulator.Converters
             var serviceProvider = (IServiceProvider)Application.Current.Resources["ServiceProvider"];
             _timeService = serviceProvider.GetRequiredService<ITimeService>();
             _settings = serviceProvider.GetRequiredService<ISettingsService>().GetSettings();
+            if (values[0] != null && values[1] == null)
+            {
+                return WaitingColor;
+            }
             if (values[1] is DateTime departureTime && departureTime !=new DateTime())
             {
                 if (values[0] is DateTime)
