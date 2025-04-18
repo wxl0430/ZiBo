@@ -33,7 +33,6 @@ namespace CRSim.ScreenSimulator.ViewModels.Ankang
             {
                 int pageCount = (int)Math.Ceiling((double)TrainInfo.Count / (ItemsPerPage * PageCount));
                 LeftScreen.Clear();
-                RightScreen.Clear();
                 int startIndex = CurrentPageIndex * ItemsPerPage * PageCount;
                 var leftItems = TrainInfo.Skip(startIndex).Take(ItemsPerPage).ToList();
                 while (leftItems.Count < ItemsPerPage) // Fill up with new object() if not enough items
@@ -44,18 +43,6 @@ namespace CRSim.ScreenSimulator.ViewModels.Ankang
                 {
                     LeftScreen.Add(item);
                 }
-
-                // Get the slice for the right screen (next 12)
-                var rightItems = TrainInfo.Skip(startIndex + ItemsPerPage).Take(ItemsPerPage).ToList();
-                while (rightItems.Count < ItemsPerPage) // Fill up with new object() if not enough items
-                {
-                    rightItems.Add(new TrainInfo());
-                }
-                foreach (var item in rightItems)
-                {
-                    RightScreen.Add(item);
-                }
-
                 CurrentPageIndex = CurrentPageIndex + 1 >= Math.Min(_settings.MaxPages, pageCount) ? 0 : CurrentPageIndex + 1;
             });
         }

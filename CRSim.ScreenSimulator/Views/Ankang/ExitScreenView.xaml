@@ -16,7 +16,7 @@
         <converters1:EmptyToVisibilityConverter x:Key="EmptyToVisibilityConverter" />
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringTimeConverter" Format="yyyy-MM-dd HH:mm:ss" />
-        <converters:TrainStateConverter x:Key="TrainStateConverter" WaitingText="正点"/>
+        <converters:TrainStateConverter x:Key="TrainStateConverter" WaitingText="正点" DisplayMode="Arrive"/>
         <converters:TrainStateColorConverter x:Key="TrainStateColorConverter" WaitingColor="#76C1FF"/>
         <Style TargetType="DataGridColumnHeader">
             <Setter Property="Padding" Value="0"/>
@@ -130,6 +130,13 @@
                 </DataGridTextColumn>
 
                 <DataGridTextColumn MinWidth="180">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding Mode="OneWay" Converter="{StaticResource TrainStateConverter}">
+                            <Binding Path="ArrivalTime" />
+                            <Binding Path="DepartureTime" />
+                            <Binding Path="State" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}" Margin="0,0,0,1">
@@ -139,7 +146,6 @@
                     </DataGridTextColumn.HeaderTemplate>
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource CommonTextBlockStyle}">
-                            <Setter Property="Text" Value="正点"/>
                             <Setter Property="Visibility" Value="{Binding TrainNumber,Converter={StaticResource EmptyToVisibilityConverter}}"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>

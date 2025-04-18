@@ -11,6 +11,9 @@ namespace CRSim.ScreenSimulator.Converters
     {
         private ITimeService _timeService;
         private Settings _settings;
+        public string DisplayMode { get; set; } = "Normal";
+        public string ArrivedText { get; set; } = "列车已到达";
+        public string ArrivingText { get; set; } = "正点";
         public string WaitingText { get; set; } = "候车";
         public string CheckInText { get; set; } = "正在检票";
         public string StopCheckInText { get; set; } = "停止检票";
@@ -19,6 +22,13 @@ namespace CRSim.ScreenSimulator.Converters
             var serviceProvider = (IServiceProvider)Application.Current.Resources["ServiceProvider"];
             _timeService = serviceProvider.GetRequiredService<ITimeService>();
             _settings = serviceProvider.GetRequiredService<ISettingsService>().GetSettings();
+            if (DisplayMode == "Arrive" || values[1] == null)
+            {
+                if (values[0] is DateTime arriveTime)
+                {
+                    return _timeService.GetDateTimeNow() > arriveTime ? ArrivedText : ArrivingText;
+                }
+            }
             if (values[1] is DateTime departureTime && departureTime != new DateTime())
             {
                 if (values[0] is DateTime)
