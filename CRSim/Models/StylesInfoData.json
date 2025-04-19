@@ -213,6 +213,19 @@
     ]
   },
   {
+    "UniqueId": "Zibo.ConcourseBridgeScreen",
+    "Title": "淄博站廊桥看板",
+    "Station": "淄博",
+    "Author": "wxl0430",
+    "Type": "站台屏",
+    "ImagePath": "Assets/StyleImages/Zibo/ConcourseBridgeScreen.png",
+    "Parameters": [
+      "Station",
+      "Platform",
+      "Location"
+    ]
+  },
+  {
     "UniqueId": "Jinanxi.SmallScreen",
     "Title": "济南西站小屏看板",
     "Station": "济南西",
