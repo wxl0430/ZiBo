@@ -67,7 +67,7 @@
                 services.AddTransient<ScreenSimulator.Views.Zibo.PlatformScreenView>();
                 services.AddTransient<ScreenSimulator.ViewModels.Zibo.ConcourseBridgeScreenViewModel>();
                 services.AddTransient<ScreenSimulator.Views.Zibo.ConcourseBridgeScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.Beijing.ArrivalScreenViewModel>();
+                services.AddTransient<ScreenSimulator.ViewModels.Jinanxi.SmallScreenViewModel>();
                 services.AddTransient<ScreenSimulator.Views.Jinanxi.SmallScreenView>();
                 services.AddTransient<ScreenSimulator.ViewModels.GuangdongIntercity.SecondaryScreenViewModel>();
                 services.AddTransient<ScreenSimulator.Views.GuangdongIntercity.SecondaryScreenView>();
@@ -82,7 +82,7 @@
                 services.AddTransient<ScreenSimulator.ViewModels.Ankang.ExitScreenViewModel>();
                 services.AddTransient<ScreenSimulator.Views.Ankang.ExitScreenView>();
                 services.AddTransient<ScreenSimulator.Views.Beijing.ArrivalScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.Jinanxi.SmallScreenViewModel>();
+                services.AddTransient<ScreenSimulator.ViewModels.Beijing.ArrivalScreenViewModel>();
                 services.AddTransient<ScreenSimulator.Views.Daqingdong.PlatformScreenView>();
                 services.AddTransient<ScreenSimulator.ViewModels.Daqingdong.PlatformScreenViewModel>();
             }).Build();
