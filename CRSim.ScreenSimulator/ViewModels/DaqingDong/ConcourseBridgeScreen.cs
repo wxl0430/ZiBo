@@ -3,12 +3,12 @@ using CRSim.Core.Services;
 using CRSim.ScreenSimulator.Models;
 using System.Collections.ObjectModel;
 using System.Windows;
-namespace CRSim.ScreenSimulator.ViewModels.Daqingdong
+namespace CRSim.ScreenSimulator.ViewModels.DaqingDong
 {
-    public class PlatformScreenViewModel : ScreenViewModel
+    public class ConcourseBridgeScreenViewModel : ScreenViewModel
     {
         public ObservableCollection<TrainInfo> Screen { get; set; } = [];
-        public PlatformScreenViewModel(ITimeService timeService, ISettingsService settingsService)
+        public ConcourseBridgeScreenViewModel(ITimeService timeService, ISettingsService settingsService)
             : base(timeService, settingsService)
         {
             StationType = StationType.Departure;

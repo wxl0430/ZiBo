@@ -7,11 +7,13 @@ namespace CRSim.ScreenSimulator.ViewModels.Beijing
 {
     public class ArrivalScreenViewModel : ScreenViewModel
     {
+        private ITimeService _timeService;
         public ObservableCollection<TrainInfo> Screen { get; set; } = [];
         public ArrivalScreenViewModel(ITimeService timeService, ISettingsService settingsService)
             : base(timeService, settingsService)
         {
-            StationType = StationType.Departure;
+            _timeService = timeService;
+            StationType = StationType.Arrival;
             timeService.RefreshSecondsElapsed += RefreshDisplay;
             Initialize();
         }
@@ -31,6 +33,31 @@ namespace CRSim.ScreenSimulator.ViewModels.Beijing
                     Screen.Add(TrainInfo.Count > i ? TrainInfo[i] : new());
                 }
             });
+        }
+        public override void RefreshData(object? sender, EventArgs e)
+        {
+            List<TrainInfo> itemsToRemove = [];
+            foreach (TrainInfo trainInfo in TrainInfo)
+            {
+                if (trainInfo.DepartureTime == null)
+                {
+                    if (trainInfo.ArrivalTime.Value.Add(_settings.StopDisplayFromArrivalDuration) < _timeService.GetDateTimeNow())
+                    {
+                        itemsToRemove.Add(trainInfo);
+                    }
+                }
+                else
+                {
+                    if (trainInfo.DepartureTime.Value < _timeService.GetDateTimeNow())
+                    {
+                        itemsToRemove.Add(trainInfo);
+                    }
+                }
+            }
+            foreach (var item in itemsToRemove)
+            {
+                TrainInfo.Remove(item);
+            }
         }
     }
 }

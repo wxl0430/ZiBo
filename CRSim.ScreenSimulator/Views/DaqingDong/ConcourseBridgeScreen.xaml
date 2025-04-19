@@ -1,10 +1,10 @@
-﻿<Window x:Class="CRSim.ScreenSimulator.Views.Daqingdong.PlatformScreenView"
+﻿<Window x:Class="CRSim.ScreenSimulator.Views.DaqingDong.ConcourseBridgeScreenView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:pp="https://www.cnblogs.com/pumbaa"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CRSim.ScreenSimulator.Views.Daqingdong"
+        xmlns:local="clr-namespace:CRSim.ScreenSimulator.Views.DaqingDong"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
@@ -31,23 +31,18 @@
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
     </Window.Resources>
     <StackPanel Orientation="Horizontal">
-        <Grid Background="#2556ff" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="180">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <TextBlock Text="{Binding ThisPlatform}" FontSize="80" TextAlignment="Center" VerticalAlignment="Center" FontFamily="黑体" FontWeight="Black" Foreground="#ffffff" Margin="-80,0,0,0">
-                <TextBlock.LayoutTransform>
-                    <ScaleTransform ScaleX="1.25" ScaleY="1"/>
-                </TextBlock.LayoutTransform>
-            </TextBlock>
-            <TextBlock Text="站 台" FontSize="35" TextAlignment="Left" VerticalAlignment="Center" FontFamily="黑体" FontWeight="Black" Foreground="#ffffff" Margin="75,0,0,22" />
-            <TextBlock Text="Platfrom" FontSize="23" TextAlignment="Left" VerticalAlignment="Center" FontFamily="黑体" FontWeight="Black" Foreground="#ffffff" Margin="75,32,0,0" />
-        </Grid>
+        <StackPanel Background="#2556ff" Orientation="Horizontal">
+            <TextBlock Text="{Binding ThisPlatform}" FontSize="82" VerticalAlignment="Center" Foreground="#ffffff" Margin="6,0,0,0"/>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="0,0,6,0">
+                <TextBlock Text="站  台" FontSize="35" VerticalAlignment="Center" Foreground="#ffffff" Margin="0,0,0,4"/>
+                <TextBlock Text="Platfrom" FontSize="22" VerticalAlignment="Center" Foreground="#ffffff"/>
+            </StackPanel>
+        </StackPanel>
         <StackPanel Orientation="Vertical">
-            <DataGrid ItemsSource="{Binding Screen}" AutoGenerateColumns="False"
+            <DataGrid ItemsSource="{Binding Screen}" AutoGenerateColumns="False" BorderThickness="0"
                 CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
                 CanUserResizeRows="False" CanUserReorderColumns="False" ClipToBounds="False"
-                IsReadOnly="True" GridLinesVisibility="None" RowHeight="35" Foreground="White"
+                IsReadOnly="True" GridLinesVisibility="None" RowHeight="34" Foreground="White"
                 HeadersVisibility="Column" IsEnabled="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn>
@@ -171,17 +166,12 @@
                 </DataGrid.CellStyle>
             </DataGrid>
         </StackPanel>
-        <Grid Background="#2556ff" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="180">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <TextBlock Text="{Binding ThisPlatform}" FontSize="80" TextAlignment="Center" VerticalAlignment="Center" FontFamily="黑体" FontWeight="Black" Foreground="#ffffff" Margin="-85,0,0,0">
-                <TextBlock.LayoutTransform>
-                    <ScaleTransform ScaleX="1.25" ScaleY="1"/>
-                </TextBlock.LayoutTransform>
-            </TextBlock>
-            <TextBlock Text="站 台" FontSize="35" TextAlignment="Left" VerticalAlignment="Center" FontFamily="黑体" FontWeight="Black" Foreground="#ffffff" Margin="75,0,0,22" />
-            <TextBlock Text="Platfrom" FontSize="23" TextAlignment="Left" VerticalAlignment="Center" FontFamily="黑体" FontWeight="Black" Foreground="#ffffff" Margin="75,32,0,0" />
-        </Grid>
+        <StackPanel Background="#2556ff" Orientation="Horizontal">
+            <TextBlock Text="{Binding ThisPlatform}" FontSize="82" VerticalAlignment="Center" Foreground="#ffffff" Margin="6,0,0,0"/>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="0,0,6,0">
+                <TextBlock Text="站  台" FontSize="35" VerticalAlignment="Center" Foreground="#ffffff" Margin="0,0,0,4"/>
+                <TextBlock Text="Platfrom" FontSize="22" VerticalAlignment="Center" Foreground="#ffffff"/>
+            </StackPanel>
+        </StackPanel>
     </StackPanel>
 </Window>

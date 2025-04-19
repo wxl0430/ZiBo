@@ -1,16 +1,16 @@
-﻿using CRSim.ScreenSimulator.ViewModels.Daqingdong;
+﻿using CRSim.ScreenSimulator.ViewModels.DaqingDong;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-namespace CRSim.ScreenSimulator.Views.Daqingdong
+namespace CRSim.ScreenSimulator.Views.DaqingDong
 {
     /// <summary>
     /// SecondaryScreen.xaml 的交互逻辑
     /// </summary>
-    public partial class PlatformScreenView : Window
+    public partial class ConcourseBridgeScreenView : Window
     {
-        public PlatformScreenViewModel ViewModel { get; }
-        public PlatformScreenView(PlatformScreenViewModel viewModel)
+        public ConcourseBridgeScreenViewModel ViewModel { get; }
+        public ConcourseBridgeScreenView(ConcourseBridgeScreenViewModel viewModel)
         {
             InitializeComponent();
             RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);

@@ -9,7 +9,7 @@
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
         FontFamily="等线" FontSize="25" FontWeight="Bold"
         Title="引导屏" SizeToContent="WidthAndHeight"
-        WindowStyle="None" AllowsTransparency="True" Background="#253f71"
+        WindowStyle="None" AllowsTransparency="True" Background="Black"
         KeyDown="Window_KeyDown"
         ResizeMode="NoResize" MouseDown="Window_MouseDown">
     <Window.Resources>
@@ -17,7 +17,7 @@
             <!-- 去除列头的间距 -->
             <Setter Property="Padding" Value="0"/>
             <Setter Property="Margin" Value="0"/>
-            <Setter Property="BorderBrush" Value="#253f71"/>
+            <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <converters:TrainStateColorConverter x:Key="TrainStateColorConverter"/>
@@ -29,29 +29,28 @@
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
     </Window.Resources>
     <StackPanel Orientation="Horizontal">
-        <Grid Background="#253f71" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="150">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <TextBlock Text="{Binding ThisPlatform}" FontSize="50" TextAlignment="Center" VerticalAlignment="Center" FontFamily="黑体" FontWeight="Black" Foreground="#ffffff" Margin="10,0,0,25">
+        <StackPanel Orientation="Vertical" Background="Black" VerticalAlignment="Center">
+            <TextBlock Text="{Binding ThisPlatform}" FontSize="64" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#ffffff">
                 <TextBlock.LayoutTransform>
-                    <ScaleTransform ScaleX="1.25" ScaleY="1"/>
+                    <ScaleTransform ScaleX="1.2" ScaleY="1"/>
                 </TextBlock.LayoutTransform>
             </TextBlock>
-            <TextBlock Text="站台" FontSize="18" TextAlignment="Left" VerticalAlignment="Center" FontFamily="黑体" FontWeight="Black" Foreground="#ffffff" Margin="25,50,0,0" />
-            <TextBlock Text="Platform" FontSize="16" TextAlignment="Left" VerticalAlignment="Center" FontFamily="黑体" FontWeight="Black" Foreground="#ffffff" Margin="85,50,0,0" />
-        </Grid>
+            <StackPanel Orientation="Horizontal" Margin="10,0">
+                <TextBlock Text="站台" FontSize="18" VerticalAlignment="Center" Foreground="#ffffff" Margin="0,0,15,0"/>
+                <TextBlock Text="platform" FontSize="16" VerticalAlignment="Center" Foreground="#ffffff" />
+            </StackPanel>
+        </StackPanel>
         <StackPanel Orientation="Vertical"> 
-            <DataGrid ItemsSource="{Binding Screen}" AutoGenerateColumns="False"
+            <DataGrid ItemsSource="{Binding Screen}" AutoGenerateColumns="False" BorderThickness="0"
                 CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
                 CanUserResizeRows="False" CanUserReorderColumns="False"
-                IsReadOnly="True" GridLinesVisibility="None" RowHeight="28" Foreground="White"
+                IsReadOnly="True" GridLinesVisibility="None" RowHeight="34" Foreground="White"
                 HeadersVisibility="Column" IsEnabled="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding TrainNumber}">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="车次" Padding="2" HorizontalAlignment="Stretch" TextAlignment="Center" Background="#253f71" Width="110"/>
+                                <TextBlock Text="车次" Padding="2" HorizontalAlignment="Stretch" TextAlignment="Center" Background="Black" Width="110"/>
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
                         <DataGridTextColumn.ElementStyle>
@@ -64,7 +63,7 @@
                     <DataGridTextColumn Binding="{Binding Origin}">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="始发站" Padding="2" HorizontalAlignment="Stretch" TextAlignment="Center" Background="#253f71" Width="110"/>
+                                <TextBlock Text="始发站" Padding="2" HorizontalAlignment="Stretch" TextAlignment="Center" Background="Black" Width="110"/>
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
                         <DataGridTextColumn.ElementStyle>
@@ -77,7 +76,7 @@
                     <DataGridTextColumn Binding="{Binding Terminal}">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="终到站" Padding="2" HorizontalAlignment="Stretch" TextAlignment="Center" Background="#253f71" Width="110"/>
+                                <TextBlock Text="终到站" Padding="2" HorizontalAlignment="Stretch" TextAlignment="Center" Background="Black" Width="110"/>
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
                         <DataGridTextColumn.ElementStyle>
@@ -90,7 +89,7 @@
                     <DataGridTextColumn Binding="{Binding ArrivalTime, Converter={StaticResource DateTimeToStringConverter}}">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="到点" Padding="2" HorizontalAlignment="Stretch" TextAlignment="Center" Background="#253f71" Width="100"/>
+                                <TextBlock Text="到点" Padding="2" HorizontalAlignment="Stretch" TextAlignment="Center" Background="Black" Width="100"/>
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
                         <DataGridTextColumn.ElementStyle>
@@ -103,7 +102,7 @@
                     <DataGridTextColumn Binding="{Binding Platform}">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="站台" Padding="2" HorizontalAlignment="Stretch" TextAlignment="Center" Background="#253f71" Width="80"/>
+                                <TextBlock Text="站台" Padding="2" HorizontalAlignment="Stretch" TextAlignment="Center" Background="Black" Width="80"/>
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
                         <DataGridTextColumn.ElementStyle>
@@ -116,7 +115,7 @@
                     <DataGridTextColumn>
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="状态" Padding="2" HorizontalAlignment="Stretch" TextAlignment="Center" Background="#253f71" Width="130"/>
+                                <TextBlock Text="状态" Padding="2" HorizontalAlignment="Stretch" TextAlignment="Center" Background="Black" Width="130"/>
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
                         <DataGridTextColumn.ElementStyle>
@@ -135,7 +134,7 @@
                 </DataGrid.Columns>
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
-                        <Setter Property="Background" Value="#253f71"/>
+                        <Setter Property="Background" Value="Black"/>
                     </Style>
                 </DataGrid.RowStyle>
             </DataGrid>

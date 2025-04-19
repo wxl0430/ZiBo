@@ -31,27 +31,25 @@
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
     </Window.Resources>
     <StackPanel Orientation="Horizontal">
-        <Grid Background="#000000" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MinWidth="220">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid Width="40" Height="30" Margin="-70,0,30,0">
-                <Path Data="M1221 2752 c-470 -449 -856 -822 -858 -828 -2 -6 329 -338 735 -737 l740 -726 692 -31 c381 -17 694 -29 695 -28 1 2 -208 275 -465 608 l-467 605 1453 3 1454 2 0 375 0 375 -1477 0 -1478 0 580 580 c472 472 575 580 555 580 -14 0 -304 9 -645 20 -341 11 -629 19 -640 19 -12 0 -343 -310 -874 -817z" Stroke="White" Fill="White" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="Uniform"/>
-            </Grid>
-            <TextBlock Text="{Binding ThisPlatform}" FontSize="60" TextAlignment="Center" VerticalAlignment="Center" FontFamily="黑体" FontWeight="Black" Foreground="#ffffff" Margin="10,0,0,0">
+        <StackPanel Orientation="Horizontal" Background="#000000" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Path Height="30" Width="40" Stroke="White" Fill="White" Stretch="Uniform" Margin="20,0,10,0"
+                  Data="M1221 2752 c-470 -449 -856 -822 -858 -828 -2 -6 329 -338 735 -737 l740 -726 692 -31 c381 -17 694 -29 695 -28 1 2 -208 275 -465 608 l-467 605 1453 3 1454 2 0 375 0 375 -1477 0 -1478 0 580 580 c472 472 575 580 555 580 -14 0 -304 9 -645 20 -341 11 -629 19 -640 19 -12 0 -343 -310 -874 -817z"/>
+            <TextBlock Text="{Binding ThisPlatform}" FontSize="60" VerticalAlignment="Center" FontFamily="黑体" Foreground="#ffffff" FontWeight="Normal">
                 <TextBlock.LayoutTransform>
-                    <ScaleTransform ScaleX="1.25" ScaleY="1"/>
+                    <ScaleTransform ScaleX="1.2" ScaleY="1"/>
                 </TextBlock.LayoutTransform>
             </TextBlock>
-            <TextBlock Text="站台" FontSize="23" TextAlignment="Left" VerticalAlignment="Center" FontFamily="黑体" FontWeight="Black" Foreground="#ffffff" Margin="140,0,0,12" />
-            <TextBlock Text="Platfrom" FontSize="16" TextAlignment="Left" VerticalAlignment="Center" FontFamily="黑体" FontWeight="Black" Foreground="#ffffff" Margin="140,23,0,0" />
-        </Grid>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <TextBlock Text="站台" FontSize="23" VerticalAlignment="Center" FontFamily="黑体" Foreground="#ffffff" />
+                <TextBlock Text="Platfrom" FontSize="16" VerticalAlignment="Center" FontFamily="Arial" Foreground="#ffffff" Margin="0,0,20,0"/>
+            </StackPanel>
+        </StackPanel>
         <StackPanel Orientation="Vertical">
-            <DataGrid ItemsSource="{Binding Screen}" AutoGenerateColumns="False"
+            <DataGrid ItemsSource="{Binding Screen}" AutoGenerateColumns="False" BorderThickness="0"
                 CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
                 CanUserResizeRows="False" CanUserReorderColumns="False" ClipToBounds="False"
-                IsReadOnly="True" GridLinesVisibility="None" RowHeight="28" Foreground="White"
-                HeadersVisibility="Column" IsEnabled="False">
+                IsReadOnly="True" GridLinesVisibility="None" RowHeight="34" Foreground="White"
+                HeadersVisibility="Column" IsEnabled="False" Margin="0,4">
                 <DataGrid.Columns>
                     <DataGridTextColumn>
                         <DataGridTextColumn.HeaderTemplate>
@@ -155,20 +153,18 @@
                 </DataGrid.RowStyle>
             </DataGrid>
         </StackPanel>
-        <Grid Background="#000000" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MinWidth="220">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <TextBlock Text="{Binding ThisPlatform}" FontSize="60" TextAlignment="Center" VerticalAlignment="Center" FontFamily="黑体" FontWeight="Black" Foreground="#ffffff" Margin="-100,0,0,0">
+        <StackPanel Orientation="Horizontal" Background="#000000" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <TextBlock Text="{Binding ThisPlatform}" FontSize="60" VerticalAlignment="Center" FontFamily="黑体" Foreground="#ffffff" FontWeight="Normal" Margin="20,0,0,0">
                 <TextBlock.LayoutTransform>
-                    <ScaleTransform ScaleX="1.25" ScaleY="1"/>
+                    <ScaleTransform ScaleX="1.2" ScaleY="1"/>
                 </TextBlock.LayoutTransform>
             </TextBlock>
-            <TextBlock Text="站台" FontSize="23" TextAlignment="Right" VerticalAlignment="Center" FontFamily="黑体" FontWeight="Black" Foreground="#ffffff" Margin="0,0,70,12" />
-            <TextBlock Text="Platfrom" FontSize="16" TextAlignment="Right" VerticalAlignment="Center" FontFamily="黑体" FontWeight="Black" Foreground="#ffffff" Margin="0,23,70,0" />
-            <Grid Width="40" Height="30" Margin="130,0,0,0">
-                <Path Data="M3235 3549 c-291 -9 -555 -18 -585 -18 l-55 -1 580 -580 580 -580 -1478 0 -1477 0 0 -375 0 -375 1454 -2 1453 -3 -467 -605 c-257 -333 -466 -606 -465 -608 1 -1 314 11 695 28 l692 31 739 725 c407 399 739 730 739 734 0 5 -387 378 -860 830 l-860 820 -77 -1 c-43 -1 -316 -10 -608 -20z" Stroke="White" Fill="White" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="Uniform"/>
-            </Grid>
-        </Grid>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <TextBlock Text="站台" FontSize="23" VerticalAlignment="Center" FontFamily="黑体" Foreground="#ffffff" />
+                <TextBlock Text="Platfrom" FontSize="16" VerticalAlignment="Center" FontFamily="Arial" Foreground="#ffffff"/>
+            </StackPanel>
+            <Path Height="30" Width="40" Stroke="White" Fill="White" Stretch="Uniform" Margin="10,0,20,0"
+                  Data="M3235 3549 c-291 -9 -555 -18 -585 -18 l-55 -1 580 -580 580 -580 -1478 0 -1477 0 0 -375 0 -375 1454 -2 1453 -3 -467 -605 c-257 -333 -466 -606 -465 -608 1 -1 314 11 695 28 l692 31 739 725 c407 399 739 730 739 734 0 5 -387 378 -860 830 l-860 820 -77 -1 c-43 -1 -316 -10 -608 -20z"/>
+        </StackPanel>
     </StackPanel>
 </Window>
