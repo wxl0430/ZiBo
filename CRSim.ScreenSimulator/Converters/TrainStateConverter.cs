@@ -22,12 +22,13 @@ namespace CRSim.ScreenSimulator.Converters
             var serviceProvider = (IServiceProvider)Application.Current.Resources["ServiceProvider"];
             _timeService = serviceProvider.GetRequiredService<ITimeService>();
             _settings = serviceProvider.GetRequiredService<ISettingsService>().GetSettings();
-            if (DisplayMode == "Arrive" || values[1] == null)
+            if (DisplayMode == "Arrive" || ( values.Length > 1 && values[1] == null))
             {
                 if (values[0] is DateTime arriveTime)
                 {
                     return _timeService.GetDateTimeNow() > arriveTime ? ArrivedText : ArrivingText;
                 }
+                return string.Empty;
             }
             if (values[1] is DateTime departureTime && departureTime != new DateTime())
             {

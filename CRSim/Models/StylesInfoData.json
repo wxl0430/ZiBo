@@ -259,5 +259,30 @@
       "Station",
       "Text"
     ]
+  },
+  {
+    "UniqueId": "Beijing.ArrivalScreen",
+    "Title": "北京站到达看板",
+    "Station": "北京",
+    "Author": "wxl0430",
+    "Type": "到达屏（站台）",
+    "ImagePath": "Assets/StyleImages/Beijing/ArrivalScreen.png",
+    "Parameters": [
+      "Station",
+      "Platform"
+    ]
+  },
+  {
+    "UniqueId": "Daqingdong.PlatformScreen",
+    "Title": "大庆东站站台看板",
+    "Station": "大庆东",
+    "Author": "wxl0430",
+    "Type": "站台屏",
+    "ImagePath": "Assets/StyleImages/Daqingdong/PlatformScreen.png",
+    "Parameters": [
+      "Station",
+      "Platform",
+      "Location"
+    ]
   }
 ]
