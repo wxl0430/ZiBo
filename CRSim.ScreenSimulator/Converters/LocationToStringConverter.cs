@@ -6,10 +6,48 @@ namespace CRSim.ScreenSimulator.Converters
     public class LocationToStringConverter : IMultiValueConverter
     {
         public string DisplayMode { get; set; } = "normal";
+        /*
+        normal: 正常
+        less: 简化
+        least：极简（适用于廊桥屏幕）
+        */
         object IMultiValueConverter.Convert(object[] values, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
+        {   
+            // return $"{values[0]},{values[1]},{values[2]}";
             if (values[0] is int Length && values[1] is int Location)
             {
+                if(DisplayMode == "least" && values[2] is string Direction){
+                    // return Direction;
+                    if(Direction == "left")
+                    {
+                        if(Location <= Length)
+                        {
+                            return $"←1~{Location}";
+                        }
+                        else if(Length == 1)
+                        {
+                            return "←1";
+                        }
+                        else
+                        {
+                            return $"←1~{Length}";
+                        }
+                    }
+                    if(Direction == "right")
+                    {
+                        if(Location+1 > Length){
+                            return string.Empty;
+                        }
+                        else if(Location+1 == Length)
+                        {
+                            return $"{Length}→";
+                        }
+                        else{
+                            return $"{Location+1}~{Length}→";
+                        }
+                    }
+                    return string.Empty;
+                }
                 if (DisplayMode == "less")
                 {
                     if (Location > Length)
