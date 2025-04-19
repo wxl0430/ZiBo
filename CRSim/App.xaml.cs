@@ -1,4 +1,6 @@
-﻿namespace CRSim
+﻿using CRSim.ScreenSimulator.Services;
+
+namespace CRSim
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -38,53 +40,8 @@
                 services.AddTransient<WebsiteSimulationPageViewModel>();
 
                 services.AddTransient<WebsiteSimulator.Simulator>();
+                services.AddScreenSimulatorServices();
 
-                services.AddTransient<ScreenSimulator.ViewModels.ChengduDong.SecondaryScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.ChengduDong.SecondaryScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.ChengduDong.PrimaryTicketCheckScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.ChengduDong.PrimaryTicketCheckScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.BeijingXi.PrimaryScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.BeijingXi.PrimaryScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.Harbin.PrimaryScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.Harbin.PrimaryScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.Guangyuan.OutsideScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.Guangyuan.PrimaryScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.ChengduMetro.PlatformScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.ChengduMetro.PlatformScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.XuzhouMetro.PlatformScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.XuzhouMetro.PlatformScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.Shanghai.OutsideScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.Shanghai.OutsideScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.Hanzhong.PlatformScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.Hanzhong.PlatformScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.Zibo.PrimaryScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.Zibo.PrimaryScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.Zibo.SecondaryScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.Zibo.SecondaryScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.Zibo.TicketCheckScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.Zibo.TicketCheckScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.Zibo.PlatformScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.Zibo.PlatformScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.Zibo.ConcourseBridgeScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.Zibo.ConcourseBridgeScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.Jinanxi.SmallScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.Jinanxi.SmallScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.GuangdongIntercity.SecondaryScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.GuangdongIntercity.SecondaryScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.Tianjin.PlatformScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.Tianjin.PlatformScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.Mianyang.PlatformScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.Mianyang.PlatformScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.Fuzhou.TicketCheckScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.Fuzhou.TicketCheckScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.FuzhouNan.TicketCheckScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.FuzhouNan.TicketCheckScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.Ankang.ExitScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.Ankang.ExitScreenView>();
-                services.AddTransient<ScreenSimulator.Views.Beijing.ArrivalScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.Beijing.ArrivalScreenViewModel>();
-                services.AddTransient<ScreenSimulator.Views.DaqingDong.ConcourseBridgeScreenView>();
-                services.AddTransient<ScreenSimulator.ViewModels.DaqingDong.ConcourseBridgeScreenViewModel>();
             }).Build();
 
         [STAThread]

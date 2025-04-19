@@ -47,7 +47,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Source="pack://application:,,,/Assets/StyleImages/ChengduMetro/ChengduMetro-Icon.png" Height="30" Margin="12,2,0,2"/>
+            <Image Grid.Column="0" Source="pack://application:,,,/CRSim.ScreenSimulator;component/Assets/ChengduMetro/ChengduMetro-Icon.png" Height="30" Margin="12,2,0,2"/>
             <TextBlock Grid.Column="1" Text="{Binding ViewModel.CurrentTime,Converter={StaticResource DateTimeToDateConverter}}" FontSize="20" VerticalAlignment="Center" Foreground="Orange" Margin="140,0,0,0"/>
             <TextBlock Grid.Column="2" Text="{Binding ViewModel.CurrentTime,Converter={StaticResource DateTimeToWeekdayConverter}}" FontSize="20" VerticalAlignment="Center" Foreground="Orange" Margin="72,0,0,0"/>
             <TextBlock Grid.Column="4" Text="{Binding ViewModel.CurrentTime,Converter={StaticResource DateTimeToWeekdayEnglishConverter}}" FontSize="20" VerticalAlignment="Center" Foreground="Orange" Margin="0,0,60,0"/>

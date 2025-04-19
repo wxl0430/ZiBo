@@ -1,4 +1,6 @@
-﻿namespace CRSim.ViewModels;
+﻿using CRSim.ScreenSimulator.Models;
+
+namespace CRSim.ViewModels;
 
 public partial class ScreenSimulationPageViewModel : ObservableObject 
 {

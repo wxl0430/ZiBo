@@ -1,11 +1,13 @@
-﻿namespace CRSim.Models
+﻿using System.Reflection;
+using System.Text.Json;
+
+namespace CRSim.ScreenSimulator.Models
 {
     public class StylesInfoDataItem
     {
         public string UniqueId { get; set; }
         public string Title { get; set; }
         public string Station { get; set; }
-        public string ImagePath { get; set; }
         public string Author { get; set; }
         public string Type { get; set; }
         public Type ViewType
@@ -21,7 +23,7 @@
         {
             get
             {
-                return new Uri($"pack://application:,,,/{ImagePath}");
+                return new Uri($"pack://application:,,,/CRSim.ScreenSimulator;component/Assets/{UniqueId.Replace('.', '/')}.png");
             }
         }
 
@@ -66,7 +68,7 @@
         private static string ReadStylesData()
         {
             var assembly = typeof(StylesInfoDataSource).Assembly;
-            var resourceName = "CRSim.Models.StylesInfoData.json";
+            var resourceName = "CRSim.ScreenSimulator.Models.StylesInfoData.json";
 
             using var stream = assembly.GetManifestResourceStream(resourceName);
             using var reader = new System.IO.StreamReader(stream);

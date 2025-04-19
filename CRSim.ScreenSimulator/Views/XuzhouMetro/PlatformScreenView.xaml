@@ -22,7 +22,7 @@
     </Window.Resources>
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="pack://application:,,,/Assets/StyleImages/XuzhouMetro/Background.jpg" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="pack://application:,,,/CRSim.ScreenSimulator;component/Assets/XuzhouMetro/Background.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -34,7 +34,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Image Grid.Row="0"  Grid.Column="0" Source="pack://application:,,,/Assets/StyleImages/XuzhouMetro/XuzhouMetro-Icon.png" Width="140" Margin="0,6"/>
+        <Image Grid.Row="0"  Grid.Column="0" Source="pack://application:,,,/CRSim.ScreenSimulator;component/Assets/XuzhouMetro/XuzhouMetro-Icon.png" Width="140" Margin="0,6"/>
         <Grid Grid.Row="0" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -56,7 +56,7 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="12,12">
                 <TextBlock Text="本次列车终点站" FontSize="17" Foreground="Yellow" VerticalAlignment="Center"/>
-                <Image Height="17" Source="pack://application:,,,/Assets/StyleImages/XuzhouMetro/Metro.png" Margin="4,0,0,0"/>
+                <Image Height="17" Source="pack://application:,,,/CRSim.ScreenSimulator;component/Assets/XuzhouMetro/Metro.png" Margin="4,0,0,0"/>
             </StackPanel>
             <TextBlock Grid.Row="1" Text="{Binding ViewModel.FirstTrain.Terminal}" FontSize="25" Foreground="White" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="2" Text="到站时间" FontSize="17" Foreground="Yellow" VerticalAlignment="Center" Margin="12,0,0,0"/>
@@ -79,7 +79,7 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="12,10">
                 <TextBlock Text="下次列车终点站" FontSize="17" Foreground="Yellow" VerticalAlignment="Center"/>
-                <Image Height="17" Source="pack://application:,,,/Assets/StyleImages/XuzhouMetro/Metro.png" Margin="4,0,0,0"/>
+                <Image Height="17" Source="pack://application:,,,/CRSim.ScreenSimulator;component/Assets/XuzhouMetro/Metro.png" Margin="4,0,0,0"/>
             </StackPanel>
             <TextBlock Grid.Row="1" Text="{Binding ViewModel.SecondTrain.Terminal}" FontSize="21" Foreground="White" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="2" Text="到站时间" FontSize="17" Foreground="Yellow" VerticalAlignment="Center" Margin="12,0,0,0"/>

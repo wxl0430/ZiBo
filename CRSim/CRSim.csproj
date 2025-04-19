@@ -14,24 +14,8 @@
 
 	<ItemGroup>
 		<ApplicationDefinition Remove="App.xaml" />
-		<None Remove="Assets\Advertisement-2.mp4" />
 		<None Remove="Assets\HomeHeaderTiles\Header-docs.png" />
 		<None Remove="Assets\HomeHeaderTiles\Header-docs.svg" />
-		<None Remove="Assets\StyleImages\Ankang\ExitScreen.png" />
-		<None Remove="Assets\StyleImages\FuzhouNan\TicketCheckScreen.png" />
-		<None Remove="Assets\StyleImages\Fuzhou\TicketCheckScreen.png" />
-		<None Remove="Assets\StyleImages\Mianyang\PlatformScreen.png" />
-		<None Remove="Assets\StyleImages\Tianjin\image.png" />
-		<None Remove="Assets\StyleImages\Tianjin\PlatformScreen.png" />
-		<None Remove="Assets\StyleImages\XuzhouMetro\Background.jpg" />
-		<None Remove="Assets\StyleImages\XuzhouMetro\Metro.png" />
-		<None Remove="Assets\StyleImages\XuzhouMetro\XuzhouMetro-Icon.png" />
-		<Content Include="Assets\Advertisement-1.mp4">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Advertisement-2.mp4">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
 		<Content Include="Assets\CRSimIcon.ico" />
 		<Resource Include="Assets\ControlImages\Data Management.png" />
 		<Resource Include="Assets\ControlImages\Gate Simulation.png" />
@@ -45,38 +29,8 @@
 		<Resource Include="Assets\HomeHeaderTiles\Header-Afdian.png" />
 		<Resource Include="Assets\HomeHeaderTiles\Header-docs.png" />
 		<Resource Include="Assets\HomeHeaderTiles\Header-QQ.png" />
-		<Resource Include="Assets\StyleImages\Ankang\ExitScreen.png" />
-		<Resource Include="Assets\StyleImages\BeijingXi\PrimaryScreen.png" />
-		<Resource Include="Assets\StyleImages\ChengduDong\PrimaryTicketCheckScreen.png" />
-		<Resource Include="Assets\StyleImages\ChengduDong\SecondaryScreen.png" />
-		<Resource Include="Assets\StyleImages\XuzhouMetro\Background.jpg" />
-		<Resource Include="Assets\StyleImages\XuzhouMetro\Metro.png" />
-		<Resource Include="Assets\StyleImages\XuzhouMetro\PlatformScreen.png" />
-		<Resource Include="Assets\StyleImages\ChengduMetro\ChengduMetro-Icon.png" />
-		<Resource Include="Assets\StyleImages\ChengduMetro\PlatformScreen.png" />
-		<Resource Include="Assets\StyleImages\FuzhouNan\TicketCheckScreen.png" />
-		<Resource Include="Assets\StyleImages\Fuzhou\TicketCheckScreen.png" />
-		<Resource Include="Assets\StyleImages\GuangdongIntercity\SecondaryScreen.png" />
-		<Resource Include="Assets\StyleImages\Guangyuan\PrimaryScreen.png" />
-		<Resource Include="Assets\StyleImages\Hanzhong\Image.png" />
-		<Resource Include="Assets\StyleImages\Hanzhong\PlatformScreen.png" />
-		<Resource Include="Assets\StyleImages\Harbin\PrimaryScreen.png" />
-		<Resource Include="Assets\StyleImages\Jinanxi\SmallScreen.png" />
-		<Resource Include="Assets\StyleImages\Mianyang\PlatformScreen.png" />
-		<Resource Include="Assets\StyleImages\Shanghai\OutsideScreen.png" />
-		<Resource Include="Assets\StyleImages\Tianjin\image.png" />
-		<Resource Include="Assets\StyleImages\Tianjin\PlatformScreen.png" />
-		<Resource Include="Assets\StyleImages\XuzhouMetro\XuzhouMetro-Icon.png" />
-		<Resource Include="Assets\StyleImages\Zibo\PrimaryScreen.png" />
-		<Resource Include="Assets\StyleImages\Zibo\SecondaryScreen.png" />
-		<Resource Include="Assets\StyleImages\Zibo\TicketCheckScreen.png" />
-		<Resource Include="Assets\StyleImages\Zibo\PlatformScreen.png" />
-		<Resource Include="Assets\StyleImages\Zibo\ConcourseBridgeScreen.png" />
-		<Resource Include="Assets\StyleImages\Beijing\ArrivalScreen.png" />
-		<Resource Include="Assets\StyleImages\DaqingDong\ConcourseBridgeScreen.png" />
 		<Resource Include="Assets\win11-dashboard.dark.png" />
 		<Resource Include="Assets\win11-dashboard.light.png" />
-		<EmbeddedResource Include="Models\StylesInfoData.json" />
 		<EmbeddedResource Include="Models\ControlsInfoData.json" />
 		<Page Include="App.xaml" />
 	</ItemGroup>
