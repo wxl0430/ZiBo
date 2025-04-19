@@ -37,7 +37,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Foreground="#0089FF" Text="{Binding Screen[0].DepartureTime,Converter={StaticResource DateTimeToStringConverter}}" FontSize="32" Margin="64,0,0,0" FontWeight="Bold"/>
                         <TextBlock Grid.Column="1" Foreground="#0089FF" Text="开" FontSize="32" Margin="4,0,8,0" FontWeight="Bold"/>
-                        <Image Grid.Column="2" Source="pack://application:,,,/Assets/StyleImages/Hanzhong/Image.png" Height="{Binding ActualHeight,ElementName=Panel}"/>
+                        <Image Grid.Column="2" Source="pack://application:,,,/CRSim.ScreenSimulator;component/Assets/Hanzhong/Image.png" Height="{Binding ActualHeight,ElementName=Panel}"/>
                         <Rectangle Grid.Column="3" Fill="#0089FF" Height="{Binding ActualHeight,ElementName=Panel}"/>
                         <TextBlock Grid.Column="4" Text="{Binding Screen[0].TrainNumber}" Foreground="#FE5649" Background="#0089FF" FontSize="32" FontWeight="Bold"/>
                         <Rectangle Grid.Column="5" Fill="#0089FF" Height="{Binding ActualHeight,ElementName=Panel}" Width="8"/>

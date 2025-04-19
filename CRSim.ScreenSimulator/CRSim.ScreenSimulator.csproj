@@ -8,6 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Assets\Advertisement-1.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Advertisement-2.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Models\StylesInfoData.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
     <PackageReference Include="PP.Wpf" Version="1.0.8" />
@@ -67,6 +80,38 @@
     <Compile Update="Views\Zibo\SecondaryScreenView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Ankang\ExitScreen.png" />
+    <Resource Include="Assets\BeijingXi\PrimaryScreen.png" />
+    <Resource Include="Assets\Beijing\ArrivalScreen.png" />
+    <Resource Include="Assets\ChengduDong\PrimaryTicketCheckScreen.png" />
+    <Resource Include="Assets\ChengduDong\SecondaryScreen.png" />
+    <Resource Include="Assets\ChengduMetro\ChengduMetro-Icon.png" />
+    <Resource Include="Assets\ChengduMetro\PlatformScreen.png" />
+    <Resource Include="Assets\DaqingDong\ConcourseBridgeScreen.png" />
+    <Resource Include="Assets\FuzhouNan\TicketCheckScreen.png" />
+    <Resource Include="Assets\Fuzhou\TicketCheckScreen.png" />
+    <Resource Include="Assets\GuangdongIntercity\SecondaryScreen.png" />
+    <Resource Include="Assets\Guangyuan\PrimaryScreen.png" />
+    <Resource Include="Assets\Hanzhong\Image.png" />
+    <Resource Include="Assets\Hanzhong\PlatformScreen.png" />
+    <Resource Include="Assets\Harbin\PrimaryScreen.png" />
+    <Resource Include="Assets\Jinanxi\SmallScreen.png" />
+    <Resource Include="Assets\Mianyang\PlatformScreen.png" />
+    <Resource Include="Assets\Shanghai\OutsideScreen.png" />
+    <Resource Include="Assets\Tianjin\image.png" />
+    <Resource Include="Assets\Tianjin\PlatformScreen.png" />
+    <Resource Include="Assets\XuzhouMetro\Background.jpg" />
+    <Resource Include="Assets\XuzhouMetro\Metro.png" />
+    <Resource Include="Assets\XuzhouMetro\PlatformScreen.png" />
+    <Resource Include="Assets\XuzhouMetro\XuzhouMetro-Icon.png" />
+    <Resource Include="Assets\Zibo\ConcourseBridgeScreen.png" />
+    <Resource Include="Assets\Zibo\PlatformScreen.png" />
+    <Resource Include="Assets\Zibo\PrimaryScreen.png" />
+    <Resource Include="Assets\Zibo\SecondaryScreen.png" />
+    <Resource Include="Assets\Zibo\TicketCheckScreen.png" />
   </ItemGroup>
 
 </Project>

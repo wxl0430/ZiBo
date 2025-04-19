@@ -49,7 +49,7 @@
                 <Rectangle Grid.Column="1" Fill="#830DFF"/>
                 <Border Grid.Column="2" CornerRadius="0,4,4,0" Background="Yellow" x:Name="Panel">
                     <StackPanel Orientation="Horizontal">
-                        <Image Grid.Column="0" Source="pack://application:,,,/Assets/StyleImages/Tianjin/Image.png" Height="{Binding ActualHeight,ElementName=Panel}"/>
+                        <Image Grid.Column="0" Source="pack://application:,,,/CRSim.ScreenSimulator;component/Assets/Tianjin/Image.png" Height="{Binding ActualHeight,ElementName=Panel}"/>
                         <TextBlock Grid.Column="1" Text="{Binding Screen[0].DepartureTime,Converter={StaticResource DateTimeToStringConverter}}" Foreground="Black" VerticalAlignment="Center" Padding="12,0,64,0"/>
                     </StackPanel>
                 </Border>

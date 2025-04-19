@@ -5,7 +5,6 @@
     "Station": "成都东",
     "Author": "电排骨",
     "Type": "车站大屏",
-    "ImagePath": "Assets/StyleImages/ChengduDong/SecondaryScreen.png",
     "Parameters": [
       "Station",
       "Text"
@@ -17,7 +16,6 @@
     "Station": "成都东",
     "Author": "电排骨",
     "Type": "检票口屏",
-    "ImagePath": "Assets/StyleImages/ChengduDong/PrimaryTicketCheckScreen.png",
     "Parameters": [
       "Station",
       "TicketCheck",
@@ -30,7 +28,6 @@
     "Station": "福州",
     "Author": "电排骨",
     "Type": "检票口屏",
-    "ImagePath": "Assets/StyleImages/Fuzhou/TicketCheckScreen.png",
     "Parameters": [
       "Station",
       "TicketCheck",
@@ -43,7 +40,6 @@
     "Station": "福州南",
     "Author": "电排骨",
     "Type": "检票口屏",
-    "ImagePath": "Assets/StyleImages/FuzhouNan/TicketCheckScreen.png",
     "Parameters": [
       "Station",
       "TicketCheck",
@@ -56,7 +52,6 @@
     "Station": "北京西",
     "Author": "电排骨",
     "Type": "车站大屏",
-    "ImagePath": "Assets/StyleImages/BeijingXi/PrimaryScreen.png",
     "Parameters": [
       "Station"
     ]
@@ -67,7 +62,6 @@
     "Station": "哈尔滨",
     "Author": "电排骨",
     "Type": "车站大屏",
-    "ImagePath": "Assets/StyleImages/Harbin/PrimaryScreen.png",
     "Parameters": [
       "Station",
       "Text"
@@ -79,7 +73,6 @@
     "Station": "成都地铁",
     "Author": "电排骨",
     "Type": "站台屏",
-    "ImagePath": "Assets/StyleImages/ChengduMetro/PlatformScreen.png",
     "Parameters": [
       "Station",
       "Text",
@@ -93,7 +86,6 @@
     "Station": "徐州地铁",
     "Author": "电排骨",
     "Type": "站台屏",
-    "ImagePath": "Assets/StyleImages/XuzhouMetro/PlatformScreen.png",
     "Parameters": [
       "Station",
       "Text",
@@ -107,7 +99,6 @@
     "Station": "广元",
     "Author": "电排骨",
     "Type": "车站大屏",
-    "ImagePath": "Assets/StyleImages/Guangyuan/PrimaryScreen.png",
     "Parameters": [
       "Station",
       "Text"
@@ -119,7 +110,6 @@
     "Station": "上海",
     "Author": "电排骨",
     "Type": "车站大屏",
-    "ImagePath": "Assets/StyleImages/Shanghai/OutsideScreen.png",
     "Parameters": [
       "Station"
     ]
@@ -130,7 +120,6 @@
     "Station": "汉中",
     "Author": "电排骨",
     "Type": "站台屏",
-    "ImagePath": "Assets/StyleImages/Hanzhong/PlatformScreen.png",
     "Parameters": [
       "Station",
       "Platform",
@@ -143,7 +132,6 @@
     "Station": "天津",
     "Author": "电排骨",
     "Type": "站台屏",
-    "ImagePath": "Assets/StyleImages/Tianjin/PlatformScreen.png",
     "Parameters": [
       "Station",
       "Platform",
@@ -156,7 +144,6 @@
     "Station": "绵阳",
     "Author": "电排骨",
     "Type": "站台屏",
-    "ImagePath": "Assets/StyleImages/Mianyang/PlatformScreen.png",
     "Parameters": [
       "Station",
       "Platform",
@@ -169,7 +156,6 @@
     "Station": "淄博",
     "Author": "wxl0430",
     "Type": "车站大屏",
-    "ImagePath": "Assets/StyleImages/Zibo/PrimaryScreen.png",
     "Parameters": [
       "Station"
     ]
@@ -180,7 +166,6 @@
     "Station": "淄博",
     "Author": "wxl0430",
     "Type": "车站大屏",
-    "ImagePath": "Assets/StyleImages/Zibo/SecondaryScreen.png",
     "Parameters": [
       "Station"
     ]
@@ -191,7 +176,6 @@
     "Station": "淄博",
     "Author": "wxl0430",
     "Type": "检票口屏",
-    "ImagePath": "Assets/StyleImages/Zibo/TicketCheckScreen.png",
     "Parameters": [
       "Station",
       "TicketCheck",
@@ -204,7 +188,6 @@
     "Station": "淄博",
     "Author": "wxl0430",
     "Type": "站台屏",
-    "ImagePath": "Assets/StyleImages/Zibo/PlatformScreen.png",
     "Parameters": [
       "Station",
       "Platform",
@@ -218,7 +201,6 @@
     "Station": "淄博",
     "Author": "wxl0430",
     "Type": "走廊出发屏",
-    "ImagePath": "Assets/StyleImages/Zibo/ConcourseBridgeScreen.png",
     "Parameters": [
       "Station",
       "Platform",
@@ -231,7 +213,6 @@
     "Station": "济南西",
     "Author": "wxl0430",
     "Type": "车站大屏",
-    "ImagePath": "Assets/StyleImages/Jinanxi/SmallScreen.png",
     "Parameters": [
       "Station"
     ]
@@ -242,7 +223,6 @@
     "Station": "广东城际",
     "Author": "电排骨",
     "Type": "车站大屏",
-    "ImagePath": "Assets/StyleImages/GuangdongIntercity/SecondaryScreen.png",
     "Parameters": [
       "Station",
       "Text"
@@ -254,7 +234,6 @@
     "Station": "安康",
     "Author": "电排骨",
     "Type": "出站口屏",
-    "ImagePath": "Assets/StyleImages/Ankang/ExitScreen.png",
     "Parameters": [
       "Station",
       "Text"
@@ -266,7 +245,6 @@
     "Station": "北京",
     "Author": "wxl0430",
     "Type": "走廊到达屏",
-    "ImagePath": "Assets/StyleImages/Beijing/ArrivalScreen.png",
     "Parameters": [
       "Station",
       "Platform"
@@ -278,7 +256,6 @@
     "Station": "大庆东",
     "Author": "wxl0430",
     "Type": "走廊出发屏",
-    "ImagePath": "Assets/StyleImages/DaqingDong/ConcourseBridgeScreen.png",
     "Parameters": [
       "Station",
       "Platform",
