@@ -217,7 +217,7 @@
     "Title": "淄博站廊桥看板",
     "Station": "淄博",
     "Author": "wxl0430",
-    "Type": "站台屏",
+    "Type": "走廊出发屏",
     "ImagePath": "Assets/StyleImages/Zibo/ConcourseBridgeScreen.png",
     "Parameters": [
       "Station",
@@ -258,6 +258,31 @@
     "Parameters": [
       "Station",
       "Text"
+    ]
+  },
+  {
+    "UniqueId": "Beijing.ArrivalScreen",
+    "Title": "北京站地道到达看板",
+    "Station": "北京",
+    "Author": "wxl0430",
+    "Type": "走廊到达屏",
+    "ImagePath": "Assets/StyleImages/Beijing/ArrivalScreen.png",
+    "Parameters": [
+      "Station",
+      "Platform"
+    ]
+  },
+  {
+    "UniqueId": "DaqingDong.ConcourseBridgeScreen",
+    "Title": "大庆东站廊桥看板",
+    "Station": "大庆东",
+    "Author": "wxl0430",
+    "Type": "走廊出发屏",
+    "ImagePath": "Assets/StyleImages/DaqingDong/ConcourseBridgeScreen.png",
+    "Parameters": [
+      "Station",
+      "Platform",
+      "Location"
     ]
   }
 ]

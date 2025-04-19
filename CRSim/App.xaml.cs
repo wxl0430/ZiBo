@@ -81,6 +81,10 @@
                 services.AddTransient<ScreenSimulator.Views.FuzhouNan.TicketCheckScreenView>();
                 services.AddTransient<ScreenSimulator.ViewModels.Ankang.ExitScreenViewModel>();
                 services.AddTransient<ScreenSimulator.Views.Ankang.ExitScreenView>();
+                services.AddTransient<ScreenSimulator.Views.Beijing.ArrivalScreenView>();
+                services.AddTransient<ScreenSimulator.ViewModels.Beijing.ArrivalScreenViewModel>();
+                services.AddTransient<ScreenSimulator.Views.DaqingDong.ConcourseBridgeScreenView>();
+                services.AddTransient<ScreenSimulator.ViewModels.DaqingDong.ConcourseBridgeScreenViewModel>();
             }).Build();
 
         [STAThread]

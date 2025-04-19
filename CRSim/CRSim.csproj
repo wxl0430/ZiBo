@@ -72,6 +72,8 @@
 		<Resource Include="Assets\StyleImages\Zibo\TicketCheckScreen.png" />
 		<Resource Include="Assets\StyleImages\Zibo\PlatformScreen.png" />
 		<Resource Include="Assets\StyleImages\Zibo\ConcourseBridgeScreen.png" />
+		<Resource Include="Assets\StyleImages\Beijing\ArrivalScreen.png" />
+		<Resource Include="Assets\StyleImages\DaqingDong\ConcourseBridgeScreen.png" />
 		<Resource Include="Assets\win11-dashboard.dark.png" />
 		<Resource Include="Assets\win11-dashboard.light.png" />
 		<EmbeddedResource Include="Models\StylesInfoData.json" />

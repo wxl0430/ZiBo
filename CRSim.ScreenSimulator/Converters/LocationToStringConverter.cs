@@ -13,11 +13,9 @@ namespace CRSim.ScreenSimulator.Converters
         */
         object IMultiValueConverter.Convert(object[] values, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {   
-            // return $"{values[0]},{values[1]},{values[2]}";
             if (values[0] is int Length && values[1] is int Location)
             {
                 if(DisplayMode == "least" && values[2] is string Direction){
-                    // return Direction;
                     if(Direction == "left")
                     {
                         if(Location <= Length)
