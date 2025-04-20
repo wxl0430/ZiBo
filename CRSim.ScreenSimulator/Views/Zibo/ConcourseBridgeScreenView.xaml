@@ -41,7 +41,7 @@
             </TextBlock>
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                 <TextBlock Text="站台" FontSize="23" VerticalAlignment="Center" FontFamily="黑体" Foreground="#ffffff" />
-                <TextBlock Text="Platfrom" FontSize="16" VerticalAlignment="Center" FontFamily="Arial" Foreground="#ffffff" Margin="0,0,20,0"/>
+                <TextBlock Text="Platform" FontSize="16" VerticalAlignment="Center" FontFamily="Arial" Foreground="#ffffff" Margin="0,0,20,0"/>
             </StackPanel>
         </StackPanel>
         <StackPanel Orientation="Vertical">
@@ -161,7 +161,7 @@
             </TextBlock>
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                 <TextBlock Text="站台" FontSize="23" VerticalAlignment="Center" FontFamily="黑体" Foreground="#ffffff" />
-                <TextBlock Text="Platfrom" FontSize="16" VerticalAlignment="Center" FontFamily="Arial" Foreground="#ffffff"/>
+                <TextBlock Text="Platform" FontSize="16" VerticalAlignment="Center" FontFamily="Arial" Foreground="#ffffff"/>
             </StackPanel>
             <Path Height="30" Width="40" Stroke="White" Fill="White" Stretch="Uniform" Margin="10,0,20,0"
                   Data="M3235 3549 c-291 -9 -555 -18 -585 -18 l-55 -1 580 -580 580 -580 -1478 0 -1477 0 0 -375 0 -375 1454 -2 1453 -3 -467 -605 c-257 -333 -466 -606 -465 -608 1 -1 314 11 695 28 l692 31 739 725 c407 399 739 730 739 734 0 5 -387 378 -860 830 l-860 820 -77 -1 c-43 -1 -316 -10 -608 -20z"/>
