@@ -194,9 +194,11 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
     private string _keyWord = string.Empty;
     private string _station = string.Empty;
     private string _type = string.Empty;
+    private string _author = string.Empty;
     public List<string> StyleStations { get; private set; } = [.. new[] { "全部" }.Concat(StylesInfoDataSource.Instance.StylesInfo.Select(x => x.Station).Distinct())];
     public List<string> StyleTypes { get; private set; } = [.. new[] { "全部" }.Concat(StylesInfoDataSource.Instance.StylesInfo.Select(x => x.Type).Distinct())];
-
+    public List<string> StyleAuthors { get; private set; } = [.. new[] { "全部" }.Concat(StylesInfoDataSource.Instance.StylesInfo.Select(x => x.Author).Distinct())];
+    
     [RelayCommand]
     public void TextSearch(object s)
     {
@@ -224,9 +226,18 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
             Search();
         }
     }
+    [RelayCommand]
+    public void AuthorSearch(object s)
+    {
+        if (s is string str)
+        {
+            _author = str;
+            Search();
+        }
+    }
     private void Search()
     {
-        StyleCards = [.. StylesInfoDataSource.Instance.StylesInfo.Where(x =>(x.Station==_station||_station==string.Empty||_station=="全部") && (x.Type==_type||_type==string.Empty||_type=="全部") && x.Title.Contains(_keyWord))];
+        StyleCards = [.. StylesInfoDataSource.Instance.StylesInfo.Where(x =>(x.Station==_station||_station==string.Empty||_station=="全部") && (x.Type==_type||_type==string.Empty||_type=="全部") && (x.Author==_author||_author==string.Empty||_author=="全部") && x.Title.Contains(_keyWord))];
     }
     #endregion
 }
