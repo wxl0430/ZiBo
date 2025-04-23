@@ -20,7 +20,7 @@
             <Setter Property="BorderBrush" Value="#0036DF"/>
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
-        <converters:TrainStateConverter x:Key="TrainStateConverter" WaitingText="正在候车"/>
+        <converters:TrainStateConverter x:Key="TrainStateConverter" WaitingText="候车"/>
         <converters:TrainStateColorConverter x:Key="TrainStateColorConverter"/>
         <converters:LandmarkToStringConverter x:Key="LandmarkToStringConverter"/>
         <converters1:EmptyToVisibilityConverter x:Key="EmptyToVisibilityConverter" />
