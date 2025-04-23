@@ -91,6 +91,7 @@
     <Resource Include="Assets\ChengduMetro\ChengduMetro-Icon.png" />
     <Resource Include="Assets\ChengduMetro\PlatformScreen.png" />
     <Resource Include="Assets\DaqingDong\ConcourseBridgeScreen.png" />
+    <Resource Include="Assets\DaqingDong\PlatformScreen.png" />
     <Resource Include="Assets\FuzhouNan\TicketCheckScreen.png" />
     <Resource Include="Assets\Fuzhou\TicketCheckScreen.png" />
     <Resource Include="Assets\GuangdongIntercity\SecondaryScreen.png" />
@@ -98,6 +99,7 @@
     <Resource Include="Assets\Hanzhong\Image.png" />
     <Resource Include="Assets\Hanzhong\PlatformScreen.png" />
     <Resource Include="Assets\Harbin\PrimaryScreen.png" />
+    <Resource Include="Assets\HarbinXi\PlatformScreen.png" />
     <Resource Include="Assets\Jinanxi\SmallScreen.png" />
     <Resource Include="Assets\Mianyang\PlatformScreen.png" />
     <Resource Include="Assets\Shanghai\OutsideScreen.png" />
