@@ -261,5 +261,30 @@
       "Platform",
       "Location"
     ]
+  },
+  {
+    "UniqueId": "DaqingDong.PlatformScreen",
+    "Title": "大庆东站站台看板",
+    "Station": "大庆东",
+    "Author": "wxl0430",
+    "Type": "站台屏",
+    "Parameters": [
+      "Station",
+      "Platform",
+      "Location"
+    ]
+  },
+  {
+    "UniqueId": "HarbinXi.PlatformScreen",
+    "Title": "哈尔滨西站站台看板",
+    "Station": "哈尔滨西",
+    "Author": "wxl0430",
+    "Type": "站台屏",
+    "Parameters": [
+      "Station",
+      "Platform",
+      "Location",
+      "Text"
+    ]
   }
 ]
