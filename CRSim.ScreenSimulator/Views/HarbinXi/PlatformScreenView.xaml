@@ -8,8 +8,8 @@
         mc:Ignorable="d"
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
-        FontFamily="黑体" FontSize="28" FontWeight="Bold"
-        Title="引导屏" SizeToContent="WidthAndHeight"
+        FontFamily="黑体" FontWeight="Bold" FontSize="22"
+        Title="引导屏" SizeToContent="WidthAndHeight" Foreground="#fde163"
         WindowStyle="None" AllowsTransparency="True" Background="Black"
         KeyDown="Window_KeyDown"
         ResizeMode="NoResize" MouseDown="Window_MouseDown">
@@ -19,64 +19,43 @@
         <converters1:EmptyToVisibilityConverter x:Key="EmptyToVisibilityConverter" />
     </Window.Resources>
     <StackPanel Orientation="Horizontal">
-        <Grid Background="#4273aa">
-
-            <TextBlock Text="{Binding ThisPlatform}" Foreground="#e69137" Background="#4273aa" FontSize="110"  MinWidth="100"
-                    FontFamily="黑体" TextAlignment="Center" VerticalAlignment="Center">
-                <TextBlock.LayoutTransform>
-                    <ScaleTransform ScaleX="1.25" ScaleY="1"/>
-                </TextBlock.LayoutTransform>
-            </TextBlock>
-        </Grid>
-        <Grid Margin="4" Background="Black" MinWidth="318">
+        <TextBlock Text="{Binding ThisPlatform}" Foreground="#e69137" Background="#4273aa"
+                   FontSize="128" Height="150" MinWidth="150" TextAlignment="Center" VerticalAlignment="Center"/>
+        <Grid Grid.Row="0" MinWidth="350">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Margin="0,10,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="{Binding Screen[0].TrainNumber}" Foreground="#fde163" Margin="15,0,0,0" FontSize="22" />
-                <TextBlock Grid.Column="1" Text="次" Foreground="#fde163" FontSize="22" Margin="4,0,0,0"/>
-                <TextBlock Grid.Column="3" Text="本站" Foreground="#de502b" HorizontalAlignment="Center" FontSize="22" Margin="10,0,0,0"/>
-                <TextBlock Grid.Column="5" Text="{Binding Screen[0].DepartureTime,Converter={StaticResource DateTimeToStringConverter}}" Foreground="#fde163" FontSize="22"/>
-                <TextBlock Grid.Column="6" Text="开" Foreground="#fde163" FontSize="22" Margin="4,0"/>
-            </Grid>
-            <Grid Grid.Row="1" Margin="0,10,0,10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="{Binding Screen[0].Origin}" Foreground="#fde163" FontSize="22" Margin="15,0,0,0"/>
-                <TextBlock Grid.Column="2" Text="开往" Foreground="#de502b" FontSize="22" HorizontalAlignment="Center"/>
-                <TextBlock Grid.Column="4" Text="{Binding Screen[0].Terminal}" Foreground="#fde163" FontSize="22" Margin="10,0"/>
-            </Grid>
-            <Grid Grid.Row="2">
-                <pp:RunningText Speed="20" Grid.Column="0" FontSize="22" Foreground="#fde163">
-                    <pp:RunningText.Text>
-                        <MultiBinding Mode="OneWay" Converter="{StaticResource LocationToStringConverter}">
-                            <Binding Path="Screen[0].Length" />
-                            <Binding Path="Location" />
-                        </MultiBinding>
-                    </pp:RunningText.Text>
-                </pp:RunningText>
-            </Grid>
-            <Grid Grid.Row="3">
-                <pp:RunningText Speed="20" Grid.Column="0" FontSize="22" Foreground="#60c984" Text="{Binding Text}"/>
-            </Grid>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Screen[0].TrainNumber}" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="次" Margin="4,0,0,0" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="4" Text="本站" Foreground="#de502b" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="6" Text="{Binding Screen[0].DepartureTime,Converter={StaticResource DateTimeToStringConverter}}" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="7" Text="开" Margin="4,0,0,0" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Screen[0].Origin}" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="1" Grid.Column="4" Text="开往" Foreground="#de502b" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding Screen[0].Terminal}" VerticalAlignment="Center" TextAlignment="Center"/>
+            <pp:RunningText Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="9" Speed="20">
+                <pp:RunningText.Text>
+                    <MultiBinding Mode="OneWay" Converter="{StaticResource LocationToStringConverter}">
+                        <Binding Path="Screen[0].Length" />
+                        <Binding Path="Location" />
+                    </MultiBinding>
+                </pp:RunningText.Text>
+            </pp:RunningText>
+            <pp:RunningText Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="9" Speed="20" Foreground="#60c984" Text="{Binding Text}"/>
         </Grid>
     </StackPanel>
 </Window>
