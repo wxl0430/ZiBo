@@ -5,10 +5,10 @@ using System.Windows;
 using CRSim.Core.Models;
 namespace CRSim.ScreenSimulator.ViewModels.Guangyuan
 {
-    public class OutsideScreenViewModel : ScreenViewModel
+    public class PrimaryScreenViewModel : ScreenViewModel
     {
         public ObservableCollection<TrainInfo> Screen { get; private set; } = [];
-        public OutsideScreenViewModel(ITimeService timeService, ISettingsService settingsService)
+        public PrimaryScreenViewModel(ITimeService timeService, ISettingsService settingsService)
             : base(timeService, settingsService)
         {
             Text = "成都铁路客服电话：028-12306";

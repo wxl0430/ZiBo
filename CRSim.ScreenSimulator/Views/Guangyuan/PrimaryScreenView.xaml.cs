@@ -9,8 +9,8 @@ namespace CRSim.ScreenSimulator.Views.Guangyuan
     /// </summary>
     public partial class PrimaryScreenView : Window
     {
-        public OutsideScreenViewModel ViewModel { get; }
-        public PrimaryScreenView(OutsideScreenViewModel viewModel)
+        public PrimaryScreenViewModel ViewModel { get; }
+        public PrimaryScreenView(PrimaryScreenViewModel viewModel)
         {
             InitializeComponent();
             RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);
