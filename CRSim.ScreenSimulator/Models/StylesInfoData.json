@@ -23,6 +23,17 @@
     ]
   },
   {
+    "UniqueId": "ChengduDong.PillarTicketCheckScreen",
+    "Title": "成都东站检票口立柱看板",
+    "Station": "成都东",
+    "Author": "电排骨",
+    "Type": "检票口屏",
+    "Parameters": [
+      "Station",
+      "TicketCheck"
+    ]
+  },
+  {
     "UniqueId": "Fuzhou.TicketCheckScreen",
     "Title": "福州站检票口看板",
     "Station": "福州",
