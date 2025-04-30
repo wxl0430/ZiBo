@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\ChengduDong\cdcz.png" />
+    <None Remove="Assets\ChengduDong\PillarTicketCheckScreen.png" />
+    <None Remove="Assets\ChengduDong\TicketCheck.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Assets\Advertisement-1.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -36,6 +42,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\BeijingXi\PrimaryScreenView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\ChengduDong\PillarTicketCheckScreenView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\ChengduDong\PrimaryTicketCheckScreenView.xaml.cs">
@@ -86,8 +95,11 @@
     <Resource Include="Assets\Ankang\ExitScreen.png" />
     <Resource Include="Assets\BeijingXi\PrimaryScreen.png" />
     <Resource Include="Assets\Beijing\ArrivalScreen.png" />
+    <Resource Include="Assets\ChengduDong\cdcz.png" />
+    <Resource Include="Assets\ChengduDong\PillarTicketCheckScreen.png" />
     <Resource Include="Assets\ChengduDong\PrimaryTicketCheckScreen.png" />
     <Resource Include="Assets\ChengduDong\SecondaryScreen.png" />
+    <Resource Include="Assets\ChengduDong\TicketCheck.png" />
     <Resource Include="Assets\ChengduMetro\ChengduMetro-Icon.png" />
     <Resource Include="Assets\ChengduMetro\PlatformScreen.png" />
     <Resource Include="Assets\DaqingDong\ConcourseBridgeScreen.png" />

@@ -8,7 +8,7 @@ namespace CRSim.ScreenSimulator.ViewModels
 {
     public partial class ScreenViewModel : ObservableObject
     {
-        private readonly ITimeService _timeService;
+        public readonly ITimeService _timeService;
         public readonly Settings _settings;
         private readonly TaskCompletionSource<bool> _dataLoaded = new();
         [ObservableProperty]
