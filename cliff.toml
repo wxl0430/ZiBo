@@ -43,6 +43,7 @@ postprocessors = [{ pattern = "#([0-9]+)", replace = "([#${1}](https://github.co
 
 [git]
 commit_parsers = [
+  { message = "\\[skip cliff\\]", skip = true },
   { message = "^feat", group = "<!-- 0 -->🚀 新功能" },
   { message = "^fix", group = "<!-- 1 -->🐛 Bug 修复" },
   { message = "^doc", group = "<!-- 3 -->📚 文档" },
@@ -58,5 +59,3 @@ commit_parsers = [
   { message = "^revert", group = "<!-- 8 -->◀️ 回退" },
   { message = ".*", group = "<!-- 9 -->💼 其它" },
 ]
-[commit_parsers]
-exclude = ["\\[skip cliff\\]"]
