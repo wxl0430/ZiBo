@@ -17,7 +17,7 @@ namespace CRSim.ScreenSimulator.ViewModels.ChengduDong
             : base(timeService, settingsService)
         {
             StationType = StationType.Departure;
-            timeService.RefreshSecondsElapsed += RefreshDisplay;
+            timeService.OneSecondElapsed += RefreshDisplay;
             Initialize();
         }
         private async void Initialize()
@@ -47,6 +47,12 @@ namespace CRSim.ScreenSimulator.ViewModels.ChengduDong
                 else
                 {
                     CheckingTrain = null;
+                    if(now < departureTime && now > departureTime - _settings.StopCheckInAdvanceDuration)
+                    {
+                        FirstTrain = TrainInfo.ElementAtOrDefault(1);
+                        SecondTrain = TrainInfo.ElementAtOrDefault(2);
+                        return;
+                    }
                     FirstTrain = TrainInfo.ElementAtOrDefault(0);
                     SecondTrain = TrainInfo.ElementAtOrDefault(1);
                 }
