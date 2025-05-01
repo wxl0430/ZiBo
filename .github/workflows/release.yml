@@ -68,10 +68,8 @@ jobs:
         with:
           dotnet-version: '9.0.x'
 
-      - name: Set Encoding
-        run: |
-          echo "DOTNET_CLI_UI_LANGUAGE=zh-CN" >> $GITHUB_ENV
-          chcp 65001
+      - name: Set up git-cliff
+        uses: kenji-miyake/setup-git-cliff@v1
 
       - name: Add GitHub Package Source
         env:
@@ -85,7 +83,9 @@ jobs:
           dotnet build --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish -c Release -o out
+        run: |
+          ./tool/generate-changelog.ps1
+          dotnet publish -c Release -o out
 
       - name: Create Zip Package
         shell: pwsh
@@ -97,5 +97,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ needs.check-version.outputs.new_version }}
+          body_path: ./CHANGELOG.md
           name: ${{ needs.check-version.outputs.new_version }}
           files: CRSim-release-${{ needs.check-version.outputs.new_version }}.zip
