@@ -150,7 +150,7 @@
                                 <StackPanel Grid.Column="1" Margin="12" Orientation="Vertical">
                                     <TextBlock Text="显示" Style="{StaticResource BodyTextBlockStyle}"/>
                                     <TextBlock Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}">
-                                        设置最大页数、切换时长
+                                        设置最大页数、切换时长等
                                     </TextBlock>
                                 </StackPanel>
                             </Grid>
@@ -158,6 +158,18 @@
                         <Expander.Content>
                             <StackPanel Orientation="Vertical">
                                 <Border Style="{StaticResource TopSettingsCardStyle}">
+                                    <Grid Margin="48,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="只加载当日车次" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"
+                                               Grid.Column="0"/>
+                                        <CheckBox Grid.Column="2" VerticalAlignment="Center" IsChecked="{Binding ViewModel.LoadTodayOnly, Mode=TwoWay}" Padding="0"/>
+                                    </Grid>
+                                </Border>
+                                <Border Style="{StaticResource SettingsCardStyle}">
                                     <Grid Margin="48,0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
@@ -208,7 +220,7 @@
                                            Text="&#xF161;" FontSize="20"/>
 
                                 <StackPanel Grid.Column="1" Margin="12" Orientation="Vertical">
-                                    <TextBlock Text="检票口" Style="{StaticResource BodyTextBlockStyle}"/>
+                                    <TextBlock Text="检票" Style="{StaticResource BodyTextBlockStyle}"/>
                                     <TextBlock Opacity="0.7" Style="{StaticResource CaptionTextBlockStyle}">
                                         设置检票时长、停检时间等
                                     </TextBlock>
