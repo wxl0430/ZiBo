@@ -29,6 +29,8 @@
         public string _switchPageSeconds;
         [ObservableProperty]
         public string _userKey;
+        [ObservableProperty]
+        public bool _loadTodayOnly;
         #endregion
         public SettingsPageViewModel(ISettingsService settingsService, IDatabaseService databaseService, IDialogService dialogService)
         {
@@ -53,6 +55,7 @@
             MaxPages = _settings.MaxPages.ToString();
             SwitchPageSeconds = _settings.SwitchPageSeconds.ToString();
             UserKey = _settings.UserKey;
+            LoadTodayOnly = _settings.LoadTodayOnly;
         }
 
         [RelayCommand]
@@ -67,6 +70,7 @@
             UpdateSettings(MaxPages, false, value => _settings.MaxPages = value);
             UpdateSettings(SwitchPageSeconds, false, value => _settings.SwitchPageSeconds = value);
             _settings.UserKey = UserKey;
+            _settings.LoadTodayOnly = LoadTodayOnly;
             _settingsService.SaveSettings();
         }
         private void UpdateSettings(string input,bool allowNegative, Action<int> updateAction)

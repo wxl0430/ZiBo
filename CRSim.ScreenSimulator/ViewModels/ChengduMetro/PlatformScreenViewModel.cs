@@ -2,11 +2,13 @@
 using CRSim.Core.Models;
 using CRSim.Core.Services;
 using CRSim.ScreenSimulator.Models;
+using System.Runtime;
 namespace CRSim.ScreenSimulator.ViewModels.ChengduMetro
 {
     public partial class PlatformScreenViewModel : ObservableObject
     {
         private readonly ITimeService _timeService;
+        public readonly Settings _settings;
         [ObservableProperty]
         private DateTime _currentTime = new();
         [ObservableProperty]
@@ -19,9 +21,10 @@ namespace CRSim.ScreenSimulator.ViewModels.ChengduMetro
         private Uri _video = new("Assets\\Advertisement-1.mp4", UriKind.Relative);
 
         public List<TrainInfo> TrainInfos { get; set; } = [];
-        public PlatformScreenViewModel(ITimeService timeService)
+        public PlatformScreenViewModel(ITimeService timeService, ISettingsService settingsService)
         {
             _timeService = timeService;
+            _settings = settingsService.GetSettings();
             timeService.OneSecondElapsed += RefreshDisplay;
         }
         public void LoadData(Station station,string _ticketCheck,string platform)
@@ -33,7 +36,10 @@ namespace CRSim.ScreenSimulator.ViewModels.ChengduMetro
                 {
                     var now = _timeService.GetDateTimeNow();
                     var today = now.Date;
-
+                    if (_settings.LoadTodayOnly && today.Add((trainNumber.DepartureTime ?? trainNumber.ArrivalTime)!.Value) < now)
+                    {
+                        continue;
+                    }
                     DateTime? AdjustTime(TimeSpan? time) =>
                         time.HasValue ? (today.Add(time.Value) > now ? today.Add(time.Value) : today.Add(time.Value).AddDays(1)) : null;
 
