@@ -38,13 +38,13 @@
 	<ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="CRSim.WebsiteSimulator" Version="1.2.0" />
-    <PackageReference Include="EPPlus" Version="8.0.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.3" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.3" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3124.44" />
+    <PackageReference Include="EPPlus" Version="8.0.3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.4" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3240.44" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.3" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.4" />
   </ItemGroup>
 
   <ItemGroup>
