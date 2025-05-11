@@ -1,17 +1,17 @@
-﻿<Window x:Class="CRSim.ScreenSimulator.Views.BeijingXi.PrimaryScreenView"
+﻿<views:BaseScreenView x:Class="CRSim.ScreenSimulator.Views.BeijingXi.PrimaryScreenView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CRSim.ScreenSimulator.Views.BeijingXi"
         mc:Ignorable="d"
+        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views"
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
         Title="引导屏" SizeToContent="WidthAndHeight"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        KeyDown="Window_KeyDown"
-        ResizeMode="NoResize" MouseDown="Window_MouseDown">
-    <Window.Resources>
+        ResizeMode="NoResize">
+    <views:BaseScreenView.Resources>
         <converters1:ListToStringConverter x:Key="ListToStringConverter" Separator="" />
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
         <converters:TrainStateConverter x:Key="TrainStateConverter" WaitingText="正在候车"/>
@@ -54,7 +54,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </Window.Resources>
+    </views:BaseScreenView.Resources>
     <StackPanel Orientation="Horizontal">
         <DataGrid ItemsSource="{Binding LeftScreen, Mode=OneWay}" AutoGenerateColumns="False"
               CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
@@ -247,4 +247,4 @@
             </DataGrid.Columns>
         </DataGrid>
     </StackPanel>
-</Window>
+</views:BaseScreenView>

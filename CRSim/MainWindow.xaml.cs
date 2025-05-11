@@ -1,4 +1,9 @@
-﻿using System.Windows.Navigation;
+﻿using CRSim.Core.Services;
+using CRSim.ScreenSimulator.Models;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace CRSim
 {
@@ -8,11 +13,13 @@ namespace CRSim
     public partial class MainWindow : Window
     {
         private readonly IServiceProvider _serviceProvider;
+        private readonly Settings _settings;
         private readonly INavigationService _navigationService;
         public MainWindowViewModel ViewModel { get; }
-        public MainWindow(MainWindowViewModel viewModel, IServiceProvider serviceProvider, INavigationService navigationService)
+        public MainWindow(MainWindowViewModel viewModel, IServiceProvider serviceProvider, INavigationService navigationService, ISettingsService settingsService)
         {
             _serviceProvider = serviceProvider;
+            _settings = settingsService.GetSettings();
             DataContext = this;
             ViewModel = viewModel;
             InitializeComponent();
@@ -70,8 +77,7 @@ namespace CRSim
                 ItemsControl itemsControl = ControlsList;
                 foreach (ControlInfoDataItem item in list)
                 {
-                    var tvi = itemsControl.ItemContainerGenerator.ContainerFromItem(item) as TreeViewItem;
-                    if (tvi != null)
+                    if (itemsControl.ItemContainerGenerator.ContainerFromItem(item) is TreeViewItem tvi)
                     {
                         tvi.IsExpanded = true;
                         tvi.UpdateLayout();
@@ -102,10 +108,7 @@ namespace CRSim
             {
                 _navigationService.Navigate(navItem.PageType);
                 var tvi = ControlsList.ItemContainerGenerator.ContainerFromItem(navItem) as TreeViewItem;
-                if (tvi != null)
-                {
-                    tvi.BringIntoView();
-                }
+                tvi?.BringIntoView();
             }
         }
         private void UpdateTitleBarButtonsVisibility()
@@ -198,6 +201,50 @@ namespace CRSim
             if (tvi != null)
             {
                 tvi.IsExpanded = !tvi.IsExpanded;
+            }
+        }
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_settings.ReopenUnclosedScreensOnLoad)
+            {
+                await ReopenUnclosedScreensAsync();
+            }
+        }
+
+        private async Task ReopenUnclosedScreensAsync()
+        {
+            List<ScreenInfo> screenInfos = [];
+            if (File.Exists("Screen.json"))
+            {
+                var fileContent = await File.ReadAllTextAsync("Screen.json");
+                screenInfos = JsonSerializer.Deserialize<List<ScreenInfo>>(fileContent) ?? [];
+            }
+            else
+            {
+                return;
+            }
+            foreach (var screenInfo in screenInfos)
+            {
+                var Window = _serviceProvider.GetRequiredService(StylesInfoDataSource.Instance.StylesInfo.Where(x => x.ViewType.FullName == screenInfo.SelectedStyle).FirstOrDefault().ViewType) as dynamic;
+                Window.SessionID = screenInfo.SessionID;
+                if (!string.IsNullOrEmpty(screenInfo.Text))
+                {
+                    Window.ViewModel.Text = screenInfo.Text;
+                }
+                if (screenInfo.SelectedLoaction != null && screenInfo.SelectedLoaction != 0)
+                {
+                    Window.ViewModel.Location = screenInfo.SelectedLoaction.Value;
+                }
+                if (screenInfo.Video != null && screenInfo.Video != string.Empty)
+                {
+                    Window.ViewModel.Video = new Uri(screenInfo.Video, UriKind.Absolute);
+                }
+
+                Window.ViewModel.LoadData(_serviceProvider.GetRequiredService<IDatabaseService>().GetStationByName(screenInfo.SelectedStationName),
+                    screenInfo.SelectedTicketCheck ?? string.Empty,
+                    screenInfo.SelectedPlatformName ?? string.Empty); ;
+                Window.Show();
             }
         }
     }

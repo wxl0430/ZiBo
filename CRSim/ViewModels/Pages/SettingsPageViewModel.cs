@@ -31,6 +31,8 @@
         public string _userKey;
         [ObservableProperty]
         public bool _loadTodayOnly;
+        [ObservableProperty]
+        public bool _reopenUnclosedScreensOnLoad;
         #endregion
         public SettingsPageViewModel(ISettingsService settingsService, IDatabaseService databaseService, IDialogService dialogService)
         {
@@ -56,6 +58,7 @@
             SwitchPageSeconds = _settings.SwitchPageSeconds.ToString();
             UserKey = _settings.UserKey;
             LoadTodayOnly = _settings.LoadTodayOnly;
+            ReopenUnclosedScreensOnLoad = _settings.ReopenUnclosedScreensOnLoad;
         }
 
         [RelayCommand]
@@ -71,6 +74,7 @@
             UpdateSettings(SwitchPageSeconds, false, value => _settings.SwitchPageSeconds = value);
             _settings.UserKey = UserKey;
             _settings.LoadTodayOnly = LoadTodayOnly;
+            _settings.ReopenUnclosedScreensOnLoad = ReopenUnclosedScreensOnLoad;
             _settingsService.SaveSettings();
         }
         private void UpdateSettings(string input,bool allowNegative, Action<int> updateAction)

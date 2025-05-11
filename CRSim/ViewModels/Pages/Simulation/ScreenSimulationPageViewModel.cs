@@ -1,4 +1,5 @@
 ﻿using CRSim.ScreenSimulator.Models;
+using System.Text.Json.Serialization;
 
 namespace CRSim.ViewModels;
 
@@ -168,10 +169,11 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
         Video = Path;
     }
     [RelayCommand]
-    public void StartSimulation()
+    public async Task StartSimulation()
     {
         var Window = _serviceProvider.GetRequiredService(selectedStyle) as dynamic;
-
+        var SessionID = Guid.NewGuid();
+        Window.SessionID = SessionID;
         if (TextNeeded && Text != string.Empty)
         {
             Window.ViewModel.Text = Text;
@@ -189,6 +191,36 @@ public partial class ScreenSimulationPageViewModel : ObservableObject
             TicketCheckNeeded ? SelectedTicketCheck : string.Empty,
             PlatformNeeded ? SelectedPlatformName : string.Empty);
         Window.Show();
+
+        await SaveScreenAsync(SessionID);
+    }
+    private static readonly JsonSerializerOptions CachedJsonSerializerOptions = new()
+    {
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+    };
+
+    private async Task SaveScreenAsync(Guid guid)
+    {
+        List<ScreenInfo> screenInfos = [];
+        if (File.Exists("Screen.json"))
+        {
+            var fileContent = await File.ReadAllTextAsync("Screen.json");
+            screenInfos = JsonSerializer.Deserialize<List<ScreenInfo>>(fileContent) ?? [];
+        }
+        ScreenInfo screenInfo = new()
+        {
+            SessionID = guid,
+            SelectedStyle = selectedStyle.FullName,
+            Text = TextNeeded && !string.IsNullOrEmpty(Text) ? Text : null,
+            Video = VideoNeeded && !string.IsNullOrEmpty(Video) ? Video : null,
+            SelectedStationName = SelectedStationName,
+            SelectedLoaction = LocationNeeded && SelectedLoaction != 0 ? SelectedLoaction : null,
+            SelectedTicketCheck = TicketCheckNeeded ? SelectedTicketCheck : null,
+            SelectedPlatformName = PlatformNeeded ? SelectedPlatformName : null
+        };
+        screenInfos.Add(screenInfo);
+        var serializedContent = JsonSerializer.Serialize(screenInfos, CachedJsonSerializerOptions);
+        await File.WriteAllTextAsync("Screen.json", serializedContent);
     }
     #region StyleSearch
     private string _keyWord = string.Empty;

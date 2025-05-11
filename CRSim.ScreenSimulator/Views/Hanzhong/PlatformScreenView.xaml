@@ -1,4 +1,4 @@
-﻿<Window x:Class="CRSim.ScreenSimulator.Views.Hanzhong.PlatformScreenView"
+﻿<views:BaseScreenView x:Class="CRSim.ScreenSimulator.Views.Hanzhong.PlatformScreenView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,8 +10,8 @@
         FontFamily="黑体" FontSize="20"
         Title="引导屏" SizeToContent="WidthAndHeight"
         WindowStyle="None" AllowsTransparency="True" Background="#0028BD"
-        KeyDown="Window_KeyDown"
-        ResizeMode="NoResize" MouseDown="Window_MouseDown">
+        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views"
+        ResizeMode="NoResize">
     <Window.Resources>
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
     </Window.Resources>
@@ -78,4 +78,4 @@
         <TextBlock Foreground="#FDB441" FontFamily="微软雅黑" Text="站台边缘危险，请在安全线内行走，请看管好您的随身物品。" TextAlignment="Center"
                  FontWeight="Bold" Padding="40,10,20,4"/>
     </StackPanel>
-</Window>
+</views:BaseScreenView>

@@ -12,7 +12,8 @@
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         MinWidth="780"
-        MinHeight="450">
+        MinHeight="450"
+        Loaded="Window_Loaded">
     <Window.Resources>
         <converterss:EmptyToVisibilityConverter x:Key="EmptyToVisibilityConverter" />
 

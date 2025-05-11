@@ -1,38 +1,17 @@
 ﻿using CRSim.ScreenSimulator.ViewModels.XuzhouMetro;
 using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media;
 
 namespace CRSim.ScreenSimulator.Views.XuzhouMetro
 {
-    /// <summary>
-    /// SecondaryScreen.xaml 的交互逻辑
-    /// </summary>
-    public partial class PlatformScreenView : Window
+    public partial class PlatformScreenView : BaseScreenView
     {
         public PlatformScreenViewModel ViewModel { get; }
         public PlatformScreenView(PlatformScreenViewModel viewModel)
         {
             InitializeComponent();
             ViewModel = viewModel;
-            RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);
-            DataContext = this;
+            DataContext = viewModel;
             player.Play();
-        }
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                DragMove();
-            }
-        }
-
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Escape)
-            {
-                Close();
-            }
         }
 
         private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)

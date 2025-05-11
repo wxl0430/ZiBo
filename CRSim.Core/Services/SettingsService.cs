@@ -24,6 +24,7 @@ namespace CRSim.Core.Services
             _key.SetValue("DepartureCheckInAdvanceDuration", (int)_settings.DepartureCheckInAdvanceDuration.TotalMinutes);
             _key.SetValue("UserKey", _settings.UserKey);
             _key.SetValue("LoadTodayOnly", _settings.LoadTodayOnly);
+            _key.SetValue("ReopenUnclosedScreensOnLoad", _settings.ReopenUnclosedScreensOnLoad);
         }
         private void LoadSettings()
         {
@@ -47,6 +48,7 @@ namespace CRSim.Core.Services
                 if (_key.GetValue("DepartureCheckInAdvanceDuration") != null) _settings.DepartureCheckInAdvanceDuration = TimeSpan.FromMinutes((int)_key.GetValue("DepartureCheckInAdvanceDuration"));
                 if (_key.GetValue("UserKey") != null) _settings.UserKey = (string)_key.GetValue("UserKey");
                 if (_key.GetValue("LoadTodayOnly") != null) _settings.LoadTodayOnly = bool.Parse((string)_key.GetValue("LoadTodayOnly"));
+                if (_key.GetValue("ReopenUnclosedScreensOnLoad") != null) _settings.ReopenUnclosedScreensOnLoad = bool.Parse((string)_key.GetValue("ReopenUnclosedScreensOnLoad"));
             }
         }
 
