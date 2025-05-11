@@ -26,5 +26,6 @@ namespace CRSim.Core.Models
         public int SwitchPageSeconds { get; set; } = 20;
         public string UserKey { get; set; } = "";
         public bool LoadTodayOnly { get; set; } = false;
+        public bool ReopenUnclosedScreensOnLoad { get; set; } = true;
     }
 }

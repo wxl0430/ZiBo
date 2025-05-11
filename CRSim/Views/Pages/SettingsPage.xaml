@@ -175,6 +175,19 @@
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="启动时恢复未关闭的屏幕" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"
+                                               Grid.Column="0"/>
+                                        <CheckBox Grid.Column="2" VerticalAlignment="Center" IsChecked="{Binding ViewModel.ReopenUnclosedScreensOnLoad, Mode=TwoWay}" Padding="0"/>
+                                    </Grid>
+                                </Border>
+
+                                <Border Style="{StaticResource SettingsCardStyle}">
+                                    <Grid Margin="48,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Text="最大显示页数" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Center"

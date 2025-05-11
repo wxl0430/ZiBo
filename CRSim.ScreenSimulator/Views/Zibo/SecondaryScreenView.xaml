@@ -1,4 +1,4 @@
-﻿<Window x:Class="CRSim.ScreenSimulator.Views.Zibo.SecondaryScreenView"
+﻿<views:BaseScreenView x:Class="CRSim.ScreenSimulator.Views.Zibo.SecondaryScreenView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,7 +9,7 @@
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
         Title="引导屏" SizeToContent="WidthAndHeight"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        KeyDown="Window_KeyDown" ResizeMode="NoResize" MouseDown="Window_MouseDown"
+        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views" ResizeMode="NoResize"
         FontFamily="等线" FontSize="16">
     <Window.Resources>
         <converters1:ListToStringConverter x:Key="ListToStringConverter" Separator=" - " />
@@ -152,4 +152,4 @@
 
         
     </StackPanel>
-</Window>
+</views:BaseScreenView>
