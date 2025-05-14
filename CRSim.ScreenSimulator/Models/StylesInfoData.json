@@ -251,6 +251,17 @@
     ]
   },
   {
+    "UniqueId": "Niuzhou.PrimaryScreen",
+    "Title": "柳州站主要看板",
+    "Station": "柳州",
+    "Author": "电排骨",
+    "Type": "车站大屏",
+    "Parameters": [
+      "Station",
+      "Text"
+    ]
+  },
+  {
     "UniqueId": "Beijing.ArrivalScreen",
     "Title": "北京站地道到达看板",
     "Station": "北京",

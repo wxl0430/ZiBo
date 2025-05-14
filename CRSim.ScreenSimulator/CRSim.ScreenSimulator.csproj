@@ -11,6 +11,7 @@
     <None Remove="Assets\ChengduDong\cdcz.png" />
     <None Remove="Assets\ChengduDong\PillarTicketCheckScreen.png" />
     <None Remove="Assets\ChengduDong\TicketCheck.png" />
+    <None Remove="Assets\Niuzhou\PrimaryScreen.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,6 +52,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\ChengduDong\SecondaryScreenView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Niuzhou\PrimaryScreenView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\XuzhouMetro\PlatformScreenView.xaml.cs">
@@ -114,6 +118,7 @@
     <Resource Include="Assets\HarbinXi\PlatformScreen.png" />
     <Resource Include="Assets\Jinanxi\SmallScreen.png" />
     <Resource Include="Assets\Mianyang\PlatformScreen.png" />
+    <Resource Include="Assets\Niuzhou\PrimaryScreen.png" />
     <Resource Include="Assets\Shanghai\OutsideScreen.png" />
     <Resource Include="Assets\Tianjin\image.png" />
     <Resource Include="Assets\Tianjin\PlatformScreen.png" />
