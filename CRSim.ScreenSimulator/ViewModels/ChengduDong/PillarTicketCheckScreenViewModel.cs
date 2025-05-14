@@ -29,6 +29,10 @@ namespace CRSim.ScreenSimulator.ViewModels.ChengduDong
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
+                if (TrainInfo.Count == 0)
+                {
+                    return;
+                }
                 var now = _timeService.GetDateTimeNow();
                 var departureTime = TrainInfo[0].DepartureTime!.Value;
 
