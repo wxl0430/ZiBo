@@ -105,6 +105,19 @@
     ]
   },
   {
+    "UniqueId": "TianjinMetro.PlatformScreen",
+    "Title": "天津地铁站台看板",
+    "Station": "天津地铁",
+    "Author": "电排骨",
+    "Type": "站台屏",
+    "Parameters": [
+      "Station",
+      "Text",
+      "Video",
+      "Platform"
+    ]
+  },
+  {
     "UniqueId": "Guangyuan.PrimaryScreen",
     "Title": "广元站主要看板",
     "Station": "广元",
