@@ -23,7 +23,6 @@ namespace CRSim.ScreenSimulator.ViewModels
         private string _thisPlatform;
         [ObservableProperty]
         private string _thisTicketCheck;
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public List<TrainInfo> TrainInfo { get; set; } = [];
 
