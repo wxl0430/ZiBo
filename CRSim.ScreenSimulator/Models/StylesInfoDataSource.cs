@@ -7,7 +7,7 @@ namespace CRSim.ScreenSimulator.Models
     {
         public string UniqueId { get; set; }
         public string Title { get; set; }
-        public string Station { get; set; }
+        public string Region { get; set; }
         public string Author { get; set; }
         public string Type { get; set; }
         public Type ViewType

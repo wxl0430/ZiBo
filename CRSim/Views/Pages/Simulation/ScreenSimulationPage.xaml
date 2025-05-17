@@ -82,7 +82,7 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0,12">
                                     <TextBlock Opacity="0.7" VerticalAlignment="Center" FontFamily="{StaticResource SymbolThemeFontFamily}" 
-                                               Text="&#xE71C;" FontSize="12" Margin="0,0,8,0"/>
+                                               Text="&#xE71C;" FontSize="12" Margin="8,0"/>
                                     <TextBlock Opacity="0.7" Style="{StaticResource BodyTextBlockStyle}" Text="作者:" VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <ComboBox MinWidth="128" ItemsSource="{Binding ViewModel.StyleAuthors}" x:Name="FilterAuthorComboBox" Margin="0,0,24,0" SelectedIndex="0">
                                         <i:Interaction.Triggers>
@@ -94,7 +94,7 @@
                                     </ComboBox>
                                     <TextBlock Opacity="0.7" VerticalAlignment="Center" FontFamily="{StaticResource SymbolThemeFontFamily}" 
                                                Text="&#xE71C;" FontSize="12" Margin="0,0,8,0"/>
-                                    <TextBlock Opacity="0.7" Style="{StaticResource BodyTextBlockStyle}" Text="车站:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                    <TextBlock Opacity="0.7" Style="{StaticResource BodyTextBlockStyle}" Text="城市:" VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <ComboBox MinWidth="128" ItemsSource="{Binding ViewModel.StyleStations}" x:Name="FilterStationComboBox" Margin="0,0,24,0" SelectedIndex="0">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="SelectionChanged">
