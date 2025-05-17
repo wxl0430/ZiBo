@@ -68,9 +68,6 @@ jobs:
         with:
           dotnet-version: '9.0.x'
 
-      - name: Set up git-cliff
-        uses: kenji-miyake/setup-git-cliff@v1
-
       - name: Add GitHub Package Source
         env:
           GHPKG_KEY: ${{ secrets.GHPKG_KEY }}
@@ -84,6 +81,7 @@ jobs:
 
       - name: Publish
         run: |
+          winget install git-cliff
           ./tool/generate-changelog.ps1
           dotnet publish -c Release -o out
 
