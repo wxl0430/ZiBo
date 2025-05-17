@@ -79,9 +79,15 @@ jobs:
           dotnet restore
           dotnet build --configuration Release --no-restore
 
+      - name: Install git-cliff
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri "https://github.com/orhun/git-cliff/releases/download/v2.8.0/git-cliff-2.8.0-x86_64-pc-windows-msvc.zip" -OutFile "git-cliff.zip"
+          Expand-Archive -Path "git-cliff.zip" -DestinationPath "."
+          $env:Path += ";$PWD"
+
       - name: Publish
         run: |
-          winget install git-cliff
           ./tool/generate-changelog.ps1
           dotnet publish -c Release -o out
 
