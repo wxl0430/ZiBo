@@ -8,25 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\Advertisement-3.mp4" />
     <None Remove="Assets\ChengduDong\cdcz.png" />
     <None Remove="Assets\ChengduDong\PillarTicketCheckScreen.png" />
     <None Remove="Assets\ChengduDong\TicketCheck.png" />
     <None Remove="Assets\Niuzhou\PrimaryScreen.png" />
     <None Remove="Assets\TianjinMetro\PlatformScreen.png" />
     <None Remove="Assets\TianjinMetro\TianjinMetro-Icon.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Assets\Advertisement-1.mp4">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Advertisement-2.mp4">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Advertisement-3.mp4">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
