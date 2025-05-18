@@ -94,6 +94,7 @@
   <ItemGroup>
     <Resource Include="Assets\Ankang\ExitScreen.png" />
     <Resource Include="Assets\BeijingXi\PrimaryScreen.png" />
+    <Resource Include="Assets\BeijingNan\PrimaryScreen.png" />
     <Resource Include="Assets\Beijing\ArrivalScreen.png" />
     <Resource Include="Assets\ChengduDong\cdcz.png" />
     <Resource Include="Assets\ChengduDong\PillarTicketCheckScreen.png" />
