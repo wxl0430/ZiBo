@@ -39,7 +39,7 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Orientation="Vertical">
-            <DataGrid ItemsSource="{Binding Screen}" AutoGenerateColumns="False" BorderThickness="0"
+            <DataGrid ItemsSource="{Binding LeftScreen}" AutoGenerateColumns="False" BorderThickness="0"
                 CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
                 CanUserResizeRows="False" CanUserReorderColumns="False" ClipToBounds="False"
                 IsReadOnly="True" GridLinesVisibility="None" RowHeight="34" Foreground="White"

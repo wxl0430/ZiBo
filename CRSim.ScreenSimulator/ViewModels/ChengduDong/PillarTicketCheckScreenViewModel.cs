@@ -17,15 +17,8 @@ namespace CRSim.ScreenSimulator.ViewModels.ChengduDong
             : base(timeService, settingsService)
         {
             StationType = StationType.Departure;
-            timeService.OneSecondElapsed += RefreshDisplay;
-            Initialize();
         }
-        private async void Initialize()
-        {
-            await WaitForDataLoadAsync();
-            RefreshDisplay(null, null);
-        }
-        private void RefreshDisplay(object? sender, EventArgs e)
+        public override void RefreshDisplay(object? sender, EventArgs e)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {

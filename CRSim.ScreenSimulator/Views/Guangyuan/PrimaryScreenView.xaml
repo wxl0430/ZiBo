@@ -27,7 +27,7 @@
         <converters:TrainStateConverter x:Key="TrainStateConverter" WaitingText="正点"/>
     </Window.Resources>
     <StackPanel Orientation="Horizontal">
-        <DataGrid ItemsSource="{Binding Screen}" AutoGenerateColumns="False"
+        <DataGrid ItemsSource="{Binding LeftScreen}" AutoGenerateColumns="False"
               CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
               CanUserResizeRows="False" CanUserReorderColumns="False"
               IsReadOnly="True" GridLinesVisibility="None" RowHeight="28" Foreground="#D75B41"

@@ -58,7 +58,7 @@
     </Window.Resources>
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal">
-            <DataGrid ItemsSource="{Binding Screen, Mode=OneWay}" AutoGenerateColumns="False"
+            <DataGrid ItemsSource="{Binding LeftScreen, Mode=OneWay}" AutoGenerateColumns="False"
               CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
               CanUserResizeRows="False" CanUserReorderColumns="False"
               IsReadOnly="True" GridLinesVisibility="None" RowHeight="35"

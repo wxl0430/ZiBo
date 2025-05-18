@@ -28,7 +28,7 @@
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
     </Window.Resources>
     <StackPanel Orientation="Vertical">
-        <DataGrid ItemsSource="{Binding Screen}" AutoGenerateColumns="False"
+        <DataGrid ItemsSource="{Binding LeftScreen}" AutoGenerateColumns="False"
               CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
               CanUserResizeRows="False" CanUserReorderColumns="False" ClipToBounds="False"
               IsReadOnly="True" GridLinesVisibility="None" RowHeight="28" Foreground="White"

@@ -39,18 +39,18 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Screen[0].TrainNumber}" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding LeftScreen[0].TrainNumber}" VerticalAlignment="Center" TextAlignment="Center"/>
             <TextBlock Grid.Row="0" Grid.Column="2" Text="次" Margin="4,0,0,0" VerticalAlignment="Center" TextAlignment="Center"/>
             <TextBlock Grid.Row="0" Grid.Column="4" Text="本站" Foreground="#de502b" VerticalAlignment="Center" TextAlignment="Center"/>
-            <TextBlock Grid.Row="0" Grid.Column="6" Text="{Binding Screen[0].DepartureTime,Converter={StaticResource DateTimeToStringConverter}}" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="6" Text="{Binding LeftScreen[0].DepartureTime,Converter={StaticResource DateTimeToStringConverter}}" VerticalAlignment="Center" TextAlignment="Center"/>
             <TextBlock Grid.Row="0" Grid.Column="7" Text="开" Margin="4,0,0,0" VerticalAlignment="Center" TextAlignment="Center"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Screen[0].Origin}" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding LeftScreen[0].Origin}" VerticalAlignment="Center" TextAlignment="Center"/>
             <TextBlock Grid.Row="1" Grid.Column="4" Text="开往" Foreground="#de502b" VerticalAlignment="Center" TextAlignment="Center"/>
-            <TextBlock Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding Screen[0].Terminal}" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding LeftScreen[0].Terminal}" VerticalAlignment="Center" TextAlignment="Center"/>
             <pp:RunningText Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="9" Speed="20">
                 <pp:RunningText.Text>
                     <MultiBinding Mode="OneWay" Converter="{StaticResource LocationToStringConverter}">
-                        <Binding Path="Screen[0].Length" />
+                        <Binding Path="LeftScreen[0].Length" />
                         <Binding Path="Location" />
                     </MultiBinding>
                 </pp:RunningText.Text>
