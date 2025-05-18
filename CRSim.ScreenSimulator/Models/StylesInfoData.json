@@ -64,7 +64,7 @@
     "Author": "电排骨",
     "Type": "车站大屏",
     "Parameters": [
-      "Region"
+      "Station"
     ]
   },
   {
@@ -135,7 +135,7 @@
     "Author": "电排骨",
     "Type": "车站大屏",
     "Parameters": [
-      "Region"
+      "Station"
     ]
   },
   {
@@ -181,7 +181,7 @@
     "Author": "wxl0430",
     "Type": "车站大屏",
     "Parameters": [
-      "Region"
+      "Station"
     ]
   },
   {
@@ -191,7 +191,7 @@
     "Author": "wxl0430",
     "Type": "车站大屏",
     "Parameters": [
-      "Region"
+      "Station"
     ]
   },
   {
@@ -320,6 +320,16 @@
       "Platform",
       "Location",
       "Text"
+    ]
+  },
+  {
+    "UniqueId": "BeijingNan.PrimaryScreen",
+    "Title": "北京南站主要看板",
+    "Region": "北京",
+    "Author": "wxl0430",
+    "Type": "车站大屏",
+    "Parameters": [
+      "Station"
     ]
   }
 ]

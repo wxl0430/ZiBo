@@ -11,6 +11,14 @@ namespace CRSim.ScreenSimulator.Converters
     {
         private ITimeService _timeService;
         private Settings _settings;
+        public string DisplayMode { get; set; } = "Normal";
+
+        /*
+        Normal: 标准显示。
+        Alternating_Row_Colors: 候车状态隔行异色显示（第4个参数控制行号）。
+        */
+
+        public List<SolidColorBrush> WaitingColorList { get; set; } = new List<SolidColorBrush> { new(Colors.White), new(Colors.Yellow) };
         public SolidColorBrush WaitingColor { get; set; } = new(Colors.White);
         public SolidColorBrush CheckingTicketsColor { get; set; } = new(Colors.LightGreen);
         public SolidColorBrush StopCheckingTicketsColor { get; set; } = new(Colors.Red);
@@ -48,6 +56,9 @@ namespace CRSim.ScreenSimulator.Converters
                 if (values[2] is TimeSpan state && state.TotalMinutes > 0)
                 {
                     return StopCheckingTicketsColor;
+                }
+                if (DisplayMode == "Alternating_Row_Colors" && values.Length > 3 && values[3] is int rowNumber){
+                    return WaitingColorList[rowNumber % WaitingColorList.Count];
                 }
                 return WaitingColor;
             }
