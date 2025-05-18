@@ -40,11 +40,11 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Horizontal">
                     <TextBlock Text="←" Foreground="LightYellow" Margin="4,0,0,0" FontFamily="黑体"/>
-                    <TextBlock Text="{Binding Screen[0].TrainNumber}" Foreground="LightYellow" Margin="40,0,0,0"/>
+                    <TextBlock Text="{Binding LeftScreen[0].TrainNumber}" Foreground="LightYellow" Margin="40,0,0,0"/>
                     <TextBlock Text="次" Foreground="LightYellow" Margin="25,0,0,0"/>
                 </StackPanel>
-                <TextBlock Grid.Column="2" Visibility="{Binding Screen[0].Landmark,Converter={StaticResource EmptyToVisibilityConverter}}" Text="{Binding Screen[0].Landmark}" Foreground="Red" FontWeight="Bold"/>
-                <TextBlock Grid.Column="3" Visibility="{Binding Screen[0].Landmark,Converter={StaticResource EmptyToVisibilityConverter}}" Text="地标" Foreground="Red" FontWeight="Bold"/>
+                <TextBlock Grid.Column="2" Visibility="{Binding LeftScreen[0].Landmark,Converter={StaticResource EmptyToVisibilityConverter}}" Text="{Binding LeftScreen[0].Landmark}" Foreground="Red" FontWeight="Bold"/>
+                <TextBlock Grid.Column="3" Visibility="{Binding LeftScreen[0].Landmark,Converter={StaticResource EmptyToVisibilityConverter}}" Text="地标" Foreground="Red" FontWeight="Bold"/>
             </Grid>
             <Grid Grid.Row="1" Margin="0,10">
                 <Grid.ColumnDefinitions>
@@ -57,11 +57,11 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="{Binding Screen[0].DepartureTime,Converter={StaticResource DateTimeToStringConverter}}" Foreground="LawnGreen" FontSize="25"/>
+                <TextBlock Grid.Column="0" Text="{Binding LeftScreen[0].DepartureTime,Converter={StaticResource DateTimeToStringConverter}}" Foreground="LawnGreen" FontSize="25"/>
                 <TextBlock Grid.Column="1" Text="开" Foreground="LawnGreen" FontSize="25" Margin="5,0,0,0"/>
-                <TextBlock Grid.Column="3" Text="{Binding Screen[0].Origin}" Foreground="LawnGreen" FontSize="25"/>
+                <TextBlock Grid.Column="3" Text="{Binding LeftScreen[0].Origin}" Foreground="LawnGreen" FontSize="25"/>
                 <TextBlock Grid.Column="5" Text="开往" Foreground="LawnGreen" FontSize="25"/>
-                <TextBlock Grid.Column="7" Text="{Binding Screen[0].Terminal}" Foreground="LawnGreen" FontSize="25" Margin="0,0,4,0"/>
+                <TextBlock Grid.Column="7" Text="{Binding LeftScreen[0].Terminal}" Foreground="LawnGreen" FontSize="25" Margin="0,0,4,0"/>
             </Grid>
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
@@ -72,7 +72,7 @@
                 <pp:RunningText Speed="20" Width="265" Grid.Column="0" FontSize="25" Foreground="LightYellow">
                     <pp:RunningText.Text>
                         <MultiBinding Mode="OneWay" Converter="{StaticResource LocationToStringConverter}">
-                            <Binding Path="Screen[0].Length" />
+                            <Binding Path="LeftScreen[0].Length" />
                             <Binding Path="Location" />
                         </MultiBinding>
                     </pp:RunningText.Text>

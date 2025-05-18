@@ -2,7 +2,8 @@
 using CRSim.Core.Services;
 using CRSim.Core.Models;
 using CRSim.ScreenSimulator.Models;
-using System.ComponentModel;
+using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace CRSim.ScreenSimulator.ViewModels
 {
@@ -10,7 +11,7 @@ namespace CRSim.ScreenSimulator.ViewModels
     {
         public readonly ITimeService _timeService;
         public readonly Settings _settings;
-        private readonly TaskCompletionSource<bool> _dataLoaded = new();
+        public readonly TaskCompletionSource<bool> DataLoaded = new();
         [ObservableProperty]
         private DateTime _currentTime = new();
         [ObservableProperty]
@@ -23,6 +24,8 @@ namespace CRSim.ScreenSimulator.ViewModels
         private string _thisPlatform;
         [ObservableProperty]
         private string _thisTicketCheck;
+        public ObservableCollection<TrainInfo> LeftScreen { get; private set; } = [];
+        public ObservableCollection<TrainInfo> RightScreen { get; private set; } = [];
 
         public List<TrainInfo> TrainInfo { get; set; } = [];
 
@@ -35,15 +38,27 @@ namespace CRSim.ScreenSimulator.ViewModels
             _settings = settingsService.GetSettings();
 
             _timeService.OneSecondElapsed += OnTimeElapsed;
+
             _timeService.RefreshSecondsElapsed += RefreshData;
+            _timeService.RefreshSecondsElapsed += RefreshDisplay;
+            Initialize();
         }
         public int CurrentPageIndex = 0;
-        public int ItemsPerPage;
-        public int PageCount;
+        public int ItemsPerPage = 1;
 
-        public virtual void RefreshData(object? sender, EventArgs e)
+        //<summary>
+        // 适用于翻页屏的屏幕个数参数，非翻页屏请不要设置。
+        //</summary>
+        public int? PageCount = null;
+
+        private async void Initialize()
         {
-            if (CurrentPageIndex==0)
+            await DataLoaded.Task;
+            RefreshDisplay(null, null);
+        }
+        public void RefreshData(object? sender, EventArgs e)
+        {
+            if (CurrentPageIndex == 0)
             {
                 List<TrainInfo> itemsToRemove = [];
                 foreach(TrainInfo trainInfo in TrainInfo)
@@ -57,7 +72,7 @@ namespace CRSim.ScreenSimulator.ViewModels
                     }
                     else
                     {
-                        if (trainInfo.DepartureTime.Value.Subtract(_settings.StopDisplayUntilDepartureDuration) < _timeService.GetDateTimeNow())
+                        if ((StationType == StationType.Arrival || StationType == StationType.Both ? trainInfo.DepartureTime.Value : trainInfo.DepartureTime.Value.Subtract(_settings.StopDisplayUntilDepartureDuration)) < _timeService.GetDateTimeNow())
                         {
                             itemsToRemove.Add(trainInfo);
                         }
@@ -74,8 +89,6 @@ namespace CRSim.ScreenSimulator.ViewModels
         {
             CurrentTime = _timeService.GetDateTimeNow();
         }
-
-        public Task WaitForDataLoadAsync() => _dataLoaded.Task;
 
         public void LoadData(Station station, string ticketCheck, string platform)
         {
@@ -125,7 +138,76 @@ namespace CRSim.ScreenSimulator.ViewModels
             }
             TrainInfo = [.. TrainInfo.OrderBy(x => x.DepartureTime??x.ArrivalTime)];
             RefreshData(null, null);
-            _dataLoaded.SetResult(true);
+            DataLoaded.SetResult(true);
+        }
+        public virtual void RefreshDisplay(object? sender, EventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                if (PageCount == null)
+                {
+                    for (int i = 0; i < ItemsPerPage; i++)
+                    {
+                        LeftScreen.Add(TrainInfo.Count > i ? TrainInfo[i] : new());
+                    }
+                    if(LeftScreen.Count > ItemsPerPage)
+                    {
+                        for (int i = 0; i < ItemsPerPage; i++)
+                        {
+                            LeftScreen.RemoveAt(0);
+                        }
+                    }
+                    return;
+                }
+                int pageCount = (int)Math.Ceiling((double)TrainInfo.Count / (ItemsPerPage * PageCount.Value));
+                int startIndex = CurrentPageIndex * ItemsPerPage * PageCount.Value;
+
+                switch (PageCount)
+                {
+                    case 1:
+                        {
+                            LeftScreen.Clear();
+                            var items = TrainInfo.Skip(startIndex).Take(ItemsPerPage).ToList();
+                            while (items.Count < ItemsPerPage)
+                            {
+                                items.Add(new TrainInfo());
+                            }
+                            foreach (var item in items)
+                            {
+                                LeftScreen.Add(item);
+                            }
+                            break;
+                        }
+                    case 2:
+                        {
+                            LeftScreen.Clear();
+                            RightScreen.Clear();
+
+                            var leftItems = TrainInfo.Skip(startIndex).Take(ItemsPerPage).ToList();
+                            while (leftItems.Count < ItemsPerPage)
+                            {
+                                leftItems.Add(new TrainInfo());
+                            }
+                            foreach (var item in leftItems)
+                            {
+                                LeftScreen.Add(item);
+                            }
+
+                            var rightItems = TrainInfo.Skip(startIndex + ItemsPerPage).Take(ItemsPerPage).ToList();
+                            while (rightItems.Count < ItemsPerPage)
+                            {
+                                rightItems.Add(new TrainInfo());
+                            }
+                            foreach (var item in rightItems)
+                            {
+                                RightScreen.Add(item);
+                            }
+                            break;
+                        }
+                }
+
+                CurrentPageIndex = CurrentPageIndex + 1 >= Math.Min(_settings.MaxPages, pageCount) ? 0 : CurrentPageIndex + 1;
+            });
         }
 
     }

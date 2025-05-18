@@ -35,11 +35,11 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Foreground="#0089FF" Text="{Binding Screen[0].DepartureTime,Converter={StaticResource DateTimeToStringConverter}}" FontSize="32" Margin="64,0,0,0" FontWeight="Bold"/>
+                        <TextBlock Grid.Column="0" Foreground="#0089FF" Text="{Binding LeftScreen[0].DepartureTime,Converter={StaticResource DateTimeToStringConverter}}" FontSize="32" Margin="64,0,0,0" FontWeight="Bold"/>
                         <TextBlock Grid.Column="1" Foreground="#0089FF" Text="开" FontSize="32" Margin="4,0,8,0" FontWeight="Bold"/>
                         <Image Grid.Column="2" Source="pack://application:,,,/CRSim.ScreenSimulator;component/Assets/Hanzhong/Image.png" Height="{Binding ActualHeight,ElementName=Panel}"/>
                         <Rectangle Grid.Column="3" Fill="#0089FF" Height="{Binding ActualHeight,ElementName=Panel}"/>
-                        <TextBlock Grid.Column="4" Text="{Binding Screen[0].TrainNumber}" Foreground="#FE5649" Background="#0089FF" FontSize="32" FontWeight="Bold"/>
+                        <TextBlock Grid.Column="4" Text="{Binding LeftScreen[0].TrainNumber}" Foreground="#FE5649" Background="#0089FF" FontSize="32" FontWeight="Bold"/>
                         <Rectangle Grid.Column="5" Fill="#0089FF" Height="{Binding ActualHeight,ElementName=Panel}" Width="8"/>
                         <TextBlock Grid.Column="6" Text="次" Foreground="#FE5649" Background="#0089FF" FontSize="32" FontWeight="Bold"/>
                         <Rectangle Grid.Column="7" Fill="#0089FF" Height="{Binding ActualHeight,ElementName=Panel}" Width="52"/>
@@ -51,7 +51,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" TextAlignment="Center" Text="{Binding Screen[0].Origin}" FontSize="36" Foreground="#09F2F6" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="0" TextAlignment="Center" Text="{Binding LeftScreen[0].Origin}" FontSize="36" Foreground="#09F2F6" FontWeight="Bold"/>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
@@ -70,7 +70,7 @@
                             <Polygon Points="0,0 0,10 8.66,5" Fill="#FDB441" Margin="2.5"/>
                         </StackPanel>
                     </Grid>
-                    <TextBlock Grid.Column="2" TextAlignment="Center" Text="{Binding Screen[0].Terminal}" FontSize="36" Foreground="#09F2F6" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="2" TextAlignment="Center" Text="{Binding LeftScreen[0].Terminal}" FontSize="36" Foreground="#09F2F6" FontWeight="Bold"/>
                 </Grid>
                 <TextBlock Grid.Row="2" TextAlignment="Center" Foreground="White" Text="{Binding Text}" Margin="0,5"/>
             </Grid>
