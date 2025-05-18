@@ -6,7 +6,7 @@
     "Author": "电排骨",
     "Type": "车站大屏",
     "Parameters": [
-      "Region",
+      "Station",
       "Text"
     ]
   },
@@ -17,7 +17,7 @@
     "Author": "电排骨",
     "Type": "检票口屏",
     "Parameters": [
-      "Region",
+      "Station",
       "TicketCheck",
       "Text"
     ]
@@ -29,7 +29,7 @@
     "Author": "电排骨",
     "Type": "检票口屏",
     "Parameters": [
-      "Region",
+      "Station",
       "TicketCheck"
     ]
   },
@@ -40,7 +40,7 @@
     "Author": "电排骨",
     "Type": "检票口屏",
     "Parameters": [
-      "Region",
+      "Station",
       "TicketCheck",
       "Text"
     ]
@@ -52,7 +52,7 @@
     "Author": "电排骨",
     "Type": "检票口屏",
     "Parameters": [
-      "Region",
+      "Station",
       "TicketCheck",
       "Text"
     ]
@@ -74,7 +74,7 @@
     "Author": "电排骨",
     "Type": "车站大屏",
     "Parameters": [
-      "Region",
+      "Station",
       "Text"
     ]
   },
@@ -85,7 +85,7 @@
     "Author": "电排骨",
     "Type": "站台屏",
     "Parameters": [
-      "Region",
+      "Station",
       "Text",
       "Video",
       "Platform"
@@ -98,7 +98,7 @@
     "Author": "电排骨",
     "Type": "站台屏",
     "Parameters": [
-      "Region",
+      "Station",
       "Text",
       "Video",
       "Platform"
@@ -111,7 +111,7 @@
     "Author": "电排骨",
     "Type": "站台屏",
     "Parameters": [
-      "Region",
+      "Station",
       "Text",
       "Video",
       "Platform"
@@ -124,7 +124,7 @@
     "Author": "电排骨",
     "Type": "车站大屏",
     "Parameters": [
-      "Region",
+      "Station",
       "Text"
     ]
   },
@@ -145,7 +145,7 @@
     "Author": "电排骨",
     "Type": "站台屏",
     "Parameters": [
-      "Region",
+      "Station",
       "Platform",
       "Text"
     ]
@@ -157,7 +157,7 @@
     "Author": "电排骨",
     "Type": "站台屏",
     "Parameters": [
-      "Region",
+      "Station",
       "Platform",
       "Location"
     ]
@@ -169,7 +169,7 @@
     "Author": "电排骨",
     "Type": "站台屏",
     "Parameters": [
-      "Region",
+      "Station",
       "Platform",
       "Location"
     ]
@@ -201,7 +201,7 @@
     "Author": "wxl0430",
     "Type": "检票口屏",
     "Parameters": [
-      "Region",
+      "Station",
       "TicketCheck",
       "Text"
     ]
@@ -213,7 +213,7 @@
     "Author": "wxl0430",
     "Type": "站台屏",
     "Parameters": [
-      "Region",
+      "Station",
       "Platform",
       "Location",
       "Text"
@@ -226,7 +226,7 @@
     "Author": "wxl0430",
     "Type": "走廊出发屏",
     "Parameters": [
-      "Region",
+      "Station",
       "Platform",
       "Location"
     ]
@@ -248,7 +248,7 @@
     "Author": "电排骨",
     "Type": "车站大屏",
     "Parameters": [
-      "Region",
+      "Station",
       "Text"
     ]
   },
@@ -259,7 +259,7 @@
     "Author": "电排骨",
     "Type": "出站口屏",
     "Parameters": [
-      "Region",
+      "Station",
       "Text"
     ]
   },
@@ -270,7 +270,7 @@
     "Author": "电排骨",
     "Type": "车站大屏",
     "Parameters": [
-      "Region",
+      "Station",
       "Text"
     ]
   },
@@ -281,7 +281,7 @@
     "Author": "wxl0430",
     "Type": "走廊到达屏",
     "Parameters": [
-      "Region",
+      "Station",
       "Platform"
     ]
   },
@@ -292,7 +292,7 @@
     "Author": "wxl0430",
     "Type": "走廊出发屏",
     "Parameters": [
-      "Region",
+      "Station",
       "Platform",
       "Location"
     ]
@@ -304,7 +304,7 @@
     "Author": "wxl0430",
     "Type": "站台屏",
     "Parameters": [
-      "Region",
+      "Station",
       "Platform",
       "Location"
     ]
@@ -316,7 +316,7 @@
     "Author": "wxl0430",
     "Type": "站台屏",
     "Parameters": [
-      "Region",
+      "Station",
       "Platform",
       "Location",
       "Text"
