@@ -15,7 +15,12 @@
         <converters1:ListToStringConverter x:Key="ListToStringConverter" Separator="" />
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
         <converters:TrainStateConverter x:Key="TrainStateConverter" WaitingText="正在候车"/>
-        <converters:TrainStateColorConverter x:Key="TrainStateColorConverter" DisplayMode="Alternating_Row_Colors" CheckingTicketsColor="#1f5b54"/>
+        <converters:TrainStateColorConverter x:Key="TrainStateColorConverter" DisplayMode="Alternating_Row_Colors" CheckingTicketsColor="#1f5b54">
+            <converters:TrainStateColorConverter.WaitingColorList>
+                <SolidColorBrush Color="White"/>
+                <SolidColorBrush Color="#edd16f"/>
+            </converters:TrainStateColorConverter.WaitingColorList>
+        </converters:TrainStateColorConverter>
         <converters:TextSpacingConverter x:Key="TextSpacingConverter" />
         <Style TargetType="DataGridColumnHeader">
             <Setter Property="Padding" Value="0"/>

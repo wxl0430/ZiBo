@@ -18,11 +18,11 @@ namespace CRSim.ScreenSimulator.Converters
         Alternating_Row_Colors: 候车状态隔行异色显示（第4个参数控制行号）。
         */
 
-        public List<SolidColorBrush> WaitingColorList { get; set; } = new List<SolidColorBrush> { new(Colors.White), new(Colors.Yellow) };
+        public List<SolidColorBrush> WaitingColorList { get; set; } = [];
         public SolidColorBrush WaitingColor { get; set; } = new(Colors.White);
         public SolidColorBrush CheckingTicketsColor { get; set; } = new(Colors.LightGreen);
         public SolidColorBrush StopCheckingTicketsColor { get; set; } = new(Colors.Red);
-        object IMultiValueConverter.Convert(object[] values, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        object IMultiValueConverter.Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             var serviceProvider = (IServiceProvider)Application.Current.Resources["ServiceProvider"];
             _timeService = serviceProvider.GetRequiredService<ITimeService>();
