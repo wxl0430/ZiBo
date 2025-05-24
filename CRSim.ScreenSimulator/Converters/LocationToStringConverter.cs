@@ -6,10 +6,18 @@ namespace CRSim.ScreenSimulator.Converters
     public class LocationToStringConverter : IMultiValueConverter
     {
         public string DisplayMode { get; set; } = "normal";
+        public string DisplayArrow { get; set; } = "True";
+        public string HyphenText { get; set; } = "~";
+
         /*
-        normal: 正常
-        less: 简化
-        least：极简（适用于廊桥屏幕）
+        DisplayMode:
+            normal: 正常
+            less: 简化
+            least：极简（适用于廊桥屏幕）
+
+            在least模式下，如果DisplayArrow为True，则显示箭头，否则不显示箭头。
+            在least模式下，需要连字符时将会输出HyphenText。
+        
         */
         object IMultiValueConverter.Convert(object[] values, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {   
@@ -17,31 +25,49 @@ namespace CRSim.ScreenSimulator.Converters
             {
                 if(DisplayMode == "least" && values[2] is string Direction){
                     if(Direction == "left")
-                    {
+                    {   
+                        string Arrow = DisplayArrow == "True"? "←" : "";
+                        if(values.Length >= 4 && values[3] is string IsClosedInterval){
+                            if(IsClosedInterval == "closed"){
+                                if(Location < Length)
+                                {
+                                    return $"{Arrow}1{HyphenText}{Location-1}";
+                                }
+                                else if(Length == 1)
+                                {
+                                    return string.Empty;
+                                }
+                                else
+                                {
+                                    return $"{Arrow}1{HyphenText}{Length-1}";
+                                }
+                            }
+                        }
                         if(Location <= Length)
                         {
-                            return $"←1~{Location}";
+                            return $"{Arrow}1{HyphenText}{Location}";
                         }
                         else if(Length == 1)
                         {
-                            return "←1";
+                            return $"{Arrow}1";
                         }
                         else
                         {
-                            return $"←1~{Length}";
+                            return $"{Arrow}1{HyphenText}{Length}";
                         }
                     }
                     if(Direction == "right")
                     {
+                        string Arrow = DisplayArrow == "True"? "→" : "";
                         if(Location+1 > Length){
                             return string.Empty;
                         }
                         else if(Location+1 == Length)
                         {
-                            return $"{Length}→";
+                            return $"{Length}{Arrow}";
                         }
                         else{
-                            return $"{Location+1}~{Length}→";
+                            return $"{Location+1}{HyphenText}{Length}{Arrow}";
                         }
                     }
                     return string.Empty;
