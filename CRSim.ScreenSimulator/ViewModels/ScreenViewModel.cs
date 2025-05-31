@@ -125,9 +125,7 @@ namespace CRSim.ScreenSimulator.ViewModels
                         ArrivalTime = AdjustTime(trainNumber.ArrivalTime),
                         DepartureTime = AdjustTime(trainNumber.DepartureTime),
                         TicketChecks = trainNumber.TicketChecks,
-                        WaitingArea = trainNumber.StationType == StationType.Arrival
-                            ? string.Empty
-                            : station.WaitingAreas.FirstOrDefault(x => x.TicketChecks.Intersect(trainNumber.TicketChecks).Any())?.Name ?? string.Empty,
+                        WaitingArea = trainNumber.StationType == StationType.Arrival ? string.Empty : trainNumber.WaitingArea,
                         Platform = trainNumber.Platform,
                         Length = trainNumber.Length,
                         Landmark = trainNumber.Landmark,
