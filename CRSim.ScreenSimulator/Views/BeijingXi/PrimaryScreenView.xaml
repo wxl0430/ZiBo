@@ -7,10 +7,7 @@
         mc:Ignorable="d"
         xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views"
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
-        xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
-        Title="引导屏" SizeToContent="WidthAndHeight"
-        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        ResizeMode="NoResize">
+        xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared">
     <views:BaseScreenView.Resources>
         <converters1:ListToStringConverter x:Key="ListToStringConverter" Separator="" />
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
@@ -24,6 +21,7 @@
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <Style x:Key="CommonTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#CDDBFF"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="TextAlignment" Value="Center"/>
@@ -56,12 +54,8 @@
         </Style>
     </views:BaseScreenView.Resources>
     <StackPanel Orientation="Horizontal">
-        <DataGrid ItemsSource="{Binding LeftScreen, Mode=OneWay}" AutoGenerateColumns="False"
-              CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
-              CanUserResizeRows="False" CanUserReorderColumns="False" FontFamily="DengXian"
-              IsReadOnly="True" GridLinesVisibility="None" RowHeight="28"
-              RowStyle="{StaticResource CommonRowStyle}" FontWeight="SemiBold"
-              AlternationCount="2" HeadersVisibility="Column" IsEnabled="False">
+        <views:BaseDataGrid ItemsSource="{Binding ScreenA, Mode=OneWay}" FontFamily="DengXian"
+                            RowHeight="28" RowStyle="{StaticResource CommonRowStyle}" FontWeight="SemiBold" AlternationCount="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding TrainNumber}" MinWidth="50">
                     <DataGridTextColumn.HeaderTemplate>
@@ -150,13 +144,13 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
-        </DataGrid>
-        <DataGrid ItemsSource="{Binding RightScreen, Mode=OneWay}" AutoGenerateColumns="False"
-              CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
-              CanUserResizeRows="False" CanUserReorderColumns="False" FontFamily="DengXian"
-              IsReadOnly="True" GridLinesVisibility="None" RowHeight="28"
+        </views:BaseDataGrid>
+        <views:BaseDataGrid ItemsSource="{Binding ScreenB, Mode=OneWay}" 
+              
+                FontFamily="DengXian"
+                RowHeight="28"
               RowStyle="{StaticResource CommonRowStyle}" FontWeight="SemiBold"
-              AlternationCount="2" HeadersVisibility="Column" IsEnabled="False">
+              AlternationCount="2"  >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding TrainNumber}" MinWidth="50">
                     <DataGridTextColumn.HeaderTemplate>
@@ -245,6 +239,6 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
-        </DataGrid>
+        </views:BaseDataGrid>
     </StackPanel>
 </views:BaseScreenView>

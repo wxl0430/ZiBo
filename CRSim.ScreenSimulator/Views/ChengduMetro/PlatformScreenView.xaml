@@ -8,10 +8,8 @@
         mc:Ignorable="d"
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
-        Title="引导屏" SizeToContent="WidthAndHeight"
-        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views" FontFamily="DengXian" FontWeight="SemiBold"
-        ResizeMode="NoResize">
+        Title="引导屏" 
+        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views" FontFamily="DengXian" FontWeight="SemiBold">
     <Window.Resources>
         <converters1:DateTimeToStringConverter x:Key="DateTimeToWeekdayConverter" Format="dddd" />
         <converters1:DateTimeToStringConverter x:Key="DateTimeToDateConverter" Format="yyyy-MM-dd" />

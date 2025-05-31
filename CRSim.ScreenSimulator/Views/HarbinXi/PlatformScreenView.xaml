@@ -8,11 +8,8 @@
         mc:Ignorable="d"
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
-        FontFamily="黑体" FontWeight="Bold" FontSize="22"
-        Title="引导屏" SizeToContent="WidthAndHeight" Foreground="#fde163"
-        WindowStyle="None" AllowsTransparency="True" Background="Black"
-        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views"
-        ResizeMode="NoResize">
+        FontFamily="黑体" FontWeight="Bold" FontSize="22" Foreground="#fde163" Background="Black"
+        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views">
     <Window.Resources>
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
         <converters:LocationToStringConverter x:Key="LocationToStringConverter" DisplayMode="normal" />
@@ -39,18 +36,18 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding LeftScreen[0].TrainNumber}" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ScreenA[0].TrainNumber}" VerticalAlignment="Center" TextAlignment="Center"/>
             <TextBlock Grid.Row="0" Grid.Column="2" Text="次" Margin="4,0,0,0" VerticalAlignment="Center" TextAlignment="Center"/>
             <TextBlock Grid.Row="0" Grid.Column="4" Text="本站" Foreground="#de502b" VerticalAlignment="Center" TextAlignment="Center"/>
-            <TextBlock Grid.Row="0" Grid.Column="6" Text="{Binding LeftScreen[0].DepartureTime,Converter={StaticResource DateTimeToStringConverter}}" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="6" Text="{Binding ScreenA[0].DepartureTime,Converter={StaticResource DateTimeToStringConverter}}" VerticalAlignment="Center" TextAlignment="Center"/>
             <TextBlock Grid.Row="0" Grid.Column="7" Text="开" Margin="4,0,0,0" VerticalAlignment="Center" TextAlignment="Center"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding LeftScreen[0].Origin}" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ScreenA[0].Origin}" VerticalAlignment="Center" TextAlignment="Center"/>
             <TextBlock Grid.Row="1" Grid.Column="4" Text="开往" Foreground="#de502b" VerticalAlignment="Center" TextAlignment="Center"/>
-            <TextBlock Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding LeftScreen[0].Terminal}" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding ScreenA[0].Terminal}" VerticalAlignment="Center" TextAlignment="Center"/>
             <pp:RunningText Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="9" Speed="20">
                 <pp:RunningText.Text>
                     <MultiBinding Mode="OneWay" Converter="{StaticResource LocationToStringConverter}">
-                        <Binding Path="LeftScreen[0].Length" />
+                        <Binding Path="ScreenA[0].Length" />
                         <Binding Path="Location" />
                     </MultiBinding>
                 </pp:RunningText.Text>

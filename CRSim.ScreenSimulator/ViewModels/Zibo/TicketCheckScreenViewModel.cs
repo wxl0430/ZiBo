@@ -19,8 +19,8 @@ namespace CRSim.ScreenSimulator.ViewModels.Zibo
             Application.Current.Dispatcher.Invoke(() =>
             {
                 int pageCount = (int)Math.Ceiling((double)TrainInfo.Count / (ItemsPerPage * PageCount.Value));
-                LeftScreen.Clear();
-                RightScreen.Clear();
+                ScreenA.Clear();
+                ScreenB.Clear();
                 int startIndex = CurrentPageIndex * ItemsPerPage * PageCount.Value;
                 var ItemsToShow = TrainInfo.Skip(startIndex).Take(ItemsPerPage * PageCount.Value).ToList();
                 var leftItems = ItemsToShow.Where((item, index) => index % 2 == 0).ToList();
@@ -35,11 +35,11 @@ namespace CRSim.ScreenSimulator.ViewModels.Zibo
                 }
                 foreach (var item in leftItems)
                 {
-                    LeftScreen.Add(item);
+                    ScreenA.Add(item);
                 }
                 foreach (var item in rightItems)
                 {
-                    RightScreen.Add(item);
+                    ScreenB.Add(item);
                 }
                 CurrentPageIndex = CurrentPageIndex + 1 >=  Math.Min(_settings.MaxPages, pageCount) ? 0 : CurrentPageIndex + 1;
             });

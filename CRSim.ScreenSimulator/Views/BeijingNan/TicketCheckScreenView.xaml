@@ -7,11 +7,8 @@
         mc:Ignorable="d"
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
-        FontFamily="等线" FontSize="20" FontWeight="Bold"
-        Title="引导屏" SizeToContent="WidthAndHeight"
-        WindowStyle="None" AllowsTransparency="True" Background="#0036DF"
-        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views"
-        ResizeMode="NoResize">
+        FontFamily="等线" FontSize="20" FontWeight="Bold" Background="#0036DF"
+        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views">
     <views:BaseScreenView.Resources>
         <Style TargetType="DataGridColumnHeader">
             <!-- 去除列头的间距 -->
@@ -27,11 +24,7 @@
         <converters:NumberToStringConverter x:Key="NumberToStringConverter"/>
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
     </views:BaseScreenView.Resources>
-    <DataGrid ItemsSource="{Binding LeftScreen}" AutoGenerateColumns="False" BorderThickness="0"
-              CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
-              CanUserResizeRows="False" CanUserReorderColumns="False" ClipToBounds="False"
-              IsReadOnly="True" GridLinesVisibility="None" RowHeight="28" Foreground="White"
-              HeadersVisibility="Column" IsEnabled="False">
+    <views:BaseDataGrid ItemsSource="{Binding ScreenA}"  BorderThickness="0" RowHeight="28" Foreground="White">
         <DataGrid.Columns>
             <DataGridTextColumn Binding="{Binding TrainNumber}">
                 <DataGridTextColumn.HeaderTemplate>
@@ -41,6 +34,7 @@
                 </DataGridTextColumn.HeaderTemplate>
                 <DataGridTextColumn.ElementStyle>
                     <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="White"/>
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="TextAlignment" Value="Center"/>
                     </Style>
@@ -54,6 +48,7 @@
                 </DataGridTextColumn.HeaderTemplate>
                 <DataGridTextColumn.ElementStyle>
                     <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="White"/>
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="TextAlignment" Value="Center"/>
                     </Style>
@@ -67,6 +62,7 @@
                 </DataGridTextColumn.HeaderTemplate>
                 <DataGridTextColumn.ElementStyle>
                     <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="White"/>
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="TextAlignment" Value="Center"/>
                     </Style>
@@ -81,6 +77,7 @@
                 </DataGridTextColumn.HeaderTemplate>
                 <DataGridTextColumn.ElementStyle>
                     <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="White"/>
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="TextAlignment" Value="Center"/>
                     </Style>
@@ -123,6 +120,7 @@
                 </DataGridTextColumn.HeaderTemplate>
                 <DataGridTextColumn.ElementStyle>
                     <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="White"/>
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="TextAlignment" Value="Center"/>
                         <Setter Property="Visibility" Value="{Binding TrainNumber,Converter={StaticResource EmptyToVisibilityConverter}}"/>
@@ -135,5 +133,5 @@
                 <Setter Property="Background" Value="#0036DF"/>
             </Style>
         </DataGrid.RowStyle>
-    </DataGrid>
+    </views:BaseDataGrid>
 </views:BaseScreenView>

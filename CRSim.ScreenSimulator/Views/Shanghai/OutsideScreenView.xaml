@@ -7,11 +7,7 @@
         mc:Ignorable="d"
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
-        FontFamily="黑体"
-        Title="引导屏" SizeToContent="WidthAndHeight"
-        WindowStyle="None" AllowsTransparency="True" Background="Black"
-        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views"
-        ResizeMode="NoResize">
+        FontFamily="黑体" xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views">
     <Window.Resources>
         <Style TargetType="DataGridColumnHeader">
             <!-- 去除列头的间距 -->
@@ -25,11 +21,7 @@
         <converters:TrainStateConverter x:Key="TrainStateConverter" WaitingText="候    车" CheckInText="检    票" StopCheckInText="停    检"/>
         <converters:TrainStateColorConverter x:Key="TrainStateColorConverter" WaitingColor="LightYellow"/>
     </Window.Resources>
-    <DataGrid ItemsSource="{Binding LeftScreen}" AutoGenerateColumns="False"
-              CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
-              CanUserResizeRows="False" CanUserReorderColumns="False" ClipToBounds="False"
-              IsReadOnly="True" GridLinesVisibility="None" RowHeight="28" Foreground="LightYellow"
-              HeadersVisibility="Column" IsEnabled="False">
+    <views:BaseDataGrid ItemsSource="{Binding ScreenA}" RowHeight="28" Foreground="LightYellow">
         <DataGrid.Columns>
             <DataGridTextColumn Binding="{Binding TrainNumber}" MinWidth="55">
                 <DataGridTextColumn.HeaderTemplate>
@@ -181,5 +173,5 @@
                 <Setter Property="Background" Value="Black"/>
             </Style>
         </DataGrid.RowStyle>
-    </DataGrid>
+    </views:BaseDataGrid>
 </views:BaseScreenView>

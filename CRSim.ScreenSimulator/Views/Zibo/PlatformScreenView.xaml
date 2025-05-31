@@ -8,11 +8,8 @@
         mc:Ignorable="d"
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
-        FontFamily="黑体" FontSize="28" FontWeight="Bold"
-        Title="引导屏" SizeToContent="WidthAndHeight"
-        WindowStyle="None" AllowsTransparency="True" Background="Black"
-        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views"
-        ResizeMode="NoResize">
+        FontFamily="黑体" FontSize="28" FontWeight="Bold" Background="Black"
+        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views">
     <Window.Resources>
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
         <converters:LocationToStringConverter x:Key="LocationToStringConverter" DisplayMode="less" />
@@ -46,11 +43,11 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="{Binding LeftScreen[0].TrainNumber}" Foreground="#ffffff" Margin="15,0,0,0" FontSize="18" />
+                <TextBlock Grid.Column="0" Text="{Binding ScreenA[0].TrainNumber}" Foreground="#ffffff" Margin="15,0,0,0" FontSize="18" />
                 <TextBlock Grid.Column="1" Text="次" Foreground="#ffffff" FontSize="16" Margin="20,0,0,0"/>
-                <TextBlock Grid.Column="3" Text="{Binding LeftScreen[0].ArrivalTime,Converter={StaticResource DateTimeToStringConverter}}" Foreground="#ffffff" FontSize="18"/>
+                <TextBlock Grid.Column="3" Text="{Binding ScreenA[0].ArrivalTime,Converter={StaticResource DateTimeToStringConverter}}" Foreground="#ffffff" FontSize="18"/>
                 <TextBlock Grid.Column="4" Text="到" Foreground="#ffffff" FontSize="18" Margin="10,0"/>
-                <TextBlock Grid.Column="5" Text="{Binding LeftScreen[0].DepartureTime,Converter={StaticResource DateTimeToStringConverter}}" Foreground="#ffffff" FontSize="18"/>
+                <TextBlock Grid.Column="5" Text="{Binding ScreenA[0].DepartureTime,Converter={StaticResource DateTimeToStringConverter}}" Foreground="#ffffff" FontSize="18"/>
                 <TextBlock Grid.Column="6" Text="开" Foreground="#ffffff" FontSize="18" Margin="10,0"/>
             </Grid>
             <Grid Grid.Row="1" Margin="0,10,0,10">
@@ -66,9 +63,9 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="1" Text="{Binding LeftScreen[0].Origin}" Foreground="#ffffff" FontSize="20"/>
+                <TextBlock Grid.Column="1" Text="{Binding ScreenA[0].Origin}" Foreground="#ffffff" FontSize="20"/>
                 <TextBlock Grid.Column="3" Text=" — " Foreground="#ffffff" FontSize="20"/>
-                <TextBlock Grid.Column="5" Text="{Binding LeftScreen[0].Terminal}" Foreground="#ffffff" FontSize="20"/>
+                <TextBlock Grid.Column="5" Text="{Binding ScreenA[0].Terminal}" Foreground="#ffffff" FontSize="20"/>
                 <TextBlock Grid.Column="7" Text="{Binding ThisPlatform}" Foreground="#ffffff" FontSize="20"/>
                 <TextBlock Grid.Column="9" Text="台" Foreground="#ffffff" FontSize="20" Margin="0,0,10,0"/>
             </Grid>
@@ -89,7 +86,7 @@
                 <TextBlock Grid.Column="1" TextAlignment="Center" Foreground="White" FontSize="18" Padding="2" Margin="0,5,0,5">
                     <TextBlock.Text>
                         <MultiBinding Mode="OneWay" Converter="{StaticResource LocationToStringConverter}">
-                            <Binding Path="LeftScreen[0].Length" />
+                            <Binding Path="ScreenA[0].Length" />
                             <Binding Path="Location" />
                         </MultiBinding>
                     </TextBlock.Text>

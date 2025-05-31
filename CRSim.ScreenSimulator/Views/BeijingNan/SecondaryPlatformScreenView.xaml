@@ -9,10 +9,7 @@
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
         FontFamily="宋体" FontSize="25" FontWeight="Bold"
-        Title="引导屏" SizeToContent="WidthAndHeight"
-        WindowStyle="None" AllowsTransparency="True" Background="Black"
-        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views"
-        ResizeMode="NoResize">
+        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views">
     <views:BaseScreenView.Resources>
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
         <converters1:EmptyToVisibilityConverter x:Key="EmptyToVisibilityConverter" />
@@ -20,16 +17,16 @@
     </views:BaseScreenView.Resources>
     <StackPanel Orientation="Vertical" Background="Black" MinWidth="350" MinHeight="150">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,25,0,0">
-            <TextBlock FontFamily="黑体" Text="{Binding LeftScreen[0].TrainNumber}"/>
+            <TextBlock FontFamily="黑体" Text="{Binding ScreenA[0].TrainNumber}"/>
             <TextBlock FontFamily="黑体" Text="次" Margin="2,0,4,0"/>
-            <TextBlock FontFamily="黑体" Text="{Binding LeftScreen[0].DepartureTime,Converter={StaticResource DateTimeToStringConverter}}"/>
+            <TextBlock FontFamily="黑体" Text="{Binding ScreenA[0].DepartureTime,Converter={StaticResource DateTimeToStringConverter}}"/>
             <TextBlock FontFamily="黑体" Text="开" Margin="2,0,0,0"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,42,0,0">
             <TextBlock>
                 <TextBlock.Text>
                     <MultiBinding Mode="OneWay" Converter="{StaticResource LocationToStringConverter}">
-                        <Binding Path="LeftScreen[0].Length" />
+                        <Binding Path="ScreenA[0].Length" />
                         <Binding Path="Location" />
                         <Binding Source="left" />
                         <Binding Source="closed" />
@@ -42,7 +39,7 @@
             <TextBlock>
                 <TextBlock.Text>
                     <MultiBinding Mode="OneWay" Converter="{StaticResource LocationToStringConverter}">
-                        <Binding Path="LeftScreen[0].Length" />
+                        <Binding Path="ScreenA[0].Length" />
                         <Binding Path="Location" />
                         <Binding Source="right" />
                     </MultiBinding>

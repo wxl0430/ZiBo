@@ -24,8 +24,8 @@ namespace CRSim.ScreenSimulator.ViewModels
         private string _thisPlatform;
         [ObservableProperty]
         private string _thisTicketCheck;
-        public ObservableCollection<TrainInfo> LeftScreen { get; private set; } = [];
-        public ObservableCollection<TrainInfo> RightScreen { get; private set; } = [];
+        public ObservableCollection<TrainInfo> ScreenA { get; private set; } = [];
+        public ObservableCollection<TrainInfo> ScreenB { get; private set; } = [];
 
         public List<TrainInfo> TrainInfo { get; set; } = [];
 
@@ -148,13 +148,13 @@ namespace CRSim.ScreenSimulator.ViewModels
                 {
                     for (int i = 0; i < ItemsPerPage; i++)
                     {
-                        LeftScreen.Add(TrainInfo.Count > i ? TrainInfo[i] : new());
+                        ScreenA.Add(TrainInfo.Count > i ? TrainInfo[i] : new());
                     }
-                    if(LeftScreen.Count > ItemsPerPage)
+                    if(ScreenA.Count > ItemsPerPage)
                     {
                         for (int i = 0; i < ItemsPerPage; i++)
                         {
-                            LeftScreen.RemoveAt(0);
+                            ScreenA.RemoveAt(0);
                         }
                     }
                     return;
@@ -166,7 +166,7 @@ namespace CRSim.ScreenSimulator.ViewModels
                 {
                     case 1:
                         {
-                            LeftScreen.Clear();
+                            ScreenA.Clear();
                             var items = TrainInfo.Skip(startIndex).Take(ItemsPerPage).ToList();
                             while (items.Count < ItemsPerPage)
                             {
@@ -174,14 +174,14 @@ namespace CRSim.ScreenSimulator.ViewModels
                             }
                             foreach (var item in items)
                             {
-                                LeftScreen.Add(item);
+                                ScreenA.Add(item);
                             }
                             break;
                         }
                     case 2:
                         {
-                            LeftScreen.Clear();
-                            RightScreen.Clear();
+                            ScreenA.Clear();
+                            ScreenB.Clear();
 
                             var leftItems = TrainInfo.Skip(startIndex).Take(ItemsPerPage).ToList();
                             while (leftItems.Count < ItemsPerPage)
@@ -190,7 +190,7 @@ namespace CRSim.ScreenSimulator.ViewModels
                             }
                             foreach (var item in leftItems)
                             {
-                                LeftScreen.Add(item);
+                                ScreenA.Add(item);
                             }
 
                             var rightItems = TrainInfo.Skip(startIndex + ItemsPerPage).Take(ItemsPerPage).ToList();
@@ -200,7 +200,7 @@ namespace CRSim.ScreenSimulator.ViewModels
                             }
                             foreach (var item in rightItems)
                             {
-                                RightScreen.Add(item);
+                                ScreenB.Add(item);
                             }
                             break;
                         }

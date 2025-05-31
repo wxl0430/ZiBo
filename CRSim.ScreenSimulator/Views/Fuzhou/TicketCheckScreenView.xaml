@@ -8,10 +8,10 @@
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
         FontFamily="黑体" FontSize="20" FontWeight="Bold"
-        Title="引导屏" SizeToContent="WidthAndHeight"
-        WindowStyle="None" AllowsTransparency="True" Background="Black"
+         
+          Background="Black"
         xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views"
-        ResizeMode="NoResize">
+        >
     <Window.Resources>
         <Style TargetType="DataGridColumnHeader">
             <!-- 去除列头的间距 -->
@@ -45,11 +45,7 @@
             </Grid>
         </StackPanel>
         <StackPanel Orientation="Vertical">
-            <DataGrid ItemsSource="{Binding LeftScreen}" AutoGenerateColumns="False" BorderThickness="0.1"
-              CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
-              CanUserResizeRows="False" CanUserReorderColumns="False" ClipToBounds="False"
-              IsReadOnly="True" GridLinesVisibility="None" RowHeight="28" Foreground="White"
-              HeadersVisibility="Column" IsEnabled="False">
+            <views:BaseDataGrid ItemsSource="{Binding ScreenA}"  BorderThickness="0.1" RowHeight="28" Foreground="White">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding TrainNumber}">
                         <DataGridTextColumn.HeaderTemplate>
@@ -219,7 +215,7 @@
                         <Setter Property="Background" Value="Black"/>
                     </Style>
                 </DataGrid.RowStyle>
-            </DataGrid>
+            </views:BaseDataGrid>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>

@@ -9,14 +9,10 @@
         mc:Ignorable="d"
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
-        FontFamily="等线" FontSize="25" FontWeight="Bold"
-        Title="引导屏" SizeToContent="WidthAndHeight"
-        WindowStyle="None" AllowsTransparency="True" Background="#0006ff"
-        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views"
-        ResizeMode="NoResize">
+        FontFamily="等线" FontSize="25" FontWeight="Bold" Background="#0006ff"
+        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views">
     <Window.Resources>
         <Style TargetType="DataGridColumnHeader">
-            <!-- 去除列头的间距 -->
             <Setter Property="Padding" Value="0"/>
             <Setter Property="Margin" Value="0"/>
             <Setter Property="BorderBrush" Value="#0006ff"/>
@@ -45,12 +41,8 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Orientation="Vertical">
-            <DataGrid ItemsSource="{Binding LeftScreen}" AutoGenerateColumns="False" BorderThickness="0"
-                CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
-                CanUserResizeRows="False" CanUserReorderColumns="False" ClipToBounds="False"
-                IsReadOnly="True" GridLinesVisibility="None" RowHeight="34" Foreground="White"
-                HeadersVisibility="Column" IsEnabled="False" Margin="0,4">
-                <DataGrid.Columns>
+            <views:BaseDataGrid ItemsSource="{Binding ScreenA}" RowHeight="34" Foreground="White" Margin="0,4">
+                <views:BaseDataGrid.Columns>
                     <DataGridTextColumn>
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
@@ -59,6 +51,7 @@
                         </DataGridTextColumn.HeaderTemplate>
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="White"/>
                                 <Setter Property="VerticalAlignment" Value="Center"/>
                                 <Setter Property="TextAlignment" Value="Center"/>
                                 <Setter Property="Visibility" Value="{Binding TrainNumber,Converter={StaticResource EmptyToVisibilityConverter}}"/>
@@ -80,6 +73,7 @@
                         </DataGridTextColumn.HeaderTemplate>
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="White"/>
                                 <Setter Property="VerticalAlignment" Value="Center"/>
                                 <Setter Property="TextAlignment" Value="Center"/>
                             </Style>
@@ -93,6 +87,7 @@
                         </DataGridTextColumn.HeaderTemplate>
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="White"/>
                                 <Setter Property="VerticalAlignment" Value="Center"/>
                                 <Setter Property="TextAlignment" Value="Center"/>
                             </Style>
@@ -106,6 +101,7 @@
                         </DataGridTextColumn.HeaderTemplate>
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="White"/>
                                 <Setter Property="VerticalAlignment" Value="Center"/>
                                 <Setter Property="TextAlignment" Value="Center"/>
                             </Style>
@@ -119,6 +115,7 @@
                         </DataGridTextColumn.HeaderTemplate>
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="White"/>
                                 <Setter Property="VerticalAlignment" Value="Center"/>
                                 <Setter Property="TextAlignment" Value="Center"/>
                             </Style>
@@ -132,6 +129,7 @@
                         </DataGridTextColumn.HeaderTemplate>
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="White"/>
                                 <Setter Property="VerticalAlignment" Value="Center"/>
                                 <Setter Property="TextAlignment" Value="Center"/>
                                 <Setter Property="Visibility" Value="{Binding TrainNumber,Converter={StaticResource EmptyToVisibilityConverter}}"/>
@@ -145,13 +143,13 @@
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
-                </DataGrid.Columns>
-                <DataGrid.RowStyle>
+                </views:BaseDataGrid.Columns>
+                <views:BaseDataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
                         <Setter Property="Background" Value="#0009ff"/>
                     </Style>
-                </DataGrid.RowStyle>
-            </DataGrid>
+                </views:BaseDataGrid.RowStyle>
+            </views:BaseDataGrid>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Background="#000000" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <TextBlock Text="{Binding ThisPlatform}" FontSize="60" VerticalAlignment="Center" FontFamily="黑体" Foreground="#ffffff" FontWeight="Normal" Margin="20,0,0,0">

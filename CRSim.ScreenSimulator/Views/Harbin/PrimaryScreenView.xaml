@@ -7,9 +7,7 @@
         mc:Ignorable="d"
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
-        Title="引导屏" SizeToContent="WidthAndHeight"
-        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views" ResizeMode="NoResize"
+        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views" 
         FontFamily="黑体" FontSize="20">
     <Window.Resources>
         <converters1:ListToStringConverter x:Key="ListToStringConverter" Separator=" - " />
@@ -25,6 +23,7 @@
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <Style x:Key="CommonTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#76C1FF"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="TextAlignment" Value="Center"/>
@@ -59,12 +58,7 @@
     </Window.Resources>
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal">
-            <DataGrid ItemsSource="{Binding LeftScreen, Mode=OneWay}" AutoGenerateColumns="False"
-              CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
-              CanUserResizeRows="False" CanUserReorderColumns="False"
-              IsReadOnly="True" GridLinesVisibility="None" RowHeight="28"
-              RowStyle="{StaticResource CommonRowStyle}"
-              AlternationCount="2" HeadersVisibility="Column" IsEnabled="False">
+            <views:BaseDataGrid ItemsSource="{Binding ScreenA}" RowHeight="28" RowStyle="{StaticResource CommonRowStyle}" AlternationCount="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding TrainNumber}" MinWidth="60">
                         <DataGridTextColumn.HeaderTemplate>
@@ -97,7 +91,7 @@
                     <DataGridTextColumn>
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical" Width="50">
+                                <StackPanel Orientation="Vertical" Width="53">
                                     <TextBlock Style="{StaticResource CommonHeaderStyle}" FontSize="24" Padding="0,2,0,0"/>
                                     <TextBlock Style="{StaticResource CommonHeaderStyle}" FontSize="17" Padding="0,3"/>
                                 </StackPanel>
@@ -184,13 +178,8 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
                 </DataGrid.Columns>
-            </DataGrid>
-            <DataGrid ItemsSource="{Binding RightScreen, Mode=OneWay}" AutoGenerateColumns="False"
-              CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
-              CanUserResizeRows="False" CanUserReorderColumns="False"
-              IsReadOnly="True" GridLinesVisibility="None" RowHeight="28"
-              RowStyle="{StaticResource CommonRowStyle}"
-              AlternationCount="2" HeadersVisibility="Column" IsEnabled="False">
+            </views:BaseDataGrid>
+            <views:BaseDataGrid ItemsSource="{Binding ScreenB}" RowHeight="28" RowStyle="{StaticResource CommonRowStyle}" AlternationCount="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding TrainNumber}" MinWidth="60">
                         <DataGridTextColumn.HeaderTemplate>
@@ -223,7 +212,7 @@
                     <DataGridTextColumn>
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical" Width="50">
+                                <StackPanel Orientation="Vertical" Width="53">
                                     <TextBlock Style="{StaticResource CommonHeaderStyle}" FontSize="24" Padding="0,2,0,0"/>
                                     <TextBlock Style="{StaticResource CommonHeaderStyle}" FontSize="17" Padding="0,3"/>
                                 </StackPanel>
@@ -310,7 +299,7 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
                 </DataGrid.Columns>
-            </DataGrid>
+            </views:BaseDataGrid>
         </StackPanel>
 
         <Grid Background="Black" HorizontalAlignment="Stretch">

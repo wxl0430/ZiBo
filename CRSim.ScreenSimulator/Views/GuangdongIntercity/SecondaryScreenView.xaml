@@ -7,9 +7,7 @@
         mc:Ignorable="d"
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
-        Title="引导屏" SizeToContent="WidthAndHeight"
-        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views" ResizeMode="NoResize"
+        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views" 
         FontFamily="黑体" FontSize="18">
     <Window.Resources>
 
@@ -27,6 +25,7 @@
             <Setter Property="BorderThickness" Value="0,0,0,0"/>
         </Style>
         <Style x:Key="CommonTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="TextAlignment" Value="Center"/>
@@ -94,14 +93,7 @@
             </Grid>
         </Grid>
 
-        <DataGrid ItemsSource="{Binding LeftScreen, Mode=OneWay}" AutoGenerateColumns="False"
-              CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
-              CanUserResizeRows="False" CanUserReorderColumns="False"
-              IsReadOnly="True" GridLinesVisibility="None" RowHeight="35"
-              ColumnHeaderHeight="35"
-              RowStyle="{StaticResource CommonRowStyle}"
-              AlternationCount="2" HeadersVisibility="Column" IsEnabled="False">
-            
+        <views:BaseDataGrid ItemsSource="{Binding ScreenA}" RowHeight="35" ColumnHeaderHeight="35" RowStyle="{StaticResource CommonRowStyle}" AlternationCount="2"  >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding TrainNumber}" MinWidth="100">
                     <DataGridTextColumn.HeaderTemplate>
@@ -212,7 +204,7 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
-        </DataGrid>
+        </views:BaseDataGrid>
 
     </StackPanel>
 </views:BaseScreenView>
