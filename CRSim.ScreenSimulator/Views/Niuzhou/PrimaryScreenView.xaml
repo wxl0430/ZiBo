@@ -7,9 +7,7 @@
         mc:Ignorable="d"
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
-        Title="引导屏" SizeToContent="WidthAndHeight" FontWeight="Bold"
-        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views" ResizeMode="NoResize"
+        FontWeight="Bold" xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views" 
         FontFamily="宋体" FontSize="20">
     <Window.Resources>
         <converters1:ListToStringConverter x:Key="ListToStringConverter" Separator=", " />
@@ -25,6 +23,7 @@
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <Style x:Key="CommonTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#E2E3C3"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="TextAlignment" Value="Center"/>
@@ -50,11 +49,7 @@
         </Style>
     </Window.Resources>
     <StackPanel Orientation="Vertical">
-        <DataGrid ItemsSource="{Binding LeftScreen, Mode=OneWay}" AutoGenerateColumns="False"
-              CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
-              CanUserResizeRows="False" CanUserReorderColumns="False" 
-              IsReadOnly="True" GridLinesVisibility="None" RowHeight="36" RowStyle="{StaticResource CommonRowStyle}"
-              HeadersVisibility="Column" IsEnabled="False">
+        <views:BaseDataGrid ItemsSource="{Binding ScreenA}" RowHeight="36" RowStyle="{StaticResource CommonRowStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding TrainNumber}" MinWidth="130">
                     <DataGridTextColumn.HeaderTemplate>
@@ -138,7 +133,7 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
-        </DataGrid>
+        </views:BaseDataGrid>
 
         <Grid Background="Black" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>

@@ -10,10 +10,8 @@
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
         FontFamily="等线" FontSize="25" FontWeight="Bold"
-        Title="引导屏" SizeToContent="WidthAndHeight"
-        WindowStyle="None" AllowsTransparency="True" Background="#201921" Foreground="#fdfce5"
-        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views"
-        ResizeMode="NoResize">
+        Background="#201921" Foreground="#fdfce5"
+        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views">
     <Window.Resources>
         <Style TargetType="DataGridColumnHeader">
             <!-- 去除列头的间距 -->
@@ -39,11 +37,7 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Orientation="Vertical">
-            <DataGrid ItemsSource="{Binding LeftScreen}" AutoGenerateColumns="False" BorderThickness="0"
-                CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
-                CanUserResizeRows="False" CanUserReorderColumns="False" ClipToBounds="False"
-                IsReadOnly="True" GridLinesVisibility="None" RowHeight="34" Foreground="White"
-                HeadersVisibility="Column" IsEnabled="False">
+            <views:BaseDataGrid ItemsSource="{Binding ScreenA}"  BorderThickness="0" RowHeight="34" Foreground="White">
                 <DataGrid.Columns>
                     <DataGridTextColumn>
                         <DataGridTextColumn.HeaderTemplate>
@@ -164,7 +158,7 @@
                         <Setter Property="Foreground" Value="#eedd82"/>
                     </Style>
                 </DataGrid.CellStyle>
-            </DataGrid>
+            </views:BaseDataGrid>
         </StackPanel>
         <StackPanel Background="#2556ff" Orientation="Horizontal">
             <TextBlock Text="{Binding ThisPlatform}" FontSize="82" VerticalAlignment="Center" Foreground="#ffffff" Margin="6,0,0,0"/>

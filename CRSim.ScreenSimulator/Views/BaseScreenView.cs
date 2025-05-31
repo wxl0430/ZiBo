@@ -2,11 +2,9 @@
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CRSim.ScreenSimulator.Views
 {
@@ -15,10 +13,16 @@ namespace CRSim.ScreenSimulator.Views
         public Guid SessionID;
         protected BaseScreenView()
         {
+            Title = "引导屏";
+            Background = Brushes.Transparent;
             RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);
             MouseDown += Window_MouseDown;
             KeyDown += Window_KeyDown;
             Unloaded += Window_Unloaded;
+            SizeToContent = SizeToContent.WidthAndHeight;
+            ResizeMode = ResizeMode.NoResize;
+            WindowStyle = WindowStyle.None;
+            AllowsTransparency = true;
         }
 
         private async void Window_Unloaded(object sender, RoutedEventArgs e)

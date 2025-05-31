@@ -8,10 +8,7 @@
         mc:Ignorable="d"
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
-        Title="引导屏" SizeToContent="WidthAndHeight"
-        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views" FontFamily="宋体" FontSize="28"
-        ResizeMode="NoResize">
+        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views" FontFamily="宋体" FontSize="28">
     <views:BaseScreenView.Resources>
         <converters1:DateTimeToStringConverter x:Key="DateTimeToTimeConverter" Format="HH:mm" />
     </views:BaseScreenView.Resources>

@@ -8,8 +8,6 @@
         xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views"
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
-        Title="引导屏" SizeToContent="WidthAndHeight"
-        WindowStyle="None" AllowsTransparency="True" Background="Transparent" ResizeMode="NoResize"
         FontFamily="微软雅黑" FontSize="20">
     <views:BaseScreenView.Resources>
         <converters1:ListToStringConverter x:Key="ListToStringConverter" Separator=" - " />
@@ -25,6 +23,7 @@
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <Style x:Key="CommonTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="TextAlignment" Value="Center"/>
@@ -58,12 +57,12 @@
         </Style>
     </views:BaseScreenView.Resources>
     <StackPanel Orientation="Vertical">
-        <DataGrid ItemsSource="{Binding LeftScreen, Mode=OneWay}" AutoGenerateColumns="False"
-              CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
-              CanUserResizeRows="False" CanUserReorderColumns="False"
-              IsReadOnly="True" GridLinesVisibility="None" RowHeight="30"
+        <views:BaseDataGrid ItemsSource="{Binding ScreenA, Mode=OneWay}" 
+              
+               
+                RowHeight="30"
               RowStyle="{StaticResource CommonRowStyle}"
-              AlternationCount="2" HeadersVisibility="Column" IsEnabled="False">
+              AlternationCount="2"  >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding TrainNumber}" MinWidth="145">
                     <DataGridTextColumn.HeaderTemplate>
@@ -151,7 +150,7 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
-        </DataGrid>
+        </views:BaseDataGrid>
 
         <Grid Background="#012B67" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>

@@ -8,10 +8,7 @@
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
         FontFamily="Microsoft YaHei" FontWeight="Bold"
-        Title="引导屏" SizeToContent="WidthAndHeight"
-        WindowStyle="None" AllowsTransparency="True" Background="Black"
-        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views"
-        ResizeMode="NoResize">
+        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views">
     <Window.Resources>
         <Style TargetType="DataGridColumnHeader">
             <!-- 去除列头的间距 -->
@@ -27,11 +24,7 @@
         <converters:TrainStateConverter x:Key="TrainStateConverter" WaitingText="正点"/>
     </Window.Resources>
     <StackPanel Orientation="Horizontal">
-        <DataGrid ItemsSource="{Binding LeftScreen}" AutoGenerateColumns="False"
-              CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
-              CanUserResizeRows="False" CanUserReorderColumns="False"
-              IsReadOnly="True" GridLinesVisibility="None" RowHeight="28" Foreground="#D75B41"
-              HeadersVisibility="Column" IsEnabled="False">
+        <views:BaseDataGrid ItemsSource="{Binding ScreenA}" RowHeight="28" Foreground="#D75B41">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding TrainNumber}" MinWidth="55">
                     <DataGridTextColumn.HeaderTemplate>
@@ -125,7 +118,7 @@
                     <Setter Property="Background" Value="Black"/>
                 </Style>
             </DataGrid.RowStyle>
-        </DataGrid>
+        </views:BaseDataGrid>
         <Grid Width="350" Background="Black">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

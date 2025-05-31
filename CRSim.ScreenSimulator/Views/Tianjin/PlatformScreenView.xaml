@@ -7,11 +7,8 @@
         mc:Ignorable="d"
         xmlns:converters="clr-namespace:CRSim.ScreenSimulator.Converters"
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared"
-        FontFamily="黑体" FontSize="28"
-        Title="引导屏" SizeToContent="WidthAndHeight"
-        WindowStyle="None" AllowsTransparency="True" Background="Black"
-        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views"
-        ResizeMode="NoResize">
+        FontFamily="黑体" FontSize="28" Background="Black"
+        xmlns:views="clr-namespace:CRSim.ScreenSimulator.Views">
     <Window.Resources>
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
         <converters:LocationToStringConverter x:Key="LocationToStringConverter" />
@@ -42,7 +39,7 @@
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="0" CornerRadius="4,0,0,4" Background="#830DFF">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding LeftScreen[0].TrainNumber}" Foreground="White" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                        <TextBlock Text="{Binding ScreenA[0].TrainNumber}" Foreground="White" VerticalAlignment="Center" Margin="8,0,0,0"/>
                         <TextBlock Text="次" Foreground="White" VerticalAlignment="Center" Margin="20,0"/>
                     </StackPanel>
                 </Border>
@@ -50,7 +47,7 @@
                 <Border Grid.Column="2" CornerRadius="0,4,4,0" Background="Yellow" x:Name="Panel">
                     <StackPanel Orientation="Horizontal">
                         <Image Grid.Column="0" Source="pack://application:,,,/CRSim.ScreenSimulator;component/Assets/Tianjin/Image.png" Height="{Binding ActualHeight,ElementName=Panel}"/>
-                        <TextBlock Grid.Column="1" Text="{Binding LeftScreen[0].DepartureTime,Converter={StaticResource DateTimeToStringConverter}}" Foreground="Black" VerticalAlignment="Center" Padding="12,0,64,0"/>
+                        <TextBlock Grid.Column="1" Text="{Binding ScreenA[0].DepartureTime,Converter={StaticResource DateTimeToStringConverter}}" Foreground="Black" VerticalAlignment="Center" Padding="12,0,64,0"/>
                     </StackPanel>
                 </Border>
             </Grid>
@@ -60,7 +57,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" TextAlignment="Center" Text="{Binding LeftScreen[0].Origin}" FontSize="32" Foreground="White" FontWeight="Bold"/>
+                <TextBlock Grid.Column="0" TextAlignment="Center" Text="{Binding ScreenA[0].Origin}" FontSize="32" Foreground="White" FontWeight="Bold"/>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -77,13 +74,13 @@
                         <Polygon Grid.Column="1" Points="0,0 0,8 8.66,4" Fill="White" Margin="0"/>
                     </Grid>
                 </Grid>
-                <TextBlock Grid.Column="2" TextAlignment="Center" Text="{Binding LeftScreen[0].Terminal}" FontSize="32" Foreground="White" FontWeight="Bold"/>
+                <TextBlock Grid.Column="2" TextAlignment="Center" Text="{Binding ScreenA[0].Terminal}" FontSize="32" Foreground="White" FontWeight="Bold"/>
             </Grid>
             <Border Grid.Row="3" CornerRadius="8" Background="#830DFF">
                 <TextBlock TextAlignment="Center" Foreground="White" FontSize="20" Padding="2">
                     <TextBlock.Text>
                         <MultiBinding Mode="OneWay" Converter="{StaticResource LocationToStringConverter}">
-                            <Binding Path="LeftScreen[0].Length" />
+                            <Binding Path="ScreenA[0].Length" />
                             <Binding Path="Location" />
                         </MultiBinding>
                     </TextBlock.Text>
