@@ -366,5 +366,17 @@
       "Platform",
       "Location"
     ]
+  },
+  {
+    "UniqueId": "ShenyangBei.PlatformScreen",
+    "Title": "沈阳北站站台看板",
+    "Region": "沈阳",
+    "Author": "电排骨",
+    "Type": "站台屏",
+    "Parameters": [
+      "Station",
+      "Platform",
+      "Location"
+    ]
   }
 ]

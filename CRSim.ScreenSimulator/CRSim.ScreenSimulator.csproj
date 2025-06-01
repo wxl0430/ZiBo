@@ -13,6 +13,7 @@
     <None Remove="Assets\ChengduDong\PillarTicketCheckScreen.png" />
     <None Remove="Assets\ChengduDong\TicketCheck.png" />
     <None Remove="Assets\Niuzhou\PrimaryScreen.png" />
+    <None Remove="Assets\ShenyangBei\PlatformScreen.png" />
     <None Remove="Assets\TianjinMetro\PlatformScreen.png" />
     <None Remove="Assets\TianjinMetro\TianjinMetro-Icon.png" />
   </ItemGroup>
@@ -122,6 +123,7 @@
     <Resource Include="Assets\Mianyang\PlatformScreen.png" />
     <Resource Include="Assets\Niuzhou\PrimaryScreen.png" />
     <Resource Include="Assets\Shanghai\OutsideScreen.png" />
+    <Resource Include="Assets\ShenyangBei\PlatformScreen.png" />
     <Resource Include="Assets\TianjinMetro\PlatformScreen.png" />
     <Resource Include="Assets\TianjinMetro\TianjinMetro-Icon.png" />
     <Resource Include="Assets\Tianjin\image.png" />
