@@ -15,7 +15,7 @@ namespace CRSim.Shared.Converters
                 var CultureInfo = new CultureInfo(Culture);
                 return dateTime.ToString(Format,CultureInfo);
             }
-            return string.Empty;
+            return "--:--";
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
