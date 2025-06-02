@@ -378,5 +378,15 @@
       "Platform",
       "Location"
     ]
+  },
+  {
+    "UniqueId": "DezhouDong.PrimaryScreen",
+    "Title": "德州东站主要看板",
+    "Region": "德州",
+    "Author": "wxl0430",
+    "Type": "车站大屏",
+    "Parameters": [
+      "Station"
+    ]
   }
 ]
