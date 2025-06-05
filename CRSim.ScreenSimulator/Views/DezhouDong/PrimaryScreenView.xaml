@@ -10,10 +10,9 @@
         xmlns:converters1="clr-namespace:CRSim.Shared.Converters;assembly=CRSim.Shared">
     <views:BaseScreenView.Resources>
         <converters1:ListToStringConverter x:Key="ListToStringConverter" Separator="" />
+        <converters1:EmptyToVisibilityConverter x:Key="EmptyToVisibilityConverter" />
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
-        <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter1" Format="HH:mm:ss" />
-        <converters1:DateTimeToStringConverter x:Key="DateTimeToStringWeekdayConverter" Format="dddd" />
-        <converters1:DateTimeToStringConverter x:Key="DateTimeToStringDateConverter" Format="yyyy年MM月dd日" />
+        <converters1:DateTimeToStringConverter x:Key="DateTimeToStringDateConverter" Format="yyyy年MM月dd日 dddd HH:mm:ss" />
         <converters:TrainStateConverter x:Key="TrainStateConverter" WaitingText="正在候车"/>
         <converters:TrainStateColorConverter x:Key="TrainStateColorConverter" WaitingColor="#b4d0fd"/>
         <converters:LandmarkToStringConverter x:Key="LandmarkToStringConverter"/>
@@ -58,7 +57,7 @@
         </Style>
     </views:BaseScreenView.Resources>
     <StackPanel Orientation="Vertical">
-        <views:BaseDataGrid ItemsSource="{Binding ScreenA, Mode=OneWay}" FontFamily="DengXian"
+        <views:BaseDataGrid ItemsSource="{Binding ScreenA}" FontFamily="DengXian"
                             RowHeight="28" RowStyle="{StaticResource CommonRowStyle}" FontWeight="SemiBold" AlternationCount="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding TrainNumber}" MinWidth="70">
@@ -96,7 +95,9 @@
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource CommonTextBlockStyle}"/>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource CommonTextBlockStyle}">
+                            <Setter Property="Visibility" Value="{Binding TrainNumber,Converter={StaticResource EmptyToVisibilityConverter}}"/>
+                        </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 
@@ -135,7 +136,9 @@
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource CommonTextBlockStyle}"/>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource CommonTextBlockStyle}">
+                            <Setter Property="Visibility" Value="{Binding TrainNumber,Converter={StaticResource EmptyToVisibilityConverter}}"/>
+                        </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
 
@@ -148,7 +151,9 @@
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource CommonTextBlockStyle}"/>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource CommonTextBlockStyle}">
+                            <Setter Property="Visibility" Value="{Binding TrainNumber,Converter={StaticResource EmptyToVisibilityConverter}}"/>
+                        </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 
@@ -183,12 +188,9 @@
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </views:BaseDataGrid>
-        <Grid Background="#3f3c43" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="30">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,10,0">
-                <TextBlock Text="{Binding CurrentTime,Converter={StaticResource DateTimeToStringDateConverter}}" Foreground="#b0aab5" Margin="5,0,5,0" FontWeight="Bold" FontSize="16"/>
-                <TextBlock Text="{Binding CurrentTime,Converter={StaticResource DateTimeToStringWeekdayConverter}}" Foreground="#b0aab5" Margin="5,0,5,0" FontWeight="Bold" FontSize="16"/>
-                <TextBlock Text="{Binding CurrentTime,Converter={StaticResource DateTimeToStringConverter1}}" Foreground="#b0aab5" Margin="5,0,5,0" FontWeight="Bold" FontSize="16"/>
-            </StackPanel>
-        </Grid>
+        <Border Background="#3f3c43" Height="30">
+            <TextBlock Text="{Binding CurrentTime,Converter={StaticResource DateTimeToStringDateConverter}}"
+                   Foreground="#b0aab5" FontWeight="Bold" FontSize="16" VerticalAlignment="Center" TextAlignment="Center"/>
+        </Border>
     </StackPanel>
 </views:BaseScreenView>
