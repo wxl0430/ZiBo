@@ -26,7 +26,7 @@
             <DataGridTextColumn Binding="{Binding TrainNumber}" MinWidth="55">
                 <DataGridTextColumn.HeaderTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
+                        <StackPanel Orientation="Vertical" Width="{Binding RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}, Path=ActualWidth}">
                             <TextBlock Text="车次" HorizontalAlignment="Stretch" TextAlignment="Left" Background="Black" FontSize="20"/>
                             <TextBlock Text="Train No" HorizontalAlignment="Stretch" TextAlignment="Left" Background="Black" FontSize="10"/>
                         </StackPanel>
@@ -52,7 +52,7 @@
             <DataGridTextColumn Binding="{Binding DepartureTime, Converter={StaticResource DateTimeToStringConverter}}" MinWidth="70">
                 <DataGridTextColumn.HeaderTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
+                        <StackPanel Orientation="Vertical" Width="{Binding RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}, Path=ActualWidth}">
                             <TextBlock Text="开点" HorizontalAlignment="Stretch" TextAlignment="Center" Background="Black" FontSize="20"/>
                             <TextBlock Text="Departure Time" HorizontalAlignment="Stretch" TextAlignment="Center" Background="Black" FontSize="10"/>
                         </StackPanel>
@@ -85,7 +85,7 @@
             <DataGridTextColumn Binding="{Binding Terminal}" Width="100">
                 <DataGridTextColumn.HeaderTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
+                        <StackPanel Orientation="Vertical" Width="{Binding RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}, Path=ActualWidth}">
                             <TextBlock Text="终到站" HorizontalAlignment="Stretch" TextAlignment="Left" Background="Black" FontSize="20"/>
                             <TextBlock Text="  Terminal" HorizontalAlignment="Stretch" TextAlignment="Left" Background="Black" FontSize="10"/>
                         </StackPanel>
@@ -111,7 +111,7 @@
             <DataGridTextColumn Binding="{Binding WaitingArea}" MinWidth="65">
                 <DataGridTextColumn.HeaderTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
+                        <StackPanel Orientation="Vertical" Width="{Binding RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}, Path=ActualWidth}">
                             <TextBlock Text="候车厅" HorizontalAlignment="Stretch" TextAlignment="Center" Background="Black" FontSize="20"/>
                             <TextBlock Text="Waiting Room" HorizontalAlignment="Stretch" TextAlignment="Center" Background="Black" FontSize="10"/>
                         </StackPanel>
@@ -144,7 +144,7 @@
                 </DataGridTextColumn.Binding>
                 <DataGridTextColumn.HeaderTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Vertical" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
+                        <StackPanel Orientation="Vertical" Width="{Binding RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}, Path=ActualWidth}">
                             <TextBlock Text="当前状态" HorizontalAlignment="Stretch" TextAlignment="Center" Background="Black" FontSize="20"/>
                             <TextBlock Text="Status" HorizontalAlignment="Stretch" TextAlignment="Center" Background="Black" FontSize="10"/>
                         </StackPanel>

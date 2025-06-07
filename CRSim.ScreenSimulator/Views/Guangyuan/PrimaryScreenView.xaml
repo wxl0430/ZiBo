@@ -18,6 +18,7 @@
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <converters1:ListToStringConverter x:Key="ListToStringConverter" Separator="" />
+        <converters1:EmptyToVisibilityConverter x:Key="EmptyToVisibilityConverter" />
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringTimeConverter" Format="HH:mm:ss" />
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringDateConverter" Format="yyyy/MM/dd" />
@@ -29,7 +30,7 @@
                 <DataGridTextColumn Binding="{Binding TrainNumber}" MinWidth="55">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"
+                            <TextBlock Width="{Binding RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}, Path=ActualWidth}"
                                        Text="车次" HorizontalAlignment="Stretch" Padding="3" 
                                        TextAlignment="Center" FontSize="20" Background="Black"/>
                         </DataTemplate>
@@ -39,7 +40,7 @@
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <TextBlock Text="始发站" HorizontalAlignment="Stretch" Padding="3" 
-                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"
+                                       Width="{Binding RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}, Path=ActualWidth}"
                                        TextAlignment="Center" FontSize="20" Background="Black"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
@@ -48,7 +49,7 @@
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <TextBlock Text="终到站" HorizontalAlignment="Stretch" Padding="3" 
-                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"
+                                       Width="{Binding RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}, Path=ActualWidth}"
                                        TextAlignment="Center" FontSize="20" Background="Black"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
@@ -57,16 +58,21 @@
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <TextBlock Text="开点" HorizontalAlignment="Stretch" Padding="3"
-                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"
+                                       Width="{Binding RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}, Path=ActualWidth}"
                                        TextAlignment="Center" FontSize="20" Background="Black"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="{Binding TrainNumber,Converter={StaticResource EmptyToVisibilityConverter}}"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding WaitingArea}" MinWidth="80">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <TextBlock Text="候车区" HorizontalAlignment="Stretch" Padding="3" 
-                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"
+                                       Width="{Binding RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}, Path=ActualWidth}"
                                        TextAlignment="Center" FontSize="20" Background="Black"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
@@ -75,7 +81,7 @@
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <TextBlock Text="检票口" HorizontalAlignment="Stretch" Padding="3" 
-                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"
+                                       Width="{Binding RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}, Path=ActualWidth}"
                                        TextAlignment="Center" FontSize="20" Background="Black"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
@@ -84,7 +90,7 @@
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <TextBlock Text="站台" HorizontalAlignment="Stretch" Padding="3"
-                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"
+                                       Width="{Binding RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}, Path=ActualWidth}"
                                        TextAlignment="Center" FontSize="20" Background="Black"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
@@ -100,7 +106,7 @@
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <TextBlock Text="状态" HorizontalAlignment="Stretch" Padding="3" 
-                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"
+                                       Width="{Binding RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}, Path=ActualWidth}"
                                        TextAlignment="Center" FontSize="20" Background="Black"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>

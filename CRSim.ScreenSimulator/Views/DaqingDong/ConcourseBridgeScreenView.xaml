@@ -73,10 +73,10 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Origin}">
+                    <DataGridTextColumn Binding="{Binding Origin}" MinWidth="140">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="始发站" Padding="2" HorizontalAlignment="Stretch" TextAlignment="Center" Background="#201921" Foreground="#ff1111" Width="140"/>
+                                <TextBlock Text="始发站" Padding="2" HorizontalAlignment="Stretch" TextAlignment="Center" Background="#201921" Foreground="#ff1111" Width="{Binding RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}, Path=ActualWidth}"/>
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
                         <DataGridTextColumn.ElementStyle>
@@ -86,10 +86,10 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Terminal}">
+                    <DataGridTextColumn Binding="{Binding Terminal}" MinWidth="140">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="终到站" Padding="2" HorizontalAlignment="Stretch" TextAlignment="Center" Background="#201921" Foreground="#ff1111" Width="140"/>
+                                <TextBlock Text="终到站" Padding="2" HorizontalAlignment="Stretch" TextAlignment="Center" Background="#201921" Foreground="#ff1111" Width="{Binding RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}, Path=ActualWidth}"/>
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
                         <DataGridTextColumn.ElementStyle>
@@ -122,6 +122,7 @@
                             <Style TargetType="TextBlock">
                                 <Setter Property="VerticalAlignment" Value="Center"/>
                                 <Setter Property="TextAlignment" Value="Center"/>
+                                <Setter Property="Visibility" Value="{Binding TrainNumber,Converter={StaticResource EmptyToVisibilityConverter}}"/>
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>

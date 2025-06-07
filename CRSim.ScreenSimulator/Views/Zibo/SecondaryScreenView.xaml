@@ -95,7 +95,9 @@
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
                         <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource CommonTextBlockStyle}"/>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource CommonTextBlockStyle}">
+                                <Setter Property="Visibility" Value="{Binding TrainNumber,Converter={StaticResource EmptyToVisibilityConverter}}"/>
+                            </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 

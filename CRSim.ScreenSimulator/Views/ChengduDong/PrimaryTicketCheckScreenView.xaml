@@ -63,6 +63,7 @@
                     </DataGridTextColumn.HeaderTemplate>
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="{Binding TrainNumber,Converter={StaticResource EmptyToVisibilityConverter}}"/>
                             <Setter Property="Foreground" Value="White"/>
                             <Setter Property="VerticalAlignment" Value="Center"/>
                             <Setter Property="TextAlignment" Value="Center"/>
