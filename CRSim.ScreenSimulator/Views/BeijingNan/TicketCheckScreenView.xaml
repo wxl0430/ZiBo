@@ -40,10 +40,10 @@
                     </Style>
                 </DataGridTextColumn.ElementStyle>
             </DataGridTextColumn>
-            <DataGridTextColumn Binding="{Binding Terminal}">
+            <DataGridTextColumn Binding="{Binding Terminal}" MinWidth="120">
                 <DataGridTextColumn.HeaderTemplate>
                     <DataTemplate>
-                        <TextBlock Text="终到站" FontSize="18" Padding="2" HorizontalAlignment="Stretch" TextAlignment="Center" Background="#0036DF" Width="120"/>
+                        <TextBlock Text="终到站" FontSize="18" Padding="2" HorizontalAlignment="Stretch" TextAlignment="Center" Background="#0036DF" Width="{Binding RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}, Path=ActualWidth}"/>
                     </DataTemplate>
                 </DataGridTextColumn.HeaderTemplate>
                 <DataGridTextColumn.ElementStyle>
@@ -65,6 +65,7 @@
                         <Setter Property="Foreground" Value="White"/>
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="TextAlignment" Value="Center"/>
+                        <Setter Property="Visibility" Value="{Binding TrainNumber,Converter={StaticResource EmptyToVisibilityConverter}}"/>
                     </Style>
                 </DataGridTextColumn.ElementStyle>
             </DataGridTextColumn>
