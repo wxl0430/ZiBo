@@ -43,7 +43,15 @@ namespace CRSim.ScreenSimulator.ViewModels
             _timeService.RefreshSecondsElapsed += RefreshDisplay;
             Initialize();
         }
-        public int CurrentPageIndex = 0;
+        [ObservableProperty]
+        private int _currentPageIndex = 0;
+        public int PagesCount
+        {
+            get
+            {
+                return Math.Min((int)Math.Ceiling((double)TrainInfo.Count / ItemsPerPage * PageCount.Value),_settings.MaxPages);
+            }
+        }
         public int ItemsPerPage = 1;
 
         //<summary>

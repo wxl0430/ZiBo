@@ -7,11 +7,7 @@ namespace CRSim.ScreenSimulator.Converters
 {
     public class ChineseToPinyinConverter : IValueConverter
     {
-        /// <summary>
-        /// 将中文字符串转换为拼音（带声调或不带声调）
-        /// </summary>
-        /// <param name="value">要转换的中文字符串</param>
-        /// <returns>拼音字符串</returns>
+        public bool Upper { get; set; } = false;
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null) return string.Empty;
@@ -42,7 +38,7 @@ namespace CRSim.ScreenSimulator.Converters
                 }
             }
             var result = sb.ToString().ToLower();
-            return char.ToUpper(result[0], culture) + result[1..];
+            return Upper ? result.ToUpper() : char.ToUpper(result[0], culture) + result[1..];
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
