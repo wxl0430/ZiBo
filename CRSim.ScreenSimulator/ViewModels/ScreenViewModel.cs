@@ -45,11 +45,11 @@ namespace CRSim.ScreenSimulator.ViewModels
         }
         [ObservableProperty]
         private int _currentPageIndex = 0;
-        public int PagesCount
+        public int PageCount
         {
             get
             {
-                return Math.Min((int)Math.Ceiling((double)TrainInfo.Count / ItemsPerPage * PageCount.Value),_settings.MaxPages);
+                return Math.Min((int)Math.Ceiling((double)TrainInfo.Count / ItemsPerPage * ScreenCount.Value),_settings.MaxPages);
             }
         }
         public int ItemsPerPage = 1;
@@ -57,7 +57,7 @@ namespace CRSim.ScreenSimulator.ViewModels
         //<summary>
         // 适用于翻页屏的屏幕个数参数，非翻页屏请不要设置。
         //</summary>
-        public int? PageCount = null;
+        public int? ScreenCount = null;
 
         private async void Initialize()
         {
@@ -150,7 +150,7 @@ namespace CRSim.ScreenSimulator.ViewModels
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                if (PageCount == null)
+                if (ScreenCount == null)
                 {
                     for (int i = 0; i < ItemsPerPage; i++)
                     {
@@ -165,10 +165,10 @@ namespace CRSim.ScreenSimulator.ViewModels
                     }
                     return;
                 }
-                int pageCount = (int)Math.Ceiling((double)TrainInfo.Count / (ItemsPerPage * PageCount.Value));
-                int startIndex = CurrentPageIndex * ItemsPerPage * PageCount.Value;
+                int pageCount = (int)Math.Ceiling((double)TrainInfo.Count / (ItemsPerPage * ScreenCount.Value));
+                int startIndex = CurrentPageIndex * ItemsPerPage * ScreenCount.Value;
 
-                switch (PageCount)
+                switch (ScreenCount)
                 {
                     case 1:
                         {

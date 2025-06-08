@@ -8,7 +8,7 @@ namespace CRSim.ScreenSimulator.ViewModels.BeijingNan
             : base(timeService, settingsService)
         {
             ItemsPerPage = 10;
-            PageCount = 1;
+            ScreenCount = 1;
             StationType = StationType.Departure;
         }
     }

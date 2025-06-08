@@ -14,7 +14,7 @@
         <converters1:EmptyToVisibilityConverter x:Key="EmptyToVisibilityConverter" />
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
         <converters:TrainStateConverter x:Key="TrainStateConverter"/>
-        <converters:TrainStateColorConverter x:Key="TrainStateColorConverter" WaitingColor="#ffffff" CheckingTicketsColor="#85ff3f" StopCheckingTicketsColor="#ff0200" />
+        <converters:TrainStateColorConverter x:Key="TrainStateColorConverter" WaitingColor="#ffffff" CheckInColor="#85ff3f" StopCheckInColor="#ff0200" />
         <Style TargetType="DataGridColumnHeader">
             <Setter Property="Padding" Value="0"/>
             <Setter Property="Margin" Value="0"/>

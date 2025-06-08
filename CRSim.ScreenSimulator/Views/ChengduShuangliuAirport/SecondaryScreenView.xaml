@@ -22,11 +22,11 @@
         <converters1:ListToStringConverter x:Key="ListToStringConverter" Separator=", " />
         <converters1:EmptyToVisibilityConverter x:Key="EmptyToVisibilityConverter" />
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
-        <converters:TrainNumberToImageConverter x:Key="TrainNumberToImageConverter" />
+        <converters:NumberToImageConverter x:Key="TrainNumberToImageConverter" />
         <converters:IntAddOneConverter x:Key="IntAddOneConverter" />
         <converters:ChineseToPinyinConverter x:Key="ChineseToPinyinConverter" Upper="True"/>
         <converters:TrainStateConverter x:Key="TrainStateConverter" WaitingText="正常 Normal" CheckInText="正在登机 Boarding" StopCheckInText="关闭 PSG FULL"/>
-        <converters:TrainStateColorConverter x:Key="TrainStateColorConverter" WaitingColor="#289CFF" CheckingTicketsColor="#FF6A1D" StopCheckingTicketsColor="#4456BE"/>
+        <converters:TrainStateColorConverter x:Key="TrainStateColorConverter" WaitingColor="#289CFF" CheckInColor="#FF6A1D" StopCheckInColor="#4456BE"/>
         <Style TargetType="DataGridColumnHeader">
             <Setter Property="Padding" Value="0,4"/>
             <Setter Property="BorderBrush" Value="Transparent"/>

@@ -3,7 +3,7 @@ using System.Windows.Data;
 
 namespace CRSim.ScreenSimulator.Converters
 {
-    public class TrainNumberToImageConverter : IValueConverter
+    public class NumberToImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

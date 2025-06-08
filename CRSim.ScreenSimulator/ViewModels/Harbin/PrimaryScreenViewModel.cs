@@ -9,7 +9,7 @@ namespace CRSim.ScreenSimulator.ViewModels.Harbin
         {
             Text = $"开车前{settingsService.GetSettings().StopCheckInAdvanceDuration.TotalMinutes}分钟停止检票";
             ItemsPerPage = 6;
-            PageCount = 2;
+            ScreenCount = 2;
             StationType = StationType.Departure;
         }
     }

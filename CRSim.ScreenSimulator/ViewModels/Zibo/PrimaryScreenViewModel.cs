@@ -8,7 +8,7 @@ namespace CRSim.ScreenSimulator.ViewModels.Zibo
             : base(timeService, settingsService)
         {
             ItemsPerPage = 8;
-            PageCount = 2;
+            ScreenCount = 2;
             StationType = StationType.Departure;
         }
     }

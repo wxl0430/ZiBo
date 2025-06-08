@@ -8,7 +8,7 @@ namespace CRSim.ScreenSimulator.ViewModels.Jinanxi
             : base(timeService, settingsService)
         {
             ItemsPerPage = 9;
-            PageCount = 1;
+            ScreenCount = 1;
             StationType = StationType.Departure;
             SetText();
         }

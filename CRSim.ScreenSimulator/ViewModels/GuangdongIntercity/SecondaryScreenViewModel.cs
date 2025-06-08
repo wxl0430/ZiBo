@@ -8,7 +8,7 @@ namespace CRSim.ScreenSimulator.ViewModels.GuangdongIntercity
         {
             Text = $"列 车 到 发 信 息";
             ItemsPerPage = 8;
-            PageCount = 1;
+            ScreenCount = 1;
         }
     }
 }
