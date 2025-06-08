@@ -12,17 +12,17 @@ namespace CRSim.ScreenSimulator.ViewModels.Zibo
             Text = $"    开车前{settingsService.GetSettings().StopCheckInAdvanceDuration.TotalMinutes}分钟停止检票";
             StationType = StationType.Departure;
             ItemsPerPage = 5;
-            PageCount = 2;
+            ScreenCount = 2;
         }
         public override void RefreshDisplay(object? sender, EventArgs? e)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                int pageCount = (int)Math.Ceiling((double)TrainInfo.Count / (ItemsPerPage * PageCount.Value));
+                int pageCount = (int)Math.Ceiling((double)TrainInfo.Count / (ItemsPerPage * ScreenCount.Value));
                 ScreenA.Clear();
                 ScreenB.Clear();
-                int startIndex = CurrentPageIndex * ItemsPerPage * PageCount.Value;
-                var ItemsToShow = TrainInfo.Skip(startIndex).Take(ItemsPerPage * PageCount.Value).ToList();
+                int startIndex = CurrentPageIndex * ItemsPerPage * ScreenCount.Value;
+                var ItemsToShow = TrainInfo.Skip(startIndex).Take(ItemsPerPage * ScreenCount.Value).ToList();
                 var leftItems = ItemsToShow.Where((item, index) => index % 2 == 0).ToList();
                 var rightItems = ItemsToShow.Where((item, index) => index % 2 == 1).ToList();
                 while (leftItems.Count < ItemsPerPage)

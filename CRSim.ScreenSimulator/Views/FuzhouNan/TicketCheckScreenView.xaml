@@ -23,7 +23,7 @@
             <Setter Property="SeparatorVisibility" Value="Collapsed"/>
         </Style>
         <converters:TrainStateConverter x:Key="TrainStateConverter" WaitingText="正在候车"/>
-        <converters:TrainStateColorConverter x:Key="TrainStateColorConverter" WaitingColor="#FAFAB2" CheckingTicketsColor="#36F8C4"/>
+        <converters:TrainStateColorConverter x:Key="TrainStateColorConverter" WaitingColor="#FAFAB2" CheckInColor="#36F8C4"/>
         <converters:LandmarkToStringConverter x:Key="LandmarkToStringConverter"/>
         <converters:NumberToStringConverter x:Key="NumberToStringConverter"/>
         <converters:TrainInfoToTicketCheckTimeConverter x:Key="TrainInfoToTicketCheckTimeConverter"/>

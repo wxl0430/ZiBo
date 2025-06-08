@@ -9,7 +9,7 @@ namespace CRSim.ScreenSimulator.ViewModels.Ankang
         {
             Text = $"西安局集团公司推出西铁行APP站车服务产品，欢迎体验使用。";
             ItemsPerPage = 7;
-            PageCount = 1;
+            ScreenCount = 1;
             StationType = StationType.Arrival;
         }
     }

@@ -20,8 +20,8 @@ namespace CRSim.ScreenSimulator.Converters
 
         public List<SolidColorBrush> WaitingColorList { get; set; } = [];
         public SolidColorBrush WaitingColor { get; set; } = new(Colors.White);
-        public SolidColorBrush CheckingTicketsColor { get; set; } = new(Colors.LightGreen);
-        public SolidColorBrush StopCheckingTicketsColor { get; set; } = new(Colors.Red);
+        public SolidColorBrush CheckInColor { get; set; } = new(Colors.LightGreen);
+        public SolidColorBrush StopCheckInColor { get; set; } = new(Colors.Red);
         object IMultiValueConverter.Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             var serviceProvider = (IServiceProvider)Application.Current.Resources["ServiceProvider"];
@@ -38,7 +38,7 @@ namespace CRSim.ScreenSimulator.Converters
                     //过路站
                     if (_timeService.GetDateTimeNow() > departureTime.Subtract(_settings.PassingCheckInAdvanceDuration) && _timeService.GetDateTimeNow() < departureTime.Subtract(_settings.StopCheckInAdvanceDuration))
                     {
-                        return CheckingTicketsColor;
+                        return CheckInColor;
                     }
                 }
                 else
@@ -46,16 +46,16 @@ namespace CRSim.ScreenSimulator.Converters
                     //始发站
                     if (_timeService.GetDateTimeNow() > departureTime.Subtract(_settings.DepartureCheckInAdvanceDuration) && _timeService.GetDateTimeNow() < departureTime.Subtract(_settings.StopCheckInAdvanceDuration))
                     {
-                        return CheckingTicketsColor;
+                        return CheckInColor;
                     }
                 }
                 if (_timeService.GetDateTimeNow() > departureTime.Subtract(_settings.StopCheckInAdvanceDuration))
                 {
-                    return StopCheckingTicketsColor;
+                    return StopCheckInColor;
                 }
                 if (values[2] is TimeSpan state && state.TotalMinutes > 0)
                 {
-                    return StopCheckingTicketsColor;
+                    return StopCheckInColor;
                 }
                 if (DisplayMode == "Alternating_Row_Colors" && values.Length > 3 && values[3] is int rowNumber){
                     return WaitingColorList[rowNumber % WaitingColorList.Count];

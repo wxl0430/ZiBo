@@ -9,7 +9,7 @@ namespace CRSim.ScreenSimulator.ViewModels.ChengduShuangliuAirport
         {
             Text = $"国内航班截载时间为起飞前{settingsService.GetSettings().StopCheckInAdvanceDuration.TotalMinutes}分钟。";
             ItemsPerPage = 7;
-            PageCount = 1;
+            ScreenCount = 1;
             StationType = StationType.Departure;
         }
     }

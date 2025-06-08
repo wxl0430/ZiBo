@@ -20,7 +20,7 @@
         <converters1:EmptyToVisibilityConverter x:Key="EmptyToVisibilityConverter" />
         <converters1:DateTimeToStringConverter x:Key="DateTimeToStringConverter" Format="HH:mm" />
         <converters:TrainStateConverter x:Key="TrainStateConverter" />
-        <converters:TrainStateColorConverter x:Key="TrainStateColorConverter" WaitingColor="white" CheckingTicketsColor="#1ce048" StopCheckingTicketsColor="#df0122"/>
+        <converters:TrainStateColorConverter x:Key="TrainStateColorConverter" WaitingColor="white" CheckInColor="#1ce048" StopCheckInColor="#df0122"/>
     </Window.Resources>
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal">
