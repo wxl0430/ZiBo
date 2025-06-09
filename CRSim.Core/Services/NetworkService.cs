@@ -84,7 +84,7 @@ namespace CRSim.Core.Services
             string tel = "";
             foreach (string station in stations)
             {
-                if (station == "';") continue;
+                if (station.StartsWith("';")) continue;
                 if (station.Split("|")[1] == name)
                 {
                     tel = station.Split("|")[2];
