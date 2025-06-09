@@ -1,5 +1,4 @@
 [changelog]
-header = "更新日志"
 body = """
 {%- macro remote_url() -%}
   https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}
