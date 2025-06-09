@@ -538,17 +538,24 @@ public partial class StationManagementPageViewModel : ObservableObject
     [RelayCommand]
     public async Task ImportFromInternet()
     {
-        if (!CheckCanImport()) return;
-        var stops = await _networkService.GetTrainNumbersAsync(SelectedStation.Name);
-        if (stops.Count != 0)
+        try
         {
-            TrainStops.Clear();
-            foreach (TrainStop t in stops)
+            if (!CheckCanImport()) return;
+            var stops = await _networkService.GetTrainNumbersAsync(SelectedStation.Name);
+            if (stops.Count != 0)
             {
-                TrainStops.Add(RandomTrainStopProperties(t));
+                TrainStops.Clear();
+                foreach (TrainStop t in stops)
+                {
+                    TrainStops.Add(RandomTrainStopProperties(t));
+                }
+            }
+            else
+            {
+                throw new Exception();
             }
         }
-        else
+        catch
         {
             _dialogService.ShowMessage("获取失败", "服务器繁忙或车站不存在。");
         }
