@@ -1,6 +1,4 @@
-﻿using CRSim.Core.Models;
-using OfficeOpenXml;
-using System.Diagnostics.Eventing.Reader;
+﻿using OfficeOpenXml;
 
 namespace CRSim.ViewModels;
 
@@ -596,30 +594,50 @@ public partial class StationManagementPageViewModel : ObservableObject
     [RelayCommand]
     public async Task SaveChanges()
     {
-        if (!(await Validate())) return;
+        if (!await Validate()) return;
         _databaseService.UpdateStation(SelectedStation.Name, GenerateStation(SelectedStation.Name,WaitingAreaNames,TicketChecks,TrainStops,Platforms));
         await _databaseService.SaveData();
     }
 
     private Task<bool> Validate()
     {
-        string message = "";
+        string warningMessage = "";
+        var platformGroups = TrainStops
+            .Where(ts => !string.IsNullOrEmpty(ts.Platform) && ts.DepartureTime != null && ts.ArrivalTime != null)
+            .GroupBy(ts => ts.Platform);
+        foreach (var group in platformGroups)
+        {
+            var stops = group.OrderBy(ts => ts.ArrivalTime ?? TimeSpan.Zero).ToList();
+            for (int i = 0; i < stops.Count - 1; i++)
+            {
+                var current = stops[i];
+                var next = stops[i + 1];
+                // 判断时间是否重叠
+                if (current.DepartureTime != null && next.ArrivalTime != null &&
+                    current.DepartureTime > next.ArrivalTime)
+                {
+                    warningMessage += $"\n站台 {group.Key} 车次 {current.Number} ({current.ArrivalTime:hh\\:mm}-{current.DepartureTime:hh\\:mm}) 与车次 {next.Number} ({next.ArrivalTime:hh\\:mm}-{next.DepartureTime:hh\\:mm}) 时间重叠；";
+                }
+            }
+        }
+
+        string errorMessage = "";
         foreach(var t in TicketChecks)
         {
             if (!WaitingAreaNames.Contains(t.WaitingAreaName))
             {
-                message += $"\n检票口 {t.Name} 所在的候车室 {t.WaitingAreaName} 不存在；";
+                errorMessage += $"\n检票口 {t.Name} 所在的候车室 {t.WaitingAreaName} 不存在；";
             }
         }
         foreach(var s in TrainStops)
         {
             if(!Platforms.Any(x=> x.Name == s.Platform))
             {
-                message += $"\n车次 {s.Number} 所分配的站台 {s.Platform} 不存在；";
+                errorMessage += $"\n车次 {s.Number} 所分配的站台 {s.Platform} 不存在；";
             }
             if (!WaitingAreaNames.Contains(s.WaitingArea))
             {
-                message += $"\n车次 {s.Number} 所分配的候车区 {s.WaitingArea} 不存在；";
+                errorMessage += $"\n车次 {s.Number} 所分配的候车区 {s.WaitingArea} 不存在；";
             }
             else
             {
@@ -627,21 +645,25 @@ public partial class StationManagementPageViewModel : ObservableObject
                 {
                     if (!TicketChecks.Any(x => x.Name == t && x.WaitingAreaName == s.WaitingArea))
                     {
-                        message += $"\n车次 {s.Number} 所分配的检票口 {t} 在候车区 {s.WaitingArea} 中不存在；";
+                        errorMessage += $"\n车次 {s.Number} 所分配的检票口 {t} 在候车区 {s.WaitingArea} 中不存在；";
                     }
                 }
             }
             if (s.DepartureTime == null && s.ArrivalTime == null)
             {
-                message += $"\n车次 {s.Number} 未配置到发时间；";
+                errorMessage += $"\n车次 {s.Number} 未配置到发时间；";
             }
             if (s.Length==0)
             {
-                message += $"\n车次 {s.Number} 长度为0；";
+                errorMessage += $"\n车次 {s.Number} 长度为0；";
             }
         }
-        if (message == "") return Task.FromResult(true);
-        _dialogService.ShowMessage("保存失败", $"发现 {message.Split("\n").Length-1} 个错误：{message}\n请修复所有错误后再次尝试保存。");
+        if (errorMessage == "")
+        {
+            if(warningMessage!="") _dialogService.ShowMessage("警告", $"发现 {warningMessage.Split("\n").Length - 1} 个警告：{warningMessage}\n配置已保存，您可以选择忽略这些警告，亦或手动优化。");
+            return Task.FromResult(true);
+        }
+        _dialogService.ShowMessage("保存失败", $"发现 {errorMessage.Split("\n").Length - 1} 个错误和 {warningMessage.Split("\n").Length - 1} 个警告：{errorMessage}{warningMessage}\n请修复所有错误后再次尝试保存。");
         return Task.FromResult(false);
     }
 
