@@ -15,15 +15,11 @@
   <b>一款用于模拟中国铁路系统信息显示的软件</b>
 </p>
 
----
-
 ## ✨ 主要特性
 
 - 仿真国铁各类信息显示屏（如引导屏、12306界面等）
 - 多站点（北京西、上海、成都东、哈尔滨）真实界面还原
 - 支持地铁屏、机场屏、廊桥屏、站台屏、检票口屏等模拟
-
----
 
 ## 🚀 安装与启动
 
@@ -39,8 +35,6 @@
 4. **开发者**  
    克隆仓库并参考 [CRSim-doc](https://github.com/denglihong2007/CRSim-doc) 使用说明进行本地构建和开发
 
----
-
 ## 📄 用户须知
 
 - 本软件为**铁路信息显示仿真工具**，所有数据为虚构，与铁路官方无任何关联。
@@ -48,21 +42,15 @@
 - 用户需自行承担使用本软件产生的所有法律责任。
 - 禁止移除水印、免责声明或开源协议标识。
 
----
-
 ## 开发进度
 
-![Alt](https://repobeats.axiom.co/api/embed/ca0697cbbfea1d5ab5350fb86d7056e803552b2a.svg "Repobeats analytics image")
-
----
+![Alt](https://repobeats.axiom.co/api/embed/0034f13affbb9d94bf9bbb3838467c4ecc94fb25.svg "Repobeats analytics image")
 
 ## 📚 相关链接
 
 - 官方网站：[https://crsim.tech](https://crsim.tech)
 - [CRSim-Web 官网开源仓库](https://github.com/denglihong2007/CRSim-Web)
 - [CRSim-doc 操作文档仓库](https://github.com/denglihong2007/CRSim-doc)
-
----
 
 ## 获取帮助＆加入社区
 
