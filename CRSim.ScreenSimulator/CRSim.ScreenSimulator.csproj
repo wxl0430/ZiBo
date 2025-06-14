@@ -125,6 +125,7 @@
     <Resource Include="Assets\DaqingDong\ConcourseBridgeScreen.png" />
     <Resource Include="Assets\DaqingDong\PlatformScreen.png" />
     <Resource Include="Assets\DeZhouDong\PrimaryScreen.png" />
+    <Resource Include="Assets\DeZhouDong\TicketCheckScreen.png" />
     <Resource Include="Assets\FuzhouNan\TicketCheckScreen.png" />
     <Resource Include="Assets\Fuzhou\TicketCheckScreen.png" />
     <Resource Include="Assets\GuangdongIntercity\SecondaryScreen.png" />
