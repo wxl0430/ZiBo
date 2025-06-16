@@ -9,7 +9,6 @@ namespace CRSim.ScreenSimulator.ViewModels.Zibo
         {
             Text = $"开车前{settingsService.GetSettings().StopCheckInAdvanceDuration.TotalMinutes}分钟停止检票";
             ItemsPerPage = 18;
-            ScreenCount = 1;
             StationType = StationType.Departure;
         }
     }
