@@ -291,7 +291,7 @@
                                 <converters:IntAddOneConverter/>
                             </Binding.Converter>
                         </Binding>
-                        <Binding Path="PagesCount" />
+                        <Binding Path="PageCount" />
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>                 
