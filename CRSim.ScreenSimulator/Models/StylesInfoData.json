@@ -140,6 +140,17 @@
     ]
   },
   {
+    "UniqueId": "KunmingChangshuiAirport.PrimaryScreen",
+    "Title": "昆明长水机场主要看板",
+    "Region": "昆明",
+    "Author": "电排骨",
+    "Type": "车站大屏",
+    "Parameters": [
+      "Station",
+      "Text"
+    ]
+  },
+  {
     "UniqueId": "Shanghai.OutsideScreen",
     "Title": "上海站站外看板",
     "Region": "上海",
