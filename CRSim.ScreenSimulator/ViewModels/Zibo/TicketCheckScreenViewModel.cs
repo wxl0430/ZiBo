@@ -41,6 +41,7 @@ namespace CRSim.ScreenSimulator.ViewModels.Zibo
                 {
                     ScreenB.Add(item);
                 }
+                CurrentPageIndex = CurrentPageIndex + 1 >=  Math.Min(_settings.MaxPages, pageCount) ? 0 : CurrentPageIndex + 1;
             });
         }
     }
