@@ -42,6 +42,8 @@ namespace CRSim
                 services.AddTransient<WebsiteSimulator.Simulator>();
                 services.AddScreenSimulatorServices();
 
+                services.AddTransient<UpdateChecker>();
+
             }).Build();
 
         [STAThread]
@@ -57,6 +59,9 @@ namespace CRSim
             _host.Services.GetRequiredService<ITimeService>().Start();
             _host.Services.GetRequiredService<IDialogService>().SetOwner(app.MainWindow);
 
+            var updateChecker = new UpdateChecker();
+            updateChecker.CheckForUpdates().Wait();
+            
             app.MainWindow.Visibility = Visibility.Visible;
             app.Run();
         }
