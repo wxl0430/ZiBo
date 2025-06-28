@@ -432,5 +432,28 @@
       "Station",
       "TicketCheck"
     ]
+  },
+  {
+    "UniqueId": "Yakeshi.PlatformScreen",
+    "Title": "牙克石站站台看板",
+    "Region": "牙克石",
+    "Author": "wxl0430",
+    "Type": "站台屏",
+    "Parameters": [
+      "Station",
+      "Platform",
+      "Location"
+    ]
+  },
+  {
+    "UniqueId": "Hailaer.PrimaryScreen",
+    "Title": "海拉尔站主要看板",
+    "Region": "海拉尔",
+    "Author": "wxl0430",
+    "Type": "车站大屏",
+    "Parameters": [
+      "Station",
+      "Text"
+    ]
   }
 ]

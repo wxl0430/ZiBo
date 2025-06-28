@@ -134,6 +134,7 @@
     <Resource Include="Assets\Fuzhou\TicketCheckScreen.png" />
     <Resource Include="Assets\GuangdongIntercity\SecondaryScreen.png" />
     <Resource Include="Assets\Guangyuan\PrimaryScreen.png" />
+    <Resource Include="Assets\Hailaer\PrimaryScreen.png" />
     <Resource Include="Assets\Hanzhong\Image.png" />
     <Resource Include="Assets\Hanzhong\PlatformScreen.png" />
     <Resource Include="Assets\Harbin\PrimaryScreen.png" />
@@ -152,6 +153,7 @@
     <Resource Include="Assets\XuzhouMetro\Metro.png" />
     <Resource Include="Assets\XuzhouMetro\PlatformScreen.png" />
     <Resource Include="Assets\XuzhouMetro\XuzhouMetro-Icon.png" />
+    <Resource Include="Assets\Yakeshi\PlatformScreen.png" />
     <Resource Include="Assets\Zibo\ConcourseBridgeScreen.png" />
     <Resource Include="Assets\Zibo\PlatformScreen.png" />
     <Resource Include="Assets\Zibo\PrimaryScreen.png" />
