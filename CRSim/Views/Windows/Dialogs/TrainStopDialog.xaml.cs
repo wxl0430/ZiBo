@@ -98,12 +98,16 @@ namespace CRSim.Views
                 IntermediateStation.IsChecked = true;
             }
             TicketChecksList.Clear();
-            foreach (string s in ticketChecks)
+            foreach (string combined in ticketChecks)
             {
+                string[] parts = combined.Split(" - ", 2);
+                string waitingArea = parts.Length > 0 ? parts[0] : string.Empty;
+                string ticketCheck = parts.Length > 1 ? parts[1] : combined;
+
                 TicketChecksList.Add(new ticketCheck()
                 {
-                    TicketCheck = s,
-                    Checked = trainStop.TicketChecks.Contains(s)
+                    TicketCheck = $"{waitingArea} - {ticketCheck}",
+                    Checked = waitingArea == trainStop.WaitingArea && trainStop.TicketChecks.Contains(ticketCheck)
                 });
             }
             foreach (string s in platforms)
@@ -112,6 +116,7 @@ namespace CRSim.Views
             }
             PlatformComboBox.SelectedIndex = Platforms.IndexOf(trainStop.Platform);
             LandmarkComboBox.SelectedIndex = trainStop.Landmark == null ? 0 : Landmarks.IndexOf(trainStop.Landmark);
+            TicketChecksCheckList.IsEnabled = !FinalStation.IsChecked.Value;
             ValidateInput();
         }
 
