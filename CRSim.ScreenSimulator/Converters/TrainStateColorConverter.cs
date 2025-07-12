@@ -1,5 +1,5 @@
-﻿using CRSim.Core.Models;
-using CRSim.Core.Services;
+﻿using CRSim.Core.Abstractions;
+using CRSim.Core.Models;
 using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
 using System.Windows;
@@ -27,7 +27,7 @@ namespace CRSim.ScreenSimulator.Converters
         public SolidColorBrush StopCheckInColor { get; set; } = new(Colors.Red);
         object IMultiValueConverter.Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            var serviceProvider = (IServiceProvider)Application.Current.Resources["ServiceProvider"];
+            var serviceProvider = StyleManager.ServiceProvider;
             _timeService = serviceProvider.GetRequiredService<ITimeService>();
             _settings = serviceProvider.GetRequiredService<ISettingsService>().GetSettings();
             if (DisplayMode == "Arrive" || ( values.Length > 1 && values[1] == null))

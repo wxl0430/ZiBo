@@ -1,65 +1,69 @@
-﻿using CRSim.ScreenSimulator.Services;
-
-namespace CRSim
+﻿namespace CRSim
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
-        private static readonly IHost _host = Host.CreateDefaultBuilder()
-            .ConfigureServices((context, services) =>
-            {
-                services.AddSingleton<ISettingsService,SettingsService>();
-                services.AddSingleton<ITimeService, TimeService>();
-                services.AddSingleton<INavigationService, NavigationService>();
-                services.AddSingleton<IDialogService, DialogService>();
-                services.AddSingleton<IDatabaseService, DatabaseService>();
-                services.AddSingleton<INetworkService, NetworkService>();
-                services.AddSingleton<MainWindow>();
-                services.AddSingleton<MainWindowViewModel>();
+        public static IHost AppHost { get; private set; }
+        public static MainWindow MainWindow;
+        public string[] commandLineArgs;
 
-                services.AddTransient<DashboardPage>();
-                services.AddTransient<DashboardPageViewModel>();
-
-                services.AddTransient<SettingsPage>();
-                services.AddTransient<SettingsPageViewModel>();
-
-                services.AddTransient<DataManagementPage>();
-                services.AddTransient<DataManagementPageViewModel>();
-                services.AddTransient<StationManagementPage>();
-                services.AddTransient<StationManagementPageViewModel>();
-                services.AddTransient<TrainNumberManagementPage>();
-                services.AddTransient<TrainNumberManagementPageViewModel>();
-
-                services.AddTransient<StartSimulationPage>();
-                services.AddTransient<StartSimulationPageViewModel>();
-                services.AddTransient<ScreenSimulationPage>();
-                services.AddTransient<ScreenSimulationPageViewModel>();
-                services.AddTransient<WebsiteSimulationPage>();
-                services.AddTransient<WebsiteSimulationPageViewModel>();
-
-                services.AddTransient<WebsiteSimulator.Simulator>();
-                services.AddScreenSimulatorServices();
-
-            }).Build();
-
-        [STAThread]
-        public static void Main()
+        public App()
         {
-            _host.Start();
+            var args = Environment.GetCommandLineArgs();
+            var parsedOptions = CommandLineParser.Parse(args);
+            if (parsedOptions.Debug)
+            {
+                LaunchDebugConsole();
+            }
+            if (!Directory.Exists(AppPaths.AppDataFolder))
+            {
+                Directory.CreateDirectory(AppPaths.AppDataFolder);
+            }
+            AppHost = Host.CreateDefaultBuilder()
+                .ConfigureServices((context, services) =>
+                {
+                    services.AddSingleton(parsedOptions);
+                    services.AddSingleton<IPluginService, PluginService>();
+                    services.AddSingleton<ISettingsService, SettingsService>();
+                    services.AddSingleton<ITimeService, TimeService>();
+                    services.AddSingleton<IDatabaseService, DatabaseService>();
+                    services.AddSingleton<INetworkService, NetworkService>();
+                    services.AddSingleton<IDialogService, DialogService>();
+                    services.AddSingleton<StyleManager>();
+                    services.AddSingleton<MainWindow>();
+                    services.AddTransient<DashboardPageViewModel>();
+                    services.AddTransient<StationManagementPageViewModel>();
+                    services.AddTransient<ScreenSimulatorPageViewModel>();
+                    PluginService.InitializePlugins(context, services, parsedOptions.ExternalPluginPath);
+                })
+            .Build(); 
+            InitializeComponent();
+        }
 
-            App app = new();
-            app.InitializeComponent();
-            Current.Resources["ServiceProvider"] = _host.Services;
-            app.MainWindow = _host.Services.GetRequiredService<MainWindow>();
+        protected override void OnLaunched(LaunchActivatedEventArgs args)
+        {
+            AppHost.Services.GetRequiredService<ITimeService>().Start();
+            MainWindow = AppHost.Services.GetService<MainWindow>();
+            MainWindow?.Activate();
+            var win = AppHost.Services.GetService<StyleManager>();
+        }
 
-            _host.Services.GetRequiredService<ITimeService>().Start();
-            _host.Services.GetRequiredService<IDialogService>().SetOwner(app.MainWindow);
+        [System.Runtime.InteropServices.DllImport("kernel32.dll")]
+        private static extern bool AllocConsole();
 
-            app.MainWindow.Visibility = Visibility.Visible;
-            app.Run();
+        public static void LaunchDebugConsole()
+        {
+            AllocConsole();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(@"
+        ___ _____________________
+   _.-''---'  |  ___ ___ ___ ___|
+  (       __|_|_[___[___[___[__]  
+ =-(_)--(_)--'      (O)   (O) ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("       CRSim - 国铁信息显示模拟");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Debug console started.\n");
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
-
 }

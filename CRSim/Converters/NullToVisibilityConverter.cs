@@ -1,17 +1,17 @@
-﻿namespace CRSim.Converters;
+﻿using Microsoft.UI.Xaml.Data;
 
-/// <summary>
-/// Converts a null value to Visibility.Collapsed
-/// </summary>
-internal sealed class NullToVisibilityConverter : IValueConverter
+namespace CRSim.Converters
 {
-    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public class NullToVisibilityConverter : IValueConverter
     {
-        return value is null ? Visibility.Collapsed : Visibility.Visible;
-    }
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            return value == null ? Visibility.Collapsed : Visibility.Visible;
+        }
 
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

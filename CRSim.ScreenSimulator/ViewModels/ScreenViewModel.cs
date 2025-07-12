@@ -1,13 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CRSim.Core.Services;
 using CRSim.Core.Models;
 using CRSim.ScreenSimulator.Models;
 using System.Windows;
 using System.Collections.ObjectModel;
+using CRSim.Core.Abstractions;
 
 namespace CRSim.ScreenSimulator.ViewModels
 {
-    public partial class ScreenViewModel : ObservableObject
+    public partial class BaseScreenViewModel : ObservableObject
     {
         public readonly ITimeService _timeService;
         public readonly Settings _settings;
@@ -25,13 +25,14 @@ namespace CRSim.ScreenSimulator.ViewModels
         [ObservableProperty]
         private string _thisTicketCheck;
         public ObservableCollection<TrainInfo> ScreenA { get; private set; } = [];
-        public ObservableCollection<TrainInfo> ScreenB { get; private set; } = [];
+        public ObservableCollection<TrainInfo> ScreenB { get; private set; } = []; 
+        public System.Windows.Threading.Dispatcher UIDispatcher { get; set; }
 
         public List<TrainInfo> TrainInfo { get; set; } = [];
 
         public StationType StationType = StationType.Both;
 
-        protected ScreenViewModel(ITimeService timeService, ISettingsService settingsService)
+        protected BaseScreenViewModel(ITimeService timeService, ISettingsService settingsService)
         {
 
             _timeService = timeService;
@@ -155,7 +156,7 @@ namespace CRSim.ScreenSimulator.ViewModels
         }
         public virtual void RefreshDisplay(object? sender, EventArgs e)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            UIDispatcher.Invoke(() =>
             {
                 if (ScreenCount == null)
                 {
@@ -163,7 +164,7 @@ namespace CRSim.ScreenSimulator.ViewModels
                     {
                         ScreenA.Add(TrainInfo.Count > i ? TrainInfo[i] : new());
                     }
-                    if(ScreenA.Count > ItemsPerPage)
+                    if (ScreenA.Count > ItemsPerPage)
                     {
                         for (int i = 0; i < ItemsPerPage; i++)
                         {

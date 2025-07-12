@@ -1,4 +1,4 @@
-﻿using CRSim.Core.Services;
+﻿using CRSim.Core.Abstractions;
 using CRSim.ScreenSimulator.Models;
 using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
@@ -12,7 +12,7 @@ namespace CRSim.ScreenSimulator.Converters
         private ITimeService _timeService;
         public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            var serviceProvider = (IServiceProvider)Application.Current.Resources["ServiceProvider"];
+            var serviceProvider = StyleManager.ServiceProvider;
             _timeService = serviceProvider.GetRequiredService<ITimeService>();
             if (value is TrainInfo trainInfo && parameter is string para)
             {

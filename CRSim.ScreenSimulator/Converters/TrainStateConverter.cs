@@ -1,5 +1,5 @@
-﻿using CRSim.Core.Models;
-using CRSim.Core.Services;
+﻿using CRSim.Core.Abstractions;
+using CRSim.Core.Models;
 using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
 using System.Windows;
@@ -19,7 +19,7 @@ namespace CRSim.ScreenSimulator.Converters
         public string StopCheckInText { get; set; } = "停止检票";
         object IMultiValueConverter.Convert(object[] values, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            var serviceProvider = (IServiceProvider)Application.Current.Resources["ServiceProvider"];
+            var serviceProvider = StyleManager.ServiceProvider;
             _timeService = serviceProvider.GetRequiredService<ITimeService>();
             _settings = serviceProvider.GetRequiredService<ISettingsService>().GetSettings();
             if (DisplayMode == "Arrive" || ( values.Length > 1 && values[1] == null))

@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "CRSim 插件": {
+      "commandName": "Executable",
+      "executablePath": "$(CRSim_DebugBinaryFile)",
+      "commandLineArgs": "-epp $(TargetDir) -debug",
+      "workingDirectory": "$(CRSim_DebugBinaryDirectory)",
+      "nativeDebugging": true
+    }
+  }
+}

@@ -1,5 +1,5 @@
-﻿using CRSim.Core.Models;
-using CRSim.Core.Services;
+﻿using CRSim.Core.Abstractions;
+using CRSim.Core.Models;
 using CRSim.ScreenSimulator.Models;
 using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
@@ -16,7 +16,7 @@ namespace CRSim.ScreenSimulator.Converters
         {
             if (value is TrainInfo trainInfo && trainInfo.DepartureTime!=null)
             {
-                var serviceProvider = (IServiceProvider)Application.Current.Resources["ServiceProvider"];
+                var serviceProvider = StyleManager.ServiceProvider;
                 _timeService = serviceProvider.GetRequiredService<ITimeService>();
                 _settings = serviceProvider.GetRequiredService<ISettingsService>().GetSettings();
                 if (trainInfo.ArrivalTime == null)

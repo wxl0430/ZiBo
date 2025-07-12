@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35424.110
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRSim", "CRSim\CRSim.csproj", "{E16F847C-9278-42F5-ACDD-9FC96B45FFCF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRSim.Core", "CRSim.Core\CRSim.Core.csproj", "{C72B16CC-AA3E-4E0F-A424-07D3987A9FD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRSim.ScreenSimulator", "CRSim.ScreenSimulator\CRSim.ScreenSimulator.csproj", "{BB0CE1B3-BE9E-42E7-A15E-EDD5AC531134}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRSim", "CRSim\CRSim.csproj", "{9C334D96-6CE7-4137-9CA8-2969E4C67C0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRSim.Shared", "CRSim.Shared\CRSim.Shared.csproj", "{C7153862-390F-404C-BC75-31D4F68A57BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRSim.ExamplePlugin", "CRSim.ExamplePlugin\CRSim.ExamplePlugin.csproj", "{FDD66ED3-4F7C-4A81-BE0F-F5E504BFCB2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRSim.ScreenSimulator", "CRSim.ScreenSimulator\CRSim.ScreenSimulator.csproj", "{94927020-7AD7-4F6F-A456-F34A8E0BC40A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,22 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E16F847C-9278-42F5-ACDD-9FC96B45FFCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E16F847C-9278-42F5-ACDD-9FC96B45FFCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E16F847C-9278-42F5-ACDD-9FC96B45FFCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E16F847C-9278-42F5-ACDD-9FC96B45FFCF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C72B16CC-AA3E-4E0F-A424-07D3987A9FD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C72B16CC-AA3E-4E0F-A424-07D3987A9FD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C72B16CC-AA3E-4E0F-A424-07D3987A9FD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C72B16CC-AA3E-4E0F-A424-07D3987A9FD9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BB0CE1B3-BE9E-42E7-A15E-EDD5AC531134}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BB0CE1B3-BE9E-42E7-A15E-EDD5AC531134}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BB0CE1B3-BE9E-42E7-A15E-EDD5AC531134}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BB0CE1B3-BE9E-42E7-A15E-EDD5AC531134}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C7153862-390F-404C-BC75-31D4F68A57BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C7153862-390F-404C-BC75-31D4F68A57BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C7153862-390F-404C-BC75-31D4F68A57BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C7153862-390F-404C-BC75-31D4F68A57BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C334D96-6CE7-4137-9CA8-2969E4C67C0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C334D96-6CE7-4137-9CA8-2969E4C67C0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C334D96-6CE7-4137-9CA8-2969E4C67C0F}.Release|Any CPU.ActiveCfg = Release|x64
+		{9C334D96-6CE7-4137-9CA8-2969E4C67C0F}.Release|Any CPU.Build.0 = Release|x64
+		{FDD66ED3-4F7C-4A81-BE0F-F5E504BFCB2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDD66ED3-4F7C-4A81-BE0F-F5E504BFCB2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDD66ED3-4F7C-4A81-BE0F-F5E504BFCB2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDD66ED3-4F7C-4A81-BE0F-F5E504BFCB2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94927020-7AD7-4F6F-A456-F34A8E0BC40A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94927020-7AD7-4F6F-A456-F34A8E0BC40A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94927020-7AD7-4F6F-A456-F34A8E0BC40A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94927020-7AD7-4F6F-A456-F34A8E0BC40A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,6 @@
-﻿using CRSim.Core.Models;
+﻿using CRSim.Core.Abstractions;
+using CRSim.Core.Models;
+using CRSim.Core.Utils;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -6,7 +8,6 @@ namespace CRSim.Core.Services
 {
     public class DatabaseService : IDatabaseService
     {
-        private readonly string _jsonFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CRSim");
         private List<Station> _stations;
         private List<TrainNumber> _trainNumbers;
 
@@ -18,9 +19,7 @@ namespace CRSim.Core.Services
 
         public DatabaseService()
         {
-            if (!Directory.Exists(_jsonFilePath)) Directory.CreateDirectory(_jsonFilePath);
-            _jsonFilePath += "\\data.json";
-            ImportData(_jsonFilePath);
+            ImportData(AppPaths.ConfigFilePath);
         }
 
         public List<Station> GetAllStations()
@@ -41,7 +40,7 @@ namespace CRSim.Core.Services
                 {
                     foreach(var trainStop in station.TrainStops)
                     {
-                        if (trainStop.WaitingArea == null)
+                        if (trainStop.WaitingArea == null && trainStop.DepartureTime.HasValue)
                         {
                             trainStop.WaitingArea = station.WaitingAreas.Where(x => x.TicketChecks.Contains(trainStop.TicketChecks[0])).FirstOrDefault().Name;
                         }
@@ -110,7 +109,7 @@ namespace CRSim.Core.Services
                 Stations = _stations,
                 TrainNumbers = _trainNumbers
             }, options);
-            await File.WriteAllTextAsync(_jsonFilePath, json);
+            await File.WriteAllTextAsync(AppPaths.ConfigFilePath, json);
         }
 
         public async Task ExportData(string p)
