@@ -33,6 +33,7 @@
                     services.AddTransient<DashboardPageViewModel>();
                     services.AddTransient<StationManagementPageViewModel>();
                     services.AddTransient<ScreenSimulatorPageViewModel>();
+                    services.AddTransient<SettingsPageViewModel>();
                     PluginService.InitializePlugins(context, services, parsedOptions.ExternalPluginPath);
                 })
             .Build(); 

@@ -13,7 +13,7 @@
     <Nullable>enable</Nullable>
     <WindowsPackageType>None</WindowsPackageType>
     <LangVersion>preview</LangVersion>
-	<Version>2.3.100</Version>
+	<Version>2.3.101.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="Assets\CRSimIcon.png" />
@@ -80,6 +80,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ScreenSimulatorPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SettingsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\StationManagementPage.xaml">

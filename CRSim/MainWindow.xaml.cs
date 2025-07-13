@@ -29,6 +29,11 @@ public sealed partial class MainWindow : Window
 
         private void nvSample_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs e)
         {
+            if(e.IsSettingsSelected)
+            {
+                contentFrame.Navigate(typeof(Views.SettingsPage));
+                return;
+            }
             if (nvSample.SelectedItem is NavigationViewItem selectedItem && selectedItem.Tag is string pageTag)
             {
                 var pageType = Type.GetType($"CRSim.Views.{pageTag}");

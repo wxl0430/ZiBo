@@ -15,7 +15,6 @@
     xmlns:models="using:CRSim.Models"     
     xmlns:coremodels="using:CRSim.Core.Models"     
     xmlns:pluginmodels="using:CRSim.Core.Models.Plugin"     
-    Loaded="Page_Loaded"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance Type=viewmodels:ScreenSimulatorPageViewModel}">
     <Page.Resources>
@@ -44,7 +43,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
                             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="{x:Bind ViewModel.SelectedStyle.Manifest.Name,Mode=OneWay}" />
                             <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.SelectedStyle.Manifest.Version, Mode=OneWay}" 
-                                       Opacity="0.7" VerticalAlignment="Bottom" Margin="4,0,0,0"/>
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" VerticalAlignment="Bottom" Margin="4,0,0,0"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
                             <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="作者：" />
@@ -53,7 +52,7 @@
                         <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.SelectedStyle.Manifest.Description,Mode=OneWay}"/>
                     </StackPanel>
                 </Grid>
-                <TextBlock Text="主题列表" Style="{StaticResource BodyStrongTextBlockStyle}" Margin="0,0,0,12"/>
+                <TextBlock Text="主题列表" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Margin="0,0,0,12"/>
                 <Border Background="{StaticResource CardBackgroundFillColorDefaultBrush}" CornerRadius="8" BorderBrush="{StaticResource CardStrokeColorDefaultBrush}" 
                         BorderThickness="1" Margin="0,0,0,24">
                     <ScrollViewer MaxHeight="400">
@@ -96,12 +95,12 @@
                                     </ItemsPanelTemplate>
                                 </GridView.ItemsPanel>
                             </GridView>
-                            <TextBlock Text="当前没有安装任何主题" Margin="0,50" TextAlignment="Center" Opacity="0.7"
+                            <TextBlock Text="当前没有安装任何主题" Margin="0,50" TextAlignment="Center" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                        Visibility="{x:Bind ViewModel.StyleInfos.Count,Converter={StaticResource IntToVisibilityConverter},ConverterParameter=true}"/>
                         </StackPanel>
                     </ScrollViewer>
                 </Border>
-                <TextBlock Text="参数配置" Style="{StaticResource BodyStrongTextBlockStyle}" Margin="0,0,0,12"/>
+                <TextBlock Text="参数配置" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Margin="0,0,0,12"/>
                 <StackPanel Spacing="4" Orientation="Vertical" Margin="0,0,0,24">
                     <controls:SettingsCard Header="车站" Description="使用的车站数据库" HeaderIcon="{winui:FontIcon Glyph=&#xEC08;}"
                                        Visibility="{x:Bind ViewModel.StationNeeded,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
@@ -152,7 +151,7 @@
                         <TextBox Text="{x:Bind ViewModel.Text,Mode=TwoWay}" MaxWidth="120"/>
                     </controls:SettingsCard>
                 </StackPanel>
-                <TextBlock Text="参数配置" Style="{StaticResource BodyStrongTextBlockStyle}" Margin="0,0,0,12"/>
+                <TextBlock Text="参数配置" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Margin="0,0,0,12"/>
                 <controls:SettingsCard Header="开始模拟" Description="启动一个新的模拟窗口" HeaderIcon="{winui:FontIcon Glyph=&#xE768;}"
                                        IsEnabled="{x:Bind ViewModel.IsStartSimulationAvailable,Mode=OneWay}">
                     <Button Content="开始模拟" Command="{x:Bind ViewModel.StartSimulationCommand}" Style="{StaticResource AccentButtonStyle}"/>
