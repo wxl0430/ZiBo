@@ -2,7 +2,7 @@
 
 namespace CRSim.Converters
 {
-    public class ListToStringConverter : IValueConverter
+    public partial class ListToStringConverter : IValueConverter
     {
         public string Separator { get; set; } = "";  // 默认分隔符是双引号间隔
         public object Convert(object value, Type targetType, object parameter, string language)

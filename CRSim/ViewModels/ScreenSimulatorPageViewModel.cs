@@ -2,10 +2,9 @@
 
 namespace CRSim.ViewModels;
 
-public partial class ScreenSimulatorPageViewModel : ObservableObject
+public partial class ScreenSimulatorPageViewModel(IServiceProvider serviceProvider, IDatabaseService databaseService) : ObservableObject
 {
-    [ObservableProperty]
-    public partial string PageTitle { get; set; } = "引导屏模拟";
+    public string PageTitle = "引导屏模拟";
     public List<PluginInfo> StyleInfos => StyleManager.StyleInfos;
     [ObservableProperty]
     public partial PluginInfo SelectedStyle { get; set; }
@@ -27,7 +26,7 @@ public partial class ScreenSimulatorPageViewModel : ObservableObject
 
     [ObservableProperty]
     public partial bool LocationNeeded { get; set; }
-    public List<string> StationNames => [.. _databaseService.GetAllStations().Select(x => x.Name)];
+    public List<string> StationNames => [.. databaseService.GetAllStations().Select(x => x.Name)];
     public ObservableCollection<string> TicketChecks { get; private set; } = [];
     public ObservableCollection<Platform> Platforms { get; private set; } = [];
     public ObservableCollection<int> Locations { get; private set; } = [];
@@ -46,15 +45,8 @@ public partial class ScreenSimulatorPageViewModel : ObservableObject
     public int SelectedLoaction = 0;
     [ObservableProperty]
     public partial bool IsStartSimulationAvailable { get; private set; } = false;
-    private PluginBase SelectedStylePlugin => _serviceProvider.GetServices<PluginBase>().Where(x => x.Info == SelectedStyle).FirstOrDefault();
-    private readonly IServiceProvider _serviceProvider;
-    private readonly IDatabaseService _databaseService;
+    private PluginBase SelectedStylePlugin => serviceProvider.GetServices<PluginBase>().Where(x => x.Info == SelectedStyle).FirstOrDefault();
 
-    public ScreenSimulatorPageViewModel(IServiceProvider serviceProvider,IDatabaseService databaseService)
-    {
-        _serviceProvider = serviceProvider;
-        _databaseService = databaseService;
-    }
     [RelayCommand]
     public void StyleSelected(object selectedStyle)
     {
@@ -75,7 +67,7 @@ public partial class ScreenSimulatorPageViewModel : ObservableObject
     {
         if (s is string v)
         {
-            var station = _databaseService.GetStationByName(v);
+            var station = databaseService.GetStationByName(v);
             SelectedStationName = station.Name;
             SelectedPlatformName = "";
             SelectedTicketCheck = "";
@@ -141,7 +133,7 @@ public partial class ScreenSimulatorPageViewModel : ObservableObject
     public async Task StartSimulation()
     {
         StyleManager.ShowWindow(((dynamic)SelectedStylePlugin).View, 
-            _databaseService.GetStationByName(SelectedStationName),
+            databaseService.GetStationByName(SelectedStationName),
             TicketCheckNeeded ? SelectedTicketCheck : string.Empty,
             PlatformNeeded ? SelectedPlatformName : string.Empty,
             (TextNeeded && Text != string.Empty) ? Text : null,

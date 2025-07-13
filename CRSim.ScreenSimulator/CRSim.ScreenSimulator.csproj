@@ -5,6 +5,7 @@
 	  <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
 	  <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+	  <Platforms>AnyCPU;x64</Platforms>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 	<ItemGroup>

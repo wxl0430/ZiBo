@@ -20,6 +20,7 @@
     d:DataContext="{d:DesignInstance Type=viewmodels:ScreenSimulatorPageViewModel}">
     <Page.Resources>
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <converters:IntToVisibilityConverter x:Key="IntToVisibilityConverter" />
         <converters1:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Page.Resources>
     <Grid x:Name="ContentPagePane" Margin="36,40,0,36">
@@ -56,43 +57,48 @@
                 <Border Background="{StaticResource CardBackgroundFillColorDefaultBrush}" CornerRadius="8" BorderBrush="{StaticResource CardStrokeColorDefaultBrush}" 
                         BorderThickness="1" Margin="0,0,0,24">
                     <ScrollViewer MaxHeight="400">
-                        <GridView x:Name="StyleList" ItemsSource="{x:Bind ViewModel.StyleInfos}" SelectionMode="Single">
-                            <interactivity:Interaction.Behaviors>
-                                <interactivity:EventTriggerBehavior EventName="SelectionChanged">
-                                    <interactivity:InvokeCommandAction Command="{x:Bind ViewModel.StyleSelectedCommand}" CommandParameter="{x:Bind StyleList.SelectedItem,Mode=OneWay}" />
-                                </interactivity:EventTriggerBehavior>
-                            </interactivity:Interaction.Behaviors>
-                            <GridView.ItemTemplate>
-                                <DataTemplate x:DataType="pluginmodels:PluginInfo">
-                                    <Grid Width="200" Height="150">
-                                        <Image Source="{x:Bind RealIconPath}" Stretch="UniformToFill"/>
-                                        <StackPanel Orientation="Vertical" Height="40" VerticalAlignment="Bottom" Padding="6,1">
-                                            <StackPanel.Background>
-                                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                                    <GradientStop Color="#00000000" Offset="0"/>
-                                                    <GradientStop Color="#CC000000" Offset="1"/>
-                                                </LinearGradientBrush>
-                                            </StackPanel.Background>
-                                            <TextBlock Text="{x:Bind Manifest.Name}"/>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{x:Bind StyleInfo.Type}" Style="{ThemeResource CaptionTextBlockStyle}"
-                                                   Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
+                        <StackPanel>
+                            <GridView x:Name="StyleList" ItemsSource="{x:Bind ViewModel.StyleInfos}" SelectionMode="Single"
+                                  Visibility="{x:Bind ViewModel.StyleInfos.Count,Converter={StaticResource IntToVisibilityConverter},ConverterParameter=false}">
+                                <interactivity:Interaction.Behaviors>
+                                    <interactivity:EventTriggerBehavior EventName="SelectionChanged">
+                                        <interactivity:InvokeCommandAction Command="{x:Bind ViewModel.StyleSelectedCommand}" CommandParameter="{x:Bind StyleList.SelectedItem,Mode=OneWay}" />
+                                    </interactivity:EventTriggerBehavior>
+                                </interactivity:Interaction.Behaviors>
+                                <GridView.ItemTemplate>
+                                    <DataTemplate x:DataType="pluginmodels:PluginInfo">
+                                        <Grid Width="200" Height="150">
+                                            <Image Source="{x:Bind RealIconPath}" Stretch="UniformToFill"/>
+                                            <StackPanel Orientation="Vertical" Height="40" VerticalAlignment="Bottom" Padding="6,1">
+                                                <StackPanel.Background>
+                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                        <GradientStop Color="#00000000" Offset="0"/>
+                                                        <GradientStop Color="#CC000000" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </StackPanel.Background>
+                                                <TextBlock Text="{x:Bind Manifest.Name}"/>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{x:Bind StyleInfo.Type}" Style="{ThemeResource CaptionTextBlockStyle}"
+                                                               Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
+                                                </StackPanel>
                                             </StackPanel>
-                                        </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </GridView.ItemTemplate>
-                            <GridView.ItemContainerStyle>
-                                <Style TargetType="GridViewItem" BasedOn="{StaticResource DefaultGridViewItemStyle}">
-                                    <Setter Property="Margin" Value="5"/>
-                                </Style>
-                            </GridView.ItemContainerStyle>
-                            <GridView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid x:Name="MaxItemsWrapGrid" Orientation="Horizontal"/>
-                                </ItemsPanelTemplate>
-                            </GridView.ItemsPanel>
-                        </GridView>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                                <GridView.ItemContainerStyle>
+                                    <Style TargetType="GridViewItem" BasedOn="{StaticResource DefaultGridViewItemStyle}">
+                                        <Setter Property="Margin" Value="5"/>
+                                    </Style>
+                                </GridView.ItemContainerStyle>
+                                <GridView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <ItemsWrapGrid x:Name="MaxItemsWrapGrid" Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </GridView.ItemsPanel>
+                            </GridView>
+                            <TextBlock Text="当前没有安装任何主题" Margin="0,50" TextAlignment="Center" Opacity="0.7"
+                                       Visibility="{x:Bind ViewModel.StyleInfos.Count,Converter={StaticResource IntToVisibilityConverter},ConverterParameter=true}"/>
+                        </StackPanel>
                     </ScrollViewer>
                 </Border>
                 <TextBlock Text="参数配置" Style="{StaticResource BodyStrongTextBlockStyle}" Margin="0,0,0,12"/>
