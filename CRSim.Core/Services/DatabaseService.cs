@@ -11,12 +11,6 @@ namespace CRSim.Core.Services
         private List<Station> _stations;
         private List<TrainNumber> _trainNumbers;
 
-        private readonly JsonSerializerOptions options = new() 
-        {
-            WriteIndented = true,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-        };
-
         public DatabaseService()
         {
             ImportData(AppPaths.ConfigFilePath);
@@ -32,7 +26,7 @@ namespace CRSim.Core.Services
             try
             {
                 var json =  File.ReadAllText(jsonFilePath).Replace("StationStop", "TrainStop");// 修复旧版本的数据
-                var data = JsonSerializer.Deserialize<Json>(json);
+                var data = JsonSerializer.Deserialize<Json>(json,JsonContext.Default.Json);
                 _stations = data.Stations;
                 _trainNumbers = data.TrainNumbers;
 
@@ -108,7 +102,7 @@ namespace CRSim.Core.Services
             { 
                 Stations = _stations,
                 TrainNumbers = _trainNumbers
-            }, options);
+            },JsonContext.Default.Json);
             await File.WriteAllTextAsync(AppPaths.ConfigFilePath, json);
         }
 
@@ -118,7 +112,7 @@ namespace CRSim.Core.Services
             {
                 Stations = _stations,
                 TrainNumbers = _trainNumbers
-            }, options);
+            }, JsonContext.Default.Json);
             await File.WriteAllTextAsync(p, json);
         }
 
