@@ -17,6 +17,7 @@ namespace CRSim.Core.Services
         {
             _key.SetValue("TimeOffset", (int)_settings.TimeOffset.TotalMinutes);
             _key.SetValue("SwitchPageSeconds", _settings.SwitchPageSeconds);
+            _key.SetValue("ApiUri", _settings.ApiUri);
             _key.SetValue("MaxPages", _settings.MaxPages);
             _key.SetValue("StopCheckInAdvanceDuration", (int)_settings.StopCheckInAdvanceDuration.TotalMinutes);
             _key.SetValue("StopDisplayUntilDepartureDuration", (int)_settings.StopDisplayUntilDepartureDuration.TotalMinutes);
@@ -41,6 +42,7 @@ namespace CRSim.Core.Services
                 _settings = new Settings();
                 if (_key.GetValue("TimeOffset") != null) _settings.TimeOffset = TimeSpan.FromMinutes((int)_key.GetValue("TimeOffset"));
                 if (_key.GetValue("SwitchPageSeconds") != null) _settings.SwitchPageSeconds = (int)_key.GetValue("SwitchPageSeconds");
+                if (_key.GetValue("ApiUri") != null) _settings.ApiUri = (string)_key.GetValue("ApiUri");
                 if (_key.GetValue("MaxPages") != null) _settings.MaxPages = (int)_key.GetValue("MaxPages");
                 if (_key.GetValue("StopCheckInAdvanceDuration") != null) _settings.StopCheckInAdvanceDuration = TimeSpan.FromMinutes((int)_key.GetValue("StopCheckInAdvanceDuration"));
                 if (_key.GetValue("StopDisplayUntilDepartureDuration") != null) _settings.StopDisplayUntilDepartureDuration = TimeSpan.FromMinutes((int)_key.GetValue("StopDisplayUntilDepartureDuration"));

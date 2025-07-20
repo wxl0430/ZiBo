@@ -11,12 +11,19 @@ public interface IPluginService
     /// <summary>
     /// 插件包文件扩展名。
     /// </summary>
-    public static readonly string PluginPackageExtension = ".cp";
+    public static readonly string PluginPackageExtension = ".crsp";
 
     internal static ObservableCollection<PluginInfo> LoadedPluginsInternal { get; } = [];
 
     /// <summary>
     /// 已加载的插件信息列表。
     /// </summary>
-    public static IReadOnlyList<PluginInfo> LoadedPlugins => LoadedPluginsInternal;
+    public static ObservableCollection<PluginInfo> LoadedPlugins => LoadedPluginsInternal;
+
+    internal static ObservableCollection<PluginInfo> OnlinePluginsInternal { get; } = [];
+
+    public static ObservableCollection<PluginInfo> OnlinePlugins => OnlinePluginsInternal;
+
+    Task InstallPluginAsync(PluginInfo plugin);
+    void LoadOnlinePlugins();
 }

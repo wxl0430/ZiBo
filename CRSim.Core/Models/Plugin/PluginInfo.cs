@@ -1,16 +1,41 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using CRSim.Core.Abstractions;
 using CRSim.Core.Enums;
+using Downloader;
 
 namespace CRSim.Core.Models.Plugin;
 public partial class PluginInfo : ObservableRecipient
 {
-    //private DownloadProgress? _downloadProgress;
-    //private bool _isAvailableOnMarket = false;
+    public DownloadService? DownloadService;
+
+    [ObservableProperty]
+    private int _downloadProgress = 0;
+
+    public bool IsAvailableOnMarket => IPluginService.OnlinePlugins.Any(x => x.Manifest.Id == Manifest.Id);
+
+    public bool IsUpdateAvailable
+    {
+        get
+        {
+            if (IsAvailableOnMarket)
+            {
+                if(IPluginService.OnlinePlugins.Where(x => x.Manifest.Id == Manifest.Id).FirstOrDefault() is PluginInfo onlinePlugin)
+                {
+                    return onlinePlugin.Manifest.Version != Manifest.Version;
+                }
+            }
+            return false;
+        }
+    }
+
     [ObservableProperty]
     private PluginManifest _manifest = new();
+
     [ObservableProperty]
     private bool _restartRequired = false;
+
     public PluginLoadStatus LoadStatus { get; internal set; } = PluginLoadStatus.NotLoaded;
+
     public bool IsEnabled
     {
         get
@@ -32,6 +57,7 @@ public partial class PluginInfo : ObservableRecipient
             OnPropertyChanged();
         }
     }
+
     public string PluginFolderPath { get; internal set; } = "";
     public string RealIconPath { get; set; } = "";
     public bool IsUninstalling
@@ -45,17 +71,18 @@ public partial class PluginInfo : ObservableRecipient
             var path = Path.Combine(PluginFolderPath, ".uninstall");
             if (value)
             {
+                RestartRequired = true;
                 File.WriteAllText(path, "");
             }
             else
             {
+                RestartRequired = false;
                 File.Delete(path);
             }
             OnPropertyChanged();
         }
     }
     public Exception? Exception { get; internal set; }
-    //private bool _isUpdateAvailable = false;
 
     [ObservableProperty]
     private StyleInfo? styleInfo;

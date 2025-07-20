@@ -2,13 +2,15 @@
 {
     public static class AppPaths
     {
-        public static string AppDataFolder =>
+        public static string AppDataPath =>
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CRSim");
+        public static string TempPath =>
+            Path.Combine(Path.GetTempPath(), "CRSim");
 
         public static string ConfigFilePath =>
-            Path.Combine(AppDataFolder, "data.json");
+            Path.Combine(AppDataPath, "data.json");
 
         public static string PluginsRootPath =>
-            Path.Combine(AppDataFolder, "Plugins");
+            Path.Combine(AppDataPath, "Plugins");
     }
 }

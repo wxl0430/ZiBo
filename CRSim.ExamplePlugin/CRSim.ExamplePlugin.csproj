@@ -9,6 +9,7 @@
 	<Platforms>AnyCPU;x64</Platforms>
 	<Nullable>enable</Nullable>
 	<ImplicitUsings>enable</ImplicitUsings>
+    <TrimMode>partial</TrimMode>
   </PropertyGroup>
   <ItemGroup>
 	  <ProjectReference Include="..\CRSim.Core\CRSim.Core.csproj">

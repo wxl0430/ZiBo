@@ -21,7 +21,7 @@ namespace CRSim.Core.Models
         /// </summary>
         public TimeSpan StopDisplayFromArrivalDuration { get; set; } = TimeSpan.FromMinutes(10);
         public TimeSpan StopCheckInAdvanceDuration { get; set; } = TimeSpan.FromMinutes(2);
-
+        public string ApiUri { get; set; } = "http://47.122.74.193:25565";
         public int MaxPages { get; set; } = 3;
         public int SwitchPageSeconds { get; set; } = 20;
         public string UserKey { get; set; } = "";

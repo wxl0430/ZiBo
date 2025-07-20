@@ -1,15 +1,12 @@
 ﻿using CRSim.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CRSim.Core.Models.Plugin;
 
 namespace CRSim.Core.Abstractions
 {
     public interface INetworkService
     {
         Task<List<TrainStop>?> GetTimeTableAsync(string number);
-        Task<List<TrainStop>> GetTrainNumbersAsync(string name);
+        Task<List<TrainStop>?> GetTrainNumbersAsync(string name);
+        List<PluginManifest>? GetOnlinePlugins(string uri);
     }
 }
