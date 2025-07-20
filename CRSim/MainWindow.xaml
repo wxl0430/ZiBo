@@ -27,6 +27,11 @@
                         IsBackButtonVisible="Collapsed" IsBackEnabled="False">
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home" Content="主页" Tag="DashboardPage" />
+                <NavigationViewItem Content="插件" Tag="PluginManagementPage">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xEA86;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
                 <NavigationViewItemHeader Content="数据管理"/>
                 <NavigationViewItem Content="车站" Tag="StationManagementPage">
                     <NavigationViewItem.Icon>

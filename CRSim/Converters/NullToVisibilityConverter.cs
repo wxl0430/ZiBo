@@ -6,7 +6,9 @@ namespace CRSim.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return value == null ? Visibility.Collapsed : Visibility.Visible;
+            bool invert = (parameter as string)?.ToLower() == "invert";
+            bool isNull = value == null;
+            return invert ? isNull ? Visibility.Visible : Visibility.Collapsed : isNull ? Visibility.Collapsed : Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

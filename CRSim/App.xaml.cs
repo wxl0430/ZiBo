@@ -14,9 +14,9 @@
             {
                 LaunchDebugConsole();
             }
-            if (!Directory.Exists(AppPaths.AppDataFolder))
+            if (!Directory.Exists(AppPaths.AppDataPath))
             {
-                Directory.CreateDirectory(AppPaths.AppDataFolder);
+                Directory.CreateDirectory(AppPaths.AppDataPath);
             }
             AppHost = Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) =>
@@ -34,6 +34,7 @@
                     services.AddTransient<StationManagementPageViewModel>();
                     services.AddTransient<ScreenSimulatorPageViewModel>();
                     services.AddTransient<SettingsPageViewModel>();
+                    services.AddTransient<PluginManagementPageViewModel>();
                     PluginService.InitializePlugins(context, services, parsedOptions.ExternalPluginPath);
                 })
             .Build(); 
@@ -45,7 +46,6 @@
             AppHost.Services.GetRequiredService<ITimeService>().Start();
             MainWindow = AppHost.Services.GetService<MainWindow>();
             MainWindow?.Activate();
-            var win = AppHost.Services.GetService<StyleManager>();
         }
 
         [System.Runtime.InteropServices.DllImport("kernel32.dll")]

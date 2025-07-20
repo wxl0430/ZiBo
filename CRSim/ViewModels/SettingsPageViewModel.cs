@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics.Metrics;
+using System.Reflection;
 
 namespace CRSim.ViewModels
 {
@@ -9,7 +10,11 @@ namespace CRSim.ViewModels
 
         [ObservableProperty]
         public partial string AppVersion { get; set; } = "";
-
+        public ObservableCollection<InfoItem> Apis { get; } =
+        [
+            new InfoItem { Title = "官方插件源", Detail = "http://47.122.74.193:25565" },
+            new InfoItem { Title = "镜像站插件源", Detail = "https://crsim.com.cn/api" },
+        ];
         private Settings _settings;
         private readonly ISettingsService _settingsService;
         private readonly IDatabaseService _databaseService;
@@ -40,6 +45,9 @@ namespace CRSim.ViewModels
         public partial string SwitchPageSeconds { get; set; }
 
         [ObservableProperty]
+        public partial InfoItem ApiUri { get; set; }
+
+        [ObservableProperty]
         public partial string UserKey { get; set; }
 
         [ObservableProperty]
@@ -67,6 +75,7 @@ namespace CRSim.ViewModels
             StopDisplayUntilDepartureDuration = _settings.StopDisplayUntilDepartureDuration.TotalMinutes.ToString();
             StopDisplayFromArrivalDuration = _settings.StopDisplayFromArrivalDuration.TotalMinutes.ToString();
             StopCheckInAdvanceDuration = _settings.StopCheckInAdvanceDuration.TotalMinutes.ToString();
+            ApiUri = Apis.Where(x => x.Detail == _settings.ApiUri).FirstOrDefault();
             MaxPages = _settings.MaxPages.ToString();
             SwitchPageSeconds = _settings.SwitchPageSeconds.ToString();
             UserKey = _settings.UserKey;
@@ -88,6 +97,7 @@ namespace CRSim.ViewModels
             _settings.UserKey = UserKey;
             _settings.LoadTodayOnly = LoadTodayOnly;
             _settings.ReopenUnclosedScreensOnLoad = ReopenUnclosedScreensOnLoad;
+            _settings.ApiUri = ApiUri.Detail;
             _settingsService.SaveSettings();
         }
         private void UpdateSettings(string input, bool allowNegative, Action<int> updateAction)
