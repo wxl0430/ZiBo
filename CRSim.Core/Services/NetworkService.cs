@@ -144,7 +144,7 @@ namespace CRSim.Core.Services
             {
                 var client = new HttpClient();
                 var response = client.GetStringAsync(url).Result;
-                return JsonSerializer.Deserialize<List<PluginManifest>>(response);
+                return JsonSerializer.Deserialize(response, JsonContextWithCamelCase.Default.ListPluginManifest);
             }
             catch
             {

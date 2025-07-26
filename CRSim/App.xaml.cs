@@ -46,6 +46,7 @@
             AppHost.Services.GetRequiredService<ITimeService>().Start();
             MainWindow = AppHost.Services.GetService<MainWindow>();
             MainWindow?.Activate();
+            var win = AppHost.Services.GetService<StyleManager>();
         }
 
         [System.Runtime.InteropServices.DllImport("kernel32.dll")]

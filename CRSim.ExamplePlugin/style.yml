@@ -1,5 +1,0 @@
-parameters :
-  - "station"
-  - "text"
-region: "广元"
-type: "车站大屏"

@@ -10,6 +10,8 @@ public abstract class PluginBase
     /// </summary>
     public PluginInfo Info { get; internal set; } = null!;
 
+    public abstract Type ViewModel { get; }
+    public abstract Type View { get; }
     /// <summary>
     /// 初始化插件。一般在这个方法中完成插件的各项服务的注册。
     /// </summary>

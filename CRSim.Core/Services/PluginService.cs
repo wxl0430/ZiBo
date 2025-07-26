@@ -4,32 +4,29 @@ using CRSim.Core.Enums;
 using CRSim.Core.Models;
 using CRSim.Core.Models.Plugin;
 using CRSim.Core.Utils;
-using Downloader;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
+using System.Text.Json;
 using Windows.System;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 namespace CRSim.Core.Services;
 
 public class PluginService : IPluginService
 {
-    public static readonly string PluginManifestFileName = "manifest.yml";
+    public static readonly string PluginManifestFileName = "manifest.json";
+    public static readonly string StyleInfoFileName = "style.json";
 
     private string IndexUrl => $"{_settings.ApiUri}/GetFile?fileName=plugins.json";
 
     public static void InitializePlugins(HostBuilderContext context, IServiceCollection services,string externalPluginPath)
     {
-        if(!Directory.Exists(AppPaths.PluginsRootPath))
+        Console.WriteLine("开始加载插件");
+        if (!Directory.Exists(AppPaths.PluginsRootPath))
         {
             Directory.CreateDirectory(AppPaths.PluginsRootPath);
         }
-        var deserializer = new DeserializerBuilder()
-            .IgnoreUnmatchedProperties()
-            .WithNamingConvention(CamelCaseNamingConvention.Instance)
-            .Build();
+
         var pluginDirs = Directory.EnumerateDirectories(AppPaths.PluginsRootPath);
         if(!string.IsNullOrEmpty(externalPluginPath))
         {
@@ -38,6 +35,7 @@ public class PluginService : IPluginService
 
         foreach (var pluginDir in pluginDirs)
         {
+            Console.WriteLine($"当前插件搜寻目录: {pluginDir}");
             if (string.IsNullOrWhiteSpace(pluginDir))
                 continue;
             var manifestPath = Path.Combine(pluginDir, PluginManifestFileName);
@@ -47,17 +45,26 @@ public class PluginService : IPluginService
             }
 
             var manifestYaml = File.ReadAllText(manifestPath);
-            var manifest = deserializer.Deserialize<PluginManifest?>(manifestYaml);
-            if (manifest == null)
+            PluginManifest manifest = new();
+            try
             {
+                Console.WriteLine(manifestYaml);
+                manifest = JsonSerializer.Deserialize(manifestYaml,JsonContextWithCamelCase.Default.PluginManifest);
+                Console.WriteLine("成功解析YAML文件: " + manifestPath);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("YAML解析失败");
+                Console.WriteLine(ex.ToString());
                 continue;
             }
+            Console.WriteLine("找到插件: " + manifest.Id);
             var info = new PluginInfo
             {
                 Manifest = manifest,
                 PluginFolderPath = Path.GetFullPath(pluginDir),
                 RealIconPath = Path.Combine(Path.GetFullPath(pluginDir), "icon.png"),
-                StyleInfo = manifest.Type == "ScreenStyle" ? deserializer.Deserialize<StyleInfo?>(File.ReadAllText(Path.Combine(Path.GetFullPath(pluginDir), "style.yml"))) : null,
+                StyleInfo = JsonSerializer.Deserialize(File.ReadAllText(Path.Combine(Path.GetFullPath(pluginDir), StyleInfoFileName)),JsonContextWithCamelCase.Default.StyleInfo),
             };
             if (info.IsUninstalling)
             {
@@ -81,6 +88,7 @@ public class PluginService : IPluginService
             var pluginDir = info.PluginFolderPath;
             try
             {
+                Console.WriteLine("尝试加载插件: " + manifest.Id);
                 var fullPath = Path.GetFullPath(Path.Combine(pluginDir, manifest.EntranceAssembly));
                 var asm = Assembly.LoadFrom(fullPath);
                 var entrance = asm.ExportedTypes.FirstOrDefault(x =>
@@ -102,10 +110,11 @@ public class PluginService : IPluginService
                 services.AddSingleton(typeof(PluginBase), entranceObj);
                 services.AddSingleton(entrance, entranceObj);
                 info.LoadStatus = PluginLoadStatus.Loaded;
-                Console.WriteLine($"Initialize plugin: {pluginDir} ({manifest.Version})");
+                Console.WriteLine($"加载插件成功: {pluginDir} ({manifest.Version})");
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"加载插件失败: {ex}");
                 info.Exception = ex;
                 info.LoadStatus = PluginLoadStatus.Error;
             }
@@ -145,20 +154,21 @@ public class PluginService : IPluginService
         Directory.CreateDirectory(tempDir);
         var packagePath = Path.Combine(tempDir, $"{id}{IPluginService.PluginPackageExtension}");
         DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
-        plugin.DownloadService = new DownloadService();
-        plugin.DownloadService.DownloadProgressChanged += (s, e) =>
-        {
-            dispatcherQueue.TryEnqueue(() =>
-            {
-                plugin.DownloadProgress = (int)(e.ProgressPercentage);
-                Console.WriteLine(e.ProgressPercentage);
-            });
-        };
+        var downloader = new Downloader();
+        plugin.DownloadProgress = 0;
+
         try
         {
-            await plugin.DownloadService.DownloadFileTaskAsync(packageUrl,packagePath);
+            await downloader.DownloadFileAsync(packageUrl, packagePath, new Progress<double>(p =>
+            {
+                dispatcherQueue.TryEnqueue(() =>
+                {
+                    plugin.DownloadProgress = (int)p;
+                    Console.WriteLine(p);
+                });
+            }));
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Console.WriteLine(e.Message);
             plugin.DownloadProgress = 0;

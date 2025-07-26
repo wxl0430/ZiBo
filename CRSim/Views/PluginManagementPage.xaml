@@ -47,7 +47,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <SelectorBar x:Name="SelectorBar" Grid.Column="0">
+                    <SelectorBar x:Name="SelectorBar" Grid.Column="0" SelectionChanged="SelectorBar_SelectionChanged">
                         <interactivity:Interaction.Behaviors>
                             <interactivity:EventTriggerBehavior EventName="SelectionChanged">
                                 <interactivity:InvokeCommandAction Command="{x:Bind ViewModel.SourceSelectedCommand}" CommandParameter="{x:Bind SelectorBar.SelectedItem,Mode=OneWay}"/>

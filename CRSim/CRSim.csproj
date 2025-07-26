@@ -13,8 +13,6 @@
     <Nullable>enable</Nullable>
     <WindowsPackageType>None</WindowsPackageType>
     <LangVersion>preview</LangVersion>
-    <TrimMode>partial</TrimMode>
-    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
 	<Version>2.3.102.0</Version>
   </PropertyGroup>
   <ItemGroup>
@@ -56,10 +54,10 @@
     <PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" Version="8.2.250402" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.250402" />
     <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.2.250402" />
-    <PackageReference Include="EPPlus" Version="8.0.7" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.6" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.6" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.4188" />
+    <PackageReference Include="EPPlus" Version="8.0.8" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.7" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.4654" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250606001" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="3.0.0" />
   </ItemGroup>
@@ -131,11 +129,12 @@
     <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">False</PublishReadyToRun>
     <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
     <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
-    <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
+    <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">False</PublishTrimmed>
     <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
     <ApplicationIcon>Assets\CRSimIcon.ico</ApplicationIcon>
     <SignAssembly>False</SignAssembly>
     <PackageIcon>CRSimIcon.png</PackageIcon>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PublishAot>False</PublishAot>
   </PropertyGroup>
 </Project>

@@ -1,4 +1,5 @@
 ﻿using CRSim.Core.Models.Plugin;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CRSim.ViewModels;
 
@@ -132,7 +133,7 @@ public partial class ScreenSimulatorPageViewModel(IServiceProvider serviceProvid
     [RelayCommand]
     public async Task StartSimulation()
     {
-        StyleManager.ShowWindow(((dynamic)SelectedStylePlugin).View, 
+        StyleManager.ShowWindow(SelectedStylePlugin.View, 
             databaseService.GetStationByName(SelectedStationName),
             TicketCheckNeeded ? SelectedTicketCheck : string.Empty,
             PlatformNeeded ? SelectedPlatformName : string.Empty,

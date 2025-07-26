@@ -9,7 +9,6 @@
 	<Platforms>AnyCPU;x64</Platforms>
 	<Nullable>enable</Nullable>
 	<ImplicitUsings>enable</ImplicitUsings>
-    <TrimMode>partial</TrimMode>
   </PropertyGroup>
   <ItemGroup>
 	  <ProjectReference Include="..\CRSim.Core\CRSim.Core.csproj">
@@ -23,10 +22,10 @@
     <None Update="icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="manifest.yml">
+    <None Update="manifest.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="style.yml">
+    <None Update="style.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

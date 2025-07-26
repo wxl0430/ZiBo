@@ -4,14 +4,13 @@
 	  <TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
 	  <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
 	  <Nullable>enable</Nullable>
-	  <TrimMode>partial</TrimMode>
 	  <UseWPF>true</UseWPF>
 	  <Platforms>AnyCPU;x64</Platforms>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.6" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
 		<PackageReference Include="PinYinConverterCore" Version="1.0.2" />
 		<PackageReference Include="PP.Wpf" Version="1.0.8" />
 	</ItemGroup>

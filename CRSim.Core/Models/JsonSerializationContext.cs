@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using CRSim.Core.Models.Plugin;
+using System.Text.Json.Serialization;
 
 namespace CRSim.Core.Models
 {
@@ -7,4 +8,12 @@ namespace CRSim.Core.Models
     public partial class JsonContext : JsonSerializerContext
     {
     }
+
+    [JsonSerializable(typeof(List<PluginManifest>))]
+    [JsonSerializable(typeof(StyleInfo))]
+    [JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
+    public partial class JsonContextWithCamelCase : JsonSerializerContext
+    {
+    }
 }
+

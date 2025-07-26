@@ -1,13 +1,10 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CRSim.Core.Abstractions;
 using CRSim.Core.Enums;
-using Downloader;
 
 namespace CRSim.Core.Models.Plugin;
 public partial class PluginInfo : ObservableRecipient
 {
-    public DownloadService? DownloadService;
-
     [ObservableProperty]
     private int _downloadProgress = 0;
 

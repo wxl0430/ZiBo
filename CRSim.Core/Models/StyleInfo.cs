@@ -4,8 +4,8 @@ namespace CRSim.Core.Models
 {
     public class StyleInfo
     {
-        public required string[] Parameters;
-        public required string Type;
-        public required string Region;
+        public string[] Parameters { get; set; } = [];
+        public string Type { get; set; } = "";
+        public string Region { get; set; } = "";
     }
 }

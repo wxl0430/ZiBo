@@ -15,7 +15,7 @@ public partial class PluginManagementPageViewModel : ObservableObject
     [ObservableProperty]
     public partial PluginInfo? SelectedPlugin { get; set; }
 
-    public ObservableCollection<PluginInfo> Plugins = [];
+    public ObservableCollection<PluginInfo> Plugins = IPluginService.OnlinePlugins;
 
     private IPluginService _pluginService;
 
@@ -66,12 +66,14 @@ public partial class PluginManagementPageViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void SourceSelected(SelectorBarItem selectorBarItem)
+    public void SourceSelected(object args)
     {
-        SelectedPlugin = null;
-        Plugins = (selectorBarItem?.Text == "本地" || selectorBarItem is null)
-            ? IPluginService.OnlinePlugins : IPluginService.LoadedPlugins;
-        OnPropertyChanged(nameof(Plugins));
+        if(args is SelectorBarItem selectorBarItem)
+        {
+            SelectedPlugin = null;
+            Plugins = (selectorBarItem?.Text == "本地") ? IPluginService.OnlinePlugins : IPluginService.LoadedPlugins;
+            OnPropertyChanged(nameof(Plugins));
+        }
     }
 
     [RelayCommand]

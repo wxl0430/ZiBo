@@ -11,8 +11,8 @@ namespace CRSim.ExamplePlugin;
 [PluginEntrance]
 public class Plugin : PluginBase
 {
-    public Type ViewModel => typeof(ScreenViewModel);
-    public Type View => typeof(ScreenView);
+    public override Type ViewModel => typeof(ScreenViewModel);
+    public override Type View => typeof(ScreenView);
     public override void Initialize(HostBuilderContext context, IServiceCollection services)
     {
         services.AddTransient(ViewModel);
