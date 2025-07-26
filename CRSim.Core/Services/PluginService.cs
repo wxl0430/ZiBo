@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using System.Reflection;
 using System.Text.Json;
 using Windows.System;
+using Downloader;
 
 namespace CRSim.Core.Services;
 
@@ -154,23 +155,23 @@ public class PluginService : IPluginService
         Directory.CreateDirectory(tempDir);
         var packagePath = Path.Combine(tempDir, $"{id}{IPluginService.PluginPackageExtension}");
         DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
-        var downloader = new Downloader();
+        var downloader = new DownloadService();
         plugin.DownloadProgress = 0;
-
         try
         {
-            await downloader.DownloadFileAsync(packageUrl, packagePath, new Progress<double>(p =>
+            downloader.DownloadProgressChanged += (s, e) =>
             {
                 dispatcherQueue.TryEnqueue(() =>
                 {
-                    plugin.DownloadProgress = (int)p;
-                    Console.WriteLine(p);
+                    plugin.DownloadProgress = (int)e.ProgressPercentage;
+                    Console.WriteLine(e.ProgressPercentage);
                 });
-            }));
+            };
+            await downloader.DownloadFileTaskAsync(packageUrl, packagePath);
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(e);
             plugin.DownloadProgress = 0;
             return;
         }
