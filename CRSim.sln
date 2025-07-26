@@ -7,11 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRSim.Core", "CRSim.Core\CR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRSim", "CRSim\CRSim.csproj", "{9C334D96-6CE7-4137-9CA8-2969E4C67C0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRSim.ExamplePlugin", "CRSim.ExamplePlugin\CRSim.ExamplePlugin.csproj", "{FDD66ED3-4F7C-4A81-BE0F-F5E504BFCB2E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRSim.ScreenSimulator", "CRSim.ScreenSimulator\CRSim.ScreenSimulator.csproj", "{94927020-7AD7-4F6F-A456-F34A8E0BC40A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRSim.PluginSdk", "CRSim.PluginSdk\CRSim.PluginSdk.csproj", "{2216DFBB-8EE2-4487-9772-7CAB0BF3A5C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,18 +25,10 @@ Global
 		{9C334D96-6CE7-4137-9CA8-2969E4C67C0F}.Release|x64.ActiveCfg = Release|x64
 		{9C334D96-6CE7-4137-9CA8-2969E4C67C0F}.Release|x64.Build.0 = Release|x64
 		{9C334D96-6CE7-4137-9CA8-2969E4C67C0F}.Release|x64.Deploy.0 = Release|x64
-		{FDD66ED3-4F7C-4A81-BE0F-F5E504BFCB2E}.Debug|x64.ActiveCfg = Debug|x64
-		{FDD66ED3-4F7C-4A81-BE0F-F5E504BFCB2E}.Debug|x64.Build.0 = Debug|x64
-		{FDD66ED3-4F7C-4A81-BE0F-F5E504BFCB2E}.Release|x64.ActiveCfg = Release|x64
-		{FDD66ED3-4F7C-4A81-BE0F-F5E504BFCB2E}.Release|x64.Build.0 = Release|x64
 		{94927020-7AD7-4F6F-A456-F34A8E0BC40A}.Debug|x64.ActiveCfg = Debug|x64
 		{94927020-7AD7-4F6F-A456-F34A8E0BC40A}.Debug|x64.Build.0 = Debug|x64
 		{94927020-7AD7-4F6F-A456-F34A8E0BC40A}.Release|x64.ActiveCfg = Release|x64
 		{94927020-7AD7-4F6F-A456-F34A8E0BC40A}.Release|x64.Build.0 = Release|x64
-		{2216DFBB-8EE2-4487-9772-7CAB0BF3A5C6}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{2216DFBB-8EE2-4487-9772-7CAB0BF3A5C6}.Debug|x64.Build.0 = Debug|Any CPU
-		{2216DFBB-8EE2-4487-9772-7CAB0BF3A5C6}.Release|x64.ActiveCfg = Release|Any CPU
-		{2216DFBB-8EE2-4487-9772-7CAB0BF3A5C6}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

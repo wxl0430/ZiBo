@@ -49,13 +49,12 @@ public class PluginService : IPluginService
             PluginManifest manifest = new();
             try
             {
-                Console.WriteLine(manifestYaml);
                 manifest = JsonSerializer.Deserialize(manifestYaml,JsonContextWithCamelCase.Default.PluginManifest);
-                Console.WriteLine("成功解析YAML文件: " + manifestPath);
+                Console.WriteLine("成功解析JSON文件: " + manifestPath);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("YAML解析失败");
+                Console.WriteLine("JSON解析失败");
                 Console.WriteLine(ex.ToString());
                 continue;
             }
@@ -91,8 +90,9 @@ public class PluginService : IPluginService
             {
                 Console.WriteLine("尝试加载插件: " + manifest.Id);
                 var fullPath = Path.GetFullPath(Path.Combine(pluginDir, manifest.EntranceAssembly));
-                var asm = Assembly.LoadFrom(fullPath);
-                var entrance = asm.ExportedTypes.FirstOrDefault(x =>
+                var loadContext = new PluginLoadContext(fullPath);
+                var assembly = loadContext.LoadFromAssemblyPath(fullPath);
+                var entrance = assembly.ExportedTypes.FirstOrDefault(x =>
                     x.BaseType == typeof(PluginBase) ||
                     x.GetCustomAttributes().FirstOrDefault(a => a.GetType() == typeof(PluginEntrance)) != null);
 
