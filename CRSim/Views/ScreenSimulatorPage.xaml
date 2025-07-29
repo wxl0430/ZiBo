@@ -114,7 +114,7 @@
                     </controls:SettingsCard>
                     <controls:SettingsCard Header="站台" Description="仅加载某个站台的数据" HeaderIcon="{winui:FontIcon Glyph=&#xE799;}"
                                        Visibility="{x:Bind ViewModel.PlatformNeeded,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
-                        <ComboBox ItemsSource="{x:Bind ViewModel.Platforms}" x:Name="PlatformsList">
+                        <ComboBox ItemsSource="{x:Bind ViewModel.Platforms}" x:Name="PlatformsList" DisplayMemberPath="Name">
                             <interactivity:Interaction.Behaviors>
                                 <interactivity:EventTriggerBehavior EventName="SelectionChanged">
                                     <interactivity:InvokeCommandAction Command="{x:Bind ViewModel.SelectPlatformCommand}" CommandParameter="{x:Bind PlatformsList.SelectedItem,Mode=OneWay}" />
