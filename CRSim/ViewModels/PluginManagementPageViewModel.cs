@@ -8,7 +8,6 @@ namespace CRSim.ViewModels;
 
 public partial class PluginManagementPageViewModel : ObservableObject
 {
-
     [ObservableProperty]
     public partial string PageTitle { get; set; } = "插件管理";
 
@@ -17,11 +16,14 @@ public partial class PluginManagementPageViewModel : ObservableObject
 
     public ObservableCollection<PluginInfo> Plugins = IPluginService.OnlinePlugins;
 
-    private IPluginService _pluginService;
+    private readonly IPluginService _pluginService;
+    private readonly IDialogService _dialogService;
 
-    public PluginManagementPageViewModel(IPluginService pluginService)
+    public PluginManagementPageViewModel(IPluginService pluginService,IDialogService dialogService)
     {
         _pluginService = pluginService;
+        _dialogService = dialogService;
+        _pluginService.LoadOnlinePluginsAsync();
     }
 
     [RelayCommand]
@@ -34,12 +36,30 @@ public partial class PluginManagementPageViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public async Task InstallPlugin()
+    public async Task InstallPluginOnline()
     {
-        await _pluginService.InstallPluginAsync(SelectedPlugin);
+        await _pluginService.InstallPluginOnlineAsync(SelectedPlugin);
         OnPropertyChanged(nameof(SelectedPlugin));
     }
-
+    [RelayCommand]
+    public async Task InstallPluginLocal()
+    {
+        if (await _dialogService.GetFileAsync([".crsp"]) is string filePath)
+        {
+            try
+            {
+                await _pluginService.InstallPluginLocalAsync(filePath);
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowTextAsync("安装失败", $"{ex}");
+            }
+        }
+        else
+        {
+            await _dialogService.ShowMessageAsync("未选择文件", "请先选择一个插件包文件。");
+        }
+    }
     [RelayCommand]
     public void UninstallPlugin()
     {
@@ -53,11 +73,25 @@ public partial class PluginManagementPageViewModel : ObservableObject
         SelectedPlugin.IsUninstalling = false;
         OnPropertyChanged(nameof(SelectedPlugin));
     }
-
+    [RelayCommand]
+    public async Task PackPlugin()
+    {
+        if (SelectedPlugin == null) return;
+        string? filePath = await _dialogService.SaveFileAsync(".crsp", $"{SelectedPlugin.Manifest.Id}");
+        if (filePath == null) return;
+        try
+        {
+            await _pluginService.PackPluginAsync(SelectedPlugin, filePath);
+        }
+        catch (Exception ex)
+        {
+            await _dialogService.ShowTextAsync("打包失败", $"{ex}");
+        }
+    }
     [RelayCommand]
     public static void Restart()
     {
-        string exePath = Process.GetCurrentProcess().MainModule.FileName;
+        string exePath = Environment.ProcessPath;
         Process.Start(new ProcessStartInfo(exePath)
         {
             UseShellExecute = true 
@@ -87,8 +121,8 @@ public partial class PluginManagementPageViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void Refresh()
+    public async Task Refresh()
     {
-        _pluginService.LoadOnlinePlugins();
+        await _pluginService.LoadOnlinePluginsAsync();
     }
 }

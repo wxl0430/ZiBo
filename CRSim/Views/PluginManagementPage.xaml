@@ -45,7 +45,6 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <SelectorBar x:Name="SelectorBar" Grid.Column="0" SelectionChanged="SelectorBar_SelectionChanged">
                         <interactivity:Interaction.Behaviors>
@@ -56,10 +55,13 @@
                         <SelectorBarItem Text="在线" Icon="{winui:FontIcon Glyph=&#xEDE4;}" IsSelected="True"/>
                         <SelectorBarItem Text="本地" Icon="{winui:FontIcon Glyph=&#xEDA2;}" />
                     </SelectorBar>
-                    <Button Grid.Column="2" Content="{winui:FontIcon Glyph=&#xE72C;}" Style="{StaticResource EllipsisButton}"
-                            Command="{x:Bind ViewModel.RefreshCommand}"/>
-                    <Button Grid.Column="3" Content="{winui:FontIcon Glyph=&#xE8B7;}" Style="{StaticResource EllipsisButton}"
-                            Command="{x:Bind ViewModel.OpenPluginFolderCommand}"/>
+                    <CommandBar Grid.Column="2" IsOpen="False" DefaultLabelPosition="Right">
+                        <AppBarButton Icon="{winui:FontIcon Glyph=&#xE72C;}" Label="刷新" Command="{x:Bind ViewModel.RefreshCommand}"/>
+                        <CommandBar.SecondaryCommands>
+                            <AppBarButton Icon="{winui:FontIcon Glyph=&#xE8B7;}" Label="打开插件目录" Command="{x:Bind ViewModel.OpenPluginFolderCommand}"/>
+                            <AppBarButton Icon="{winui:FontIcon Glyph=&#xE7B8;}" Label="安装外部插件" Command="{x:Bind ViewModel.InstallPluginLocalCommand}"/>
+                        </CommandBar.SecondaryCommands>
+                    </CommandBar>
                 </Grid>
                 <Border Style="{StaticResource ListViewBorder}" Grid.Row="1">
                     <ListView ItemsSource="{x:Bind ViewModel.Plugins,Mode=OneWay}" Width="290" SelectionMode="Single">
@@ -113,11 +115,14 @@
                                             <TextBlock Text="重启应用" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
-                                    <Button Style="{StaticResource AccentButtonStyle}" Command="{x:Bind ViewModel.InstallPluginCommand}" Visibility="{x:Bind ViewModel.SelectedPlugin,Mode=OneWay,Converter={StaticResource PluginLoadStatusToVisibilityConverter},ConverterParameter=NotLoaded}">
+                                    <Button Style="{StaticResource AccentButtonStyle}" Command="{x:Bind ViewModel.InstallPluginOnlineCommand}" Visibility="{x:Bind ViewModel.SelectedPlugin,Mode=OneWay,Converter={StaticResource PluginLoadStatusToVisibilityConverter},ConverterParameter=NotLoaded}">
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                             <FontIcon Glyph="&#xE896;" Margin="0,0,8,0"/>
                                             <TextBlock Text="下载" VerticalAlignment="Center"/>
                                         </StackPanel>
+                                    </Button>
+                                    <Button Command="{x:Bind ViewModel.PackPluginCommand}" Visibility="{x:Bind ViewModel.SelectedPlugin,Mode=OneWay,Converter={StaticResource PluginLoadStatusToVisibilityConverter},ConverterParameter=Loaded}">
+                                        <FontIcon Glyph="&#xE72D;"/>
                                     </Button>
                                     <Button Command="{x:Bind ViewModel.UninstallPluginCommand}" Visibility="{x:Bind ViewModel.SelectedPlugin,Mode=OneWay,Converter={StaticResource PluginLoadStatusToVisibilityConverter},ConverterParameter=Loaded}">
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">

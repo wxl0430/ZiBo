@@ -29,7 +29,7 @@ public class PluginManifest
     /// <summary>
     /// 项目 Url
     /// </summary>
-    public string? Url { get; set; }
+    public string Url { get; set; } = "";
 
     /// <summary>
     /// 插件版本

@@ -24,6 +24,8 @@ public interface IPluginService
 
     public static ObservableCollection<PluginInfo> OnlinePlugins => OnlinePluginsInternal;
 
-    Task InstallPluginAsync(PluginInfo plugin);
-    void LoadOnlinePlugins();
+    Task InstallPluginOnlineAsync(PluginInfo plugin);
+    Task InstallPluginLocalAsync(string filePath);
+    Task PackPluginAsync(PluginInfo plugin, string filePath);
+    Task LoadOnlinePluginsAsync();
 }

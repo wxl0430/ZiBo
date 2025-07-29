@@ -64,7 +64,7 @@ public class PluginService : IPluginService
                 Manifest = manifest,
                 PluginFolderPath = Path.GetFullPath(pluginDir),
                 RealIconPath = Path.Combine(Path.GetFullPath(pluginDir), "icon.png"),
-                StyleInfo = JsonSerializer.Deserialize(File.ReadAllText(Path.Combine(Path.GetFullPath(pluginDir), StyleInfoFileName)),JsonContextWithCamelCase.Default.StyleInfo),
+                StyleInfo = manifest.Type == "ScreenStyle" ? JsonSerializer.Deserialize(File.ReadAllText(Path.Combine(Path.GetFullPath(pluginDir), StyleInfoFileName)),JsonContextWithCamelCase.Default.StyleInfo) : null,
             };
             if (info.IsUninstalling)
             {
@@ -127,9 +127,8 @@ public class PluginService : IPluginService
     {
         _networkService = networkService;
         _settings = settingsService.GetSettings();
-        LoadOnlinePlugins();
     }
-    public void LoadOnlinePlugins()
+    public async Task LoadOnlinePluginsAsync()
     {
         var pluginManifests = _networkService.GetOnlinePlugins(IndexUrl);
         IPluginService.OnlinePluginsInternal.Clear();
@@ -145,9 +144,10 @@ public class PluginService : IPluginService
             };
             IPluginService.OnlinePluginsInternal.Add(info);
         }
+        await Task.CompletedTask;
     }
 
-    public async Task InstallPluginAsync(PluginInfo plugin)
+    public async Task InstallPluginOnlineAsync(PluginInfo plugin)
     {
         var id = plugin.Manifest.Id;
         var packageUrl = $"{_settings.ApiUri}/GetFile?fileName=plugins/{id}{IPluginService.PluginPackageExtension}";
@@ -188,5 +188,80 @@ public class PluginService : IPluginService
 
         plugin.DownloadProgress = 0;
         plugin.RestartRequired = true;
+    }
+
+    public async Task InstallPluginLocalAsync(string filePath)
+    {
+        var tempDir = Path.Combine(AppPaths.TempPath, "Plugins", Guid.NewGuid().ToString());
+        Directory.CreateDirectory(tempDir);
+        System.IO.Compression.ZipFile.ExtractToDirectory(filePath, tempDir);
+
+        var manifestPath = Path.Combine(tempDir, PluginManifestFileName);
+        if (!File.Exists(manifestPath))
+        {
+            throw new FileNotFoundException("插件包中缺少 manifest.json 文件。");
+        }
+        var manifestYaml = File.ReadAllText(manifestPath);
+        if( JsonSerializer.Deserialize(manifestYaml, JsonContextWithCamelCase.Default.PluginManifest) is not PluginManifest manifest || manifest.Id == "")
+        {
+            throw new InvalidDataException("插件包中的 manifest.json 文件格式不正确。");
+        }
+
+        // 解压到插件目录
+        var destDir = Path.Combine(AppPaths.PluginsRootPath, manifest.Id);
+        if (Directory.Exists(destDir))
+            Directory.Delete(destDir, true);
+        System.IO.Compression.ZipFile.ExtractToDirectory(filePath, destDir);
+
+        var info = new PluginInfo
+        {
+            Manifest = manifest,
+            PluginFolderPath = destDir,
+            RealIconPath = Path.Combine(destDir, "icon.png"),
+            StyleInfo = manifest.Type == "ScreenStyle" ? JsonSerializer.Deserialize(File.ReadAllText(Path.Combine(destDir, StyleInfoFileName)), JsonContextWithCamelCase.Default.StyleInfo) : null,
+            RestartRequired = true
+        };
+        // 清理临时文件
+        try { Directory.Delete(tempDir, true); } catch { }
+        IPluginService.LoadedPluginsInternal.Add(info);
+        await Task.CompletedTask;
+    }
+
+    public async Task PackPluginAsync(PluginInfo plugin, string filePath)
+    {
+        var pluginDir = plugin.PluginFolderPath;
+        if (string.IsNullOrWhiteSpace(pluginDir) || !Directory.Exists(pluginDir))
+            throw new DirectoryNotFoundException("插件目录不存在。");
+
+        // 临时目录用于打包
+        var tempDir = Path.Combine(AppPaths.TempPath, "Pack", Guid.NewGuid().ToString());
+        Directory.CreateDirectory(tempDir);
+
+        // 复制所有文件到临时目录，排除指定dll
+        foreach (var file in Directory.EnumerateFiles(pluginDir, "*", SearchOption.AllDirectories))
+        {
+            var fileName = Path.GetFileName(file);
+            if (fileName.Equals("Microsoft.Windows.SDK.NET.dll", StringComparison.OrdinalIgnoreCase) ||
+                fileName.Equals("WinRT.Runtime.dll", StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+            var relativePath = Path.GetRelativePath(pluginDir, file);
+            var destPath = Path.Combine(tempDir, relativePath);
+            Directory.CreateDirectory(Path.GetDirectoryName(destPath)!);
+            File.Copy(file, destPath, true);
+        }
+
+        // 如果目标文件已存在，先删除
+        if (File.Exists(filePath))
+            File.Delete(filePath);
+
+        // 打包为zip
+        System.IO.Compression.ZipFile.CreateFromDirectory(tempDir, filePath);
+
+        // 清理临时目录
+        try { Directory.Delete(tempDir, true); } catch { }
+
+        await Task.CompletedTask;
     }
 }

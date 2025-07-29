@@ -1,15 +1,15 @@
 using CRSim.Core.Abstractions;
+using CRSim.Core.Enums;
 using CRSim.Core.Models;
 using CRSim.Core.Models.Plugin;
 using CRSim.ScreenSimulator.Views;
 using System.Windows;
 using System.Windows.Controls;
-using static System.Net.Mime.MediaTypeNames;
 namespace CRSim.ScreenSimulator
 {
 	public class StyleManager
 	{
-        public static List<PluginInfo> StyleInfos => [.. IPluginService.LoadedPlugins.Where(x => x.Manifest.Type == "ScreenStyle")];
+        public static List<PluginInfo> StyleInfos => [.. IPluginService.LoadedPlugins.Where(x => x.Manifest.Type == "ScreenStyle" && x.LoadStatus == PluginLoadStatus.Loaded)];
         public static IServiceProvider ServiceProvider;
         private static IDatabaseService _databaseService;
         public StyleManager(IEnumerable<PluginBase> pluginBases,IServiceProvider serviceProvider,IDatabaseService databaseService)
