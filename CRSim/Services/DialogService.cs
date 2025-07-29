@@ -206,7 +206,7 @@ namespace CRSim.Services
             savePicker.SuggestedFileName = f;
             savePicker.FileTypeChoices.Add("File", [filter]);
             StorageFile file = await savePicker.PickSaveFileAsync();
-            return file.Path;
+            return file?.Path;
         }
 
         public async Task<List<Platform>?> GetInputPlatformAsync()
