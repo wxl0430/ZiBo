@@ -10,6 +10,12 @@
 	  <PackageId>CRSim.ScreenSimulator</PackageId>
 	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\logo-CR.png" />
+    <None Remove="Assets\logo-CRH.png" />
+    <None Remove="Assets\logo-GTJT.png" />
+  </ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
@@ -18,6 +24,11 @@
 	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CRSim.Core\CRSim.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\logo-CR.png" />
+    <Resource Include="Assets\logo-CRH.png" />
+    <Resource Include="Assets\logo-GTJT.png" />
   </ItemGroup>
 
 </Project>

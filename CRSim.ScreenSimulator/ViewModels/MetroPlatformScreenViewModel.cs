@@ -19,6 +19,7 @@ namespace CRSim.ScreenSimulator.ViewModels
         private string _text;
         [ObservableProperty]
         private Uri _video;
+        public System.Windows.Threading.Dispatcher UIDispatcher { get; set; }
         public List<TrainInfo> TrainInfos { get; set; } = [];
         public MetroPlatformScreenViewModel(ITimeService timeService, ISettingsService settingsService)
         {
