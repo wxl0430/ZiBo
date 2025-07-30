@@ -55,10 +55,6 @@ public partial class PluginManagementPageViewModel : ObservableObject
                 await _dialogService.ShowTextAsync("安装失败", $"{ex}");
             }
         }
-        else
-        {
-            await _dialogService.ShowMessageAsync("未选择文件", "请先选择一个插件包文件。");
-        }
     }
     [RelayCommand]
     public void UninstallPlugin()

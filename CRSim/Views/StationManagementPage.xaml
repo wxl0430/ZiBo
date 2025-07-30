@@ -12,8 +12,7 @@
     xmlns:winui="using:CommunityToolkit.WinUI"   
     xmlns:viewmodels="using:CRSim.ViewModels"   
     xmlns:models="using:CRSim.Models"     
-    xmlns:coremodels="using:CRSim.Core.Models"     
-    Loaded="Page_Loaded"
+    xmlns:coremodels="using:CRSim.Core.Models"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance Type=viewmodels:StationManagementPageViewModel}">
     <Page.Resources>

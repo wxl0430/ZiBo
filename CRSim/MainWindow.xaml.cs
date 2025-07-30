@@ -43,5 +43,11 @@ public sealed partial class MainWindow : Window
                 }
             }
         }
+
+        private void Window_Activated(object sender, WindowActivatedEventArgs args)
+        {
+            var dialogService = App.AppHost.Services.GetService<IDialogService>()!;
+            (dialogService as DialogService)?.SetXamlRoot(this.Content.XamlRoot);
+        }
     }
 }
