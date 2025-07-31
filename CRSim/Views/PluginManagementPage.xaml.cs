@@ -14,6 +14,5 @@ public sealed partial class PluginManagementPage : Page
 
     private void SelectorBar_SelectionChanged(SelectorBar sender, SelectorBarSelectionChangedEventArgs args)
     {
-        Console.WriteLine($"SelectorBar selection changed");
     }
 }

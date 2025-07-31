@@ -13,16 +13,16 @@ public interface IPluginService
     /// </summary>
     public static readonly string PluginPackageExtension = ".crsp";
 
-    internal static ObservableCollection<PluginInfo> LoadedPluginsInternal { get; } = [];
+    internal static List<PluginInfo> LoadedPluginsInternal { get; } = [];
 
     /// <summary>
     /// 已加载的插件信息列表。
     /// </summary>
-    public static ObservableCollection<PluginInfo> LoadedPlugins => LoadedPluginsInternal;
+    public static List<PluginInfo> LoadedPlugins => LoadedPluginsInternal;
 
-    internal static ObservableCollection<PluginInfo> OnlinePluginsInternal { get; } = [];
+    internal static List<PluginInfo> OnlinePluginsInternal { get; } = [];
 
-    public static ObservableCollection<PluginInfo> OnlinePlugins => OnlinePluginsInternal;
+    public static List<PluginInfo> OnlinePlugins => OnlinePluginsInternal;
 
     Task InstallPluginOnlineAsync(PluginInfo plugin);
     Task InstallPluginLocalAsync(string filePath);

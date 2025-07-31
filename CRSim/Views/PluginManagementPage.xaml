@@ -38,9 +38,10 @@
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" Margin="0,0,0,8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -63,8 +64,30 @@
                         </CommandBar.SecondaryCommands>
                     </CommandBar>
                 </Grid>
-                <Border Style="{StaticResource ListViewBorder}" Grid.Row="1">
-                    <ListView ItemsSource="{x:Bind ViewModel.Plugins,Mode=OneWay}" Width="290" SelectionMode="Single">
+                <Grid Grid.Row="1" Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <AutoSuggestBox Grid.Column="0" PlaceholderText="搜索插件" QueryIcon="Find" Text="{x:Bind ViewModel.SearchText,Mode=TwoWay}"
+                                    Margin="0,0,8,0" HorizontalAlignment="Stretch" MaxWidth="186.4">
+                        <interactivity:Interaction.Behaviors>
+                            <interactivity:EventTriggerBehavior EventName="TextChanged">
+                                <interactivity:InvokeCommandAction Command="{x:Bind ViewModel.SearchCommand}" />
+                            </interactivity:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </AutoSuggestBox>
+                    <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" ItemsSource="{x:Bind ViewModel.Authors,Mode=OneWay}"
+                              SelectedItem="{x:Bind ViewModel.SelectedAuthor,Mode=TwoWay}">
+                        <interactivity:Interaction.Behaviors>
+                            <interactivity:EventTriggerBehavior EventName="SelectionChanged">
+                                <interactivity:InvokeCommandAction Command="{x:Bind ViewModel.SearchCommand}" />
+                            </interactivity:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </ComboBox>
+                </Grid>
+                <Border Style="{StaticResource ListViewBorder}" Grid.Row="2">
+                    <ListView ItemsSource="{x:Bind ViewModel.FilteredPlugins,Mode=OneWay}" Width="290" SelectionMode="Single">
                         <interactivity:Interaction.Behaviors>
                             <interactivity:EventTriggerBehavior EventName="SelectionChanged">
                                 <interactivity:InvokeCommandAction Command="{x:Bind ViewModel.PluginSelectedCommand}" />

@@ -1,7 +1,4 @@
-﻿using CRSim.Core.Abstractions;
-using CRSim.Core.Models;
-using CRSim.Core.Models.Plugin;
-using CRSim.Core.Services;
+﻿using CRSim.Core.Models.Plugin;
 using System.Diagnostics;
 
 namespace CRSim.ViewModels;
@@ -12,9 +9,19 @@ public partial class PluginManagementPageViewModel : ObservableObject
     public partial string PageTitle { get; set; } = "插件管理";
 
     [ObservableProperty]
+    public partial string SearchText { get; set; } = "";
+
+    [ObservableProperty]
     public partial PluginInfo? SelectedPlugin { get; set; }
 
-    public ObservableCollection<PluginInfo> Plugins = IPluginService.OnlinePlugins;
+    public List<PluginInfo> Plugins = IPluginService.OnlinePlugins;
+
+    public List<PluginInfo> FilteredPlugins => [.. Plugins.Where(x => x.Manifest.Name.Contains(SearchText) && (SelectedAuthor == "全体作者" || x.Manifest.Author == SelectedAuthor))];
+
+    public List<string> Authors => ["全体作者",.. Plugins.Select(x => x.Manifest.Author).Distinct()];
+
+    [ObservableProperty]
+    public partial string SelectedAuthor { get; set; } = "全体作者";
 
     private readonly IPluginService _pluginService;
     private readonly IDialogService _dialogService;
@@ -23,7 +30,12 @@ public partial class PluginManagementPageViewModel : ObservableObject
     {
         _pluginService = pluginService;
         _dialogService = dialogService;
-        _pluginService.LoadOnlinePluginsAsync();
+        _ = InitAsync();
+    }
+    private async Task InitAsync()
+    {
+        await _pluginService.LoadOnlinePluginsAsync();
+        OnPropertyChanged(nameof(FilteredPlugins));
     }
 
     [RelayCommand]
@@ -102,7 +114,9 @@ public partial class PluginManagementPageViewModel : ObservableObject
         {
             SelectedPlugin = null;
             Plugins = (selectorBarItem?.Text == "本地") ? IPluginService.OnlinePlugins : IPluginService.LoadedPlugins;
-            OnPropertyChanged(nameof(Plugins));
+            OnPropertyChanged(nameof(Authors));
+            SelectedAuthor = "全体作者";
+            OnPropertyChanged(nameof(FilteredPlugins));
         }
     }
 
@@ -120,5 +134,14 @@ public partial class PluginManagementPageViewModel : ObservableObject
     public async Task Refresh()
     {
         await _pluginService.LoadOnlinePluginsAsync();
+        OnPropertyChanged(nameof(Authors));
+        SelectedAuthor = "全体作者";
+        OnPropertyChanged(nameof(FilteredPlugins));
+    }
+
+    [RelayCommand]
+    public void Search(object args)
+    {
+        OnPropertyChanged(nameof(FilteredPlugins));
     }
 }
