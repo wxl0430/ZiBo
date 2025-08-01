@@ -33,13 +33,32 @@ namespace CRSim.ScreenSimulator.Views
 
         private void DecreaseSpeed(object sender, MouseButtonEventArgs e)
         {
-            _timeService.Speed /= 2 ;
-            SpeedText.Text = _timeService.Speed.ToString()+"x" ;
+            if (_timeService.Speed > 0.25 && _timeService.Speed <= 1024)
+            {
+                _timeService.Speed /= 2;
+                SpeedText.Text = _timeService.Speed.ToString() + "x";
+            }
+            else
+            {
+                if (_timeService.Speed == 0.25)
+                {
+                    _timeService.Speed = -1;
+                    SpeedText.Text = _timeService.Speed.ToString() + "x";
+                }
+            }
         }
         private void IncreaseSpeed(object sender, MouseButtonEventArgs e)
         {
-            _timeService.Speed *= 2;
-            SpeedText.Text = _timeService.Speed.ToString() + "x";
+            if (_timeService.Speed >= 0.25 && _timeService.Speed < 1024)
+            {
+                _timeService.Speed *= 2;
+                SpeedText.Text = _timeService.Speed.ToString() + "x";
+            }
+            if (_timeService.Speed == -1)
+            {
+                _timeService.Speed = 0.25;
+                SpeedText.Text = _timeService.Speed.ToString() + "x";
+            }
         }
 
         private void Close(object sender, MouseButtonEventArgs e)
