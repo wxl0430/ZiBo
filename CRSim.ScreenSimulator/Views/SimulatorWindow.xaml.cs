@@ -44,6 +44,7 @@ namespace CRSim.ScreenSimulator.Views
 
         private void Close(object sender, MouseButtonEventArgs e)
         {
+            Close();
         }
     }
 }
