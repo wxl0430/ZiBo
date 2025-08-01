@@ -69,7 +69,7 @@ public partial class StationManagementPageViewModel : ObservableObject
         });
     }
 
-    #region Station
+#region Station
     public void RefreshStations()
     {
         var stationsList = _databaseService.GetAllStations();
