@@ -3,21 +3,18 @@ using CRSim.Core.Models;
 using CRSim.ScreenSimulator.Models;
 using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
-using System.Windows;
 using System.Windows.Data;
 
 namespace CRSim.ScreenSimulator.Converters
 {
     public class TrainInfoToTicketCheckTimeConverter : IValueConverter
     {
-        private ITimeService _timeService;
         private Settings _settings;
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is TrainInfo trainInfo && trainInfo.DepartureTime!=null)
             {
                 var serviceProvider = StyleManager.ServiceProvider;
-                _timeService = serviceProvider.GetRequiredService<ITimeService>();
                 _settings = serviceProvider.GetRequiredService<ISettingsService>().GetSettings();
                 if (trainInfo.ArrivalTime == null)
                 {

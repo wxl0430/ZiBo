@@ -26,6 +26,7 @@
     <ProjectReference Include="..\CRSim.Core\CRSim.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\CRSimIcon.png" />
     <Resource Include="Assets\logo-CR.png" />
     <Resource Include="Assets\logo-CRH.png" />
     <Resource Include="Assets\logo-GTJT.png" />

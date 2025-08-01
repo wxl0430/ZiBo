@@ -42,7 +42,7 @@ namespace CRSim.ScreenSimulator
                     viewModel.Video = video;
                 }
                 viewModel.LoadData(station, ticketCheck, platform);
-                var win = new SimulatorWindow(viewInstance);
+                var win = new SimulatorWindow(viewInstance, timeService);
                 win.Show();
                 System.Windows.Threading.Dispatcher.Run();
             });

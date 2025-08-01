@@ -7,16 +7,14 @@ using System.Windows.Data;
 
 namespace CRSim.ScreenSimulator.Converters
 {
-    public class MetroDateTimeToVisibilityConverter : IValueConverter
+    public class MetroDateTimeToVisibilityConverter : IValueConverter, IHasTimeService
     {
-        private ITimeService _timeService;
+        public ITimeService TimeService { get; set; }
         public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            var serviceProvider = StyleManager.ServiceProvider;
-            _timeService = serviceProvider.GetRequiredService<ITimeService>();
             if (value is TrainInfo trainInfo && parameter is string para)
             {
-                var timeDifference = (trainInfo.ArrivalTime ?? DateTime.MinValue) - _timeService.GetDateTimeNow();
+                var timeDifference = (trainInfo.ArrivalTime ?? DateTime.MinValue) - TimeService.GetDateTimeNow();
                 var checkInAdvanceDuration = TimeSpan.FromMinutes(1);
                 if (timeDifference < checkInAdvanceDuration)
                 {

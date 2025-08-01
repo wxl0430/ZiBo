@@ -97,6 +97,8 @@ namespace CRSim.ScreenSimulator.ViewModels
         private void OnTimeElapsed(object? sender, EventArgs e)
         {
             CurrentTime = TimeService.GetDateTimeNow();
+            OnPropertyChanged(nameof(ScreenA));
+            OnPropertyChanged(nameof(ScreenB));
         }
 
         public void LoadData(Station station, string ticketCheck, string platform)

@@ -7,9 +7,9 @@ using System.Windows.Data;
 using System.Windows.Media;
 namespace CRSim.ScreenSimulator.Converters
 {
-    public class TrainStateColorConverter : IMultiValueConverter
+    public class TrainStateColorConverter : IMultiValueConverter, IHasTimeService
     {
-        private ITimeService _timeService;
+        public ITimeService TimeService { get; set; }
         private Settings _settings;
         public string DisplayMode { get; set; } = "Normal";
 
@@ -28,13 +28,12 @@ namespace CRSim.ScreenSimulator.Converters
         object IMultiValueConverter.Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             var serviceProvider = StyleManager.ServiceProvider;
-            _timeService = serviceProvider.GetRequiredService<ITimeService>();
             _settings = serviceProvider.GetRequiredService<ISettingsService>().GetSettings();
             if (DisplayMode == "Arrive" || ( values.Length > 1 && values[1] == null))
             {
                 if (values[0] is DateTime arriveTime)
                 {
-                    return _timeService.GetDateTimeNow() >= arriveTime ? ArrivedText : ArrivingText;
+                    return TimeService.GetDateTimeNow() >= arriveTime ? ArrivedText : ArrivingText;
                 }
                 return string.Empty;
             }
@@ -47,7 +46,7 @@ namespace CRSim.ScreenSimulator.Converters
                 if (values[0] is DateTime)
                 {
                     //过路站
-                    if (_timeService.GetDateTimeNow() > departureTime.Subtract(_settings.PassingCheckInAdvanceDuration) && _timeService.GetDateTimeNow() < departureTime.Subtract(_settings.StopCheckInAdvanceDuration))
+                    if (TimeService.GetDateTimeNow() > departureTime.Subtract(_settings.PassingCheckInAdvanceDuration) && TimeService.GetDateTimeNow() < departureTime.Subtract(_settings.StopCheckInAdvanceDuration))
                     {
                         return CheckInColor;
                     }
@@ -55,12 +54,12 @@ namespace CRSim.ScreenSimulator.Converters
                 else
                 {
                     //始发站
-                    if (_timeService.GetDateTimeNow() > departureTime.Subtract(_settings.DepartureCheckInAdvanceDuration) && _timeService.GetDateTimeNow() < departureTime.Subtract(_settings.StopCheckInAdvanceDuration))
+                    if (TimeService.GetDateTimeNow() > departureTime.Subtract(_settings.DepartureCheckInAdvanceDuration) && TimeService.GetDateTimeNow() < departureTime.Subtract(_settings.StopCheckInAdvanceDuration))
                     {
                         return CheckInColor;
                     }
                 }
-                if (_timeService.GetDateTimeNow() > departureTime.Subtract(_settings.StopCheckInAdvanceDuration))
+                if (TimeService.GetDateTimeNow() > departureTime.Subtract(_settings.StopCheckInAdvanceDuration))
                 {
                     return StopCheckInColor;
                 }
