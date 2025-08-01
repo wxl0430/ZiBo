@@ -21,9 +21,6 @@ namespace CRSim.ViewModels
         private readonly IDialogService _dialogService;
         #region 偏好设置
         [ObservableProperty]
-        public partial string TimeOffset { get; set; }
-
-        [ObservableProperty]
         public partial string DepartureCheckInAdvanceDuration { get; set; }
 
         [ObservableProperty]
@@ -69,7 +66,6 @@ namespace CRSim.ViewModels
         private void LoadSettings()
         {
             _settings = _settingsService.GetSettings();
-            TimeOffset = _settings.TimeOffset.TotalMinutes.ToString();
             DepartureCheckInAdvanceDuration = _settings.DepartureCheckInAdvanceDuration.TotalMinutes.ToString();
             PassingCheckInAdvanceDuration = _settings.PassingCheckInAdvanceDuration.TotalMinutes.ToString();
             StopDisplayUntilDepartureDuration = _settings.StopDisplayUntilDepartureDuration.TotalMinutes.ToString();
@@ -86,7 +82,6 @@ namespace CRSim.ViewModels
         [RelayCommand]
         public void Unload()
         {
-            UpdateSettings(TimeOffset, true, value => _settings.TimeOffset = TimeSpan.FromMinutes(value));
             UpdateSettings(DepartureCheckInAdvanceDuration, false, value => _settings.DepartureCheckInAdvanceDuration = TimeSpan.FromMinutes(value));
             UpdateSettings(PassingCheckInAdvanceDuration, false, value => _settings.PassingCheckInAdvanceDuration = TimeSpan.FromMinutes(value));
             UpdateSettings(StopDisplayUntilDepartureDuration, false, value => _settings.StopDisplayUntilDepartureDuration = TimeSpan.FromMinutes(value));

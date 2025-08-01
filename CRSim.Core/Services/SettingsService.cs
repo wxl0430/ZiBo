@@ -15,7 +15,6 @@ namespace CRSim.Core.Services
         }
         public void SaveSettings()
         {
-            _key.SetValue("TimeOffset", (int)_settings.TimeOffset.TotalMinutes);
             _key.SetValue("SwitchPageSeconds", _settings.SwitchPageSeconds);
             _key.SetValue("ApiUri", _settings.ApiUri);
             _key.SetValue("MaxPages", _settings.MaxPages);
@@ -40,7 +39,6 @@ namespace CRSim.Core.Services
             else
             {
                 _settings = new Settings();
-                if (_key.GetValue("TimeOffset") != null) _settings.TimeOffset = TimeSpan.FromMinutes((int)_key.GetValue("TimeOffset"));
                 if (_key.GetValue("SwitchPageSeconds") != null) _settings.SwitchPageSeconds = (int)_key.GetValue("SwitchPageSeconds");
                 if (_key.GetValue("ApiUri") != null) _settings.ApiUri = (string)_key.GetValue("ApiUri");
                 if (_key.GetValue("MaxPages") != null) _settings.MaxPages = (int)_key.GetValue("MaxPages");

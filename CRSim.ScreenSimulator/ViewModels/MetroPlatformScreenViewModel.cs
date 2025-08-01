@@ -7,7 +7,7 @@ namespace CRSim.ScreenSimulator.ViewModels
 {
     public partial class MetroPlatformScreenViewModel : ObservableObject
     {
-        public readonly ITimeService _timeService;
+        public readonly ITimeService TimeService;
         public readonly Settings _settings;
         [ObservableProperty]
         private DateTime _currentTime = new();
@@ -23,14 +23,14 @@ namespace CRSim.ScreenSimulator.ViewModels
         public List<TrainInfo> TrainInfos { get; set; } = [];
         public MetroPlatformScreenViewModel(ITimeService timeService, ISettingsService settingsService)
         {
-            _timeService = timeService;
+            TimeService = timeService;
             _settings = settingsService.GetSettings();
             timeService.OneSecondElapsed += RefreshDisplay;
         }
         private void RefreshDisplay(object? sender, EventArgs e)
         {
-            CurrentTime = _timeService.GetDateTimeNow();
-            List<TrainInfo> itemsToRemove = [.. TrainInfos.Where(info => info.DepartureTime < _timeService.GetDateTimeNow())];
+            CurrentTime = TimeService.GetDateTimeNow();
+            List<TrainInfo> itemsToRemove = [.. TrainInfos.Where(info => info.DepartureTime < TimeService.GetDateTimeNow())];
             foreach (var item in itemsToRemove)
             {
                 TrainInfos.Remove(item);
@@ -48,7 +48,7 @@ namespace CRSim.ScreenSimulator.ViewModels
             {
                 if (trainNumber != null && trainNumber.DepartureTime != null && trainNumber.Platform == platform)
                 {
-                    var now = _timeService.GetDateTimeNow();
+                    var now = TimeService.GetDateTimeNow();
                     var today = now.Date;
                     if (_settings.LoadTodayOnly && today.Add((trainNumber.DepartureTime ?? trainNumber.ArrivalTime)!.Value) < now)
                     {

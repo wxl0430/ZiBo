@@ -1,5 +1,4 @@
 ﻿using CRSim.Core.Models.Plugin;
-using System.Diagnostics.CodeAnalysis;
 
 namespace CRSim.ViewModels;
 
@@ -44,9 +43,14 @@ public partial class ScreenSimulatorPageViewModel(IServiceProvider serviceProvid
     public string SelectedPlatformName = "";
 
     public int SelectedLoaction = 0;
+
     [ObservableProperty]
     public partial bool IsStartSimulationAvailable { get; private set; } = false;
     private PluginBase SelectedStylePlugin => serviceProvider.GetServices<PluginBase>().Where(x => x.Info == SelectedStyle).FirstOrDefault();
+
+    public DateTimeOffset SelectedDate = DateTime.Today;
+
+    public TimeSpan SelectedTime = DateTime.Now - DateTime.Today;
 
     [RelayCommand]
     public void StyleSelected(object selectedStyle)
@@ -139,7 +143,8 @@ public partial class ScreenSimulatorPageViewModel(IServiceProvider serviceProvid
             PlatformNeeded ? SelectedPlatformName : string.Empty,
             (TextNeeded && Text != string.Empty) ? Text : null,
             (LocationNeeded && SelectedLoaction != 0) ? SelectedLoaction : 0,
-            (VideoNeeded && Video != string.Empty) ? Video : null);
+            (VideoNeeded && Video != string.Empty) ? Video : null,
+            SelectedDate.Add(SelectedTime).DateTime);
     }
 
     private void CheckCanStart()

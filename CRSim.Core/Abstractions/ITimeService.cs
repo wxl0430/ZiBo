@@ -1,16 +1,16 @@
-﻿using System;
-using System.Timers;
-
-namespace CRSim.Core.Abstractions
+﻿namespace CRSim.Core.Abstractions
 {
     public interface ITimeService
     {
-        event EventHandler OneSecondElapsed;  // 1秒触发的事件
-        event EventHandler RefreshSecondsElapsed;  // 20秒触发的事件
+        event EventHandler OneSecondElapsed;
+        event EventHandler RefreshSecondsElapsed;
 
         void Start();
         void Stop();
 
         DateTime GetDateTimeNow();
+
+        DateTime SimulateTime { get; set; }      // 初始模拟时间
+        double Speed { get; set; }               // 模拟倍速
     }
 }

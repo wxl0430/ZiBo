@@ -12,17 +12,22 @@ namespace CRSim.ScreenSimulator
         public static List<PluginInfo> StyleInfos => [.. IPluginService.LoadedPlugins.Where(x => x.Manifest.Type == "ScreenStyle" && x.LoadStatus == PluginLoadStatus.Loaded)];
         public static IServiceProvider ServiceProvider;
         private static IDatabaseService _databaseService;
-        public StyleManager(IEnumerable<PluginBase> pluginBases,IServiceProvider serviceProvider,IDatabaseService databaseService)
+        public StyleManager(IServiceProvider serviceProvider,IDatabaseService databaseService)
 		{
             ServiceProvider = serviceProvider;
             _databaseService = databaseService;
         }
-        public static void ShowWindow(Type page, Station station, string ticketCheck, string platform,string text,int location,string video)
+        public static void ShowWindow(Type page, Station station, string ticketCheck, string platform,string? text,int location,string? video,DateTime dateTime)
         {
             Thread thread = new(() =>
             {
                 Page viewInstance = (Page)ServiceProvider.GetService(page);
                 var viewModel = ((dynamic)viewInstance).ViewModel;
+
+                var timeService = ((ITimeService)viewModel.TimeService);
+                timeService.SimulateTime = dateTime;
+                timeService.Start();
+
                 viewModel.UIDispatcher = System.Windows.Threading.Dispatcher.CurrentDispatcher;
                 if (text != null)
                 {

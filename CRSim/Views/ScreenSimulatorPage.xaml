@@ -75,7 +75,7 @@
                                                         <GradientStop Color="#CC000000" Offset="1"/>
                                                     </LinearGradientBrush>
                                                 </StackPanel.Background>
-                                                <TextBlock Text="{x:Bind Manifest.Name}"/>
+                                                <TextBlock Foreground="White" Text="{x:Bind Manifest.Name}"/>
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBlock Text="{x:Bind StyleInfo.Type}" Style="{ThemeResource CaptionTextBlockStyle}"
                                                                Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
@@ -102,6 +102,12 @@
                 </Border>
                 <TextBlock Text="参数配置" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Margin="0,0,0,12"/>
                 <StackPanel Spacing="4" Orientation="Vertical" Margin="0,0,0,24">
+                    <controls:SettingsCard Header="初始日期" Description="显示日期从某日开始" HeaderIcon="{winui:FontIcon Glyph=&#xE787;}">
+                        <DatePicker Date="{x:Bind ViewModel.SelectedDate,Mode=TwoWay}"/>
+                    </controls:SettingsCard>
+                    <controls:SettingsCard Header="初始时间" Description="显示时间从某刻开始" HeaderIcon="{winui:FontIcon Glyph=&#xECC5;}">
+                        <TimePicker ClockIdentifier="24HourClock" Time="{x:Bind ViewModel.SelectedTime,Mode=TwoWay}"/>
+                    </controls:SettingsCard>
                     <controls:SettingsCard Header="车站" Description="使用的车站数据库" HeaderIcon="{winui:FontIcon Glyph=&#xEC08;}"
                                        Visibility="{x:Bind ViewModel.StationNeeded,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                         <ComboBox ItemsSource="{x:Bind ViewModel.StationNames}" x:Name="StationNamesList">

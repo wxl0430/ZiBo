@@ -9,7 +9,7 @@ namespace CRSim.ScreenSimulator.ViewModels
 {
     public partial class BaseScreenViewModel : ObservableObject
     {
-        public readonly ITimeService _timeService;
+        public readonly ITimeService TimeService;
         public readonly Settings _settings;
         public readonly TaskCompletionSource<bool> DataLoaded = new();
         [ObservableProperty]
@@ -35,13 +35,13 @@ namespace CRSim.ScreenSimulator.ViewModels
         protected BaseScreenViewModel(ITimeService timeService, ISettingsService settingsService)
         {
 
-            _timeService = timeService;
+            TimeService = timeService;
             _settings = settingsService.GetSettings();
 
-            _timeService.OneSecondElapsed += OnTimeElapsed;
+            TimeService.OneSecondElapsed += OnTimeElapsed;
 
-            _timeService.RefreshSecondsElapsed += RefreshData;
-            _timeService.RefreshSecondsElapsed += RefreshDisplay;
+            TimeService.RefreshSecondsElapsed += RefreshData;
+            TimeService.RefreshSecondsElapsed += RefreshDisplay;
             Initialize();
         }
         [ObservableProperty]
@@ -74,14 +74,14 @@ namespace CRSim.ScreenSimulator.ViewModels
                 {
                     if (trainInfo.DepartureTime == null)
                     {
-                        if (trainInfo.ArrivalTime.Value.Add(_settings.StopDisplayFromArrivalDuration) < _timeService.GetDateTimeNow())
+                        if (trainInfo.ArrivalTime.Value.Add(_settings.StopDisplayFromArrivalDuration) < TimeService.GetDateTimeNow())
                         {
                             itemsToRemove.Add(trainInfo);
                         }
                     }
                     else
                     {
-                        if ((StationType == StationType.Arrival || StationType == StationType.Both ? trainInfo.DepartureTime.Value : trainInfo.DepartureTime.Value.Subtract(_settings.StopDisplayUntilDepartureDuration)) < _timeService.GetDateTimeNow())
+                        if ((StationType == StationType.Arrival || StationType == StationType.Both ? trainInfo.DepartureTime.Value : trainInfo.DepartureTime.Value.Subtract(_settings.StopDisplayUntilDepartureDuration)) < TimeService.GetDateTimeNow())
                         {
                             itemsToRemove.Add(trainInfo);
                         }
@@ -96,7 +96,7 @@ namespace CRSim.ScreenSimulator.ViewModels
 
         private void OnTimeElapsed(object? sender, EventArgs e)
         {
-            CurrentTime = _timeService.GetDateTimeNow();
+            CurrentTime = TimeService.GetDateTimeNow();
         }
 
         public void LoadData(Station station, string ticketCheck, string platform)
@@ -115,7 +115,7 @@ namespace CRSim.ScreenSimulator.ViewModels
                     (ticketCheck == string.Empty || (trainNumber.WaitingArea==ticketCheck.Split(" - ")[0] && trainNumber.TicketChecks.Contains(ticketCheck.Split(" - ")[1]))) &&//重复检票口名称的临时解决方案
                     (platform == string.Empty || trainNumber.Platform == platform))
                 {
-                    var now = _timeService.GetDateTimeNow();
+                    var now = TimeService.GetDateTimeNow();
                     var today = now.Date;
 
                     if (_settings.LoadTodayOnly && today.Add((trainNumber.DepartureTime??trainNumber.ArrivalTime)!.Value) < now)

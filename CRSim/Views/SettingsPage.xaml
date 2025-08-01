@@ -48,9 +48,6 @@
                 </StackPanel>
                 <TextBlock Text="引导屏模拟" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Margin="0,0,0,12"/>
                 <StackPanel Spacing="4" Margin="0,0,0,24">
-                    <controls:SettingsCard Header="时间偏移" Description="正值为推后时间，负值为提前时间，单位为分钟" HeaderIcon="{winui:FontIcon Glyph=&#xE823;}">
-                        <TextBox MaxWidth="72" Text="{x:Bind ViewModel.TimeOffset, Mode=TwoWay}"/>
-                    </controls:SettingsCard>
                     <controls:SettingsCard Header="只加载当日车次" Description="不显示明日车次" HeaderIcon="{winui:FontIcon Glyph=&#xEC92;}">
                         <ToggleSwitch IsOn="{x:Bind ViewModel.LoadTodayOnly, Mode=TwoWay}"/>
                     </controls:SettingsCard>

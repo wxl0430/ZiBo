@@ -24,12 +24,12 @@
                     services.AddSingleton(parsedOptions);
                     services.AddSingleton<IPluginService, PluginService>();
                     services.AddSingleton<ISettingsService, SettingsService>();
-                    services.AddSingleton<ITimeService, TimeService>();
                     services.AddSingleton<IDatabaseService, DatabaseService>();
                     services.AddSingleton<INetworkService, NetworkService>();
                     services.AddSingleton<IDialogService, DialogService>();
                     services.AddSingleton<StyleManager>();
                     services.AddSingleton<MainWindow>();
+                    services.AddTransient<ITimeService, TimeService>();
                     services.AddTransient<DashboardPageViewModel>();
                     services.AddTransient<StationManagementPageViewModel>();
                     services.AddTransient<ScreenSimulatorPageViewModel>();
@@ -43,10 +43,9 @@
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            AppHost.Services.GetRequiredService<ITimeService>().Start();
             MainWindow = AppHost.Services.GetService<MainWindow>();
             MainWindow?.Activate();
-            var win = AppHost.Services.GetService<StyleManager>();
+            AppHost.Services.GetService<StyleManager>();//init
         }
 
         [System.Runtime.InteropServices.DllImport("kernel32.dll")]

@@ -5,8 +5,6 @@ namespace CRSim.Core.Models
 {
     public class Settings
     {
-        public TimeSpan TimeOffset { get; set; } = TimeSpan.Zero;
-
         public TimeSpan DepartureCheckInAdvanceDuration { get; set; } = TimeSpan.FromMinutes(20);
 
         public TimeSpan PassingCheckInAdvanceDuration { get; set; } = TimeSpan.FromMinutes(10);
