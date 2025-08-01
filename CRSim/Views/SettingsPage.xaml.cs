@@ -15,4 +15,9 @@ public sealed partial class SettingsPage : Page
     {
         Process.Start(new ProcessStartInfo("https://github.com/denglihong2007/CRSim/issues/new") { UseShellExecute = true });
     }
+
+    private void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        App.AppHost.Services.GetService<IDialogService>().XamlRoot = this.XamlRoot;
+    }
 }

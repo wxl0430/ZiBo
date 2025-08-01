@@ -1,22 +1,16 @@
-﻿using CRSim.Views;
-using System.Text.RegularExpressions;
-using Windows.Storage;
+﻿using Windows.Storage;
 using Windows.Storage.Pickers;
 
 namespace CRSim.Services
 {
     public class DialogService : IDialogService
     {
-        private XamlRoot? _xamlRoot;
-        public void SetXamlRoot(XamlRoot xamlRoot)
-        {
-            _xamlRoot = xamlRoot;
-        }
+        public XamlRoot? XamlRoot { get; set; }
         public async Task<string?> GetInputAsync(string title)
         {
             ContentDialog dialog = new()
             {
-                XamlRoot = _xamlRoot,
+                XamlRoot = XamlRoot,
                 Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style,
                 Title = title,
                 PrimaryButtonText = "确定",
@@ -37,13 +31,13 @@ namespace CRSim.Services
         {
             ContentDialog dialog = new()
             {
-                XamlRoot = _xamlRoot,
+                XamlRoot = XamlRoot,
                 Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style,
                 Title = "警告",
                 PrimaryButtonText = "确定",
                 CloseButtonText = "取消",
                 DefaultButton = ContentDialogButton.Primary,
-                Content = new MessageDialog(title)
+                Content = title
             };
             var result = await dialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
@@ -56,12 +50,12 @@ namespace CRSim.Services
         {
             ContentDialog dialog = new()
             {
-                XamlRoot = _xamlRoot,
+                XamlRoot = XamlRoot,
                 Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style,
                 Title = title,
                 PrimaryButtonText = "确定",
                 DefaultButton = ContentDialogButton.Primary,
-                Content = new MessageDialog(message)
+                Content = message
             };
             await dialog.ShowAsync();
         }
@@ -69,7 +63,7 @@ namespace CRSim.Services
         {
             ContentDialog dialog = new()
             {
-                XamlRoot = _xamlRoot,
+                XamlRoot = XamlRoot,
                 Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style,
                 Title = title,
                 PrimaryButtonText = "确定",
@@ -83,7 +77,7 @@ namespace CRSim.Services
             bool isButtonEnabled = false;
             ContentDialog dialog = new()
             {
-                XamlRoot = _xamlRoot,
+                XamlRoot = XamlRoot,
                 Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style,
                 Title = "新增检票口",
                 PrimaryButtonText = "确定",
@@ -145,7 +139,7 @@ namespace CRSim.Services
             bool isButtonEnabled = false;
             ContentDialog dialog = new()
             {
-                XamlRoot = _xamlRoot,
+                XamlRoot = XamlRoot,
                 Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style,
                 Title = "编辑车次",
                 PrimaryButtonText = "确定",
@@ -173,7 +167,7 @@ namespace CRSim.Services
             bool isButtonEnabled = false;
             ContentDialog dialog = new()
             {
-                XamlRoot = _xamlRoot,
+                XamlRoot = XamlRoot,
                 Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style,
                 Title = "编辑车次",
                 PrimaryButtonText = "确定",
@@ -214,7 +208,7 @@ namespace CRSim.Services
             bool isButtonEnabled = false;
             ContentDialog dialog = new()
             {
-                XamlRoot = _xamlRoot,
+                XamlRoot = XamlRoot,
                 Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style,
                 Title = "新增站台",
                 PrimaryButtonText = "确定",

@@ -13,5 +13,6 @@
         Task<TrainStop?> EditInputTrainStopAsync(List<string> ticketChecks, List<string> platforms, TrainStop trainStop);
         Task<List<Platform>?> GetInputPlatformAsync();
         Task<(string, List<string>)> GetInputTicketCheckAsync(List<string> waitingAreaNames);
+        XamlRoot? XamlRoot { get; set; }
     }
 }

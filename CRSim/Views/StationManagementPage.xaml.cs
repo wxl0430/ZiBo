@@ -9,4 +9,9 @@ public sealed partial class StationManagementPage : Page
         InitializeComponent();
         DataContext = ViewModel;
     }
+
+    private void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        App.AppHost.Services.GetService<IDialogService>().XamlRoot = this.XamlRoot;
+    }
 }

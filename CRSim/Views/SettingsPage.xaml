@@ -16,6 +16,7 @@
     xmlns:coremodels="using:CRSim.Core.Models"     
     xmlns:pluginmodels="using:CRSim.Core.Models.Plugin"     
     mc:Ignorable="d"
+    Loaded="Page_Loaded"
     d:DataContext="{d:DesignInstance Type=viewmodels:SettingsPageViewModel}">
     <interactivity:Interaction.Behaviors>
         <interactivity:EventTriggerBehavior EventName="Unloaded">

@@ -15,4 +15,9 @@ public sealed partial class PluginManagementPage : Page
     private void SelectorBar_SelectionChanged(SelectorBar sender, SelectorBarSelectionChangedEventArgs args)
     {
     }
+
+    private void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        App.AppHost.Services.GetService<IDialogService>().XamlRoot = this.XamlRoot;
+    }
 }
