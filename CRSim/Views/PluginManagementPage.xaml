@@ -146,11 +146,11 @@
                                         </StackPanel>
                                     </Button>
                                     <Button Command="{x:Bind ViewModel.PackPluginCommand}" Visibility="{x:Bind ViewModel.SelectedPlugin,Mode=OneWay,Converter={StaticResource PluginLoadStatusToVisibilityConverter},ConverterParameter=Loaded}">
-                                        <FontIcon Glyph="&#xE72D;"/>
+                                        <FontIcon Glyph="&#xE72D;" FontSize="16"/>
                                     </Button>
                                     <Button Command="{x:Bind ViewModel.UninstallPluginCommand}" Visibility="{x:Bind ViewModel.SelectedPlugin,Mode=OneWay,Converter={StaticResource PluginLoadStatusToVisibilityConverter},ConverterParameter=Loaded}">
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                            <FontIcon Glyph="&#xE74D;" Margin="0,0,8,0"/>
+                                            <FontIcon Glyph="&#xE74D;" Margin="0,0,8,0" FontSize="16"/>
                                             <TextBlock Text="卸载" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
