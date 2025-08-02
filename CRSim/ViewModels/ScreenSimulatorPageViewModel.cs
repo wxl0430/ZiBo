@@ -3,7 +3,7 @@ using CRSim.ScreenSimulator.Models;
 
 namespace CRSim.ViewModels;
 
-public partial class ScreenSimulatorPageViewModel(IEnumerable<PluginBase> plugins, IDatabaseService databaseService, StyleManager styleManager) : ObservableObject
+public partial class ScreenSimulatorPageViewModel(IEnumerable<PluginBase> plugins, IDatabaseService databaseService, IDialogService dialogService, StyleManager styleManager) : ObservableObject
 {
     public string PageTitle = "引导屏模拟";
     public List<PluginInfo> StyleInfos => styleManager.StyleInfos;
@@ -132,11 +132,11 @@ public partial class ScreenSimulatorPageViewModel(IEnumerable<PluginBase> plugin
         CheckCanStart();
     }
     [RelayCommand]
-    public void SelectVideo()
+    public async Task SelectVideo()
     {
-        //string? Path = _dialogService.GetFile("视频文件 (*.mp4)|*.mp4|所有文件 (*.*)|*.*");
-        //if (Path == null) return;
-        //Video = Path;
+        string? Path = await dialogService.GetFileAsync([".wmv",".asf",".mp4",".m4v",".mov",".mpg",".mpeg"]);
+        if (Path == null) return;
+        Video = Path;
     }
     [RelayCommand]
     public void StartSimulation()

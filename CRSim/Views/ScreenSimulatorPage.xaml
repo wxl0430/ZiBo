@@ -150,7 +150,10 @@
                     </controls:SettingsCard>
                     <controls:SettingsCard Header="视频资源路径" Description="视频广告资源（留空即为默认）" HeaderIcon="{winui:FontIcon Glyph=&#xE8B2;}"
                                        Visibility="{x:Bind ViewModel.VideoNeeded,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
-                        <TextBox Text="{x:Bind ViewModel.Video,Mode=TwoWay}" MaxWidth="120"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Text="{x:Bind ViewModel.Video,Mode=TwoWay}" MaxWidth="120"/>
+                            <Button Content="..." Command="{x:Bind ViewModel.SelectVideoCommand}" Margin="8,0,0,0"/>
+                        </StackPanel>
                     </controls:SettingsCard>
                     <controls:SettingsCard Header="文字提示" Description="附加的引导文字（留空即为默认）" HeaderIcon="{winui:FontIcon Glyph=&#xE8D2;}"
                                        Visibility="{x:Bind ViewModel.TextNeeded,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
