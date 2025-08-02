@@ -157,7 +157,7 @@
                         <TextBox Text="{x:Bind ViewModel.Text,Mode=TwoWay}" MaxWidth="120"/>
                     </controls:SettingsCard>
                 </StackPanel>
-                <TextBlock Text="参数配置" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Margin="0,0,0,12"/>
+                <TextBlock Text="操作" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Margin="0,0,0,12"/>
                 <controls:SettingsCard Header="开始模拟" Description="启动一个新的模拟窗口" HeaderIcon="{winui:FontIcon Glyph=&#xE768;}"
                                        IsEnabled="{x:Bind ViewModel.IsStartSimulationAvailable,Mode=OneWay}">
                     <Button Content="开始模拟" Command="{x:Bind ViewModel.StartSimulationCommand}" Style="{StaticResource AccentButtonStyle}"/>
