@@ -103,14 +103,20 @@
                         </controls:SettingsCard>
                         <controls:SettingsCard Header="报告漏洞或请求新样式" ActionIcon="{winui:FontIcon Glyph=&#xE8A7;}" Click="Open_Issues" IsClickEnabled="True"/>
                         <controls:SettingsCard HorizontalContentAlignment="Left" ContentAlignment="Vertical" Header="项目引用">
-                            <StackPanel Margin="-12,0,0,0" Orientation="Vertical">
+                            <controls:WrapPanel Margin="-12,0,0,0">
                                 <HyperlinkButton Content="WinUI 3" NavigateUri="https://aka.ms/winui" />
+                                <HyperlinkButton Content="EPPlus" NavigateUri="https://github.com/EPPlusSoftware/EPPlus" />
+                                <HyperlinkButton Content="PP.Wpf" NavigateUri="https://github.com/LowPlayer/PP.Wpf" />
+                                <HyperlinkButton Content="PinYinConverterCore" NavigateUri="https://github.com/netcorepal/PinYinConverterCore" />
                                 <HyperlinkButton Content="Windows Community Toolkit" NavigateUri="https://aka.ms/toolkit/windows" />
-                            </StackPanel>
+                                <HyperlinkButton Content="CommunityToolkit.Mvvm" NavigateUri="https://github.com/CommunityToolkit/dotnet" />
+                                <HyperlinkButton Content="Microsoft.Extensions.DependencyInjection" NavigateUri="https://github.com/aspnet/DependencyInjection" />
+                            </controls:WrapPanel>
                         </controls:SettingsCard>
                         <controls:SettingsCard HorizontalContentAlignment="Left" ContentAlignment="Vertical" Header="贡献者">
                             <StackPanel Margin="-12,0,0,0" Orientation="Horizontal">
                                 <HyperlinkButton Content="wxl0430" NavigateUri="https://github.com/wxl0430" />
+                                <HyperlinkButton Content="niuzhix" NavigateUri="https://github.com/niuzhix" />
                             </StackPanel>
                         </controls:SettingsCard>
                         <controls:SettingsCard HorizontalContentAlignment="Left" ContentAlignment="Vertical" Header="捐赠者">
