@@ -4,12 +4,13 @@ using CRSim.ScreenSimulator.Models;
 using System.Windows;
 using System.Collections.ObjectModel;
 using CRSim.Core.Abstractions;
+using CRSim.ScreenSimulator.Abstractions;
 
 namespace CRSim.ScreenSimulator.ViewModels
 {
-    public partial class BaseScreenViewModel : ObservableObject
+    public partial class BaseScreenViewModel : ObservableObject,IScreenViewModel
     {
-        public readonly ITimeService TimeService;
+        public ITimeService TimeService { get; set; }
         public readonly Settings _settings;
         public readonly TaskCompletionSource<bool> DataLoaded = new();
         [ObservableProperty]
@@ -24,6 +25,8 @@ namespace CRSim.ScreenSimulator.ViewModels
         private string _thisPlatform;
         [ObservableProperty]
         private string _thisTicketCheck;
+        [ObservableProperty]
+        private Uri _video;
         public ObservableCollection<TrainInfo> ScreenA { get; private set; } = [];
         public ObservableCollection<TrainInfo> ScreenB { get; private set; } = []; 
         public System.Windows.Threading.Dispatcher UIDispatcher { get; set; }

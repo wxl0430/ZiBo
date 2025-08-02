@@ -1,9 +1,11 @@
-﻿namespace CRSim.ViewModels;
+﻿using System.Windows;
+
+namespace CRSim.ViewModels;
 public partial class DashboardPageViewModel : ObservableObject
 {
-
-    [RelayCommand]
-    private void AddItem()
+    public StyleManager StyleManager { get; }
+    public DashboardPageViewModel(StyleManager styleManager)
     {
+        StyleManager = styleManager;
     }
 }

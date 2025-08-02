@@ -1,5 +1,6 @@
-﻿using CRSim.Core.Abstractions;
-using CRSim.ScreenSimulator.Converters;
+﻿using CommunityToolkit.Mvvm.Input;
+using CRSim.Core.Abstractions;
+using CRSim.ScreenSimulator.Models;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,13 +11,16 @@ namespace CRSim.ScreenSimulator.Views
     public partial class SimulatorWindow : Window
     {
         private readonly ITimeService _timeService;
-
-        public SimulatorWindow(Page page,ITimeService timeService)
+        private readonly StyleManager _styleManager;
+        public Session Session { get; }
+        public SimulatorWindow(Page page,ITimeService timeService,StyleManager styleManager,Session session)
         {
+            Session = session;
             InitializeComponent();
             RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);
             contentFrame.Content = page;
             _timeService = timeService;
+            _styleManager = styleManager;
             foreach (var resource in page.Resources.Values)
             {
                 if (resource is IHasTimeService needsTime)
@@ -48,9 +52,31 @@ namespace CRSim.ScreenSimulator.Views
             }
         }
 
-        private void Close(object sender, MouseButtonEventArgs e)
+        private void Window_Closed(object sender, EventArgs e)
         {
-            Close();
+            _styleManager.DispatcherQueue.TryEnqueue(() =>
+            {
+                _styleManager.ActiveWindows.Remove(this);
+            });
+        }
+
+        public void FoucsWindow(object o,object s)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                WindowState = WindowState.Normal;
+                Activate();
+                Topmost = true;
+                Topmost = false;
+                Focus();
+            });
+        }
+        public void CloseWindow(object o, object s)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                Close();
+            });
         }
     }
 }

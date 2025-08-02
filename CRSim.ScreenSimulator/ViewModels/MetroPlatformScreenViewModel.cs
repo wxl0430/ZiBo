@@ -1,13 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CRSim.Core.Abstractions;
 using CRSim.Core.Models;
+using CRSim.ScreenSimulator.Abstractions;
 using CRSim.ScreenSimulator.Models;
 
 namespace CRSim.ScreenSimulator.ViewModels
 {
-    public partial class MetroPlatformScreenViewModel : ObservableObject
+    public partial class MetroPlatformScreenViewModel : ObservableObject, IScreenViewModel
     {
-        public readonly ITimeService TimeService;
+        public ITimeService TimeService { get; set; }
         public readonly Settings _settings;
         [ObservableProperty]
         private DateTime _currentTime = new();
@@ -19,6 +20,8 @@ namespace CRSim.ScreenSimulator.ViewModels
         private string _text;
         [ObservableProperty]
         private Uri _video;
+        [ObservableProperty]
+        public int _location;
         public System.Windows.Threading.Dispatcher UIDispatcher { get; set; }
         public List<TrainInfo> TrainInfos { get; set; } = [];
         public MetroPlatformScreenViewModel(ITimeService timeService, ISettingsService settingsService)

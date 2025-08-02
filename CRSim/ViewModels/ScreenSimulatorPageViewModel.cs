@@ -1,11 +1,13 @@
 ﻿using CRSim.Core.Models.Plugin;
+using CRSim.ScreenSimulator.Models;
 
 namespace CRSim.ViewModels;
 
-public partial class ScreenSimulatorPageViewModel(IServiceProvider serviceProvider, IDatabaseService databaseService) : ObservableObject
+public partial class ScreenSimulatorPageViewModel(IEnumerable<PluginBase> plugins, IDatabaseService databaseService, StyleManager styleManager) : ObservableObject
 {
     public string PageTitle = "引导屏模拟";
-    public List<PluginInfo> StyleInfos => StyleManager.StyleInfos;
+    public List<PluginInfo> StyleInfos => styleManager.StyleInfos;
+
     [ObservableProperty]
     public partial PluginInfo SelectedStyle { get; set; }
 
@@ -30,6 +32,7 @@ public partial class ScreenSimulatorPageViewModel(IServiceProvider serviceProvid
     public ObservableCollection<string> TicketChecks { get; private set; } = [];
     public ObservableCollection<Platform> Platforms { get; private set; } = [];
     public ObservableCollection<int> Locations { get; private set; } = [];
+
     [ObservableProperty]
     public partial string Text { get; set; }
 
@@ -46,7 +49,8 @@ public partial class ScreenSimulatorPageViewModel(IServiceProvider serviceProvid
 
     [ObservableProperty]
     public partial bool IsStartSimulationAvailable { get; private set; } = false;
-    private PluginBase SelectedStylePlugin => serviceProvider.GetServices<PluginBase>().Where(x => x.Info == SelectedStyle).FirstOrDefault();
+
+    private PluginBase SelectedStylePlugin => plugins.Where(x => x.Info == SelectedStyle).FirstOrDefault();
 
     public DateTimeOffset SelectedDate = DateTime.Today;
 
@@ -135,16 +139,22 @@ public partial class ScreenSimulatorPageViewModel(IServiceProvider serviceProvid
         //Video = Path;
     }
     [RelayCommand]
-    public async Task StartSimulation()
+    public void StartSimulation()
     {
-        StyleManager.ShowWindow(SelectedStylePlugin.View, 
-            databaseService.GetStationByName(SelectedStationName),
-            TicketCheckNeeded ? SelectedTicketCheck : string.Empty,
-            PlatformNeeded ? SelectedPlatformName : string.Empty,
-            (TextNeeded && Text != string.Empty) ? Text : null,
-            (LocationNeeded && SelectedLoaction != 0) ? SelectedLoaction : 0,
-            (VideoNeeded && Video != string.Empty) ? Video : null,
-            SelectedDate.Add(SelectedTime).DateTime);
+        // 构建 Session 对象
+        var session = new Session
+        {
+            ID = Guid.NewGuid(),
+            StyleName = SelectedStyle.Manifest.Name,
+            SimulateTime = SelectedDate.Add(SelectedTime).DateTime,
+            Text = (TextNeeded && !string.IsNullOrWhiteSpace(Text)) ? Text : null,
+            Video = (VideoNeeded && !string.IsNullOrWhiteSpace(Video)) ? new Uri(Video) : null,
+            Station = StationNeeded ? databaseService.GetStationByName(SelectedStationName) : null,
+            TicketCheck = TicketCheckNeeded ? SelectedTicketCheck : string.Empty,
+            PlatformName = PlatformNeeded ? SelectedPlatformName : string.Empty,
+            Loaction = (LocationNeeded && SelectedLoaction != 0) ? SelectedLoaction : 0
+        };
+        styleManager.ShowWindow(SelectedStylePlugin.View, session);
     }
 
     private void CheckCanStart()
