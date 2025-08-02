@@ -51,12 +51,6 @@ namespace CRSim.Core.Services
             _lastSpeedChangeTime = DateTime.Now;  // 启动时刷新时间
         }
 
-        public void Stop()
-        {
-            _oneSecondTimer.Stop();
-            _twentySecondsTimer.Stop();
-        }
-
         private void OnOneSecondElapsed(object sender, ElapsedEventArgs e)
         {
             OneSecondElapsed?.Invoke(this, EventArgs.Empty);

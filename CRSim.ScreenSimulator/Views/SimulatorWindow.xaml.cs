@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using CRSim.Core.Abstractions;
+﻿using CRSim.Core.Abstractions;
 using CRSim.ScreenSimulator.Models;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,12 +14,13 @@ namespace CRSim.ScreenSimulator.Views
         public Session Session { get; }
         public SimulatorWindow(Page page,ITimeService timeService,StyleManager styleManager,Session session)
         {
-            Session = session;
             InitializeComponent();
             RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);
+            Session = session;
             contentFrame.Content = page;
             _timeService = timeService;
             _styleManager = styleManager;
+
             foreach (var resource in page.Resources.Values)
             {
                 if (resource is IHasTimeService needsTime)
@@ -28,6 +28,15 @@ namespace CRSim.ScreenSimulator.Views
                     needsTime.TimeService = timeService;
                 }
             }
+            _timeService.OneSecondElapsed += UpdateTime;
+        }
+
+        private void UpdateTime(object? sender, EventArgs e)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                TimeText.Text = _timeService.GetDateTimeNow().ToString("HH:mm:ss");
+            });
         }
 
         private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -77,6 +86,21 @@ namespace CRSim.ScreenSimulator.Views
             {
                 Close();
             });
+        }
+
+        private void FullScreen(object sender, MouseButtonEventArgs e)
+        {
+            Left = 0;
+            viewbox.Stretch = Stretch.Uniform;
+            FullScreenIcon.Visibility = Visibility.Collapsed;
+            RestoreWindowIcon.Visibility = Visibility.Visible;
+        }
+
+        private void RestoreWindow(object sender, MouseButtonEventArgs e)
+        {
+            viewbox.Stretch = Stretch.None;
+            FullScreenIcon.Visibility = Visibility.Visible;
+            RestoreWindowIcon.Visibility = Visibility.Collapsed;
         }
     }
 }
