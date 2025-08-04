@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
+	  <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+	  <Nullable>enable</Nullable>
+	  <UseWPF>true</UseWPF>
+	  <Platforms>AnyCPU;x64</Platforms>
+      <ImplicitUsings>enable</ImplicitUsings>
+	  <PackageId>CRSim.ScreenSimulator</PackageId>
+	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\logo-CR.png" />
+    <None Remove="Assets\logo-CRH.png" />
+    <None Remove="Assets\logo-GTJT.png" />
+  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
+		<PackageReference Include="PinYinConverterCore" Version="1.0.2" />
+		<PackageReference Include="PP.Wpf" Version="1.0.8" />
+	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CRSim.Core\CRSim.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\CRSimIcon.png" />
+    <Resource Include="Assets\logo-CR.png" />
+    <Resource Include="Assets\logo-CRH.png" />
+    <Resource Include="Assets\logo-GTJT.png" />
+  </ItemGroup>
+
+</Project>

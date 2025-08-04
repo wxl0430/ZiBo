@@ -5,11 +5,15 @@
         public static IHost AppHost { get; private set; }
         public static MainWindow MainWindow;
         public string[] commandLineArgs;
+        public HostBuilderContext context;
+        public IServiceCollection services;
+        public CommandLineOptions parsedOptions;
+        public static DispatcherQueue DispatcherQueue { get; private set; }
 
         public App()
         {
             var args = Environment.GetCommandLineArgs();
-            var parsedOptions = CommandLineParser.Parse(args);
+            parsedOptions = CommandLineParser.Parse(args);
             if (parsedOptions.Debug)
             {
                 LaunchDebugConsole();
@@ -29,23 +33,63 @@
                     services.AddSingleton<IDialogService, DialogService>();
                     services.AddSingleton<StyleManager>();
                     services.AddSingleton<MainWindow>();
+                    services.AddSingleton<StartWindow>();
                     services.AddTransient<ITimeService, TimeService>();
                     services.AddTransient<DashboardPageViewModel>();
                     services.AddTransient<StationManagementPageViewModel>();
                     services.AddTransient<ScreenSimulatorPageViewModel>();
                     services.AddTransient<SettingsPageViewModel>();
                     services.AddTransient<PluginManagementPageViewModel>();
-                    PluginService.InitializePlugins(context, services, parsedOptions.ExternalPluginPath);
+                    this.context = context;
+                    this.services = services;
                 })
-            .Build(); 
+            .Build();
+
             InitializeComponent();
+
+            DispatcherQueue = DispatcherQueue.GetForCurrentThread();
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            MainWindow = AppHost.Services.GetService<MainWindow>();
-            MainWindow?.Activate();
-            AppHost.Services.GetService<StyleManager>();//init
+            ShowSplashScreen();
+        }
+
+        private void ShowSplashScreen()
+        {            
+            var splashScreenWindow = AppHost.Services.GetService<StartWindow>();
+            splashScreenWindow.SplashScreenClosed += OnSplashScreenClosed;
+            splashScreenWindow.Activate();
+            _ = PerformInitializationAsync(splashScreenWindow);
+        }
+
+        private async Task PerformInitializationAsync(StartWindow splashScreen)
+        {
+            try
+            {
+                await LoadPluginService();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"初始化错误: {ex.Message}");
+            }
+            finally
+            {
+                splashScreen.CompleteInitialization();
+            }
+        }
+
+        private void OnSplashScreenClosed(object sender, EventArgs e)
+        {
+            var mainWindow = AppHost.Services.GetService<MainWindow>();
+            mainWindow.Activate();
+            MainWindow = mainWindow;
+        }
+
+        private Task LoadPluginService()
+        {
+            PluginService.InitializePlugins(context, services, parsedOptions.ExternalPluginPath);
+            return Task.Delay(1000000000);
         }
 
         [System.Runtime.InteropServices.DllImport("kernel32.dll")]

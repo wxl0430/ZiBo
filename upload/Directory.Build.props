@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+      <Version>2.3.107.0</Version>
+	  <Authors>电排骨</Authors>
+	  <RepositoryUrl>https://github.com/denglihong2007/CRSim</RepositoryUrl>
+  </PropertyGroup>
+</Project>
