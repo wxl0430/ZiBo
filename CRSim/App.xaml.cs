@@ -1,7 +1,4 @@
-﻿using System.Reflection;
-using Windows.ApplicationModel;
-
-namespace CRSim
+﻿namespace CRSim
 {
     public partial class App : Application
     {

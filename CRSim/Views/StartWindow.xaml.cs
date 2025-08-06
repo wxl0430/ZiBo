@@ -1,7 +1,3 @@
-using System.Reflection;
-using System.Timers;
-using Windows.Graphics;
-
 namespace CRSim.Views
 {
     // 定义事件委托类型
