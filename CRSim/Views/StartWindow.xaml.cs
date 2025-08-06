@@ -1,13 +1,36 @@
+using System.ComponentModel;
+
 namespace CRSim.Views
 {
     // 定义事件委托类型
     public delegate void SplashScreenClosedEventHandler(object sender, EventArgs e);
 
-    public sealed partial class StartWindow : Window
+    public sealed partial class StartWindow : Window, INotifyPropertyChanged
     {
         // 声明事件
         public event SplashScreenClosedEventHandler SplashScreenClosed;
-        public string AppVersion { get; set; } = Assembly.GetAssembly(typeof(App)).GetName().Version.ToString();
+        public string AppVersion { get; set; } = App.AppVersion;
+
+        private string _status = "正在启动...";
+        public string Status
+        {
+            get => _status;
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    OnPropertyChanged(nameof(Status));
+                }
+            }
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
 
         public StartWindow()
         {

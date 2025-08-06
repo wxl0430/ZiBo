@@ -9,6 +9,7 @@ namespace CRSim.Core.Abstractions
 {
     public interface ISettingsService
     {
+        void LoadSettings();
         void SaveSettings();
         Settings GetSettings();
     }

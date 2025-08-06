@@ -7,7 +7,6 @@
         public string[] commandLineArgs;
         public CommandLineOptions parsedOptions;
         public static string AppVersion { get; set; } = Assembly.GetAssembly(typeof(App)).GetName().Version.ToString(); 
-        public static DispatcherQueue DispatcherQueue { get; private set; }
 
         public App()
         {
@@ -30,23 +29,19 @@
                     services.AddSingleton<IDatabaseService, DatabaseService>();
                     services.AddSingleton<INetworkService, NetworkService>();
                     services.AddSingleton<IDialogService, DialogService>();
+                    services.AddTransient<ITimeService, TimeService>();
                     services.AddSingleton<StyleManager>();
                     services.AddSingleton<MainWindow>();
                     services.AddSingleton<StartWindow>();
-                    services.AddTransient<ITimeService, TimeService>();
                     services.AddTransient<DashboardPageViewModel>();
                     services.AddTransient<StationManagementPageViewModel>();
                     services.AddTransient<ScreenSimulatorPageViewModel>();
                     services.AddTransient<SettingsPageViewModel>();
                     services.AddTransient<PluginManagementPageViewModel>(); 
                     PluginService.InitializePlugins(context, services, parsedOptions.ExternalPluginPath);
-
                 })
             .Build();
-
             InitializeComponent();
-
-            DispatcherQueue = DispatcherQueue.GetForCurrentThread();
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
@@ -62,11 +57,20 @@
             _ = PerformInitializationAsync(splashScreenWindow);
         }
 
-        private async Task PerformInitializationAsync(StartWindow splashScreen)
-        {
+        private static async Task PerformInitializationAsync(StartWindow splashScreen)
+        { 
             try
             {
-                await LoadPluginService();
+                var startWindow = AppHost.Services.GetService<StartWindow>();
+                await Task.Delay(2000);
+                startWindow.Status = "正在加载设置...";
+                AppHost.Services.GetService<ISettingsService>().LoadSettings();
+                await Task.Delay(500);
+                startWindow.Status = "正在加载数据库...";
+                AppHost.Services.GetService<IDatabaseService>().ImportData(AppPaths.ConfigFilePath);
+                await Task.Delay(500);
+                startWindow.Status = new[] { "正在控票…", "正在关闭垃圾桶盖…", "正在刷绿车底…", "正在准备降弓用刑…" }[new Random().Next(4)];
+                await Task.Delay(500);
             }
             catch (Exception ex)
             {
@@ -83,11 +87,6 @@
             var mainWindow = AppHost.Services.GetService<MainWindow>();
             mainWindow.Activate();
             MainWindow = mainWindow;
-        }
-
-        private Task LoadPluginService()
-        {
-            return Task.Delay(5600);
         }
 
         [System.Runtime.InteropServices.DllImport("kernel32.dll")]

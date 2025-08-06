@@ -18,16 +18,17 @@
     </Window.SystemBackdrop>
 
     <Grid>
-        <MediaPlayerElement x:Name="Logo" Source="ms-appx:///Assets/Background/CRSim.wmv" AutoPlay="True" Margin="0,0,0,0"/>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,45,10,10">
-            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="8,48,0,0">
-                <ProgressRing IsActive="True" Width="35" Height="35" Foreground="DeepSkyBlue" IsIndeterminate="True" />
-            </StackPanel>
-            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                <ProgressBar x:Name="progressBar" Width="500" Height="10" Margin="0,55,0,0" Foreground="#0078D7" IsIndeterminate="True"/>
-                <TextBlock Text="{x:Bind AppVersion}" Margin="10,50,0,0"/>
-            </StackPanel>
-        </StackPanel>
+        <MediaPlayerElement x:Name="Logo" Source="ms-appx:///Assets/Background/CRSim.wmv" AutoPlay="True" />
+        <ProgressRing IsActive="True" Width="45" Height="45" Foreground="DeepSkyBlue"
+                          IsIndeterminate="True" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+        <Grid VerticalAlignment="Bottom" Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="{x:Bind Status,Mode=OneWay}" Foreground="DarkGray"/>
+            <TextBlock Grid.Column="1" Text="{x:Bind AppVersion}" Foreground="DarkGray"/>
+        </Grid>
     </Grid>
 
 </Window>
