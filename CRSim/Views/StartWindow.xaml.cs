@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Timers;
 using Windows.Graphics;
 
@@ -10,12 +11,13 @@ namespace CRSim.Views
     {
         // ÉùÃ÷ÊÂ¼þ
         public event SplashScreenClosedEventHandler SplashScreenClosed;
+        public string AppVersion { get; set; } = Assembly.GetAssembly(typeof(App)).GetName().Version.ToString();
 
         public StartWindow()
         {
             this.InitializeComponent();
 
-            AppWindow.Resize(new Windows.Graphics.SizeInt32(500, 180));
+            AppWindow.Resize(new Windows.Graphics.SizeInt32(750, 270));
             var area = DisplayArea.GetFromWindowId(AppWindow.Id, DisplayAreaFallback.Nearest)?.WorkArea;
             if (area != null)
             {
@@ -32,6 +34,11 @@ namespace CRSim.Views
             presenter.SetBorderAndTitleBar(true, false);
 
             AppWindow.SetPresenter(presenter);
+
+            AppWindow.MoveInZOrderAtTop();
+
+            Logo.MediaPlayer.Play();
+            
 
         }
 
