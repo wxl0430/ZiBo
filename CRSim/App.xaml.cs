@@ -6,10 +6,18 @@
         public static MainWindow MainWindow;
         public string[] commandLineArgs;
         public CommandLineOptions parsedOptions;
-        public static string AppVersion { get; set; } = Assembly.GetAssembly(typeof(App)).GetName().Version.ToString(); 
+        public static string AppVersion { get; set; } = Assembly.GetAssembly(typeof(App)).GetName().Version.ToString();
+        private Mutex mutex;
 
         public App()
         {
+            bool isNewInstance;
+            mutex = new Mutex(true,"CRSim",out isNewInstance);
+            if (!isNewInstance)
+            {
+                Environment.Exit(0);
+            }
+
             var args = Environment.GetCommandLineArgs();
             parsedOptions = CommandLineParser.Parse(args);
             if (parsedOptions.Debug)

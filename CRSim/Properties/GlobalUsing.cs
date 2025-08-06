@@ -8,6 +8,7 @@ global using System.Collections.Generic;
 global using System.Collections.ObjectModel;
 global using System.Reflection;
 global using System.Timers;
+global using System.Threading;
 
 global using Microsoft.UI.Xaml;
 global using Microsoft.UI.Xaml.Controls;
