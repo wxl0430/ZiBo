@@ -9,10 +9,6 @@ namespace CRSim.Core.Services
     {
         private Settings _settings;
         private RegistryKey _key = Registry.CurrentUser.OpenSubKey(@"Software\CRSim\Settings",true);
-        public SettingsService()
-        {
-            LoadSettings();
-        }
         public void SaveSettings()
         {
             _key.SetValue("SwitchPageSeconds", _settings.SwitchPageSeconds);
@@ -27,7 +23,7 @@ namespace CRSim.Core.Services
             _key.SetValue("LoadTodayOnly", _settings.LoadTodayOnly);
             _key.SetValue("ReopenUnclosedScreensOnLoad", _settings.ReopenUnclosedScreensOnLoad);
         }
-        private void LoadSettings()
+        public void LoadSettings()
         {
             if (_key==null)
             {

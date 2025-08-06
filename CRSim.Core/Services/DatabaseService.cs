@@ -11,11 +11,6 @@ namespace CRSim.Core.Services
         private List<Station> _stations;
         private List<TrainNumber> _trainNumbers;
 
-        public DatabaseService()
-        {
-            ImportData(AppPaths.ConfigFilePath);
-        }
-
         public List<Station> GetAllStations()
         {
             return _stations;
