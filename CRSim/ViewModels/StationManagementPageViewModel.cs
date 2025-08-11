@@ -22,6 +22,9 @@ public partial class StationManagementPageViewModel : ObservableObject
 
     public ObservableCollection<Platform> Platforms { get; private set; } = [];
 
+    [ObservableProperty]
+    public partial List<int> PlatformOccupancy { get; set; } = [];
+
     public ObservableCollection<TrainStop> TrainStops { get; private set; } = [];
 
     private readonly IDatabaseService _databaseService = App.AppHost.Services.GetService<IDatabaseService>();
@@ -350,20 +353,40 @@ public partial class StationManagementPageViewModel : ObservableObject
     {
         if (!await CheckCanImport()) return;
         var trainNumbers = _databaseService.GetAllTrainNumbers();
-        if (trainNumbers.Count != 0)
-        {
-            TrainStops.Clear();
-        }
+        string warningMessage = "";
+        var parsedStops = new List<TrainStop>();
         foreach (TrainNumber trainNumber in trainNumbers)
         {
             var t = trainNumber.TimeTable.FirstOrDefault(x => x.Station == SelectedStation.Name);
             if (t == null) continue;
             t.Number = trainNumber.Number;
-            t = RandomTrainStopProperties(t);
             t.Origin = trainNumber.TimeTable.First().Station;
             t.Terminal = trainNumber.TimeTable.Last().Station;
-            TrainStops.Add(t);
+            parsedStops.Add(t);
         }
+        var sortedStops = parsedStops
+            .Select(stop => new 
+            {
+                Stop = stop,
+                EffectiveArrival = stop.ArrivalTime ?? stop.DepartureTime?.Subtract(TimeSpan.FromMinutes(10)),
+                EffectiveDeparture = stop.DepartureTime ?? stop.ArrivalTime?.Add(TimeSpan.FromMinutes(10))
+            })
+            .OrderBy(item => item.EffectiveArrival)
+            .ThenBy(item => item.EffectiveDeparture)
+            .Select(item => item.Stop)
+            .ToList();
+        TrainStops.Clear();
+        PlatformOccupancy.Clear();
+        for (int i = 0; i < Platforms.Count; i++)
+        {
+            PlatformOccupancy.Add(0);
+        }
+        foreach (var stop in sortedStops)
+        {
+            var processedStop = RandomTrainStopProperties(stop, ref warningMessage);
+            TrainStops.Add(processedStop);
+        }
+        if (warningMessage != "") await _dialogService.ShowTextAsync("警告", $"发现 {warningMessage.Split("\n").Length - 1} 个警告：{warningMessage}");
     }
     [RelayCommand]
     public async Task ImportFromLulutong()
@@ -381,6 +404,13 @@ public partial class StationManagementPageViewModel : ObservableObject
                 var line = await reader.ReadLineAsync();
                 lines.Add(line);
             }
+            var parsedStops = new List<TrainStop>();
+            string warningMessage = "";
+            PlatformOccupancy.Clear();
+            for (int i = 0; i < Platforms.Count; i++)
+            {
+                PlatformOccupancy.Add(0);
+            }
             foreach (var line in lines.Skip(13))
             {
                 var data = line.Split(",");
@@ -393,8 +423,10 @@ public partial class StationManagementPageViewModel : ObservableObject
                         firstColumn = firstColumn[..spaceIndex];
                     }
                     if (TrainStops.Any(x => x.Number == firstColumn)) continue;
+                    
                     TimeSpan? departureTime = TimeSpan.Parse(data[4]);
                     TimeSpan? arrivalTime = departureTime.Value.Subtract(TimeSpan.FromMinutes(2));
+                    
                     if (data[1].Split("-")[0] == SelectedStation.Name)
                     {
                         arrivalTime = null;
@@ -403,6 +435,7 @@ public partial class StationManagementPageViewModel : ObservableObject
                     {
                         departureTime = null;
                     }
+                    
                     var trainStop = new TrainStop()
                     {
                         Number = firstColumn,
@@ -411,9 +444,28 @@ public partial class StationManagementPageViewModel : ObservableObject
                         ArrivalTime = arrivalTime,
                         DepartureTime = departureTime,
                     };
-                    TrainStops.Add(RandomTrainStopProperties(trainStop));
+                    
+                    parsedStops.Add(trainStop);
                 }
             }
+
+            var sortedStops = parsedStops
+                .Select(stop => new 
+                {
+                    Stop = stop,
+                    EffectiveArrival = stop.ArrivalTime ?? stop.DepartureTime?.Subtract(TimeSpan.FromMinutes(10)),
+                    EffectiveDeparture = stop.DepartureTime ?? stop.ArrivalTime?.Add(TimeSpan.FromMinutes(10))
+                })
+                .OrderBy(item => item.EffectiveArrival)
+                .ThenBy(item => item.EffectiveDeparture)
+                .Select(item => item.Stop)
+                .ToList();
+
+            foreach (var stop in sortedStops)
+            {
+                TrainStops.Add(RandomTrainStopProperties(stop, ref warningMessage));
+            }
+            if (warningMessage != "") await _dialogService.ShowTextAsync("警告", $"发现 {warningMessage.Split("\n").Length - 1} 个警告：{warningMessage}");
         }
         catch (Exception e)
         {
@@ -427,6 +479,10 @@ public partial class StationManagementPageViewModel : ObservableObject
 
         var path = _dialogService.GetFile([".pyetgr",".pyetdb",".json"]);
         if (path == null) return;
+
+        string warningMessage = "";
+        var parsedStops = new List<TrainStop>();
+
         try
         {
             using var fs = File.OpenRead(path);
@@ -487,8 +543,34 @@ public partial class StationManagementPageViewModel : ObservableObject
                     DepartureTime = departureTime,
                 };
 
-                TrainStops.Add(RandomTrainStopProperties(trainStop));
+                parsedStops.Add(trainStop);
             }
+
+            var sortedStops = parsedStops
+                .Select(stop => new
+                {
+                    Stop = stop,
+                    EffectiveArrival = stop.ArrivalTime ?? stop.DepartureTime?.Subtract(TimeSpan.FromMinutes(10)),
+                    EffectiveDeparture = stop.DepartureTime ?? stop.ArrivalTime?.Add(TimeSpan.FromMinutes(10))
+                })
+                .OrderBy(item => item.EffectiveArrival)
+                .ThenBy(item => item.EffectiveDeparture)
+                .Select(item => item.Stop)
+                .ToList();
+
+            PlatformOccupancy.Clear();
+            for (int i = 0; i < Platforms.Count; i++)
+            {
+                PlatformOccupancy.Add(0);
+            }
+
+            TrainStops.Clear();
+            foreach (var stop in sortedStops)
+            {
+                TrainStops.Add(RandomTrainStopProperties(stop, ref warningMessage));
+            }
+
+            if (warningMessage != "") await _dialogService.ShowTextAsync("警告", $"发现 {warningMessage.Split("\n").Length - 1} 个警告：{warningMessage}");
         }
         catch (Exception e)
         {
@@ -672,14 +754,31 @@ public partial class StationManagementPageViewModel : ObservableObject
     public async Task ImportFromInternet()
     {
         if (!await CheckCanImport()) return;
-        var stops = await _networkService.GetTrainNumbersAsync(SelectedStation.Name);
+        var stops = (await _networkService.GetTrainNumbersAsync(SelectedStation.Name))
+            .Select(stop => new 
+            {
+                Stop = stop,
+                EffectiveArrival = stop.ArrivalTime ?? stop.DepartureTime?.Subtract(TimeSpan.FromMinutes(10)),
+                EffectiveDeparture = stop.DepartureTime ?? stop.ArrivalTime?.Add(TimeSpan.FromMinutes(10))
+            })
+            .OrderBy(item => item.EffectiveArrival)
+            .ThenBy(item => item.EffectiveDeparture)
+            .Select(item => item.Stop)
+            .ToList();
+        string warningMessage = "";
+        PlatformOccupancy.Clear();
+        for (int i = 0; i < Platforms.Count; i++)
+        {
+            PlatformOccupancy.Add(0);
+        }
         if (stops is not null && stops.Count != 0)
         {
             TrainStops.Clear();
             foreach (TrainStop t in stops)
             {
-                TrainStops.Add(RandomTrainStopProperties(t));
+                TrainStops.Add(RandomTrainStopProperties(t, ref warningMessage));
             }
+            if (warningMessage != "") await _dialogService.ShowTextAsync("警告", $"发现 {warningMessage.Split("\n").Length - 1} 个警告：{warningMessage}");
         }
         else
         {
@@ -707,11 +806,36 @@ public partial class StationManagementPageViewModel : ObservableObject
         }
         return true;
     }
-    private TrainStop RandomTrainStopProperties(TrainStop t)
+    private string RandomPlatform(TrainStop t, ref string warningMessage){
+        List<int> CanUse = new List<int>();
+        double? arrivalMinutes = t.ArrivalTime?.TotalMinutes;
+        double? departureMinutes = t.DepartureTime?.TotalMinutes;
+        int ArrivalTime = (int)(arrivalMinutes ?? (departureMinutes - 10));
+        int DepartureTime = (int)(departureMinutes ?? (arrivalMinutes + 10));
+        for (int i = 0; i < PlatformOccupancy.Count; i++)
+        {
+            if (PlatformOccupancy[i] < ArrivalTime)
+            {
+                CanUse.Add(i);
+            }
+        }
+        if (CanUse.Count() > 0){
+            int id = CanUse[new Random().Next(CanUse.Count)];
+            PlatformOccupancy[id] = DepartureTime;
+            return Platforms[id].Name;
+        }else{
+            int id=new Random().Next(Platforms.Count);
+            PlatformOccupancy[id] = DepartureTime;
+            warningMessage += $"车次 {t.Number} 无可用站台，强制随机分配到{Platforms[id].Name}站台\n";
+            return Platforms[id].Name;
+        }
+    }
+    private TrainStop RandomTrainStopProperties(TrainStop t, ref string warningMessage)
     {
         t.Landmark = new[] { "红色", "绿色", "褐色", "蓝色", "紫色", "黄色", "橙色", null }[new Random().Next(8)];
         t.Length = t.Number.StartsWith('G') || t.Number.StartsWith('D') || t.Number.StartsWith('C') ? Math.Abs(t.Number.GetHashCode()) % 3 == 0 ? 8 : 16 : 18;
-        t.Platform = Platforms[new Random().Next(Platforms.Count)].Name;
+        // t.Platform = Platforms[new Random().Next(Platforms.Count)].Name; //随机分配站台
+        t.Platform = RandomPlatform(t, ref warningMessage);  //随机分配无冲突站台
         if (t.DepartureTime.HasValue)
         {
             //t.TicketCheckIds = [.. WaitingAreas
