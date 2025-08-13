@@ -806,7 +806,13 @@ public partial class StationManagementPageViewModel : ObservableObject
         }
         return true;
     }
-    private string RandomPlatform(TrainStop t, ref string warningMessage){
+    private TrainStop RandomTrainStopProperties(TrainStop t, ref string warningMessage)
+    {
+        t.Landmark = new[] { "红色", "绿色", "褐色", "蓝色", "紫色", "黄色", "橙色", null }[new Random().Next(8)];
+        t.Length = t.Number.StartsWith('G') || t.Number.StartsWith('D') || t.Number.StartsWith('C') ? Math.Abs(t.Number.GetHashCode()) % 3 == 0 ? 8 : 16 : 18;
+        // t.Platform = Platforms[new Random().Next(Platforms.Count)].Name; //随机分配站台
+
+        //随机分配无冲突站台
         List<int> CanUse = new List<int>();
         double? arrivalMinutes = t.ArrivalTime?.TotalMinutes;
         double? departureMinutes = t.DepartureTime?.TotalMinutes;
@@ -822,20 +828,14 @@ public partial class StationManagementPageViewModel : ObservableObject
         if (CanUse.Count() > 0){
             int id = CanUse[new Random().Next(CanUse.Count)];
             PlatformOccupancy[id] = DepartureTime;
-            return Platforms[id].Name;
+            t.Platform = Platforms[id].Name;
         }else{
             int id=new Random().Next(Platforms.Count);
             PlatformOccupancy[id] = DepartureTime;
             warningMessage += $"车次 {t.Number} 无可用站台，强制随机分配到{Platforms[id].Name}站台\n";
-            return Platforms[id].Name;
+            t.Platform = Platforms[id].Name;
         }
-    }
-    private TrainStop RandomTrainStopProperties(TrainStop t, ref string warningMessage)
-    {
-        t.Landmark = new[] { "红色", "绿色", "褐色", "蓝色", "紫色", "黄色", "橙色", null }[new Random().Next(8)];
-        t.Length = t.Number.StartsWith('G') || t.Number.StartsWith('D') || t.Number.StartsWith('C') ? Math.Abs(t.Number.GetHashCode()) % 3 == 0 ? 8 : 16 : 18;
-        // t.Platform = Platforms[new Random().Next(Platforms.Count)].Name; //随机分配站台
-        t.Platform = RandomPlatform(t, ref warningMessage);  //随机分配无冲突站台
+        
         if (t.DepartureTime.HasValue)
         {
             //t.TicketCheckIds = [.. WaitingAreas
